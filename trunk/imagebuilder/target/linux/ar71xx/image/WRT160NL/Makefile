@@ -573,18 +573,18 @@ endef
 #	$(call Image/Build/Profile/WP543,$(1))
 #endef
 
-#define Image/Build/squashfs
-#	$(call prepare_generic_squashfs,$(KDIR)/root.squashfs)
-#	dd if=$(KDIR)/root.squashfs of=$(KDIR)/root.squashfs-4k.tmp0 bs=4k conv=sync
-#	$(call add_jffs2_mark,$(KDIR)/root.squashfs-4k.tmp0)
-#	dd if=$(KDIR)/root.squashfs-4k.tmp0 of=$(BIN_DIR)/$(IMG_PREFIX)-root.squashfs-4k bs=4k conv=sync
-#	$(call add_jffs2_mark,$(BIN_DIR)/$(IMG_PREFIX)-root.squashfs-4k)
-#	rm -f $(KDIR)/root.squashfs-4k.tmp0
-#endef
+define Image/Build/squashfs
+	$(call prepare_generic_squashfs,$(KDIR)/root.squashfs)
+	dd if=$(KDIR)/root.squashfs of=$(KDIR)/root.squashfs-4k.tmp0 bs=4k conv=sync
+	$(call add_jffs2_mark,$(KDIR)/root.squashfs-4k.tmp0)
+	dd if=$(KDIR)/root.squashfs-4k.tmp0 of=$(BIN_DIR)/$(IMG_PREFIX)-root.squashfs-4k bs=4k conv=sync
+	$(call add_jffs2_mark,$(BIN_DIR)/$(IMG_PREFIX)-root.squashfs-4k)
+	rm -f $(KDIR)/root.squashfs-4k.tmp0
+endef
 
-#define Image/Build/Initramfs
-#	$(call Image/Build/Profile/$(PROFILE),initramfs)
-#endef
+define Image/Build/Initramfs
+	$(call Image/Build/Profile/$(PROFILE),initramfs)
+endef
 
 define Image/Build
 	$(call Image/Build/$(1))
