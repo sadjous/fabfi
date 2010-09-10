@@ -1,7 +1,6 @@
-#summary One-sentence summary of this page.
+#summary #One-sentence summary of this page.
 
 = Introduction =
-fdhjhjgfdfsgfhhfg
 [Test2]
 
 Add your content here.
