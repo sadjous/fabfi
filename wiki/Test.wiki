@@ -1,7 +1,5 @@
-#summary #One-sentence summary of this page.
 
 = Introduction =
-[Test2]
 
 Add your content here.
 
