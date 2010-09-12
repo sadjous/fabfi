@@ -364,13 +364,13 @@ define Image/Build/Template/all/squashfs
 	$(call Image/Build/$(1),squashfs,$(2),$(3),$(4),$(5),$(6),$(7))
 endef
 
-#define Image/Build/Template/all/jffs2-64k
-#	$(call Image/Build/$(1),jffs2-64k,$(2),$(3),$(4),$(5),$(6),$(7))
-#endef
+define Image/Build/Template/all/jffs2-64k
+	$(call Image/Build/$(1),jffs2-64k,$(2),$(3),$(4),$(5),$(6),$(7))
+endef
 
-#define Image/Build/Template/all/jffs2-128k
-#	$(call Image/Build/$(1),jffs2-128k,$(2),$(3),$(4),$(5),$(6),$(7))
-#endef
+define Image/Build/Template/all/jffs2-128k
+	$(call Image/Build/$(1),jffs2-128k,$(2),$(3),$(4),$(5),$(6),$(7))
+endef
 
 define Image/Build/Template/squashfs-only/squashfs
 	$(call Image/Build/$(1),squashfs,$(2),$(3),$(4),$(5),$(6),$(7))
@@ -384,17 +384,17 @@ define Image/Build/Template/64k/squashfs
 	$(call Image/Build/$(1),squashfs,$(2),$(3),$(4),$(5),$(6),$(7))
 endef
 
-#define Image/Build/Template/64k/jffs2-64k
-#	$(call Image/Build/$(1),jffs2-64k,$(2),$(3),$(4),$(5),$(6),$(7))
-#endef
+define Image/Build/Template/64k/jffs2-64k
+	$(call Image/Build/$(1),jffs2-64k,$(2),$(3),$(4),$(5),$(6),$(7))
+endef
 
 define Image/Build/Template/128k/squashfs
 	$(call Image/Build/$(1),squashfs,$(2),$(3),$(4),$(5),$(6),$(7))
 endef
 
-#define Image/Build/Template/128k/jffs2-128k
-#	$(call Image/Build/$(1),jffs2-128k,$(2),$(3),$(4),$(5),$(6),$(7))
-#endef
+define Image/Build/Template/128k/jffs2-128k
+	$(call Image/Build/$(1),jffs2-128k,$(2),$(3),$(4),$(5),$(6),$(7))
+endef
 
 #define Image/Build/Profile/AP81
 #	$(call Image/Build/Template/$(fs_64k)/$(1),AP83,ap81,board=AP81)
