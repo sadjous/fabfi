@@ -1,0 +1,6 @@
+
+= Introduction =
+
+FabFi is an open-source, FabLab-grown system using common building materials and off-the-shelf electronics to transmit wireless ethernet signals across distances of up to several miles. With Fabfi, communities can build their own wireless networks to gain high-speed internet connectivity thus enabling them to access online educational, medical, and other resources. FabFi teams up with Afrimesh which provides a dashboard solution for  
+
+
