@@ -1,11 +1,20 @@
 *Steps Followed:*
 
-*Download the latest image builder tarball from fabfi website (#link)
-*Create a folder ( e.g /home/user/imagebuilder )
-*Extract the tarball in the folder created ($ tar -xzvf imagebuilder.tar.gz)
-*svn checkout the latest build from google code ( $ svn checkout *http://fabfi.googlecode.com/svn/ fabfi-read-only)
-*Enter the image builder folder in the svn image. ($ cd fabfi/imagebuilder )
-*Run ffimage.sh script. ($ sh ffimage.sh)
-*Enter a valid profile name (NS5L for Ubiquiti devices, WRT160NL for linksys)
-*Enter the path to the folder you extracted the imagebuilder ( e.g /home/user/imagebuilder)
-*Get your image from ( /home/user/imagebuilder/Openwrt-imagebuilder-xxxx/bin) folder
+Download the latest image builder tarball from fabfi website (#link)
+
+Create a folder ( e.g /home/user/imagebuilder )
+
+Extract the tarball in the folder created ($ tar -xzvf imagebuilder.tar.gz)
+
+svn checkout the latest build from google code ( $ svn checkout 
+http://fabfi.googlecode.com/svn/ fabfi-read-only)
+
+Enter the image builder folder in the svn image. ($ cd fabfi/imagebuilder )
+
+Run ffimage.sh script. ($ sh ffimage.sh)
+
+Enter a valid profile name (NS5L for Ubiquiti devices, WRT160NL for linksys)
+
+Enter the path to the folder you extracted the imagebuilder ( e.g /home/user/imagebuilder)
+
+Get your image from ( /home/user/imagebuilder/Openwrt-imagebuilder-xxxx/bin) folder
