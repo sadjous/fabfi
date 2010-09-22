@@ -1,14 +1,25 @@
 connect to the serial port
+
 start minicom on your computer. make sure you've specified the serial port to which your router is connected
+
 reboot the router
+
 press any key at "Hit any key to stop the boot process"
+
 enter the command "upgrade code.bin"
+
 start tftp on a separate window.
+
 tftp 192.168.1.1
+
 tftp>binary
+
 tftp>rexmt 1
+
 tftp>trace on
+
 tftp>put code.bin
 
 Your router should show that it has received the code.
+
 Wait until it indicates "done" on the serial console.
