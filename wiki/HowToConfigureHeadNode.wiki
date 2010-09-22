@@ -1,0 +1,145 @@
+Run:
+
+ uci set network.wan.proto=static
+
+ uci set network.wan.ifname=eth1
+
+ uci set network.wan.ipaddr=172.16.0.1
+
+ uci Set network.wan.netmask=255.255.255.0
+
+ uci set network.wan.gateway=172.16.0.254
+
+ uci set network.wan.dns=172.16.0.2
+
+ uci commit
+
+ opkg update
+
+ opkg install freeradius2
+
+ opkg install libmysqlclient_r
+
+ opkg install block-extroot   # ./scripts/feeds install block-extroo
+
+ opkg install kmod-fs-mbcache
+
+ opkg install http://172.16.0.10/~antoine/firmware.backfire/ar71xx/packages/
+
+ cd /tmp ; wget ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-2.1.9.tar.gz
+ tar xzvf freeradius-server-2.1.9.tar.gz
+
+ mv freeradius-server-2.1.9/raddb ~/Desktop
+
+ scp -r <yourlaptopname>@172.16.0.10:~/Desktop/raddb/sql /etc/freeradius2
+
+ #DONE scp -r <yourlaptopname>@172.16.0.10:~/Desktop/tunnel-mysql.init /etc/init.d/tunnel-mysql
+
+ #DONE scp -r <yourlaptopname>@172.16.0.10:~/Desktop/tunnel-mysql.bin  /usr/sbin/tunnel-mysql
+
+ #TODO - edit remote IP in /usr/sbin/tunnel-mysql   <-   specify in uci
+
+ chmod 0755 /etc/init.d/tunnel-mysql /usr/sbin/tunnel-mysql
+ /etc/init.d/tunnel-mysql enable
+
+ dropbearkey -y -f /etc/dropbear/dropbear_rsa_host_key # >> mysql.box/.ssh/authorized_keys
+
+Edit: /etc/init.d/radiusd
+
+ #IPADDR=$(ifconfig eth1 | sed -n 's/.*dr:\(.*\)Bc.*/\1/p')
+
+ radiusd $OPTIONS
+
+Edit: /etc/freeradius2/radiusd.conf
+
+ $INCLUDE sql.conf
+
+ #       interface = br-lan
+
+ #       interface = br-lan
+
+Edit: /etc/freeradius2/clients.conf
+
+client 10.0.0.0/8 {
+
+ secret = cisco123
+
+ shortname = fabfi-portal
+
+}
+
+client 172.16.0.0/16 {
+
+ secret = cisco123
+
+ shortname = fabfi-cloud
+
+}
+
+Edit: /etc/freeradius2/sites/default
+
+ sql     # uncomment all 4 refs
+
+ chap
+
+ mschap
+
+Edit: /etc/freeradius2/users
+
+ testing Cleartext-Password := "cisco123"
+
+Edit: /etc/freeradius2/sql.conf
+
+ server = "127.0.0.1"
+
+ port = 13306
+
+ login = "radius"
+
+ password = "cisco123"
+
+Test:
+
+ echo "Message-Authenticator = 0x00, FreeRADIUS-Statistics-Type = 31" | radclient -x 10.104.0.23  status cisco123
+
+Edit: /etc/config/firewall
+
+ config 'zone'
+
+       option 'name' 'lan'
+
+       option 'input' 'ACCEPT'
+
+       option 'forward' 'ACCEPT'
+
+       option 'output' 'ACCEPT'
+
+ config 'zone'
+
+       option 'name' 'wan'
+
+       option 'input' 'ACCEPT'
+
+       option 'output' 'ACCEPT'
+
+       option 'forward' 'REJECT'
+
+       option 'masq' '1'
+
+ config 'forwarding'
+
+       option 'src' 'wan'
+
+       option 'dest' 'mesh'
+
+Edit: /etc/config/olsrd
+
+ config 'LoadPlugin'
+
+       option 'library' 'olsrd_dyn_gw.so.0.5'
+
+       option 'ignore' '0'
+
+       option 'Interval' '30'
+
+       list 'Ping' '41.204.186.133'
