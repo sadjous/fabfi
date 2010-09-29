@@ -31,11 +31,11 @@ Run:
 
  mv freeradius-server-2.1.9/raddb ~/Desktop
 
- scp -r yourlaptopname@172.16.0.10:~/Desktop/raddb/sql /etc/freeradius2
+ scp -r yourHOSTname@172.16.0.10:~/Desktop/raddb/sql /etc/freeradius2
 
- #DONE scp -r yourlaptopname@172.16.0.10:~/Desktop/tunnel-mysql.init /etc/init.d/tunnel-mysql
+ #DONE scp -r yourHOSTname@172.16.0.10:~/Desktop/tunnel-mysql.init /etc/init.d/tunnel-mysql
 
- #DONE scp -r yourlaptopname@172.16.0.10:~/Desktop/tunnel-mysql.bin  /usr/sbin/tunnel-mysql
+ #DONE scp -r yourHOSTname@172.16.0.10:~/Desktop/tunnel-mysql.bin  /usr/sbin/tunnel-mysql
 
  #TODO - edit remote IP in /usr/sbin/tunnel-mysql   <-   specify in uci
 
