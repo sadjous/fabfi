@@ -36,7 +36,7 @@ You will notice the lights "playing" about. You have now entered tftp mode! You 
 
 to install tftp if you haven't done that already. On the terminal run the command
 
-* apt-get install tftp *(for Debian-based OSs). Remember you neeed to be connected to the 
+* apt-get install tftp *(for Debian-based OSs). Remember you need to be connected to the 
 
 internet when you run the command.
 
