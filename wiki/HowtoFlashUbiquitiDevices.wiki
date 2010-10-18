@@ -46,9 +46,9 @@ You can now, on the terminal, run * tftp 192.168.1.20 *
 
 then * binary *. Optionally but recommended coz it helps you confirm that what you have 
 
-done is right: run * rexmt 1 *and* trace on *. Lastly run * put jaimage.bin flash_update 
+done is right: run * rexmt 1 *and* trace on *. Lastly run * put jaimage.bin flash_update* 
 
-*. This should upload the firmware. Wait for about 30 secs then exit the tftp mode (press 
+.This should upload the firmware. Wait for about 30 secs then exit the tftp mode (press 
 
 Ctrl Z).
 
