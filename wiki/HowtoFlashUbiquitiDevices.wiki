@@ -16,6 +16,10 @@ Apply the changes.
 
 =Download Firmware=
 
+The firmware can be downloaded from:[http://code.google.com/p/fabfi/downloads/list]
+
+and saved,preferably,in the home folder.
+
 
 
 Connect the device to computer via the Ethernet port.
