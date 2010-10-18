@@ -46,4 +46,18 @@ You can now, on the terminal, run * tftp 192.168.1.20 *
 
 then * binary *. Optionally but recommended coz it helps you confirm that what you have 
 
-done is right: run * rexmt 1 *and* trace on *
+done is right: run * rexmt 1 *and* trace on *. Lastly run * put jaimage.bin flash_update 
+
+*. This should upload the firmware. Wait for about 30 secs then exit the tftp mode (press 
+
+Ctrl Z).
+
+Now run * telnet 192.168.1.10 *. this should take you to the Openwrt "page". Once you are 
+
+there, run * sh setup *. This starts you off with the configuration of the device to do 
+
+what your network design requires! * Note: * the same image is used for M5 (5GHz), M2 and 
+
+picostation (2.4GHz). All you need to do, however, is specify when prompted (during 
+
+configuration). Choose picostation for 2.4GHz and otherwise for 5GHz. Happy?
