@@ -16,10 +16,34 @@ Apply the changes.
 
 =Download Firmware=
 
-The firmware can be downloaded from:[http://code.google.com/p/fabfi/downloads/list]
+The .bin firmware (named jaimage.bin) can be downloaded from:[http://code.google.com/p/fabfi/downloads/list]
 
 and saved,preferably,in the home folder.
 
+=You are ready to flash!=
 
+Connect the device to computer via the Ethernet port. You need to use ubiquiti PoE/lAN 
 
-Connect the device to computer via the Ethernet port.
+Adapters and two straight-through Ethernet cables. The LAN port is connected to the
+
+computer whereas the PoE port is connected to the device. * Hold on!; *before you insert 
+
+the RJ45 connector into the device's port, you need to press the reset button. You can 
+
+insert the connector while pressing the button. Hold the button down for about 15 secs. 
+
+You will notice the lights "playing" about. You have now entered tftp mode! You may need 
+
+to install tftp if you haven't done that already. On the terminal run the command* 
+
+apt-get install tftp *(Debian-based OSs). Remember you neeed to be connected to the 
+
+internet when you run the command.
+
+Make sure the wired connection you configured before is connected.
+
+You can now, on the terminal, run * tftp 192.168.1.20 *
+
+then * binary *. Optionally but recommended coz it helps you confirm that what you have 
+
+done is right: run * rexmt 1 *and* trace on *
