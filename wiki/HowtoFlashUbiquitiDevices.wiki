@@ -6,7 +6,7 @@ Go to System tab-> Preferences-> Network Connections:
 
 * Select *ipv4* and set method to *Manual*
 
-* Under *Address* put say *192.168.1.254*
+Under* Address * put say *192.168.1.254*
 
 Under* Netmask * put *255.255.255.0*
 
