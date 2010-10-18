@@ -4,7 +4,7 @@ Go to System tab-> Preferences-> Network Connections:
 
 * Select the Wired option-> Add (you may rename this "connection")
 
-* Select *ipv4* and set method to *Manual*
+Select* ipv4 * and set method to *Manual*
 
 Under* Address * put say *192.168.1.254*
 
