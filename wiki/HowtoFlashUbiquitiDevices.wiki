@@ -34,9 +34,9 @@ insert the connector while pressing the button. Hold the button down for about 1
 
 You will notice the lights "playing" about. You have now entered tftp mode! You may need 
 
-to install tftp if you haven't done that already. On the terminal run the command* 
+to install tftp if you haven't done that already. On the terminal run the command
 
-apt-get install tftp.(Debian-based OSs). Remember you neeed to be connected to the 
+* apt-get install tftp *.(Debian-based OSs). Remember you neeed to be connected to the 
 
 internet when you run the command.
 
