@@ -2,37 +2,37 @@
 
 1. Checkout Subversion: 
 
-    $ svn checkout https://fabfi.googlecode.com/svn/wiki
+   $ svn checkout https://fabfi.googlecode.com/svn/wiki
 
 2. Move to the working directory:
 
-   # cd wiki/
+   $ cd wiki/
 
 3. Make a directory in which to save images:
 
-   # svn mkdir images
+   $ svn mkdir images
 
-   # svn commit
+   $ svn commit
 
 4. Put the image under subversion control:
 
-   # svn add /location/filename
+   $ svn add /location/filename
 
-   # svn commit
+   $ svn commit
 
 5. Tell subversion what mime-type to use: 
 
-   # svn propset svn:mime-type 'image/jpeg' /location/filename
+   $ svn propset svn:mime-type 'image/jpeg' /location/filename
 
    (Be sure to use the correct file extension e.g jpeg, png, etc)
 
 6. Upload the image:
 
-  # svn copy /location/location/filename https://fabfi.googlecode.com/svn/wiki/images
+   $ svn copy /location/location/filename https://fabfi.googlecode.com/svn/wiki/images
 
-   # svn commit
+   $ svn commit
 
-   # svn update
+   $ svn update
 
 7. Refresh code.google,com/p/fabfi/wiki to check whether you did it right 
 
