@@ -1,3 +1,4 @@
+  * [WikiHome homepage]
   * FabFi
   * HowtoFlashUbiquitiDevices
   * HowToConfigureHeadNode
