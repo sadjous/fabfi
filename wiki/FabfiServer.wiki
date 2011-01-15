@@ -1,0 +1,28 @@
+<wiki:toc max_depth="4" />
+= Introduction =
+The Fabfi server is a cloud-hosted device that houses the authentication database and Management/Monitoring web GUI for the network.  The current version runs on Ubuntu 10.04 Server (i386).  This page provides configuration instructions for building the server from bare metal.
+
+== OS Installation Install ==
+
+  * Used U10.04 server i386, 
+  * set up disk with LVM.  
+  * system drive 50% of disk (=10GB)
+  * 256M RAM
+  * No other disk specified at this time
+  * No proxy server
+  * Install Security Updates Automatically
+  * Installed Packages During OS Install
+    * OpenSSH Server
+  * Installed GRUB
+
+== Install 3rd Party Software ==
+
+  * 
+
+
+
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
