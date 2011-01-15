@@ -1,3 +1,3 @@
   * FabFi
   * HowtoFlashUbiquitiDevices
-  ** HowToConfigureHeadNode
+    * HowToConfigureHeadNode
