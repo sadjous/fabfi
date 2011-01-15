@@ -17,7 +17,18 @@ The Fabfi server is a cloud-hosted device that houses the authentication databas
 
 == Install 3rd Party Software ==
 
+=== Mysql-server ===
+
+`sudo apt-get install mysql-server`
+
+  * Select a root user and password (it doesn't matter for our purposes)
   * 
+
+=== Daloradius ==
+
+`sudo apt-get apache2 php-db php-pear php5-mysql`
+
+Download the latest Daloradius distribution
 
 
 
