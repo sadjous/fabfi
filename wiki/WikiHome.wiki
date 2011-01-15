@@ -1,7 +1,3 @@
-#summary One-sentence summary of this page.
+== FabFi Proejct Wiki ==
 
-= Introduction =
-
-This is the FabFi wiki.  Navigate on the left.
-
-
+Navigate using menu on the left
