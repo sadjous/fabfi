@@ -213,6 +213,6 @@ Ready to process requests.
 
 once you have confirmed proper startup you can quit with ctrl+C, then start the service normally:
 
-`sudo /etc/init.d/freeradius stop`
+`sudo /etc/init.d/freeradius start`
 
 run
