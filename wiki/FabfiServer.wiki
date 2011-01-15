@@ -26,12 +26,13 @@ The Fabfi server is a cloud-hosted device that houses the authentication databas
 
 `mysql --user root -p`
 
-  * Set up a user and password for radius
+  * Set up a user and password for radius, then create the radiusdb
 
 {{{
 mysql> CREATE USER 'radius'@'localhost' IDENTIFIED BY 'some_pass';
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'radius'@'localhost'
     ->     WITH GRANT OPTION;
+mysql> CREATE DATABASE radiusdb;
 }}}
 
 === Install Freeradius ===
@@ -77,9 +78,6 @@ and change username and password to match the user and password you created abov
 }}}
 
 
-
-
-
 === Daloradius ==
 
 `sudo apt-get apache2 php-db php-pear php5-mysql`
@@ -106,31 +104,10 @@ Then Edit your config:
 {{{
 $configValues['DALORADIUS_VERSION'] = '0.9-8';
 $configValues['FREERADIUS_VERSION'] = '2';
-
-$configValues['CONFIG_DB_HOST'] = '127.0.0.1';
 $configValues['CONFIG_DB_USER'] = 'root';  //Your database username
 $configValues['CONFIG_DB_PASS'] = 'password';  //Your database password
 $configValues['CONFIG_DB_NAME'] = 'radiusdb';  //The name of your database
-
-$configValues['CONFIG_FILE_RADIUS_PROXY'] = '/etc/freeradius/proxy.conf';
-$configValues['CONFIG_PATH_RADIUS_DICT'] = '';
-$configValues['CONFIG_PATH_DALO_VARIABLE_DATA'] = '/var/www/daloradius/var';
-$configValues['CONFIG_DB_PASSWORD_ENCRYPTION'] = 'cleartext';
-$configValues['CONFIG_LANG'] = 'en';
-$configValues['CONFIG_LOG_PAGES'] = 'no';
-$configValues['CONFIG_LOG_ACTIONS'] = 'no';
-$configValues['CONFIG_LOG_QUERIES'] = 'no';
-$configValues['CONFIG_DEBUG_SQL'] = 'no';
-$configValues['CONFIG_DEBUG_SQL_ONPAGE'] = 'no';
-$configValues['CONFIG_LOG_FILE'] = '/tmp/daloradius.log';
-$configValues['CONFIG_IFACE_PASSWORD_HIDDEN'] = 'no';
-$configValues['CONFIG_IFACE_TABLES_LISTING'] = '25';
-$configValues['CONFIG_IFACE_TABLES_LISTING_NUM'] = 'yes';
-$configValues['CONFIG_IFACE_AUTO_COMPLETE'] = 'yes';
-$configValues['CONFIG_MAINT_TEST_USER_RADIUSSERVER'] = '127.0.0.1';
-$configValues['CONFIG_MAINT_TEST_USER_RADIUSPORT'] = '1812';
-$configValues['CONFIG_MAINT_TEST_USER_NASPORT'] = '0';
-$configValues['CONFIG_MAINT_TEST_USER_RADIUSSECRET'] = 'cisco123';
+$configValues['CONFIG_MAINT_TEST_USER_RADIUSSECRET'] = 'yoursecret';
 
 }}}
 
@@ -140,17 +117,17 @@ $configValues['CONFIG_MAINT_TEST_USER_RADIUSSECRET'] = 'cisco123';
 
 {{{
 $configValues['DALORADIUS_VERSION'] = '0.9-8';
-$configValues['FREERADIUS_VERSION'] = '1';
+$configValues['FREERADIUS_VERSION'] = '2';
 $configValues['CONFIG_DB_ENGINE'] = 'mysql';
 $configValues['CONFIG_DB_HOST'] = '127.0.0.1';
-$configValues['CONFIG_DB_USER'] = 'root';
-$configValues['CONFIG_DB_PASS'] = '';
-$configValues['CONFIG_DB_NAME'] = 'radius';
+$configValues['CONFIG_DB_USER'] = 'radius';
+$configValues['CONFIG_DB_PASS'] = 'password';
+$configValues['CONFIG_DB_NAME'] = 'radiusdb';
 $configValues['CONFIG_DB_TBL_RADCHECK'] = 'radcheck';
 $configValues['CONFIG_DB_TBL_RADREPLY'] = 'radreply';
 $configValues['CONFIG_DB_TBL_RADGROUPREPLY'] = 'radgroupreply';
 $configValues['CONFIG_DB_TBL_RADGROUPCHECK'] = 'radgroupcheck';
-$configValues['CONFIG_DB_TBL_RADUSERGROUP'] = 'usergroup';
+$configValues['CONFIG_DB_TBL_RADUSERGROUP'] = 'radusergroup';
 $configValues['CONFIG_DB_TBL_RADNAS'] = 'nas';
 $configValues['CONFIG_DB_TBL_RADPOSTAUTH'] = 'radpostauth';
 $configValues['CONFIG_DB_TBL_RADACCT'] = 'radacct';
@@ -185,5 +162,10 @@ $configValues['CONFIG_IFACE_AUTO_COMPLETE'] = 'yes';
 $configValues['CONFIG_MAINT_TEST_USER_RADIUSSERVER'] = '127.0.0.1';
 $configValues['CONFIG_MAINT_TEST_USER_RADIUSPORT'] = '1812';
 $configValues['CONFIG_MAINT_TEST_USER_NASPORT'] = '0';
-$configValues['CONFIG_MAINT_TEST_USER_RADIUSSECRET'] = 'testing123';
+$configValues['CONFIG_MAINT_TEST_USER_RADIUSSECRET'] = 'yoursecret';
+
 }}}
+
+Run the setup script for freeradius and daloradius:
+
+`mysql --user root -p radiusdb < /var/www/contrib/db/fr2-mysql-daloradius-and-freeradius.sql`
