@@ -1,6 +1,6 @@
 = Introduction =
 
-Add your content here.
+* How to upload images to SVN *
 
 
 = Details =
