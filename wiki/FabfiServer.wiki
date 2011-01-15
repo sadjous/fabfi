@@ -22,7 +22,32 @@ The Fabfi server is a cloud-hosted device that houses the authentication databas
 `sudo apt-get install mysql-server`
 
   * Select a root user and password (it doesn't matter for our purposes)
-  * 
+
+=== Install Freeradius ===
+
+`sudo apt-get install freeradius freeradius-mysql`
+
+Then edit 
+
+`/etc/freeradius/radiusd.conf`
+
+  * Uncomment 
+
+`$INCLUDE sql.conf`
+
+  * set proxy_requests to no and comment the include
+
+{{{
+proxy_requests  = no
+#$INCLUDE proxy.conf
+}}}
+
+Then edit 
+
+`/etc/freeradius/sites-enabled/default`
+
+and uncomment all references to sql or sql_log
+
 
 === Daloradius ==
 
@@ -31,11 +56,104 @@ The Fabfi server is a cloud-hosted device that houses the authentication databas
 Download the latest Daloradius distribution:
 ` sudo cd /etc/ && wget http://downloads.sourceforge.net/project/daloradius/daloradius/daloradius-0.9-8/daloradius-0.9-8.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fdaloradius%2Ffiles%2Fdaloradius%2F&ts=1295083448&use_mirror=garr`
 
+Extract it to your webserver directory:
+
+`cd /var/www`
+`sudo tar -xzf ~/daloradius-0.9-8.tar.gz`
+`sudo mv daloradius-0.9-8 daloradius`
+
+Then Edit your config:
+
+* Navigate to the settings file
+
+`cd daloradius/library`
+`vi daloradius.conf.php`
+
+  * Specify Freeradius version
+  * Specify database details.  The values you need to change from the defaults will be:
+
+{{{
+$configValues['DALORADIUS_VERSION'] = '0.9-8';
+$configValues['FREERADIUS_VERSION'] = '2';
+
+$configValues['CONFIG_DB_HOST'] = '127.0.0.1';
+$configValues['CONFIG_DB_USER'] = 'root';  //Your database username
+$configValues['CONFIG_DB_PASS'] = 'password';  //Your database password
+$configValues['CONFIG_DB_NAME'] = 'radiusdb';  //The name of your database
+
+$configValues['CONFIG_FILE_RADIUS_PROXY'] = '/etc/freeradius/proxy.conf';
+$configValues['CONFIG_PATH_RADIUS_DICT'] = '';
+$configValues['CONFIG_PATH_DALO_VARIABLE_DATA'] = '/var/www/daloradius/var';
+$configValues['CONFIG_DB_PASSWORD_ENCRYPTION'] = 'cleartext';
+$configValues['CONFIG_LANG'] = 'en';
+$configValues['CONFIG_LOG_PAGES'] = 'no';
+$configValues['CONFIG_LOG_ACTIONS'] = 'no';
+$configValues['CONFIG_LOG_QUERIES'] = 'no';
+$configValues['CONFIG_DEBUG_SQL'] = 'no';
+$configValues['CONFIG_DEBUG_SQL_ONPAGE'] = 'no';
+$configValues['CONFIG_LOG_FILE'] = '/tmp/daloradius.log';
+$configValues['CONFIG_IFACE_PASSWORD_HIDDEN'] = 'no';
+$configValues['CONFIG_IFACE_TABLES_LISTING'] = '25';
+$configValues['CONFIG_IFACE_TABLES_LISTING_NUM'] = 'yes';
+$configValues['CONFIG_IFACE_AUTO_COMPLETE'] = 'yes';
+$configValues['CONFIG_MAINT_TEST_USER_RADIUSSERVER'] = '127.0.0.1';
+$configValues['CONFIG_MAINT_TEST_USER_RADIUSPORT'] = '1812';
+$configValues['CONFIG_MAINT_TEST_USER_NASPORT'] = '0';
+$configValues['CONFIG_MAINT_TEST_USER_RADIUSSECRET'] = 'cisco123';
+
+}}}
+
+  * The complete config will then look like this:
 
 
 
+{{{
+$configValues['DALORADIUS_VERSION'] = '0.9-8';
+$configValues['FREERADIUS_VERSION'] = '1';
+$configValues['CONFIG_DB_ENGINE'] = 'mysql';
+$configValues['CONFIG_DB_HOST'] = '127.0.0.1';
+$configValues['CONFIG_DB_USER'] = 'root';
+$configValues['CONFIG_DB_PASS'] = '';
+$configValues['CONFIG_DB_NAME'] = 'radius';
+$configValues['CONFIG_DB_TBL_RADCHECK'] = 'radcheck';
+$configValues['CONFIG_DB_TBL_RADREPLY'] = 'radreply';
+$configValues['CONFIG_DB_TBL_RADGROUPREPLY'] = 'radgroupreply';
+$configValues['CONFIG_DB_TBL_RADGROUPCHECK'] = 'radgroupcheck';
+$configValues['CONFIG_DB_TBL_RADUSERGROUP'] = 'usergroup';
+$configValues['CONFIG_DB_TBL_RADNAS'] = 'nas';
+$configValues['CONFIG_DB_TBL_RADPOSTAUTH'] = 'radpostauth';
+$configValues['CONFIG_DB_TBL_RADACCT'] = 'radacct';
+$configValues['CONFIG_DB_TBL_RADIPPOOL'] = 'radippool';
+$configValues['CONFIG_DB_TBL_DALOOPERATOR'] = 'operators';
+$configValues['CONFIG_DB_TBL_DALORATES'] = 'rates';
+$configValues['CONFIG_DB_TBL_DALOHOTSPOTS'] = 'hotspots';
+$configValues['CONFIG_DB_TBL_DALOUSERINFO'] = 'userinfo';
+$configValues['CONFIG_DB_TBL_DALOUSERBILLINFO'] = 'userbillinfo';
+$configValues['CONFIG_DB_TBL_DALODICTIONARY'] = 'dictionary';
+$configValues['CONFIG_DB_TBL_DALOREALMS'] = 'realms';
+$configValues['CONFIG_DB_TBL_DALOPROXYS'] = 'proxys';
+$configValues['CONFIG_DB_TBL_DALOBILLINGPAYPAL'] = 'billing_paypal';
+$configValues['CONFIG_DB_TBL_DALOBILLINGPLANS'] = 'billing_plans';
+$configValues['CONFIG_DB_TBL_DALOBILLINGRATES'] = 'billing_rates';
+$configValues['CONFIG_DB_TBL_DALOBILLINGHISTORY'] = 'billing_history';
+$configValues['CONFIG_FILE_RADIUS_PROXY'] = '/etc/freeradius/proxy.conf';
+$configValues['CONFIG_PATH_RADIUS_DICT'] = '';
+$configValues['CONFIG_PATH_DALO_VARIABLE_DATA'] = '/var/www/daloradius/var';
+$configValues['CONFIG_DB_PASSWORD_ENCRYPTION'] = 'cleartext';
+$configValues['CONFIG_LANG'] = 'en';
+$configValues['CONFIG_LOG_PAGES'] = 'no';
+$configValues['CONFIG_LOG_ACTIONS'] = 'no';
+$configValues['CONFIG_LOG_QUERIES'] = 'no';
+$configValues['CONFIG_DEBUG_SQL'] = 'no';
+$configValues['CONFIG_DEBUG_SQL_ONPAGE'] = 'no';
+$configValues['CONFIG_LOG_FILE'] = '/tmp/daloradius.log';
+$configValues['CONFIG_IFACE_PASSWORD_HIDDEN'] = 'no';
+$configValues['CONFIG_IFACE_TABLES_LISTING'] = '25';
+$configValues['CONFIG_IFACE_TABLES_LISTING_NUM'] = 'yes';
+$configValues['CONFIG_IFACE_AUTO_COMPLETE'] = 'yes';
+$configValues['CONFIG_MAINT_TEST_USER_RADIUSSERVER'] = '127.0.0.1';
+$configValues['CONFIG_MAINT_TEST_USER_RADIUSPORT'] = '1812';
+$configValues['CONFIG_MAINT_TEST_USER_NASPORT'] = '0';
+$configValues['CONFIG_MAINT_TEST_USER_RADIUSSECRET'] = 'testing123';
+}}}
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
