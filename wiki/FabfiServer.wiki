@@ -2,7 +2,7 @@
 = Introduction =
 The Fabfi server is a cloud-hosted device that houses the authentication database and Management/Monitoring web GUI for the network.  The current version runs on Ubuntu 10.04 Server (i386).  This page provides configuration instructions for building the server from bare metal.
 
-== OS Installation Install ==
+== OS Installation ==
 
   * Used U10.04 server i386, 
   * set up disk with LVM.  
@@ -76,6 +76,30 @@ and change username and password to match the user and password you created abov
         # Database table configuration for everything except Oracle
         radius_db = "radiusdb"
 }}}
+
+Then edit 
+
+`/etc/clients.conf`
+
+set your NAS secret
+
+`secret = yoursecret`
+
+and add 
+
+{{{
+client 10.0.0.0/8 {
+  secret = cisco123
+  shortname = fabfi-portal
+}
+
+client 41.0.0.0/8 {
+  secret = cisco123
+  shortname = fabfi-cloud
+}
+}}}
+
+at the end of the file.
 
 
 === Daloradius ==
