@@ -3,11 +3,11 @@
     * FabfiServer
     * FabfiNodes
       * HeadNode
-        *FlashLinksysWRT160NL
+        * FlashLinksysWRT160NL
       * CommonNodes
-        *FlashUbiquitiDevices
+        * FlashUbiquitiDevices
   * AdvancedDevelopment
-    *BuildFabFiImage
+    * BuildFabFiImage
   * FabFi
   * HowtoFlashUbiquitiDevices
   * HowToConfigureHeadNode
