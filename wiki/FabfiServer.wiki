@@ -70,7 +70,7 @@ Then edit
 /etc/freeradius/sites-enabled/default
 }}}
 
-and uncomment all references to sql or sql_log.  
+and uncomment all references to "sql"
 
 Then edit
 
