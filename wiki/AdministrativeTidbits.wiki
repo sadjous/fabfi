@@ -1,9 +1,11 @@
-= Introduction =
+
 
 * How to upload images to SVN *
 
-
-= Details =
+1. Checkout Subversion: # svn checkout https://fabfi.googlecode.com/svn/wiki
+2. Move to the working directory: # cd wiki/
+3. Make a directory in which to save images: ~/wiki# svn mkdir images
+   ~/wiki# svn commit
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
