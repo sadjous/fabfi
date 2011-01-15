@@ -28,7 +28,9 @@ The Fabfi server is a cloud-hosted device that houses the authentication databas
 
 `sudo apt-get apache2 php-db php-pear php5-mysql`
 
-Download the latest Daloradius distribution
+Download the latest Daloradius distribution:
+` sudo cd /etc/ && wget http://downloads.sourceforge.net/project/daloradius/daloradius/daloradius-0.9-8/daloradius-0.9-8.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fdaloradius%2Ffiles%2Fdaloradius%2F&ts=1295083448&use_mirror=garr`
+
 
 
 
