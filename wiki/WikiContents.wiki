@@ -1,3 +1,5 @@
   * FabFi
   * HowtoFlashUbiquitiDevices
-    * HowToConfigureHeadNode
+  * HowToConfigureHeadNode
+  * HowToFlashLinksysWRT160NL 
+  * HowtoBuildAFabFiImage 
