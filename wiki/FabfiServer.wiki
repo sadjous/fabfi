@@ -57,7 +57,27 @@ Then edit
 
 `/etc/freeradius/sites-enabled/default`
 
-and uncomment all references to sql or sql_log
+and uncomment all references to sql or sql_log.  
+
+Then edit
+
+`/etc/freeradius/sql.conf`
+
+and change username and password to match the user and password you created above.  Also change database name to 'radusdb' because this is the db name that will be used by daloradius below.
+
+{{{
+        # Connection info:
+        server = "localhost"
+        #port = 3306
+        login = "radius"
+        password = "cisco123"
+
+        # Database table configuration for everything except Oracle
+        radius_db = "radiusdb"
+}}}
+
+
+
 
 
 === Daloradius ==
