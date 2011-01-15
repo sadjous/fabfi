@@ -22,6 +22,17 @@ The Fabfi server is a cloud-hosted device that houses the authentication databas
 `sudo apt-get install mysql-server`
 
   * Select a root user and password (it doesn't matter for our purposes)
+  * log into mysql
+
+`mysql --user root -p`
+
+  * Set up a user and password for radius
+
+{{{
+mysql> CREATE USER 'radius'@'localhost' IDENTIFIED BY 'some_pass';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'radius'@'localhost'
+    ->     WITH GRANT OPTION;
+}}}
 
 === Install Freeradius ===
 
@@ -156,4 +167,3 @@ $configValues['CONFIG_MAINT_TEST_USER_RADIUSPORT'] = '1812';
 $configValues['CONFIG_MAINT_TEST_USER_NASPORT'] = '0';
 $configValues['CONFIG_MAINT_TEST_USER_RADIUSSECRET'] = 'testing123';
 }}}
-
