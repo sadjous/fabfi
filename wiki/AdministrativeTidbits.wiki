@@ -2,7 +2,7 @@
 
 1. Checkout Subversion: 
 
-   # svn checkout https://fabfi.googlecode.com/svn/wiki
+    $ svn checkout https://fabfi.googlecode.com/svn/wiki
 
 2. Move to the working directory:
 
@@ -34,4 +34,6 @@
 
    # svn update
 
-7. Refresh code.google,com/p/fabfi/wiki to check whether you did it right (it will be under Source>wiki>images)
+7. Refresh code.google,com/p/fabfi/wiki to check whether you did it right 
+
+   (it will be under Source>wiki>images)
