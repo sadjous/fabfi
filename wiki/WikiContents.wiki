@@ -1,4 +1,13 @@
   * [WikiHome Wiki Home]
+  * HowToMake
+    * FabfiServer
+    * FabfiNodes
+      * HeadNode
+        *FlashLinksysWRT160NL
+      * CommonNodes
+        *FlashUbiquitiDevices
+  * AdvancedDevelopment
+    *BuildFabFiImage
   * FabFi
   * HowtoFlashUbiquitiDevices
   * HowToConfigureHeadNode
