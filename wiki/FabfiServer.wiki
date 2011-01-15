@@ -17,7 +17,7 @@ The Fabfi server is a cloud-hosted device that houses the authentication databas
 
 == Install 3rd Party Software ==
 
-=== Mysql-server ===
+=== Install mysql-server ===
 
 `sudo apt-get install mysql-server`
 
@@ -102,7 +102,7 @@ client 41.0.0.0/8 {
 at the end of the file.
 
 
-=== Daloradius ==
+=== Install Daloradius ==
 
 `sudo apt-get apache2 php-db php-pear php5-mysql`
 
@@ -193,3 +193,26 @@ $configValues['CONFIG_MAINT_TEST_USER_RADIUSSECRET'] = 'yoursecret';
 Run the setup script for freeradius and daloradius:
 
 `mysql --user root -p radiusdb < /var/www/contrib/db/fr2-mysql-daloradius-and-freeradius.sql`
+
+=== Check your configuration ===
+
+Stop freeradius service then run the configuration check:
+
+{{{
+sudo /etc/init.d/freeradius stop
+sudo freeradius -X
+}}}
+
+You should see freeradius start up and the end of the startup message will look something like tis 
+
+{{{
+Listening on authentication address * port 1812
+Listening on accounting address * port 1813
+Ready to process requests.
+}}}
+
+once you have confirmed proper startup you can quit with ctrl+C, then start the service normally:
+
+`sudo /etc/init.d/freeradius stop`
+
+run
