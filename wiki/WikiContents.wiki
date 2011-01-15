@@ -8,3 +8,9 @@
         *FlashUbiquitiDevices
   * AdvancedDevelopment
     *BuildFabFiImage
+  * FabFi
+  * HowtoFlashUbiquitiDevices
+  * HowToConfigureHeadNode
+  * [HowToFlashLinksysWRT160NL] 
+  * [HowtoBuildAFabFiImage]
+  * [http://code.google.com/p/fabfi/w/list Page List]
