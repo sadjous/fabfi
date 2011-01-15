@@ -1,14 +1,37 @@
-
 * How to upload images to SVN *
 
-1. Checkout Subversion: # svn checkout https://fabfi.googlecode.com/svn/wiki
+1. Checkout Subversion: 
 
-2. Move to the working directory: # cd wiki/
+   # svn checkout https://fabfi.googlecode.com/svn/wiki
 
-3. Make a directory in which to save images: ~/wiki# svn mkdir images
-   ~/wiki# svn commit
+2. Move to the working directory:
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+   # cd wiki/
+
+3. Make a directory in which to save images:
+
+   # svn mkdir images
+
+   # svn commit
+
+4. Put the image under subversion control:
+
+   # svn add /location/filename
+
+   # svn commit
+
+5. Tell subversion what mime-type to use: 
+
+   # svn propset svn:mime-type 'image/jpeg' /location/filename
+
+   (Be sure to use the correct file extension e.g jpeg, png, etc)
+
+6. Upload the image:
+
+  # svn copy /location/location/filename https://fabfi.googlecode.com/svn/wiki/images
+
+   # svn commit
+
+   # svn update
+
+7. Refresh code.google,com/p/fabfi/wiki to check whether you did it right (it will be under Source>wiki>images)
