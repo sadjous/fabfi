@@ -1,4 +1,9 @@
+<wiki:toc max_depth="4" />
+
+= Introduction =
 This page is a table of contents for all of the !HowTo documentation on this site.  Follow the links below for what you want to build
+
+= Core Tasks =
 
 The fabfi wireless system consists of three major components:
 
@@ -14,5 +19,8 @@ Fabfi nodes make up the physical mesh network, with headnodes at internet gatewa
 
 Fabfi Reflectors are used to enhance the RF signal of wifi devices for long-range links.  
 
-In addition to the basic configuration instructions, we also have a section on AdvancedDevelopment that explains how to build images from scratch and perform other custom tasks.
+== Advanced Development ==
 
+In addition to the basic configuration instructions, we also have a section on Advanced Development that explains how to build images from scratch and perform other custom tasks: 
+
+  * HowtoBuildFabImage
