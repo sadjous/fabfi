@@ -1,4 +1,21 @@
-*Steps Followed:*
+<wiki:toc max_depth="4" />
+
+= Introduction = 
+
+Instead of using the images we provide on the site, you can build your own images either from source or from the !OpenWRT imagebuilder. This page outlines both methods.  
+
+== Workflow ==
+
+When we build images, we follow these steps:
+
+# Checkout the imagebuilder and openwrt folders from the fabfi svn
+# download latest openwrt source
+# replace .config with ours
+# Build the OpenWRT imagebuilder from the latest !OpenWRT source.
+# Extract the imagebuilder to your hard drive
+# Checkout the imagebuilder folder from the fabfi svn
+# Run the ffimage.sh script to build a custom image.
+
 
 Download the latest image builder tarball from fabfi website (#link)
 
