@@ -51,13 +51,13 @@ Then edit
 /etc/freeradius/radiusd.conf
 }}}
 
-  * Uncomment 
+Uncomment 
 
 {{{
 $INCLUDE sql.conf
 }}}
 
-  * set proxy_requests to no and comment the include
+Set proxy_requests to no and comment the include
 
 {{{
 proxy_requests  = no
