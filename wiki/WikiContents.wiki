@@ -20,5 +20,4 @@
   * HowtoFlashUbiquitiDevices
   * HowToConfigureHeadNode
   * [HowToFlashLinksysWRT160NL] 
-  * [HowtoBuildAFabImage]
   * [http://code.google.com/p/fabfi/w/list Page List]
