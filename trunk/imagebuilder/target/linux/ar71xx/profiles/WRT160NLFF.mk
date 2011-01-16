@@ -18,8 +18,10 @@ define Profile/WRT160NLFF
 # Firewall stuff
 # Fabfi crap...
 
+#### Removed kmod-fs-mbcache, as it was not building in imagebuilder.  Also removed fabfi-device since We don't plan on using afrimesh anymore
+
   PACKAGES:=kmod-ath kmod-ath9k kmod-mac80211 -kmod-madwifi wpad-mini \
-fabfi-device awesome-chilli \
+coova-chilli \
 libuci luci-medium luci-app-firewall luci-app-qos \
 mini-snmpd uclibcxx iperf \
 libpcap tcpdump \
@@ -31,7 +33,7 @@ freeradius2 freeradius2-mod-files freeradius2-mod-radutmp freeradius2-utils free
 freeradius2-mod-sqlcounter freeradius2-mod-eap freeradius2-mod-eap-gtc freeradius2-mod-eap-md5 freeradius2-mod-eap-mschapv2 freeradius2-mod-eap-peap \
 freeradius2-mod-eap-tls freeradius2-mod-eap-ttls freeradius2-mod-pap freeradius2-mod-chap freeradius2-mod-mschap \
 kmod-gpio-dev kmod-input-core kmod-input-gpio-buttons kmod-input-polldev kmod-leds-gpio \
-kmod-usb-core kmod-usb2 kmod-scsi-core kmod-usb-storage kmod-fs-ext3 e2fsprogs block-extroot block-mount kmod-fs-mbcache \
+kmod-usb-core kmod-usb2 kmod-scsi-core kmod-usb-storage kmod-fs-ext3 e2fsprogs block-extroot block-mount \
 -ppp -ppp-mod-pppoe -kmod-ppp -kmod-pppoe -kmod-crc-ccitt 
 
 
