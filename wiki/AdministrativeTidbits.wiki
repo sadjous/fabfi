@@ -3,47 +3,59 @@
 This page contains instructions for all the administrative tasks required to manage this site.  If you learn any new processes (like how to upload images to the wiki, for instance), document them here.  
 
 == SVN ==
-
+=== SVN Basics ===
 Subversion (SVN) is the version control system used to track all the files on this site.  In order to modify files offline you must download them (checkout) and then upload them again (commit).  To add a new file you must add it to your local SVN copy and then commit it (add / commit).  
 
-SVN works by making a local copy of the files on the website on your local drive 
+SVN works by making a local copy of the files on the website on your local drive.  When you checkout some code, you will specify a local directory to put it in.  until you delete the contents of this directory, SVN will then require that you put the same source tree in that directory forevermore.  Example: 
 
-* How to upload images to SVN *
+To check out the WHOLE source tree into a sub-directory called fabfi in your current working directory:
+{{{
+$ svn checkout https://fabfi.googlecode.com/svn/ fabfi --username yourgoogleusername
+}}}
 
-1. Checkout Subversion: 
+Now, let's say you want to update just the wiki part of your source tree
+{{{
+$ svn checkout https://fabfi.googlecode.com/svn/wiki wiki --username yourgoogleusername
+}}}
 
-   $ svn checkout https://fabfi.googlecode.com/svn/wiki
+YOU SHOULD ALWAYS CHECK OUT THE MOST CURRENT VERSION BEFORE YOU START EDITING.
+
+=== Uploading images to SVN (for the wiki) ===
+
+1. Checkout the current wiki (if you already have the whole tree checked out, then go to the directory above the wii in your local tree), then:
+{{{
+$ svn checkout https://fabfi.googlecode.com/svn/wiki wiki--username yourgoogleusername
+}}}
 
 2. Move to the working directory:
-
+{{{
    $ cd wiki/
+}}}
 
-3. Make a directory in which to save images:
-
+3. Make a directory in which to save images (this is probably already done for you by now):
+{{{
    $ svn mkdir images
-
-   $ svn commit
+}}}
 
 4. Put the image under subversion control:
-
+{{{
    $ svn add /location/filename
-
-   $ svn commit
+}}}
 
 5. Tell subversion what mime-type to use: 
-
+{{{
    $ svn propset svn:mime-type 'image/jpeg' /location/filename
-
    (Be sure to use the correct file extension e.g jpeg, png, etc)
+}}}
+
+NOTE: You can omit this step by following [https://code.google.com/p/support/wiki/SubversionFAQ#How_can_I_make_SVN_serve_HTML_and_images_with_the_correct_Conten these instructions].
 
 6. Upload the image:
-
-   $ svn copy /location/location/filename https://fabfi.googlecode.com/svn/wiki/images
-
+{{{
    $ svn commit
-
    $ svn update
+}}}
 
-7. Refresh code.google,com/p/fabfi/wiki to check whether you did it right 
+'svn update' is not required, but is a good idea to get all the new stuff that might have changed while you were figuring this out.  
 
-   (it will be under Source>wiki>images)
+7. Refresh code.google,com/p/fabfi/wiki to check whether you did it right (it will be under Source>wiki>images)
