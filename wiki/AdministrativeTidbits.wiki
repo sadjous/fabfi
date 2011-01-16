@@ -20,7 +20,7 @@ $ svn checkout https://fabfi.googlecode.com/svn/wiki wiki --username yourgoogleu
 
 YOU SHOULD ALWAYS CHECK OUT THE MOST CURRENT VERSION BEFORE YOU START EDITING.
 
-=== Uploading images to SVN (for the wiki) ===
+=== Uploading Images to SVN (for the wiki) ===
 
 1. Checkout the current wiki (if you already have the whole tree checked out, then go to the directory above the wii in your local tree), then:
 {{{
