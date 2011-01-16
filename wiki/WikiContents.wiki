@@ -1,6 +1,6 @@
   * [WikiHome Wiki Home]
   * [AdministrativeTidbits Administrative Tidbits]
-    * [AdministrativeTidbits#SVN  Using SVN for Dummies (Keith)]
+    * [AdministrativeTidbits#SVN_Basics SVN Basics]
   * [SystemArchitecture System Architecture]
   * [HowToMake How To Make]
     * FabfiServer
