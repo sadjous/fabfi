@@ -14,7 +14,7 @@
         * [FabfiNodes#Common_Nodes CommonNode]
         * [FabfiNodes#Headnode HeadNode]
     * [HowToMake#AdvancedDevelopment Advanced Development]
-        * BuildFabFiImage
+        * [HowToBuildFabFiImage Build a Fabfi node image]
 
   * FabFi
   * HowtoFlashUbiquitiDevices
