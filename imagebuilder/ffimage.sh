@@ -10,7 +10,7 @@ read profile
 here=$(pwd) #home/fabfi/imagebuilder/
 
 #
-echo "enter path to the image builder"
+echo "enter path to the image builder (no trailing /)"
 read IBPATH
 
 IBDIR='OpenWrt-ImageBuilder-ar71xx-for-Linux-i686'
