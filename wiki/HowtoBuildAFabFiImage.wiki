@@ -18,3 +18,5 @@ Enter a valid profile name (NS5L for Ubiquiti devices, WRT160NL for linksys)
 Enter the path to the folder you extracted the imagebuilder ( e.g /home/user/imagebuilder)
 
 Get your image from ( /home/user/imagebuilder/Openwrt-imagebuilder-xxxx/bin) folder
+
+NOTE: Imagebuilder for 10.03.1-rc4 will not build kmod-fs-mbcache.  You need to separately get the package from [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/kmod-fs-mbcache_2.6.32.25-1_ar71xx.ipk here], put it in the packages folder in imagebuilder and the splice the kmod-fs-mbcache section of the [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/Packages Packages file] into your packages file.
