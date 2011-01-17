@@ -241,7 +241,7 @@ once you have confirmed proper startup you can quit with ctrl+C, then start the 
 sudo /etc/init.d/freeradius start
 }}}
 
-=== Configure SSL for Apache ===
+=== Configure SSL for Apache2 ===
 
 We did this by following the tutorial [http://library.linode.com/web-servers/apache/ssl-guides/using-ssl-ubuntu-10.04-lucid#use_a_self_signed_ssl_certificate_with_apache here].  The following is a screenscrape of my session:
 
@@ -281,7 +281,7 @@ Then edit
 /etc/apache2/ports.conf
 }}}
 
-and add a new virtual host entry your IP address (or !* for all IPs)
+and add a new virtual host entry your IP address (or `*` for all IPs)
 
 {{{
 NewVirtualHost *:443  <---you add this
