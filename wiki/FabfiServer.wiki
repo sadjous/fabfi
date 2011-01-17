@@ -302,4 +302,8 @@ In this file I copy the entire `<virtualhost>` block for `*:80` and then change 
      SSLCertificateKeyFile /etc/apache2/ssl/apache.key
 }}}
 
+Then restart your werbserver:
 
+{{{
+$ sudo /etc/init.d/apache2 restart
+}}}
