@@ -281,7 +281,7 @@ Then edit
 /etc/apache2/ports.conf
 }}}
 
-and add a new virtual host entry your IP address (or * for all IPs)
+and add a new virtual host entry your IP address (or !* for all IPs)
 
 {{{
 NewVirtualHost *:443  <---you add this
