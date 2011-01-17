@@ -285,7 +285,7 @@ and add a new virtual host entry your IP address (or `*` for all IPs)
 
 {{{
 NewVirtualHost *:443  <---you add this
-Listen 443 <---should already be in the file
+Listen 443 <---this should already be in the file
 }}}
 
 Then you will have to edit the virtual hosts file.  On our machine this file was
