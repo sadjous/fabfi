@@ -296,7 +296,7 @@ Then you will have to edit the virtual hosts file.  On our machine this file was
 
 But it could be named differently on your machine!  It will be in the same directory as above, however.  
 
-In this file I copy the entire `<virtualhost>` block for `*:80` and then change the name of the new block to `*:443`.  I then added the following to the top of the block and changed the webmaster email.
+In this file I copy the entire `<virtualhost>` block for `*:80` and then change the name of the new block to `*:443`.  I then added the following to the top of the new '*:443' block and changed the webmaster email.
 
 {{{
      SSLEngine On
