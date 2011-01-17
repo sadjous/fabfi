@@ -268,7 +268,7 @@ If you enter '.', the field will be left blank.
 Country Name (2 letter code) [AU]:US
 State or Province Name (full name) [Some-State]:MA
 Locality Name (eg, city) []:Cambridge
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:JoinAfrica
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:MyOrg
 Organizational Unit Name (eg, section) []:sandbox
 Common Name (eg, YOUR name) []:John Doe
 Email Address []:foo@bar.com
@@ -293,6 +293,8 @@ Then you will have to edit the virtual hosts file.  On our machine this file was
 {{{
 /etc/apache2/sites-enabled/000-default
 }}}
+
+But it could be named differently on your machine!  It will be in the same directory as above, however.  
 
 In this file I copy the entire `<virtualhost>` block for `*:80` and then change the name of the new block to `*:443`.  I then added the following to the top of the block and changed the webmaster email.
 
