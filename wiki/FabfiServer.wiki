@@ -274,3 +274,32 @@ Common Name (eg, YOUR name) []:John Doe
 Email Address []:foo@bar.com
 ja@ja2:~$ 
 }}}
+
+Then edit 
+
+{{{
+/etc/apache2/ports.conf
+}}}
+
+and add a new virtual host entry your IP address (or * for all IPs)
+
+{{{
+NewVirtualHost *:443  <---you add this
+Listen 443 <---should already be in the file
+}}}
+
+Then you will have to edit the virtual hosts file.  On our machine this file was
+
+{{{
+/etc/apache2/sites-enabled/000-default
+}}}
+
+In this file I copy the entire `<virtualhost>` block for `*:80` and then change the name of the new block to `*:443`.  I then added the following to the top of the block and changed the webmaster email.
+
+{{{
+     SSLEngine On
+     SSLCertificateFile /etc/apache2/ssl/apache.pem
+     SSLCertificateKeyFile /etc/apache2/ssl/apache.key
+}}}
+
+
