@@ -312,7 +312,7 @@ Then restart your werbserver:
 $ sudo /etc/init.d/apache2 restart
 }}}
 
-=== Add a web Directory to Serve Splash Content ===
+=== Configure a Web Directory to Serve Splash Content ===
 
 Fabfi nodes are configured to look for splash page content at the url
 {{{
@@ -322,3 +322,9 @@ which is generally configured as
 {{{
 10.103.0.254
 }}}
+In order to serve splash content from a central location you need to do three things: 
+  # Configure a headnode with a 10.103.0.254 alias (so requests to master.mesh route there
+  # Forward requests at this address to a remote location of your choice
+  # Configure the remote server to serve splash content at this location
+
+1 and 2 will be covered in node setup.  3 is as simple as copying the contents of trunk/www/ to the webserver set up above and editing the content to fit your needs.  For easy setup, don't change the size of the page or put any content in the current location of "navbar" as we're actually just underlaying the splash page on the router with this remote content.  
