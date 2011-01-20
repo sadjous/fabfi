@@ -7,7 +7,7 @@
 
 define Profile/WRT160NLFF
   NAME:=Linksys WRT160NLFF
-  FILES:=fabfi/wrt160nl/
+  FILES:=fabfi/WRT160NLFF/
 ## Assuming the following are automatically added
 # base-files busybox dnsmasq dropbear firewall hotplug2 iptables kmod-diag kmod-ipt-nathelper kmod-switch
 # libc libgcc mtd nvram opkg ppp ppp-mod-pppoe uci udevtrigger wpad-mini 
