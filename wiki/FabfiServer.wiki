@@ -312,7 +312,7 @@ Then restart your werbserver:
 $ sudo /etc/init.d/apache2 restart
 }}}
 
-=== Configure a Web Directory to Serve Splash Content ===
+== Configure a Web Directory to Serve Splash Content ==
 
 Fabfi nodes are configured to look for splash page content at the url
 {{{
