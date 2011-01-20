@@ -21,17 +21,14 @@ define Profile/WRT160NLFF
 #### Removed kmod-fs-mbcache, as it was not building in imagebuilder.  Also removed fabfi-device since We don't plan on using afrimesh anymore
 
   PACKAGES:=kmod-ath kmod-ath9k kmod-mac80211 -kmod-madwifi wpad-mini \
-coova-chilli \
+awesome-chilli kmod-tun librt\
 libuci luci-medium luci-app-firewall luci-app-qos \
-mini-snmpd uclibcxx iperf \
+snmpd libnetsnmp uclibcxx iperf \
 libpcap tcpdump \
 bridge swconfig \
 olsrd olsrd-mod-nameservice olsrd-mod-txtinfo olsrd-mod-dyn-gw \
 libopenssl libpthread squid \
--uhhtpd mini-httpd libjson netcat libmysqlclient_r\
-freeradius2 freeradius2-mod-files freeradius2-mod-radutmp freeradius2-utils freeradius2-democerts freeradius2-mod-sql freeradius2-mod-sql-mysql \
-freeradius2-mod-sqlcounter freeradius2-mod-eap freeradius2-mod-eap-gtc freeradius2-mod-eap-md5 freeradius2-mod-eap-mschapv2 freeradius2-mod-eap-peap \
-freeradius2-mod-eap-tls freeradius2-mod-eap-ttls freeradius2-mod-pap freeradius2-mod-chap freeradius2-mod-mschap \
+-uhhtpd mini-httpd libjson netcat \
 kmod-gpio-dev kmod-input-core kmod-input-gpio-buttons kmod-input-polldev kmod-leds-gpio \
 kmod-usb-core kmod-usb2 kmod-scsi-core kmod-usb-storage kmod-fs-ext3 e2fsprogs block-extroot block-mount \
 -ppp -ppp-mod-pppoe -kmod-ppp -kmod-pppoe -kmod-crc-ccitt 

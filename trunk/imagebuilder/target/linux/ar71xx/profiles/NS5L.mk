@@ -20,12 +20,13 @@ define Profile/NS5L
 
   PACKAGES:=kmod-ath kmod-ath9k kmod-mac80211 -kmod-madwifi libnl-tiny crda wpad-mini \
 libuci luci-medium luci-app-firewall luci-app-qos \
-mini-snmpd \
+snmpd libnetsnmp \
 bridge \
 olsrd olsrd-mod-nameservice olsrd-mod-txtinfo olsrd-mod-dyn-gw \
-fabfi-device awesome-chilli \
+awesome-chilli kmod-tun librt\
 -uhttpd mini-httpd \
 libpcap tcpdump \
+libopenssl libpthread squid \
 uclibcxx iperf \
 kmod-gpio-dev kmod-button-hotplug kmod-input-core kmod-input-gpio-buttons kmod-input-polldev kmod-leds-gpio \
 -kmod-usb-core -kmod-usb-ohci -kmod-usb2 -kmod-scsi-core -kmod-usb-storage -kmod-fs-ext3 -e2fsprogs -block-extroot -block-mount -kmod-fs-mbcache \
