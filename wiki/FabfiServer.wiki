@@ -309,3 +309,14 @@ Then restart your werbserver:
 {{{
 $ sudo /etc/init.d/apache2 restart
 }}}
+
+=== Add a web Directory to Serve Splash Content ===
+
+Fabfi nodes are configured to look for splash page content at the url
+{{{
+master.mesh
+}}}
+which is generally configured as 
+{{{
+10.103.0.254
+}}}
