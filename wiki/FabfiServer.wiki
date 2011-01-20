@@ -243,6 +243,8 @@ sudo /etc/init.d/freeradius start
 
 === Configure SSL for Apache2 ===
 
+*NOTE: It turns out you actually don't need SSL for our current setup, but setting up SSL is generally useful so I'm leaving this section in.  You can skip it if you wish.*
+
 We did this by following the tutorial [http://library.linode.com/web-servers/apache/ssl-guides/using-ssl-ubuntu-10.04-lucid#use_a_self_signed_ssl_certificate_with_apache here].  The following is a screenscrape of my session:
 
 {{{
