@@ -26,7 +26,8 @@ ln -s ${here}/target/linux/ar71xx/profiles/${profile}.mk ${IBPATH}/${IBDIR}/targ
 ln -s $IBMake ${IBPATH}/${IBDIR}/target/linux/ar71xx/image/Makefile
 cd ../
 
-cp -a $(pwd)/files/router_configs/ ${IBPATH}/${IBDIR}/fabfi
+cp -a $(pwd)/files/router_configs/${profile} ${IBPATH}/${IBDIR}/fabfi/
+cp -a $(pwd)/files/router_configs/common/* ${IBPATH}/${IBDIR}/fabfi/${profile}
 
 cd ${IBPATH}/${IBDIR}
 make image PROFILE=${profile}

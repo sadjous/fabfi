@@ -7,7 +7,7 @@
 
 define Profile/NS5L
   NAME:=ubiquiti ns5l
-  FILES:=fabfi/ns5l/
+  FILES:=fabfi/NS5L/
 ## Assuming the following are automatically added
 # base-files busybox dnsmasq dropbear firewall hotplug2 iptables kmod-diag kmod-ipt-nathelper kmod-switch
 # libc libgcc mtd nvram opkg ppp ppp-mod-pppoe uci udevtrigger wpad-mini 
