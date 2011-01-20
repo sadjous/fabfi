@@ -1,5 +1,12 @@
 #!/bin/sh
-
+############################################
+# sigmeter.sh
+# A script to replace signal meter functionality on Ubiquiti devices running Openwrt Backfire with added resolution
+# Developed and licensed as part of the fabfi wireless project http://code.google.com/p/fabfi/
+# Contact Keith Berkoben fabfi@fabdolk.com
+#
+# To configure, set your threshold values below in dBm and add an init'd script or cron job to run script at startup
+#############################################
 SIGTMP="/tmp/sigtemp"
 LEDIR="/sys/class/leds/" #Needs trailing /
 LED4="ubnt:red:link1"

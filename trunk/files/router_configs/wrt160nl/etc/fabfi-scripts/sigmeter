@@ -48,7 +48,7 @@ clear_all() {
 clear_all
 while true
         do
-if [ `iwconfig | grep -c $1` -gt 0 ]
+if [ `iwconfig $1 | grep -c $1` -gt 0 ]
 then
         iw dev $1 station dump | grep 'signal' | cut -d - -f 2 | cut -d d -f 1 > $SIGTMP
 #echo "----------------------"
