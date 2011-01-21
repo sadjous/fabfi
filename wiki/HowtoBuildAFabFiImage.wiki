@@ -10,10 +10,10 @@ When we build images, we follow these steps:
 
   # Checkout the imagebuilder and openwrt folders from the fabfi svn
   # download latest openwrt source
-  # replace .config with ours
-  # Build the OpenWRT imagebuilder from the latest !OpenWRT source.
+  # navigate to the trunk/openwrt directory in the fabfi source tree
+  # run buildsrc.sh to build the OpenWRT imagebuilder from the latest !OpenWRT source.
   # Extract the imagebuilder to your hard drive
-  # Checkout the imagebuilder folder from the fabfi svn
+  # navigate to the trunk/imagebuilder folder from the fabfi svn
   # Run the ffimage.sh script to build a custom image.
 
 
