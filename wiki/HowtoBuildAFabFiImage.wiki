@@ -15,6 +15,17 @@ When we build images, we follow these steps:
   # Extract the imagebuilder to your hard drive
   # Run the trunk/scripts/ffimage.sh script to build a custom image.
 
+== Step-by-Step ==
+
+{{{
+$  cd {your svn dir}/fabfi/
+$  svn checkout https://fabfi.googlecode.com/svn/trunk --username yourgoogleusername
+}}}
+
+Download the OpenWRT source
+{{{
+svn co svn://svn.openwrt.org/openwrt/branches/backfire
+}}}
 
 Download the latest image builder tarball from fabfi website (#link)
 
