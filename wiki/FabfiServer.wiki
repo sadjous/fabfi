@@ -327,4 +327,63 @@ In order to serve splash content from a central location you need to do three th
   # Forward requests at this address to a remote location of your choice
   # Configure the remote server to serve splash content at this location
 
-1 and 2 will be covered in node setup.  3 is as simple as copying the contents of trunk/www/ to the webserver set up above and editing the content to fit your needs.  For easy setup, don't change the size of the page or put any content in the current location of "navbar" as we're actually just underlaying the splash page on the router with this remote content.  
+1 and 2 will be covered in node setup.  3 is as simple as copying the contents of trunk/www/kenya/ to the webserver set up above and editing the content to fit your needs.  For easy setup, don't change the size of the page or put any content in the current location of "navbar" as we're actually just underlaying the splash page on the router with this remote content.  
+
+== Configure Live Map ==
+
+=== Introduction ===
+
+The live map is a php application adapted from [http://www.layereight.de/download/freifunkmap.tgz freifunkmap].  It receives http requests from nodes with neighbor data, saves the data in a local database and writes it to the GoogleMaps API on demand.  To configure it for your network, You will have to configure the php application on the cloud server and configure the update script (fabfimap.sh) on the nodes.  This section will cover the server side, while the node side is covered in node setup.
+
+=== Setup ===
+
+Install required libraries:
+{{{
+sudo apt-get sqlite php5-sqlite
+}}}
+then copy the contents of 
+{{{
+trunk/www/live
+}}}
+to your web directory. You also want to make sure that your webserver accepts index.php as a default document.
+
+!!!HOW TO DO THIS HERE!!!
+
+Yo will then need to configure some values for your server.   Open 
+{{{
+freifunkmap.config.php
+}}}
+and you will see these values: 
+{{{
+define( "GOOGLE_MAPS_KEY"       ,  "ABQIAAAA09xI2Q46-z5rGpiuYrem8hTfoQ4k9cRoM3EqAQ3hmdQlsFIAsRQQrVrH_du6CZ6dt9yavlipSSMZFw");
+define( "DEFAULT_START_POSITION",  "52.526039219655445, 13.411388397216797");
+define( "DEFAULT_ZOOMLEVEL",       "13");
+define( "DEFAULT_UPDATEINTERVALL", "3600");
+define( "DEFAULT_MAPTYPE",         "G_NORMAL_MAP");
+define( "PATH_TO_DATABASE",        "/tmp/");    // in the install mode, this folder have to be writeable for the webserver user
+define( "DATABASE_FILE",           "nodedb");   // this file would be created in install mode
+}}}
+
+  * For GOOGLE_MAPS_KEY, you must get a unique key from [https://code.google.com/apis/maps/signup.html this site].
+  * For PATH_TO_DATABASE, you need to create a path for sqlite to store data and give the webuser acct (www-data) rights to it.  For example:
+{{{
+mkdir /tmp/sqlite/
+sudo chown www-data /tmp/sqlite/
+}}}
+
+  * The remaining values are self-explanatory
+ 
+Once you have completed the above server, go to a browser and call
+{{{
+http://{path to map script}/index.php?install
+}}}
+
+the server should now be up and running.  Test by browsing to: 
+{{{
+http://{path to map script}/
+}}}
+you should get a google map. 
+
+== Optional: Security ==
+
+Since this application doesn't do any sort of real security checking, you might want to update your firewall configuration to accept requests from only certain sites on the port you configure your map server to listen.  Doing this is outside the scope of this tutorial for now.

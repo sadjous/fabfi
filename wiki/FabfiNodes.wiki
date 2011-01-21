@@ -10,6 +10,16 @@ Headnodes are the control nodes for the network.  They do useful stuff like reso
 
 Common nodes are all the other nodes in the network.  They may or may not have uplinks and may or may not directly service clients.  
 
+== TEMP: Configuration needs for Live map ==
+
+The live map script requires that every node have a name an a correct set of GPS coords.  Coords are currently listed directly in 
+{{{
+/etc/fabfi-scripts/fabfimap.sh
+}}}
+and need to be written in the same format in /www/mygooglemapscoords.txt, which must be web available.  This should be automated...
+
+The server grabs txtinfo data on port 2006.
+
 == TEMP: squid setup ==
 
 
