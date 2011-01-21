@@ -2,7 +2,7 @@
 
 = Introduction = 
 
-Instead of using the images we provide on the site, you can build your own images either from source or from the !OpenWRT imagebuilder. This page outlines both methods.  
+Instead of using the images we provide on the site, you can build your own images either from source or from the OpenWRT imagebuilder. This page outlines both methods.  
 
 == Workflow ==
 
@@ -17,6 +17,10 @@ When we build images, we follow these steps:
 
 == Step-by-Step ==
 
+=== Building Source ===
+
+If you have not done so before, now is the time to [http://wiki.openwrt.org/doc/howto/build set up your build enviroment] (you can stop at "Downloading Feeds")
+
 {{{
 $  cd {your svn dir}/fabfi/
 $  svn checkout https://fabfi.googlecode.com/svn/trunk --username yourgoogleusername
@@ -24,28 +28,46 @@ $  svn checkout https://fabfi.googlecode.com/svn/trunk --username yourgoogleuser
 
 Download the OpenWRT source to a directory of your choice
 {{{
-cd {your backfire source dir}
-svn co svn://svn.openwrt.org/openwrt/branches/backfire
+$ cd {your backfire source dir}
+$ svn co svn://svn.openwrt.org/openwrt/branches/backfire
 }}}
 
+Navigate to the scripts directory and run the src builder:
+{{{
+$ cd {fabfi svn}/trunk/scripts/
+$ sudo sh buildsrc.sh
+}}}
 
-Download the latest image builder tarball from fabfi website (#link)
+the above command will probably take an hour or so the first time you run it.  When it finishes, you will find a brand new [http://wiki.openwrt.org/doc/howto/imagebuilder imagebuilder] in the bin directory for your platform.  My imagebuilder comes out here:
+{{{
+{your backfire source dir}/bin/ar71xx/OpenWrt-ImageBuilder-ar71xx-for-Linux-i686.tar.bz2
+}}}
 
-Create a folder ( e.g /home/user/imagebuilder )
+Open this archive and extract the contained folder to your hard drive.  You will use it to complete the rest of the build process
 
-Extract the tarball in the folder created ($ tar -xzvf imagebuilder.tar.gz)
+*NOTE: Imagebuilder for 10.03.1-rc4 will not build kmod-fs-mbcache.  You need to separately get the package from [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/kmod-fs-mbcache_2.6.32.25-1_ar71xx.ipk here], put it in the packages folder in imagebuilder and the splice the kmod-fs-mbcache section of the [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/Packages Packages file] into your packages file.
 
-svn checkout the latest build from google code ( $ svn checkout 
-http://fabfi.googlecode.com/svn/ fabfi-read-only)
+=== Building from Imagbuilder ===
 
-Enter the image builder folder in the svn image. ($ cd fabfi/imagebuilder )
+*NOTE: as of this version, you can no longer simply download the stock OpenWRT imagebuilder from OpenWRT and proceed.  You will need to separately download and build awesome-chilli from [http://afrimesh.googlecode.com/svn/branches/unstable/package-scripts/openwrt/ afrimesh].  Assuming you have done this and updated the package list (which I have no idea how to do), or built the imagebuilder from scratch above, you may proceed...*
 
-Run ffimage.sh script. ($ sh ffimage.sh)
+still in the scripts directory from above, run:
+{{{
+$ sh ffimage.sh
+}}}
 
-Enter a valid profile name (NS5L for Ubiquiti devices, WRT160NL for linksys)
+You will be asked to enter the profile name and the path to the imagebuilder.  The currently available profiles are 
+  * WRT160NLFF
+  * NS5L
+  * NS2L
+  * PICO2M
 
-Enter the path to the folder you extracted the imagebuilder ( e.g /home/user/imagebuilder)
+Note: "path to the imagebuilder" is the path to the contents of the imagebuilder folder you extracted above.  
 
-Get your image from ( /home/user/imagebuilder/Openwrt-imagebuilder-xxxx/bin) folder
+If this process completes with no errors (and it should), you will find you image in:
+{{{
+{path to imagebuilder}/bin/ar71xx/
+}}}
 
-NOTE: Imagebuilder for 10.03.1-rc4 will not build kmod-fs-mbcache.  You need to separately get the package from [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/kmod-fs-mbcache_2.6.32.25-1_ar71xx.ipk here], put it in the packages folder in imagebuilder and the splice the kmod-fs-mbcache section of the [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/Packages Packages file] into your packages file.
+The ones you are about are the .trx files ending in "factory" and "sysupgrade"
+

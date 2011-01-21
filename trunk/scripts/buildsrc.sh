@@ -21,6 +21,7 @@ IBMake=$(pwd)/openwrt
 cp -a ${IBMAKE}/* ${IBPATH}/
 
 cd ${IBPATH}
+./scripts/feeds update -a
 make V=99
 cd $here
 
