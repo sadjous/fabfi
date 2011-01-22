@@ -21,7 +21,8 @@ define Profile/WRT160NLFF
 #### Removed kmod-fs-mbcache, as it was not building in imagebuilder.  Also removed fabfi-device since We don't plan on using afrimesh anymore
 
   PACKAGES:=kmod-ath kmod-ath9k kmod-mac80211 -kmod-madwifi wpad-mini \
-awesome-chilli kmod-tun librt\
+awesome-chilli kmod-tun librt \
+nagios-plugins send-nsca libcrypt \
 libuci luci-medium luci-app-firewall luci-app-qos \
 snmpd libnetsnmp uclibcxx iperf \
 libpcap tcpdump \
@@ -30,7 +31,7 @@ olsrd olsrd-mod-nameservice olsrd-mod-txtinfo olsrd-mod-dyn-gw \
 libopenssl libpthread squid \
 -uhhtpd mini-httpd libjson netcat \
 kmod-gpio-dev kmod-input-core kmod-input-gpio-buttons kmod-input-polldev kmod-leds-gpio \
-kmod-usb-core kmod-usb2 kmod-scsi-core kmod-usb-storage kmod-fs-ext3 e2fsprogs block-extroot block-mount \
+kmod-usb-core kmod-usb2 kmod-scsi-core kmod-usb-storage kmod-fs-ext3 e2fsprogs block-extroot block-hotplug fdisk block-mount \
 -ppp -ppp-mod-pppoe -kmod-ppp -kmod-pppoe -kmod-crc-ccitt 
 
 
