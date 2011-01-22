@@ -19,7 +19,7 @@ define( "DEFAULT_START_POSITION",  "52.526039219655445, 13.411388397216797");
 define( "DEFAULT_ZOOMLEVEL",       "13");
 define( "DEFAULT_UPDATEINTERVALL", "3600");
 define( "DEFAULT_MAPTYPE",         "G_NORMAL_MAP");
-define( "PATH_TO_DATABASE",        "/tmp/");    // in the install mode, this folder have to be writeable for the webserver user
+define( "PATH_TO_DATABASE",        "/etc/sqlite/");    // in the install mode, this folder have to be writeable for the webserver user
 define( "DATABASE_FILE",           "nodedb");   // this file would be created in install mode
 
 // Availables languages, for every language a special language file should exists

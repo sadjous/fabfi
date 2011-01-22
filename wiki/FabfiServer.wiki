@@ -360,16 +360,17 @@ define( "DEFAULT_START_POSITION",  "52.526039219655445, 13.411388397216797");
 define( "DEFAULT_ZOOMLEVEL",       "13");
 define( "DEFAULT_UPDATEINTERVALL", "3600");
 define( "DEFAULT_MAPTYPE",         "G_NORMAL_MAP");
-define( "PATH_TO_DATABASE",        "/tmp/");    // in the install mode, this folder have to be writeable for the webserver user
+define( "PATH_TO_DATABASE",        "/etc/sqlite/");    // in the install mode, this folder have to be writeable for the webserver user
 define( "DATABASE_FILE",           "nodedb");   // this file would be created in install mode
 }}}
 
   * For GOOGLE_MAPS_KEY, you must get a unique key from [https://code.google.com/apis/maps/signup.html this site].
   * For PATH_TO_DATABASE, you need to create a path for sqlite to store data and give the webuser acct (www-data) rights to it.  For example:
 {{{
-mkdir /tmp/sqlite/
-sudo chown www-data /tmp/sqlite/
+mkdir /etc/sqlite/
+sudo chown www-data /etc/sqlite/
 }}}
+I don't recommend using the /tmp/ folder (freifunkmap default) as you need to reinitialize everything after a reboot.
 
   * The remaining values are self-explanatory
  
