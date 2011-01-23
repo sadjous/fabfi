@@ -388,3 +388,153 @@ you should get a google map.
 == Optional: Security ==
 
 Since this application doesn't do any sort of real security checking, you might want to update your firewall configuration to accept requests from only certain sites on the port you configure your map server to listen.  Doing this is outside the scope of this tutorial for now.
+
+== Installing Nagios
+
+Part 1: Installing Nagios on server
+
+1. Install apache2, php5, php5-gd, gcc and make using apt-get
+	sudo apt-get install apache2 php5 php-gd gcc make 
+
+2. Download the the latest Nagios core and Nagios plugins from http://www.nagios.org/download
+
+3. Create a nagios user and usergroup
+	sudo useradd nagios
+	sudo passwd nagios  #assign the new user a password
+	sudo groupadd nagios
+	sudo groupadd nagcmd
+
+4. Add the nagios user to the nagios and nagcmd groups
+	sudo usermod -G nagios nagios
+ 	sudo usermod -a -G nagcmd nagios
+
+6. Add the apache user to the group nagcmd
+	sudo usermod -a -G nagcmd www-data
+
+7. Extract the tar.gz files : tar -xzvf nagios-x.y.z.tar.gz
+
+8. Change into the extracted folder
+	cd nagios-x.y.z
+
+9. Run the configure and make scripts
+	sudo ./configure –with-command-group=nagcmd
+	sudo make all
+
+10. Install everything
+	sudo make install
+	sudo make install-init
+	sudo make install-config
+	sudo make install-commandmode
+
+11. Configure the web interface
+	sudo make install-webconf
+	
+12. Create the nagios admin account and assign it a password
+	sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+13. Restart apache
+	sudo /etc/init.d/apache2 reload
+
+14. Extract the plugins folder
+	tar -xzvf nagios-plugins-x.y.z
+
+15. Change into the extracted directory
+	cd nagios-plugins-x.y.z
+
+16. Compile the plugins
+	sudo ./configure –with-nagios-user=nagios –with-nagios-group=nagios
+
+17. Make and install the plugins
+	sudo make && sudo make install
+
+18. Add nagios to init ( to start it up when system starts up)
+	sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
+
+19. Check for any errors. Run
+	sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+20. If there are no errors, start nagios
+	sudo /etc/init.d/nagios start
+
+21. Open the web interface. Point your browser to http://localhost/nagios or if installed on a different server, http://address-of-server/nagios
+
+
+
+Part 2: Install Nagios on OpenWRT
+
+We'll install nagios-plugins, and send_nsca. send_nsca passively reports monitoring info to the nagios server.
+alternaively, we could install nrpe for active monitoring - however, the server must have a route to the devices. Passive monitoring only requires the devices to have a route to the server.
+
+If interested in active monitoring, read http://nagios.sourceforge.net/docs/nrpe/NRPE.pdf
+
+Install nagios-plugins and send_nsca
+	opkg update
+	opkg install nagios-plugins
+	opkg install send_nsca
+
+Part 3 - Install nsca on nagios server
+
+1. Download the latest nsca from http://prdownloads.sourceforge.net/sourceforge/nagios/nsca-x.y.z.tar.gz
+
+2. Extract the tar ball and change into the extracted folder with
+	tar -xzvf nsca-x.y.z.tar.gz && cd nsca-x.y.z
+
+3. Configure and make 
+	./configure && make all
+
+4. Install nsca
+	cp src/nsca /usr/local/nagios/bin
+	cp sample_config/nsca.cfg /usr/local/nagios/etc
+
+5. Edit nsca config file 
+	sudo nano /usr/local/nagios/etc/nsca.cfg
+	#Comment out server_address and set debug to 1, comment out encryption password and set encryption off
+
+6. Run nsca 
+	sudo /usr/local/nagios/bin/nsca -c /usr/local/nagios/etc/nsca.cfg
+
+7. Check if nsca port is open. From another computer (in the network), run
+	telnet [address of server] 5667
+
+
+Part 4 : Test send_nsca
+
+1. On the openwrt router, edit /etc/send_nsca.cfg
+ 	vi /etc/send_nsca.cfg
+	#comment out encryption password and set encryption off
+
+2. create a text file (name it 'test') and insert the following (use tabs, not spaces)
+ 
+	localhost	TestMessage	0	This is a test message. [return]
+	
+3. Save the file and then run
+	send_nsca -H [address_of_nagios_server]  < test
+
+	#if successful, you should see "1 data packet(s) sent to host successfully"
+
+
+Part 5: Further configurations of Nagios Server
+
+1. Start nsca on nagios startup
+	#edit /etc/init.d/nagios
+	sudo nano /etc/init.d/nagios
+	# add this line to the start section
+	/usr/local/nagios/bin/nsca -c /usr/local/nagios/etc/nsca.cfg
+	#and this to the stop section
+	kill nsca.pid
+
+	
+References: 
+	http://www.ghacks.net/2009/06/08/how-to-install-nagios-on-ubuntu-server/
+
+	http://www.smallbusinesstech.net/more-complicated-instructions/nagios/setting-up-nagios-on-a-debian-server-to-remotely-monitor-an-openwrt-router
+
+	http://www.crucialwebhost.com/blog/using-nrpe-to-monitor-remote-services/
+
+	http://www.thegeekstuff.com/2008/06/how-to-monitor-remote-linux-host-using-nagios-30/
+	
+	http://nagios.sourceforge.net/download/contrib/documentation/misc/NSCA_Setup.pdf
+
+	http://nagios.sourceforge.net/docs/2_0/distributed.html
+
+	http://www.packtpub.com/article/passive-checks-nsca-nagios-service-check-acceptor
