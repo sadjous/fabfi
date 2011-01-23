@@ -385,11 +385,11 @@ http://{path to map script}/
 }}}
 you should get a google map. 
 
-== Optional: Security ==
+=== Optional: Security ===
 
 Since this application doesn't do any sort of real security checking, you might want to update your firewall configuration to accept requests from only certain sites on the port you configure your map server to listen.  Doing this is outside the scope of this tutorial for now.
 
-== Installing Nagios
+== Installing Nagios ==
 
 Part 1: Installing Nagios on server
 
