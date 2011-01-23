@@ -2,9 +2,8 @@
 
 # for running on systems without the freifunk firmware you need to setup
 # some parameters
-
 # nodeCorrds are the longitude and the latitude, for example "43.2323232, 12.3245934"
-nodeCoords="52.50912991559181, 13.448445796966553"
+include nodeCoords.sh
 # updateIntervall should be a value between minute | hourly | daily | monthly
 # this defined the lifetime of the node in the map ( lifetime = 2 * updateIntervall)
 updateIntervall="minute"
@@ -13,9 +12,9 @@ mapServer="http://www.layereight.de/freifunkmap.php"
 # httpInfoPlugin configures the URL and the port of the olsr node with running httpInfoPlugin
 # you wish to update, that must not be the same where this script is running, but the neighbour 
 # nodes should be accessebil from this node
-httpInfoPlugin="http://127.0.0.1:8000"
+httpInfoPlugin=""
 # like httpInfoPlugin but for nodes with running textInfoPlugin
-textInfoPlugin=""
+textInfoPlugin="http://127.0.0.1:2006"
 # the note you wish to place in the map
 note="x86 test"
 
