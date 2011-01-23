@@ -101,6 +101,25 @@ until (echo $nodetype | grep "^[1-7]$"); do
 	read nodetype
 done 
 
+if [ $nodetype == "3" ] || [ $nodetype == "7"  ]; then
+	echo "Enter your radius secret"
+	read radsecret
+	done
+fi
+
+headnode="n"
+if [ $nodetype == 1 ] || [ $nodetype == 5 ]; then
+	until (echo $headnode | grep "^[yn]$"); do
+		echo "Is this a headnode? (y/n)"
+		read headnode
+	done
+fi
+if [ $headnode == "y" ]; then
+	echo "/usr/bin/nagios -d /etc/nagios/nagios.cfg" >> /etc/init.d/custom-user-startup
+fi
+
+
+
 
 #echo "ENTER THE FOLLOWING FOR COOVA.NET RADIUS CONFIG (or nothing's going to work)"
 #echo "The next version of this script will allow configuration with different servers or without RADIUS..."
@@ -348,18 +367,17 @@ uci set chilli.options.wwwbin=/etc/chilli/wwwsh
 uci set chilli.@configuration[0]=configuration                                          
 uci set chilli.@configuration[0].name=default                                           
 uci set chilli.@configuration[0].locationname=${fabfi_num}                         
-uci set chilli.@configuration[0].uamallowed=172.16.0.0/16,10.0.0.0/8                    
-uci set chilli.@configuration[0].radiusserver1=radius.joinafrica.org    
-uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                          
-uci set chilli.@configuration[0].radiussecret=cisco123                                  
-uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}     
-uci set chilli.@configuration[0].uamserver=http://portal.joinafrica.org/uam  
-uci set chilli.@configuration[0].uamhomepage=http://portal.joinafrica.org/uam/coova.html                                                   
-uci set chilli.@configuration[0].uamaliasname=chilli                                    
-uci set chilli.@configuration[0].adminuser=chilli                                       
-uci set chilli.@configuration[0].adminpasswd=cisco123                                   
+uci set chilli.@configuration[0].uamallowed=41.204.176.0/24,10.0.0.0/8                    
+uci set chilli.@configuration[0].radiusserver1=radius.mesh    
+#uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
+uci set chilli.@configuration[0].radiussecret=${radsecret}                                  
+uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}                                    
+uci set chilli.@configuration[0].uamserver=http://10.116.${fabfi_num}.1/uam  
+uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}:3990.1/uam/coova.html     
+uci set chilli.@configuration[0].uamaliasname=chilli                                                               
 uci set chilli.@configuration[0].papalwaysok=1                                          
 uci set chilli.@configuration[0].mschapv2=0 
+
 /etc/init.d/chilli enable
 
 	uci add olsrd Hna4
@@ -501,6 +519,10 @@ uci set dhcp.@domain[-1].ip=10.103.0.254
 uci add dhcp domain
 uci set dhcp.@domain[-1]=domain
 uci set dhcp.@domain[-1].name=master.mesh
+uci set dhcp.@domain[-1].ip=10.103.0.254
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=radius.mesh
 uci set dhcp.@domain[-1].ip=10.103.0.254
 
 uci set wireless.radio0.disabled=0

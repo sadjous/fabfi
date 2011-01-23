@@ -45,6 +45,15 @@ until ((echo $fabfi_num | grep "^1[0-9][0-9]$")||(echo $fabfi_num |
 	read fabfi_num
 done 
 
+
+until (echo $headnode | grep "^[yn]$"); do
+	echo "Is this a headnode? (y/n)"
+	read headnode
+done
+
+
+
+
 channel=200
 until (test $channel -lt 166); do
 #until (echo $channel | grep "[1-9][0-9]\{0,1\}$"); do
@@ -78,8 +87,13 @@ done
 
 location="////";
 until (echo $location | grep "^[0-9a-zA-z\-\_]*$"); do
-	echo "What is your location?  NO SPACES or special characters:"
+	echo "What is your device name?  NO SPACES or special characters:"
 	read location
+done 
+
+until (echo $gps | grep "^[0-9a-zA-z\-\_]*$"); do
+	echo "What is your GPS location? (N{1,3}.NNNNN, N{1,3},NNNNN)"
+	read gps
 done 
 
 until (echo $nodetype | grep "^[1-7]$"); do
@@ -92,6 +106,47 @@ until (echo $nodetype | grep "^[1-7]$"); do
 	read nodetype
 done 
 
+if [ $nodetype == "2" ] || [ $nodetype == "4" ]; then
+	echo "Enter your radius secret"
+	read radsecret
+fi
+
+
+if  [ $headnode == "n" ]; then
+	/etc/init.d/squid disable
+else
+	echo "/usr/bin/nagios -d /etc/nagios/nagios.cfg" >> /etc/init.d/custom-user-startup
+	until (echo $squidme | grep "^[yn]$"); do
+	echo "do you want to configure squid on your headnode? This will require you to have your USB disk ready (y/n)"
+	read squidme
+	done
+	if test $squidme="y"
+		then
+		echo "Insert your USB disk and press ENTER"
+		read junk	
+
+		echo "d to delete all partitions"
+		echo "n for new partition"
+		echo "p for primary partition"
+		echo "1 for partition number"
+		echo "<enter> 2x for defaults"
+		echo "w to write changes"
+		sleep 2
+		fdisk /dev/sda
+		mkfs.ext3 /dev/sda1
+		mkdir /home
+		chmod 777 /home
+		uci fstab.@mount[0].enabled=1
+		/etc/init.d/fstab restart
+		sleep 1
+		squid -z
+	else
+		/etc/init.d/squid disable
+	fi
+fi
+
+echo "nodeCoords=\"$gps\"" > /etc/fabfi-scripts/fabfimap.cfg
+echo $gps > /www/mygooglemapcoords.txt
 
 let m_dIP="$fabfi_num+$ff_dIP"
 #echo MESH and WIFIMESH Class D IP is: $meshing_dIP
@@ -184,7 +239,7 @@ if [ $nodetype == "1" ]; then
 else if [ $nodetype == "2" ]; then
 	uci set wireless.@wifi-iface[0].mode="ap"
 	uci set network.wifimesh.ipaddr=${ff_wm_abIP}${ff_m_cIP}${m_dIP}
-	uci set wireless.@wifi-iface[1].ssid="MakerNet by Fabfi "${channel}
+	uci set wireless.@wifi-iface[1].ssid="JoinAfrica "${fabfi_num}
 	uci set wireless.@wifi-iface[1].mode="ap"
 	uci set wireless.@wifi-iface[1].network="lan"
 
@@ -230,16 +285,14 @@ uci set chilli.options.wwwbin=/etc/chilli/wwwsh
 uci set chilli.@configuration[0]=configuration                                          
 uci set chilli.@configuration[0].name=default                                           
 uci set chilli.@configuration[0].locationname=${fabfi_num}                         
-uci set chilli.@configuration[0].uamallowed=172.16.0.0/16,10.0.0.0/8                    
-uci set chilli.@configuration[0].radiusserver1=radius.joinafrica.org    
-uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
-uci set chilli.@configuration[0].radiussecret=cisco123                                  
+uci set chilli.@configuration[0].uamallowed=41.204.176.0/24,10.0.0.0/8                    
+uci set chilli.@configuration[0].radiusserver1=radius.mesh    
+#uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
+uci set chilli.@configuration[0].radiussecret=${radsecret}                                
 uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}                                    
-uci set chilli.@configuration[0].uamserver=http://portal.joinafrica.org/uam  
-uci set chilli.@configuration[0].uamhomepage=http://portal.joinafrica.org/uam/coova.html     
-uci set chilli.@configuration[0].uamaliasname=chilli                                    
-uci set chilli.@configuration[0].adminuser=chilli                                       
-uci set chilli.@configuration[0].adminpasswd=cisco123                                   
+uci set chilli.@configuration[0].uamserver=http://10.116.${fabfi_num}.1/uam  
+uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}:3990.1/uam/coova.html     
+uci set chilli.@configuration[0].uamaliasname=chilli                                                                      
 uci set chilli.@configuration[0].papalwaysok=1                                          
 uci set chilli.@configuration[0].mschapv2=0 
 /etc/init.d/chilli enable
@@ -320,16 +373,14 @@ uci set chilli.options.wwwbin=/etc/chilli/wwwsh
 uci set chilli.@configuration[0]=configuration                                          
 uci set chilli.@configuration[0].name=default                                           
 uci set chilli.@configuration[0].locationname=${fabfi_num}                         
-uci set chilli.@configuration[0].uamallowed=172.16.0.0/16,10.0.0.0/8                    
-uci set chilli.@configuration[0].radiusserver1=radius.joinafrica.org    
-uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                              
-uci set chilli.@configuration[0].radiussecret=cisco123                                  
+uci set chilli.@configuration[0].uamallowed=41.204.176.0/24,10.0.0.0/8                    
+uci set chilli.@configuration[0].radiusserver1=radius.mesh    
+#uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
+uci set chilli.@configuration[0].radiussecret=${radsecret}                                  
 uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}                                    
-uci set chilli.@configuration[0].uamserver=http://portal.joinafrica.org/uam  
-uci set chilli.@configuration[0].uamhomepage=http://portal.joinafrica.org/uam/coova.html 
-uci set chilli.@configuration[0].uamaliasname=chilli                                    
-uci set chilli.@configuration[0].adminuser=chilli                                       
-uci set chilli.@configuration[0].adminpasswd=cisco123                                   
+uci set chilli.@configuration[0].uamserver=http://10.116.${fabfi_num}.1/uam  
+uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}:3990.1/uam/coova.html     
+uci set chilli.@configuration[0].uamaliasname=chilli                                                                     
 uci set chilli.@configuration[0].papalwaysok=1                                          
 uci set chilli.@configuration[0].mschapv2=0 
 /etc/init.d/chilli enable
@@ -373,9 +424,13 @@ uci set dhcp.@domain[-1]=domain
 uci set dhcp.@domain[-1].name=time.mesh
 uci set dhcp.@domain[-1].ip=10.103.0.254
 uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
 uci set dhcp.@domain[-1].name=master.mesh
 uci set dhcp.@domain[-1].ip=10.103.0.254
-
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=radius.mesh
+uci set dhcp.@domain[-1].ip=10.103.0.254
 
 
 uci set wireless.radio0.disabled=0
