@@ -96,5 +96,11 @@ config 'rule'
 	option 'proto' 'tcp'
 	option 'dest_port' '22'
 
+config 'rule'
+	option 'target' 'ACCEPT'
+	option '_name' 'Nagios'
+	option 'src' 'wan'
+	option 'proto' 'tcp'
+	option 'dest_port' '5666'
 
 

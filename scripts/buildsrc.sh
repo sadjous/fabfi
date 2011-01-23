@@ -4,6 +4,9 @@
 #read owrtv
 #OWRTPATH=openwrt
 #IBPATH=../../../openwrt/$owrtv/bin/ar71xx/
+echo "Before running this script, you should update your Openwrt source and then run"
+echo "./scripts/feeds update -a"
+echo "from the source directory"
 echo "WARNING. THIS SCRIPT WILL IRREVOCABLY CHANGE YOUR SOURCE DIRECTORY!!"
 sleep 1;
 
@@ -13,16 +16,14 @@ here=$(pwd) #svn/fabfi/trunk/scripts/
 echo "enter path to the contents of your source directory (no trailing /)"
 read IBPATH
 
-#IBDIR='OpenWrt-ImageBuilder-ar71xx-for-Linux-i686'
-
 cd ../
 IBMake=$(pwd)/openwrt
 
-cp -a ${IBMAKE}/* ${IBPATH}/
-
 cd ${IBPATH}
-./scripts/feeds update -a
-make V=99
+cp -a ${IBMake}/.config ${IBPATH}/
+cp -a ${IBMake}/feeds.conf.default ${IBPATH}/
 cd $here
-
+echo "now go back to the openwrt source and run"
+echo "make V=99"
+sleep 5
 

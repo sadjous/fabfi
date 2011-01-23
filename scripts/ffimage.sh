@@ -4,6 +4,8 @@
 #read owrtv
 #OWRTPATH=openwrt
 #IBPATH=../../../openwrt/$owrtv/bin/ar71xx/
+echo "WARNING, this script will forever change your imagebuilder!"
+sleep 1;
 echo "pick a profile (and you'd better spell it right or this thing blows up)"
 read profile
 
@@ -18,24 +20,32 @@ read IBPATH
 cd ../
 IBMake=$(pwd)/imagebuilder/target/linux/ar71xx/image/${profile}/Makefile
 
-rm -f ${IBPATH}/target/linux/ar71xx/profiles/${profile}.mk
-rm -f ${IBPATH}/target/linux/ar71xx/image/Makefile
+#rm -f ${IBPATH}/target/linux/ar71xx/profiles/${profile}.mk
+#rm -f ${IBPATH}/target/linux/ar71xx/image/Makefile
 rm -rf ${IBPATH}/fabfi
 
 
-ln -s $(pwd)/imagebuilder/target/linux/ar71xx/profiles/${profile}.mk ${IBPATH}/target/linux/ar71xx/profiles/${profile}.mk
-ln -s $IBMake ${IBPATH}/target/linux/ar71xx/image/Makefile
+cp -f  $(pwd)/imagebuilder/target/linux/ar71xx/profiles/${profile}/* ${IBPATH}/target/linux/ar71xx/profiles/
+cp -f $IBMake ${IBPATH}/target/linux/ar71xx/image/Makefile
 
 
-cp -a $(pwd)/files/router_configs/${profile} ${IBPATH}/fabfi/
+#cp -a $(pwd)/files/router_configs/${profile} ${IBPATH}/fabfi/
+mkdir ${IBPATH}/fabfi
+cp -a $(pwd)/files/router_configs/${profile} /tmp/fabfi/
+cp -a $(pwd)/files/router_configs/common/* /tmp/fabfi/
+find /tmp/fabfi -name '.svn' -exec rm -rf {} \;
+cp -a /tmp/fabfi ${IBPATH}/
+
+rm -rf /tmp/fabfi
 #cp -a $(pwd)/files/router_configs/common/* ${IBPATH}/fabfi/${profile}
-cp -a $(pwd)/files/router_configs/common/* ${IBPATH}/fabfi/
+
+
 
 cd ${IBPATH}
 make image PROFILE=${profile}
 cd $here
 
-rm -f ${IBPATH}/target/linux/ar71xx/profiles/${profile}.mk
-rm -f ${IBPATH}/target/linux/ar71xx/image/Makefile
-rm -rf ${IBPATH}/fabfi
+#rm -f ${IBPATH}/target/linux/ar71xx/profiles/${profile}.mk
+#rm -f ${IBPATH}/target/linux/ar71xx/image/Makefile
+#rm -rf ${IBPATH}/fabfi
 
