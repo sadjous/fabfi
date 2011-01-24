@@ -88,6 +88,12 @@ until (echo $location | grep "^[0-9a-zA-z\-\_]*$"); do
 	read location
 done 
 
+gps=""
+#until (echo $gps | grep "^[0-9a-zA-z\-\_]*$"); do
+	echo "What is your GPS location? (N{1,3}.NNNNN, N{1,3},NNNNN). There's no check on this text so don't screw it up!"
+	read gps
+#done 
+
 until (echo $nodetype | grep "^[1-7]$"); do
 	echo "Choose one: "
 	echo "1: WAN / AP"
@@ -104,7 +110,6 @@ done
 if [ $nodetype == "3" ] || [ $nodetype == "7"  ]; then
 	echo "Enter your radius secret"
 	read radsecret
-	done
 fi
 
 headnode="n"
@@ -116,9 +121,33 @@ if [ $nodetype == 1 ] || [ $nodetype == 5 ]; then
 fi
 if [ $headnode == "y" ]; then
 	echo "/usr/bin/nagios -d /etc/nagios/nagios.cfg" >> /etc/init.d/custom-user-startup
+	#Configure this node to advertise the local domains of importance.  NOTE: This needs to be generalized to multiple headnodes someday
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=time.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=master.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=radius.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=map.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+#uci add olsrd Hna4
+#uci set olsrd.@Hna4[-1]=Hna4
+#uci set olsrd.@Hna4[-1].netaddr=10.103.0.254
+#uci set olsrd.@Hna4[-1].netmask=255.255.255.255
+
 fi
 
-
+echo "nodeCoords=\"$gps\"" > /etc/fabfi-scripts/fabfimap.cfg
+echo "note=\"${fabfi_num} - ${location}\"" >> /etc/fabfi-scripts/fabfimap.cfg
+echo $gps > /www/mygooglemapcoords.txt
 
 
 #echo "ENTER THE FOLLOWING FOR COOVA.NET RADIUS CONFIG (or nothing's going to work)"
@@ -353,8 +382,8 @@ if [ $nodetype == "3" ]; then
 uci set chilli.options=chilli                                                           
 uci set chilli.options.debug=0                                                          
 uci set chilli.options.configuration=default                                            
-uci set chilli.options.dhcpif=wlan1                                                     
-uci set chilli.options.tundev=tun0                                                      
+uci set chilli.options.dhcpif=wlan1   
+uci set chilli.options.tundev=tun0                                                                                                       
 uci set chilli.options.net=10.116.${fabfi_num}.0/24                                             
 uci set chilli.options.dhcpstart=100                                                    
 uci set chilli.options.dhcpend=150                                                      
@@ -373,7 +402,7 @@ uci set chilli.@configuration[0].radiusserver1=radius.mesh
 uci set chilli.@configuration[0].radiussecret=${radsecret}                                  
 uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}                                    
 uci set chilli.@configuration[0].uamserver=http://10.116.${fabfi_num}.1/uam  
-uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}:3990.1/uam/coova.html     
+uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}.1:3990/www/coova.html     
 uci set chilli.@configuration[0].uamaliasname=chilli                                                               
 uci set chilli.@configuration[0].papalwaysok=1                                          
 uci set chilli.@configuration[0].mschapv2=0 
@@ -511,19 +540,6 @@ fi
 fi
 
 uci set olsrd.@LoadPlugin[${ns_index}].name=fabfi${fabfi_num}
-
-uci add dhcp domain
-uci set dhcp.@domain[-1]=domain
-uci set dhcp.@domain[-1].name=time.mesh
-uci set dhcp.@domain[-1].ip=10.103.0.254
-uci add dhcp domain
-uci set dhcp.@domain[-1]=domain
-uci set dhcp.@domain[-1].name=master.mesh
-uci set dhcp.@domain[-1].ip=10.103.0.254
-uci add dhcp domain
-uci set dhcp.@domain[-1]=domain
-uci set dhcp.@domain[-1].name=radius.mesh
-uci set dhcp.@domain[-1].ip=10.103.0.254
 
 uci set wireless.radio0.disabled=0
 

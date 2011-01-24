@@ -66,7 +66,7 @@ echo "`date` dns is [$myvar4] (blank if not set in nameservice)" >> $LG
         then                                                   
 echo "`date` setting server and restarting" >> $LG                     
         $OLSRD stop                                            
-        sleep 3                                                
+        sleep 2                                                
         set_name                                               
         $OLSRD start                                           
     else                                                           
@@ -76,7 +76,7 @@ echo "`date` server already set" >> $LG
         else                              
 echo "`date` updating server and restarting" >> $LG
             $OLSRD stop                
-            sleep 3                    
+            sleep 2                    
             set_name                   
             $OLSRD start               
         fi                                 
@@ -89,7 +89,7 @@ clear_server() {
 		then
 echo "`date` clearing server and restarting" >> $LG
 		$OLSRD stop
-		sleep 3
+		sleep 2
 		clear_name
 		$OLSRD start
 	else

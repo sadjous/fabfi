@@ -91,11 +91,13 @@ until (echo $location | grep "^[0-9a-zA-z\-\_]*$"); do
 	read location
 done 
 
-until (echo $gps | grep "^[0-9a-zA-z\-\_]*$"); do
-	echo "What is your GPS location? (N{1,3}.NNNNN, N{1,3},NNNNN)"
+gps=""
+#until (echo $gps | grep "^[0-9a-zA-z\-\_]*$"); do
+	echo "What is your GPS location? (N{1,3}.NNNNN, N{1,3},NNNNN). There's no check on this text so don't screw it up!"
 	read gps
-done 
+#done 
 
+if  [ $headnode == "n" ]; then
 until (echo $nodetype | grep "^[1-7]$"); do
 	echo "Choose a radio mode: "
 	echo "1: STA"
@@ -105,17 +107,58 @@ until (echo $nodetype | grep "^[1-7]$"); do
 	echo "5: Fabfi AP"
 	read nodetype
 done 
+else
+	echo "What is the IP of your cloud server?. There's no check on this text so don't screw it up!"
+	read cloudIP
+
+until (echo $nodetype | grep "^[135]$"); do
+	echo "Choose a radio mode: "
+	echo "1: STA"
+	echo "3: ADHOC"
+	echo "5: Fabfi AP"
+	read nodetype
+done 
+fi
 
 if [ $nodetype == "2" ] || [ $nodetype == "4" ]; then
 	echo "Enter your radius secret"
 	read radsecret
 fi
 
+let m_dIP="$fabfi_num+$ff_dIP"
+#echo MESH and WIFIMESH Class D IP is: $meshing_dIP
 
-if  [ $headnode == "n" ]; then
-	/etc/init.d/squid disable
-else
+let lan_cIP="$fabfi_num+$ff_cIP" 
+#echo LAN Class C IP is: $lan_cIP
+
+# Free up some memory so we don't crap ourselves
+/etc/init.d/nrpe stop
+
+if  [ $headnode == "y" ]; then
 	echo "/usr/bin/nagios -d /etc/nagios/nagios.cfg" >> /etc/init.d/custom-user-startup
+
+	#Configure this node to advertise the local domains of importance.  NOTE: This needs to be generalized to multiple headnodes someday
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=time.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=master.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=radius.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=map.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+#uci add olsrd Hna4
+#uci set olsrd.@Hna4[-1]=Hna4
+#uci set olsrd.@Hna4[-1].netaddr=10.103.0.254
+#uci set olsrd.@Hna4[-1].netmask=255.255.255.255
+
 	until (echo $squidme | grep "^[yn]$"); do
 	echo "do you want to configure squid on your headnode? This will require you to have your USB disk ready (y/n)"
 	read squidme
@@ -125,6 +168,8 @@ else
 		echo "Insert your USB disk and press ENTER"
 		read junk	
 
+		umount /home 
+		rmdir /home
 		echo "d to delete all partitions"
 		echo "n for new partition"
 		echo "p for primary partition"
@@ -135,24 +180,25 @@ else
 		fdisk /dev/sda
 		mkfs.ext3 /dev/sda1
 		mkdir /home
-		chmod 777 /home
-		uci fstab.@mount[0].enabled=1
+		uci set fstab.@mount[0].enabled=1
+		uci commit fstab
 		/etc/init.d/fstab restart
 		sleep 1
+		mkdir /home/squid
+		mkdir /home/squid/log
+		mkdir /home/squid/cache
+		chmod -R 777 /home/squid
 		squid -z
-	else
-		/etc/init.d/squid disable
+		echo "ln -s /home/squid/log/ /var/logs" >> /etc/init.d/custom-user-startup
+		echo "squid" >> /etc/init.d/custom-user-startup
+		echo "iptables -t nat -A PREROUTING -p tcp -d ! 10.0.0.0/8 --dport 80 -j DNAT --to ${ff_m_abIP}${ff_m_cIP}${m_dIP}:3128" > /etc/firewall.user
 	fi
 fi
 
 echo "nodeCoords=\"$gps\"" > /etc/fabfi-scripts/fabfimap.cfg
+echo "note=\"${fabfi_num} - ${location}\"" >> /etc/fabfi-scripts/fabfimap.cfg
 echo $gps > /www/mygooglemapcoords.txt
 
-let m_dIP="$fabfi_num+$ff_dIP"
-#echo MESH and WIFIMESH Class D IP is: $meshing_dIP
-
-let lan_cIP="$fabfi_num+$ff_cIP" 
-#echo LAN Class C IP is: $lan_cIP
 
 ###for all types
 #pick SSID of 0 based on channel
@@ -201,7 +247,7 @@ uci set wireless.@wifi-iface[0].key=$wep_key
 uci set wireless.@wifi-iface[0].ssid=ff${channel}
 
 
-uci set network.alan.ifname="eth0.0"
+uci set network.alan.ifname="eth0.1" #fixed
 uci set network.alan.ipaddr=${ff_al_abIP}${lan_cIP}.${ff_gw_dIP}
 uci set dhcp.alan.start=${dhcp_start}
 uci set dhcp.alan.limit=${dhcp_limit}
@@ -225,6 +271,7 @@ uci set network.mesh.ipaddr=${ff_m_abIP}${ff_m_cIP}${m_dIP}
 uci set network.@alias[0].interface="mesh"
 
 if [ $nodetype == "1" ]; then
+	uci set mini_snmpd.@mini_snmpd[0].interfaces=eth0.1,eth0.2,eth1,wlan0
 	uci set wireless.@wifi-iface[0].mode="sta"
 	uci set wireless.radio0.channel="auto"
 	uci set network.wifimesh.ipaddr=${ff_wm_abIP}${ff_m_cIP}${m_dIP}
@@ -237,6 +284,7 @@ if [ $nodetype == "1" ]; then
 	uci delete dhcp.lan
 
 else if [ $nodetype == "2" ]; then
+	uci set mini_snmpd.@mini_snmpd[0].interfaces=eth0.2,eth1,wlan0,wlan1
 	uci set wireless.@wifi-iface[0].mode="ap"
 	uci set network.wifimesh.ipaddr=${ff_wm_abIP}${ff_m_cIP}${m_dIP}
 	uci set wireless.@wifi-iface[1].ssid="JoinAfrica "${fabfi_num}
@@ -271,8 +319,8 @@ else if [ $nodetype == "2" ]; then
 uci set chilli.options=chilli                                                           
 uci set chilli.options.debug=0                                                          
 uci set chilli.options.configuration=default                                            
-uci set chilli.options.dhcpif=wlan1                                                     
-uci set chilli.options.tundev=tun0                                                      
+uci set chilli.options.dhcpif=wlan1          
+uci set chilli.options.tundev=tun0                                                                                                  
 uci set chilli.options.net=10.116.${fabfi_num}.0/24                                             
 uci set chilli.options.dhcpstart=100                                                    
 uci set chilli.options.dhcpend=150                                                      
@@ -291,7 +339,7 @@ uci set chilli.@configuration[0].radiusserver1=radius.mesh
 uci set chilli.@configuration[0].radiussecret=${radsecret}                                
 uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}                                    
 uci set chilli.@configuration[0].uamserver=http://10.116.${fabfi_num}.1/uam  
-uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}:3990.1/uam/coova.html     
+uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}.1:3990/www/coova.html     
 uci set chilli.@configuration[0].uamaliasname=chilli                                                                      
 uci set chilli.@configuration[0].papalwaysok=1                                          
 uci set chilli.@configuration[0].mschapv2=0 
@@ -306,6 +354,7 @@ uci set chilli.@configuration[0].mschapv2=0
 	uci set olsrd.@Interface[${wifimesh_index}].ignore="0"
 
 else if [ $nodetype == "3" ]; then
+	uci set mini_snmpd.@mini_snmpd[0].interfaces=eth0.1,eth0.2,eth1,wlan0
 	uci set wireless.@wifi-iface[0].mode="adhoc"
 	uci set wireless.@wifi-iface[0].bssid=$bssid
 	uci set wireless.@wifi-iface[0].network="adhocmesh"
@@ -329,7 +378,7 @@ else if [ $nodetype == "3" ]; then
 	uci delete network.wifimesh
 	uci delete dhcp.wifimesh
 else if [ $nodetype == "4" ]; then
-
+	uci set mini_snmpd.@mini_snmpd[0].interfaces=eth0.1,eth0.2,eth1,wlan0
 	uci set wireless.@wifi-iface[1].ssid="JoinAfrica "${fabfi_num}
 	uci set wireless.@wifi-iface[1].mode="ap"
 	uci set wireless.@wifi-iface[1].network="lan"
@@ -359,8 +408,8 @@ else if [ $nodetype == "4" ]; then
 uci set chilli.options=chilli                                                           
 uci set chilli.options.debug=0                                                          
 uci set chilli.options.configuration=default                                            
-uci set chilli.options.dhcpif=wlan0                                                    
-uci set chilli.options.tundev=tun0                                                      
+uci set chilli.options.dhcpif=wlan0              
+uci set chilli.options.tundev=tun0                                                                                          
 uci set chilli.options.net=10.116.${fabfi_num}.0/24                                             
 uci set chilli.options.dhcpstart=100                                                    
 uci set chilli.options.dhcpend=150                                                      
@@ -379,7 +428,7 @@ uci set chilli.@configuration[0].radiusserver1=radius.mesh
 uci set chilli.@configuration[0].radiussecret=${radsecret}                                  
 uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}                                    
 uci set chilli.@configuration[0].uamserver=http://10.116.${fabfi_num}.1/uam  
-uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}:3990.1/uam/coova.html     
+uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}.1:3990/www/coova.html     
 uci set chilli.@configuration[0].uamaliasname=chilli                                                                     
 uci set chilli.@configuration[0].papalwaysok=1                                          
 uci set chilli.@configuration[0].mschapv2=0 
@@ -398,6 +447,7 @@ uci set chilli.@configuration[0].mschapv2=0
 	uci delete dhcp.wifimesh
 
 else if [ $nodetype == "5" ]; then
+	uci set mini_snmpd.@mini_snmpd[0].interfaces=eth0.1,eth0.2,eth1,wlan0
 	uci set wireless.@wifi-iface[0].mode="ap"
 	uci set network.wifimesh.ipaddr=${ff_wm_abIP}${ff_m_cIP}${m_dIP}
 
@@ -418,19 +468,6 @@ fi
 fi
 
 uci set olsrd.@LoadPlugin[${ns_index}].name=fabfi${fabfi_num}
-
-uci add dhcp domain
-uci set dhcp.@domain[-1]=domain
-uci set dhcp.@domain[-1].name=time.mesh
-uci set dhcp.@domain[-1].ip=10.103.0.254
-uci add dhcp domain
-uci set dhcp.@domain[-1]=domain
-uci set dhcp.@domain[-1].name=master.mesh
-uci set dhcp.@domain[-1].ip=10.103.0.254
-uci add dhcp domain
-uci set dhcp.@domain[-1]=domain
-uci set dhcp.@domain[-1].name=radius.mesh
-uci set dhcp.@domain[-1].ip=10.103.0.254
 
 
 uci set wireless.radio0.disabled=0

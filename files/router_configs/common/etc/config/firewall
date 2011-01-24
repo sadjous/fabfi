@@ -103,4 +103,33 @@ config 'rule'
 	option 'proto' 'tcp'
 	option 'dest_port' '5666'
 
+#doing this in firewall.user now
+#config redirect
+#        option src 'lan'
+#        option src_dport 80
+#        option proto tcp
+#        option dest_ip 10.103.0.20
+#	option dest_port 3128
+
+#config redirect
+#        option src 'tunnel'
+#        option src_dport 80
+#        option proto tcp
+#        option dest_ip 10.103.0.20
+#	option dest_port 3128
+
+#config redirect
+#        option src 'mesh'
+#        option src_dport 80
+#        option proto tcp
+#        option dest_ip 10.103.0.20
+#	option dest_port 3128
+
+#config redirect
+#        option src 'wifimesh'
+#        option src_dport 80
+#        option proto tcp
+#        option dest_ip 10.103.0.20
+#	option dest_port 3128
+
 

@@ -3,20 +3,19 @@
 # for running on systems without the freifunk firmware you need to setup
 # some parameters
 # nodeCorrds are the longitude and the latitude, for example "43.2323232, 12.3245934"
-include nodeCoords.sh
+# the note you wish to place in the map
+include fabfimap.cfg
 # updateIntervall should be a value between minute | hourly | daily | monthly
 # this defined the lifetime of the node in the map ( lifetime = 2 * updateIntervall)
 updateIntervall="minute"
 # mapServer is the URL of the mapServer, for example "http://www.layereight.de/freifunkmap.php"
-mapServer="http://www.layereight.de/freifunkmap.php"
+mapServer="http://map.mesh/live/index.php"
 # httpInfoPlugin configures the URL and the port of the olsr node with running httpInfoPlugin
 # you wish to update, that must not be the same where this script is running, but the neighbour 
 # nodes should be accessebil from this node
 httpInfoPlugin=""
 # like httpInfoPlugin but for nodes with running textInfoPlugin
 textInfoPlugin="http://127.0.0.1:2006"
-# the note you wish to place in the map
-note="x86 test"
 
 ## self settings of parameters
 wget=`which wget`
