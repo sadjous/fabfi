@@ -147,7 +147,7 @@ fi
 
 echo "nodeCoords=\"$gps\"" > /etc/fabfi-scripts/fabfimap.cfg
 echo "note=\"${fabfi_num} - ${location}\"" >> /etc/fabfi-scripts/fabfimap.cfg
-echo $gps > /www/mygooglemapcoords.txt
+echo $gps > /www/mygooglemapscoords.txt
 
 
 #echo "ENTER THE FOLLOWING FOR COOVA.NET RADIUS CONFIG (or nothing's going to work)"
