@@ -23,7 +23,6 @@ body {
   height:500px;
   text-align: left;
   padding: 0px 0 0px 0;
-  z-index:200;
 }
 #locationName {
   position:relative;
@@ -42,6 +41,10 @@ body {
   top:190px;
   width:200px;
   margin-top:0px;
+  z-index:200;
+}
+#locationName {
+  z-index:200
 }
 #startTimeRow {
   display: none;
@@ -64,7 +67,7 @@ body {
 			<script id='chillijs' src='/uam/chilli.js'></script>
 		</div>
 <iframe src ="http://master.mesh/splash.html" width="670" height="500" 
- frameborder="0" scrolling="no"  style="position:relative; top:-500px;margin:auto;z-index:1;">
+ frameborder="0" scrolling="no"  style="position:relative; top:-500px;margin:auto;z-index:100;">
   <p>Your browser does not support iframes.</p>
 </iframe>
 </body>

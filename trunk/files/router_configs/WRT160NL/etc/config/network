@@ -5,12 +5,12 @@ config 'switch'
 
 config switch_vlan 
         option device   eth0
-        option vlan     0
-        option ports    '0 4*'
+        option vlan     '1'
+        option ports    '0 4t'
 
 config switch_vlan 
        option device   eth0
-       option vlan     1
+       option vlan     '2'
        option ports    '1 2 3 4t'
 
 config 'interface' 'loopback'
@@ -27,7 +27,7 @@ config 'interface' 'wan'
 # MESH networks .100.0-3.
 config 'interface' 'mesh'
 	option 'proto' 'static'
-	option 'ifname' 'eth0.1'	
+	option 'ifname' 'eth0.2'	
 	option 'netmask' '255.255.252.0'
 	option 'defaultroute' '0'
 	option 'peerdns' '0'
@@ -62,7 +62,7 @@ config 'interface' 'alan'
 	option 'netmask' '255.255.255.0'
 	option 'defaultroute' '0'
 	option 'peerdns' '0'
-	option 'ifname' 'eth0.0'
+	option 'ifname' 'eth0.1'
 	option 'ipaddr' '10.108.1.1'
 
 # LAN networks .112+(int)ff/254.ffmod254.1
@@ -70,7 +70,7 @@ config 'interface' 'alan'
 #	option 'proto' 'static'
 #	option 'netmask' '255.255.255.0'
 #	option 'defaultroute' '0'
-#	option 'ifname' 'eth0.0'
+#	option 'ifname' 'eth0.1'
 #	option 'peerdns' '0'
 #	option 'ipaddr' '10.112.1.1'
 
