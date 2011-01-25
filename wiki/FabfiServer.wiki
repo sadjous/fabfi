@@ -497,9 +497,9 @@ References:
   * http://www.smallbusinesstech.net/more-complicated-instructions/nagios/setting-up-nagios-on-a-debian-server-to-remotely-monitor-an-openwrt-router
   * http://www.crucialwebhost.com/blog/using-nrpe-to-monitor-remote-services/
   * http://www.thegeekstuff.com/2008/06/how-to-monitor-remote-linux-host-using-nagios-30/
-  *http://nagios.sourceforge.net/download/contrib/documentation/misc/NSCA_Setup.pdf
-  *http://nagios.sourceforge.net/docs/2_0/distributed.html
-  *http://www.packtpub.com/article/passive-checks-nsca-nagios-service-check-acceptor
+  * http://nagios.sourceforge.net/download/contrib/documentation/misc/NSCA_Setup.pdf
+  * http://nagios.sourceforge.net/docs/2_0/distributed.html
+  * http://www.packtpub.com/article/passive-checks-nsca-nagios-service-check-acceptor
 
 == Configure Server to Serve Splash and Map Content ==
 
@@ -578,5 +578,3 @@ you should get a google map.
 ==== Optional: Security ====
 
 Since this application doesn't do any sort of real security checking, you might want to update your firewall configuration to accept requests from only certain sites on the port you configure your map server to listen.  Doing this is outside the scope of this tutorial for now.
-
-
