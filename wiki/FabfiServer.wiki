@@ -492,7 +492,7 @@ Install nagios-plugins and send_nsca
 }}}
 
 	
-References: 
+=== References ===
   * http://www.ghacks.net/2009/06/08/how-to-install-nagios-on-ubuntu-server/
   * http://www.smallbusinesstech.net/more-complicated-instructions/nagios/setting-up-nagios-on-a-debian-server-to-remotely-monitor-an-openwrt-router
   * http://www.crucialwebhost.com/blog/using-nrpe-to-monitor-remote-services/
