@@ -347,7 +347,10 @@ Nagios is an open-source network monitoring platform.  In this section you will 
 
 === Download, Build anf Install Source ===
 
-  # Download the the latest Nagios core and Nagios plugins from http://www.nagios.org/download
+  # Download the the latest Nagios core and Nagios plugins from 
+{{{
+	http://www.nagios.org/download
+}}}
   # Extract the tar.gz files from the nagios archive you downloaded
 {{{
 	tar -xzvf nagios-x.y.z.tar.gz
@@ -373,23 +376,41 @@ Nagios is an open-source network monitoring platform.  In this section you will 
 === Configure Nagios ===
 
   # Create the nagios admin account and assign it a password
+{{{
 	sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+}}}
   # Restart apache
+{{{
 	sudo /etc/init.d/apache2 reload
+}}}
   # Extract the plugins folder
+{{{
 	tar -xzvf nagios-plugins-x.y.z
+}}}
   # Change into the extracted directory
+{{{
 	cd nagios-plugins-x.y.z
+}}}
   # Compile the plugins
+{{{
 	sudo ./configure –with-nagios-user=nagios –with-nagios-group=nagios
+}}}
   # Make and install the plugins
+{{{
 	sudo make && sudo make install
+}}}
   # Add nagios to init ( to start it up when system starts up)
+{{{
 	sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
+}}}
   # Check for any errors. Run
+{{{
 	sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+}}}
   # If there are no errors, start nagios
+{{{
 	sudo /etc/init.d/nagios start
+}}}
   # Open the web interface. Point your browser to http://localhost/nagios or if installed on a different server, http://address-of-server/nagios
 
 === Nagios Plugins on OpenWRT ===
@@ -409,21 +430,36 @@ Install nagios-plugins and send_nsca
 
 === Build, Install and Configure NSCA ===
 
-  # Download the latest nsca from http://prdownloads.sourceforge.net/sourceforge/nagios/nsca-x.y.z.tar.gz
+  # Download the latest nsca from 
+{{{
+	http://prdownloads.sourceforge.net/sourceforge/nagios/nsca-x.y.z.tar.gz
+}}}
   # Extract the tar ball and change into the extracted folder with
+{{{
 	tar -xzvf nsca-x.y.z.tar.gz && cd nsca-x.y.z
+}}}
   # Configure and make 
+{{{
 	./configure && make all
+}}}
   # Install nsca
+{{{
 	cp src/nsca /usr/local/nagios/bin
 	cp sample_config/nsca.cfg /usr/local/nagios/etc
+}}}
   # Edit nsca config file 
+{{{
 	sudo nano /usr/local/nagios/etc/nsca.cfg
 	#Comment out server_address and set debug to 1, comment out encryption password and set encryption off
+}}}
   # Run nsca 
+{{{
 	sudo /usr/local/nagios/bin/nsca -c /usr/local/nagios/etc/nsca.cfg
+}}}
   # Check if nsca port is open. From another computer (in the network), run
+{{{
 	telnet [address of server] 5667
+}}}
 
 === Test send_nsca ===
 
