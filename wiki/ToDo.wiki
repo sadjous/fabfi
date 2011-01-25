@@ -4,11 +4,12 @@
 
 ToDo list... (Tues)
 
-  # Flash devices with new images.  
+  # Flash devices with new images.
+  # Test speed limit
   # Setup new features on cloud server sandbox
   # Switch over testbed to cloud sandbox
-  # Test remote flash
-  # Timeserver?
+  # Test remote flash -YES
+
 
 Next dev priorities.
   # Self, sign-up page
