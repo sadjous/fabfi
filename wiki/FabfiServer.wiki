@@ -2,6 +2,8 @@
 = Introduction =
 The Fabfi server is a cloud-hosted device that houses the authentication database and Management/Monitoring web GUI for the network.  The current version runs on Ubuntu 10.04 Server (i386).  This page provides configuration instructions for building the server from bare metal.
 
+*NOTE: This configuration was documented piecemeal, so there may be redundant instructions, especially related to package installation.  It is unlikely that doing anything multiple times will cause problems, however.*
+
 == OS Installation ==
 
   * Used U10.04 server i386, 
@@ -312,30 +314,184 @@ Then restart your werbserver:
 $ sudo /etc/init.d/apache2 restart
 }}}
 
-== Configure a Web Directory to Serve Splash Content ==
+=== Configure timeserver ===
 
-Fabfi nodes are configured to look for splash page content at the url
+TBD
+
+== Installing Nagios ==
+
+Nagios is an open-source network monitoring platform.  In this section you will download, build, install and configure it on your server.
+
+=== Install Dependencies ===
+
+  * Install apache2, php5, php5-gd, gcc and make using apt-get sudo apt-get install apache2 php5 php-gd gcc make 
+
+=== Set Permissions ===
+
+  # Create a nagios user and usergroup
+{{{
+	sudo useradd nagios
+	sudo passwd nagios  #assign the new user a password
+	sudo groupadd nagios
+	sudo groupadd nagcmd
+}}}
+  # Add the nagios user to the nagios and nagcmd groups
+{{{
+	sudo usermod -G nagios nagios
+ 	sudo usermod -a -G nagcmd nagios
+}}}
+  # Add the apache user to the group nagcmd
+{{{
+	sudo usermod -a -G nagcmd www-data
+}}}
+
+=== Download, Build anf Install Source ===
+
+  # Download the the latest Nagios core and Nagios plugins from http://www.nagios.org/download
+  # Extract the tar.gz files from the nagios archive you downloaded
+{{{
+	tar -xzvf nagios-x.y.z.tar.gz
+}}}
+  # Change into the extracted folder
+{{{
+	cd nagios-x.y.z
+}}}
+  # Run the configure and make scripts
+{{{
+	sudo ./configure –with-command-group=nagcmd
+	sudo make all
+}}}
+  # Install everything
+{{{
+	sudo make install
+	sudo make install-init
+	sudo make install-config
+	sudo make install-commandmode
+	sudo make install-webconf
+}}}
+
+=== Configure Nagios ===
+
+  # Create the nagios admin account and assign it a password
+	sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+  # Restart apache
+	sudo /etc/init.d/apache2 reload
+  # Extract the plugins folder
+	tar -xzvf nagios-plugins-x.y.z
+  # Change into the extracted directory
+	cd nagios-plugins-x.y.z
+  # Compile the plugins
+	sudo ./configure –with-nagios-user=nagios –with-nagios-group=nagios
+  # Make and install the plugins
+	sudo make && sudo make install
+  # Add nagios to init ( to start it up when system starts up)
+	sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
+  # Check for any errors. Run
+	sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+  # If there are no errors, start nagios
+	sudo /etc/init.d/nagios start
+  # Open the web interface. Point your browser to http://localhost/nagios or if installed on a different server, http://address-of-server/nagios
+
+=== Nagios Plugins on OpenWRT ===
+
+We'll install nagios-plugins, and send_nsca on Fabfi headnodes.  All other routers will have nagios-plugins and nrpe.  Send_nsca passively reports monitoring info to the nagios server.  nrpe allows a remote Nagios server to actively request data (by running local plugins).  The headnode actively monitors the mesh with nrpe and passively sends the data to the server with send_nsca. Nagios configuration is covered in headnode setup.
+
+----------- MOVE THIS ------------------
+
+If interested in active monitoring, read http://nagios.sourceforge.net/docs/nrpe/NRPE.pdf
+
+Install nagios-plugins and send_nsca
+	opkg update
+	opkg install nagios-plugins
+	opkg install send_nsca
+
+------------ END MOVE -----------------
+
+=== Build, Install and Configure NSCA ===
+
+  # Download the latest nsca from http://prdownloads.sourceforge.net/sourceforge/nagios/nsca-x.y.z.tar.gz
+  # Extract the tar ball and change into the extracted folder with
+	tar -xzvf nsca-x.y.z.tar.gz && cd nsca-x.y.z
+  # Configure and make 
+	./configure && make all
+  # Install nsca
+	cp src/nsca /usr/local/nagios/bin
+	cp sample_config/nsca.cfg /usr/local/nagios/etc
+  # Edit nsca config file 
+	sudo nano /usr/local/nagios/etc/nsca.cfg
+	#Comment out server_address and set debug to 1, comment out encryption password and set encryption off
+  # Run nsca 
+	sudo /usr/local/nagios/bin/nsca -c /usr/local/nagios/etc/nsca.cfg
+  # Check if nsca port is open. From another computer (in the network), run
+	telnet [address of server] 5667
+
+=== Test send_nsca ===
+
+  # On the openwrt router, edit /etc/send_nsca.cfg
+{{{
+ 	vi /etc/send_nsca.cfg
+}}}
+  	comment out encryption password and set encryption off
+  # create a text file (name it 'test') and insert the following (use tabs, not spaces)
+{{{
+	localhost	TestMessage	0	This is a test message. [return]
+}}}
+  # Save the file and then run
+{{{
+	send_nsca -H [address_of_nagios_server]  < test
+}}}
+	if successful, you should see "1 data packet(s) sent to host successfully"
+
+
+=== Further configurations of Nagios Server ===
+
+  # Start nsca on nagios startup
+{{{
+	#edit /etc/init.d/nagios
+	sudo nano /etc/init.d/nagios
+	# add this line to the start section
+	/usr/local/nagios/bin/nsca -c /usr/local/nagios/etc/nsca.cfg
+	#and this to the stop section
+	kill nsca.pid
+}}}
+
+	
+References: 
+  * http://www.ghacks.net/2009/06/08/how-to-install-nagios-on-ubuntu-server/
+  * http://www.smallbusinesstech.net/more-complicated-instructions/nagios/setting-up-nagios-on-a-debian-server-to-remotely-monitor-an-openwrt-router
+  * http://www.crucialwebhost.com/blog/using-nrpe-to-monitor-remote-services/
+  * http://www.thegeekstuff.com/2008/06/how-to-monitor-remote-linux-host-using-nagios-30/
+  *http://nagios.sourceforge.net/download/contrib/documentation/misc/NSCA_Setup.pdf
+  *http://nagios.sourceforge.net/docs/2_0/distributed.html
+  *http://www.packtpub.com/article/passive-checks-nsca-nagios-service-check-acceptor
+
+== Configure Server to Serve Splash and Map Content ==
+
+Fabfi nodes are configured to look for cotent at the following urls:
 {{{
 master.mesh
+radius.mesh
+map.mesh
+time.mesh #Not necessary for map or splash
 }}}
-which is generally configured as 
-{{{
-10.103.0.254
-}}}
-In order to serve splash content from a central location you need to do three things: 
-  # Configure a headnode with a 10.103.0.254 alias (so requests to master.mesh route there
-  # Forward requests at this address to a remote location of your choice
+currently, the router setup on the headnode will resolve all four of these to the same IP. which is configured on the headnode as the IP of your cloud server.  
+
+In order to serve web content from a central location you need to do three two things: 
+  # Configure a headnode with the correct cloud-server address during the setup script
   # Configure the remote server to serve splash content at this location
+  # Install appropriate libraries on server
 
-1 and 2 will be covered in node setup.  3 is as simple as copying the contents of trunk/www/kenya/ to the webserver set up above and editing the content to fit your needs.  For easy setup, don't change the size of the page or put any content in the current location of "navbar" as we're actually just underlaying the splash page on the router with this remote content.  
+1 will be covered in node setup. The rest is covered here
 
-== Configure Live Map ==
+=== Copy Files (map and splash) ===
 
-=== Introduction ===
+copy the contents of trunk/www to the home directory of your web server.  A correct setup will have the splash plage resolve to <your IP>/splash.html.  If you are not configuring the live map, you may stop here.  
+
+=== Configure Live Map ===
 
 The live map is a php application adapted from [http://www.layereight.de/download/freifunkmap.tgz freifunkmap].  It receives http requests from nodes with neighbor data, saves the data in a local database and writes it to the GoogleMaps API on demand.  To configure it for your network, You will have to configure the php application on the cloud server and configure the update script (fabfimap.sh) on the nodes.  This section will cover the server side, while the node side is covered in node setup.
 
-=== Setup ===
+==== Setup ====
 
 Install required libraries:
 {{{
@@ -345,9 +501,7 @@ then copy the contents of
 {{{
 trunk/www/live
 }}}
-to your web directory. You also want to make sure that your webserver accepts index.php as a default document.
-
-!!!HOW TO DO THIS HERE!!!
+to your web directory. You also want to make sure that your webserver accepts index.php as a default document.  By default apache will accept index.php as a default document.  If, for some reason, it does not you should configure it to do so.  
 
 Yo will then need to configure some values for your server.   Open 
 {{{
@@ -385,156 +539,8 @@ http://{path to map script}/
 }}}
 you should get a google map. 
 
-=== Optional: Security ===
+==== Optional: Security ====
 
 Since this application doesn't do any sort of real security checking, you might want to update your firewall configuration to accept requests from only certain sites on the port you configure your map server to listen.  Doing this is outside the scope of this tutorial for now.
 
-== Installing Nagios ==
 
-Part 1: Installing Nagios on server
-
-1. Install apache2, php5, php5-gd, gcc and make using apt-get
-	sudo apt-get install apache2 php5 php-gd gcc make 
-
-2. Download the the latest Nagios core and Nagios plugins from http://www.nagios.org/download
-
-3. Create a nagios user and usergroup
-	sudo useradd nagios
-	sudo passwd nagios  #assign the new user a password
-	sudo groupadd nagios
-	sudo groupadd nagcmd
-
-4. Add the nagios user to the nagios and nagcmd groups
-	sudo usermod -G nagios nagios
- 	sudo usermod -a -G nagcmd nagios
-
-6. Add the apache user to the group nagcmd
-	sudo usermod -a -G nagcmd www-data
-
-7. Extract the tar.gz files : tar -xzvf nagios-x.y.z.tar.gz
-
-8. Change into the extracted folder
-	cd nagios-x.y.z
-
-9. Run the configure and make scripts
-	sudo ./configure –with-command-group=nagcmd
-	sudo make all
-
-10. Install everything
-	sudo make install
-	sudo make install-init
-	sudo make install-config
-	sudo make install-commandmode
-
-11. Configure the web interface
-	sudo make install-webconf
-	
-12. Create the nagios admin account and assign it a password
-	sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
-
-13. Restart apache
-	sudo /etc/init.d/apache2 reload
-
-14. Extract the plugins folder
-	tar -xzvf nagios-plugins-x.y.z
-
-15. Change into the extracted directory
-	cd nagios-plugins-x.y.z
-
-16. Compile the plugins
-	sudo ./configure –with-nagios-user=nagios –with-nagios-group=nagios
-
-17. Make and install the plugins
-	sudo make && sudo make install
-
-18. Add nagios to init ( to start it up when system starts up)
-	sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
-
-19. Check for any errors. Run
-	sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
-
-20. If there are no errors, start nagios
-	sudo /etc/init.d/nagios start
-
-21. Open the web interface. Point your browser to http://localhost/nagios or if installed on a different server, http://address-of-server/nagios
-
-
-
-Part 2: Install Nagios on OpenWRT
-
-We'll install nagios-plugins, and send_nsca. send_nsca passively reports monitoring info to the nagios server.
-alternaively, we could install nrpe for active monitoring - however, the server must have a route to the devices. Passive monitoring only requires the devices to have a route to the server.
-
-If interested in active monitoring, read http://nagios.sourceforge.net/docs/nrpe/NRPE.pdf
-
-Install nagios-plugins and send_nsca
-	opkg update
-	opkg install nagios-plugins
-	opkg install send_nsca
-
-Part 3 - Install nsca on nagios server
-
-1. Download the latest nsca from http://prdownloads.sourceforge.net/sourceforge/nagios/nsca-x.y.z.tar.gz
-
-2. Extract the tar ball and change into the extracted folder with
-	tar -xzvf nsca-x.y.z.tar.gz && cd nsca-x.y.z
-
-3. Configure and make 
-	./configure && make all
-
-4. Install nsca
-	cp src/nsca /usr/local/nagios/bin
-	cp sample_config/nsca.cfg /usr/local/nagios/etc
-
-5. Edit nsca config file 
-	sudo nano /usr/local/nagios/etc/nsca.cfg
-	#Comment out server_address and set debug to 1, comment out encryption password and set encryption off
-
-6. Run nsca 
-	sudo /usr/local/nagios/bin/nsca -c /usr/local/nagios/etc/nsca.cfg
-
-7. Check if nsca port is open. From another computer (in the network), run
-	telnet [address of server] 5667
-
-
-Part 4 : Test send_nsca
-
-1. On the openwrt router, edit /etc/send_nsca.cfg
- 	vi /etc/send_nsca.cfg
-	#comment out encryption password and set encryption off
-
-2. create a text file (name it 'test') and insert the following (use tabs, not spaces)
- 
-	localhost	TestMessage	0	This is a test message. [return]
-	
-3. Save the file and then run
-	send_nsca -H [address_of_nagios_server]  < test
-
-	#if successful, you should see "1 data packet(s) sent to host successfully"
-
-
-Part 5: Further configurations of Nagios Server
-
-1. Start nsca on nagios startup
-	#edit /etc/init.d/nagios
-	sudo nano /etc/init.d/nagios
-	# add this line to the start section
-	/usr/local/nagios/bin/nsca -c /usr/local/nagios/etc/nsca.cfg
-	#and this to the stop section
-	kill nsca.pid
-
-	
-References: 
-	http://www.ghacks.net/2009/06/08/how-to-install-nagios-on-ubuntu-server/
-
-	http://www.smallbusinesstech.net/more-complicated-instructions/nagios/setting-up-nagios-on-a-debian-server-to-remotely-monitor-an-openwrt-router
-
-	http://www.crucialwebhost.com/blog/using-nrpe-to-monitor-remote-services/
-
-	http://www.thegeekstuff.com/2008/06/how-to-monitor-remote-linux-host-using-nagios-30/
-	
-	http://nagios.sourceforge.net/download/contrib/documentation/misc/NSCA_Setup.pdf
-
-	http://nagios.sourceforge.net/docs/2_0/distributed.html
-
-	http://www.packtpub.com/article/passive-checks-nsca-nagios-service-check-acceptor
