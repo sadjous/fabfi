@@ -134,30 +134,11 @@ let lan_cIP="$fabfi_num+$ff_cIP"
 # Free up some memory so we don't crap ourselves
 /etc/init.d/nrpe stop
 
+#always disable chilli, we'll reenable if needed
+/etc/init.d/chilli disable
+
 if  [ $headnode == "y" ]; then
 	echo "/usr/bin/nagios -d /etc/nagios/nagios.cfg" >> /etc/init.d/custom-user-startup
-
-	#Configure this node to advertise the local domains of importance.  NOTE: This needs to be generalized to multiple headnodes someday
-uci add dhcp domain
-uci set dhcp.@domain[-1]=domain
-uci set dhcp.@domain[-1].name=time.mesh
-uci set dhcp.@domain[-1].ip=${cloudIP}
-uci add dhcp domain
-uci set dhcp.@domain[-1]=domain
-uci set dhcp.@domain[-1].name=master.mesh
-uci set dhcp.@domain[-1].ip=${cloudIP}
-uci add dhcp domain
-uci set dhcp.@domain[-1]=domain
-uci set dhcp.@domain[-1].name=radius.mesh
-uci set dhcp.@domain[-1].ip=${cloudIP}
-uci add dhcp domain
-uci set dhcp.@domain[-1]=domain
-uci set dhcp.@domain[-1].name=map.mesh
-uci set dhcp.@domain[-1].ip=${cloudIP}
-#uci add olsrd Hna4
-#uci set olsrd.@Hna4[-1]=Hna4
-#uci set olsrd.@Hna4[-1].netaddr=10.103.0.254
-#uci set olsrd.@Hna4[-1].netmask=255.255.255.255
 
 	until (echo $squidme | grep "^[yn]$"); do
 	echo "do you want to configure squid on your headnode? This will require you to have your USB disk ready (y/n)"
@@ -195,10 +176,8 @@ uci set dhcp.@domain[-1].ip=${cloudIP}
 	fi
 fi
 
-echo "nodeCoords=\"$gps\"" > /etc/fabfi-scripts/fabfimap.cfg
-echo "note=\"${fabfi_num} - ${location}\"" >> /etc/fabfi-scripts/fabfimap.cfg
-echo $gps > /www/mygooglemapscoords.txt
-
+echo "nodeCoords=\"$gps\"" > /etc/config/fabfimap.cfg
+echo "note=\"${fabfi_num} - ${location}\"" >> /etc/config/fabfimap.cfg
 
 ###for all types
 #pick SSID of 0 based on channel
@@ -316,6 +295,9 @@ else if [ $nodetype == "2" ]; then
 	uci set olsrd.@Hna4[-1].netaddr=${ff_t_abIP}${lan_cIP}.0
 	uci set olsrd.@Hna4[-1].netmask=255.255.255.0
 
+uci delete chilli.@configuration[0].adminpasswd
+uci delete chilli.@configuration[0].adminuser  
+uci delete chilli.@configuration[0].vlan
 uci set chilli.options=chilli                                                           
 uci set chilli.options.debug=0                                                          
 uci set chilli.options.configuration=default                                            
@@ -333,7 +315,8 @@ uci set chilli.options.wwwbin=/etc/chilli/wwwsh
 uci set chilli.@configuration[0]=configuration                                          
 uci set chilli.@configuration[0].name=default                                           
 uci set chilli.@configuration[0].locationname=${fabfi_num}                         
-uci set chilli.@configuration[0].uamallowed=41.204.176.0/24,10.0.0.0/8                    
+uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8,wikipedia.org'
+uci set chilli.@configuration[0].uamdomain='.wikimedia.org'
 uci set chilli.@configuration[0].radiusserver1=radius.mesh    
 #uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
 uci set chilli.@configuration[0].radiussecret=${radsecret}                                
@@ -405,6 +388,9 @@ else if [ $nodetype == "4" ]; then
 	uci set olsrd.@Hna4[-1].netaddr=${ff_t_abIP}${lan_cIP}.0
 	uci set olsrd.@Hna4[-1].netmask=255.255.255.0
 
+uci delete chilli.@configuration[0].adminpasswd
+uci delete chilli.@configuration[0].adminuser  
+uci delete chilli.@configuration[0].vlan
 uci set chilli.options=chilli                                                           
 uci set chilli.options.debug=0                                                          
 uci set chilli.options.configuration=default                                            
@@ -422,7 +408,8 @@ uci set chilli.options.wwwbin=/etc/chilli/wwwsh
 uci set chilli.@configuration[0]=configuration                                          
 uci set chilli.@configuration[0].name=default                                           
 uci set chilli.@configuration[0].locationname=${fabfi_num}                         
-uci set chilli.@configuration[0].uamallowed=41.204.176.0/24,10.0.0.0/8                    
+uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8,wikipedia.org'
+uci set chilli.@configuration[0].uamdomain='.wikimedia.org'                 
 uci set chilli.@configuration[0].radiusserver1=radius.mesh    
 #uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
 uci set chilli.@configuration[0].radiussecret=${radsecret}                                  
@@ -471,6 +458,31 @@ uci set olsrd.@LoadPlugin[${ns_index}].name=fabfi${fabfi_num}
 
 
 uci set wireless.radio0.disabled=0
+
+if  [ $headnode == "y" ]; then
+
+
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=time.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=master.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=radius.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+uci add dhcp domain
+uci set dhcp.@domain[-1]=domain
+uci set dhcp.@domain[-1].name=map.mesh
+uci set dhcp.@domain[-1].ip=${cloudIP}
+#uci add olsrd Hna4
+#uci set olsrd.@Hna4[-1]=Hna4
+#uci set olsrd.@Hna4[-1].netaddr=10.103.0.254
+#uci set olsrd.@Hna4[-1].netmask=255.255.255.255
+fi
 
 echo Hostname = `uci get system.@system[0].hostname`
 echo ""

@@ -1,5 +1,5 @@
 #!/bin/sh 
-SWURL=http://fabfi.fabfolk.com/quickstart/firmware/joinafrica/
+SWURL=http://fabfi.googlecode.com/files/
 INITS=/etc/fabfi-scripts/upgrade-post
 INITRC=/etc/rc.d/S04upgrade-post
 INITSCR=/etc/fabfi-scripts/upgrade-post
@@ -7,11 +7,12 @@ LOCAL=/tmp/
 PASS=/etc/passwd
 CFG=/etc/config
 GRP=/etc/group 
+CUST=/etc/init.d/custom-user-startup
 DRP=/etc/dropbear
 FW=/etc/firewall.user 
 RCL=/etc/rc.local
 
-model=`uci get system.platform.profile`
+model=`uci get system.@platform[0].profile`
 echo "model is $model"
 
 cd $LOCAL
@@ -27,7 +28,7 @@ if `wget "${SWURL}fabfi-${model}-sysupgrade.bin"`
 
 	ln -s $INITS $INITRC
 	chmod +x $INITS
-	tar -czf ffconfig.tar.gz $INITS $INITRC $PASS $CFG $GRP $DRP $FW $RCL
+	tar -czf ${LOCAL}ffconfig.tar.gz $PASS $CFG $GRP $DRP $FW $RCL
 
 	#flash and reboot
 	sysupgrade -n -v -f ffconfig.tar.gz fabfi-${model}-sysupgrade.bin
