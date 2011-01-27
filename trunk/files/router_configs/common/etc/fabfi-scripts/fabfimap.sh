@@ -4,7 +4,7 @@
 # some parameters
 # nodeCorrds are the longitude and the latitude, for example "43.2323232, 12.3245934"
 # the note you wish to place in the map
-include fabfimap.cfg
+source /etc/config/fabfimap.cfg
 # updateIntervall should be a value between minute | hourly | daily | monthly
 # this defined the lifetime of the node in the map ( lifetime = 2 * updateIntervall)
 updateIntervall="minute"

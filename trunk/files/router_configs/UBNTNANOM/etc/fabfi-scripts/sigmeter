@@ -14,17 +14,17 @@ LED3="ubnt:orange:link2"
 LED2="ubnt:green:link3"
 LED1="ubnt:green:link4"
 
-TRH1=40
-TRH1B=45
+TRH1=45
+TRH1B=50
 
-TRH2=50
-TRH2B=55
+TRH2=55
+TRH2B=60
 
-TRH3=60
-TRH3B=65
+TRH3=65
+TRH3B=70
 
-TRH4=70
-TRH4B=75
+TRH4=75
+TRH4B=80
 
 OLDVAL=0
 
