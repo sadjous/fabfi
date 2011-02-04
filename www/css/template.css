@@ -246,6 +246,56 @@ a:hover
 	top:0px;
 	left:0px;
 }
+#contentcontainer_a
+{
+	width:100%;
+	height:13px;
+	top:0px;
+	left:0px;
+
+}
+#contentcontainer_tl
+{
+	/* background-image:url(../images/template/contentborder_tl.png); */
+	position: relative;
+	background-position:left;
+	background-repeat:no-repeat;
+background-color:blue;
+	width:20px;
+	height:100%;
+	top:0px;
+	left:0px;
+	z-index:100;
+
+}
+#contentcontainer_tc
+{
+	/* background-image:url(../images/template/contentborder_tc.png);*/
+	position: relative;
+	background-position:center;
+	background-repeat:repeat-x;
+	background-color:red;
+	width:100%;
+
+	top:-13px;
+	left:0px;
+
+}
+#contentcontainer_tr
+{
+	/*background-image:url(../images/template/contentborder_tr.png);*/
+	position: relative;
+	background-position:right;
+	background-repeat:no-repeat;
+	background-color:green;
+	width:20px;
+	height:100%;
+	top:-26px;
+	float:right;
+	left:0px;
+	z-index:100;
+
+}
 
 .head1
 {
