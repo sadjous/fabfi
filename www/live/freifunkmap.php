@@ -130,6 +130,6 @@ if( strstr( $_SERVER['HTTP_USER_AGENT'], "MSIE")) {
 	</head>
 	<body onload="init(<?php echo $sp.",".$zoomlevel.",".$maptype.",".$search.",".$browser.",".$showConn; ?>)" onunload="GUnload()">
 		<div id="map" style="width: 100%; height: <?php echo $tag; ?>"></div>
-<div onclick="javascript:window.open('http://www.joinafrica.org/kenya')" style="cursor:pointer; background-image:url(../images/template/jalogo_smt.png); position:fixed; bottom: 7px; margin-left: 3px; z-index: 100; width: 133px;height:134px" title="JoinAfrica Kenya Home"></div>
+<div onclick="javascript:window.open('http://www.joinafrica.org/kenya')" style="cursor:pointer; background-image:url(../images/template/jalogo_smt.png); position:fixed; bottom: 15px; margin-left: 3px; z-index: 100; width: 133px;height:134px" title="JoinAfrica Kenya Home"></div>
 	</body>
 </html>
