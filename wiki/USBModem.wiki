@@ -8,6 +8,18 @@
 {{{
 usbserial vendor=0x19d3 product=0xfff1 maxSize=4096
 }}}
+  # Mod network settings:
+{{{
+config interface wan                                                                                                                  
+        option ifname   ppp0                                                                                                          
+        option proto    3g                                                                                                            
+        option auto     1                                                                                                             
+        option service  evdo                                                                                                          
+        option device   /dev/ttyUSB0                                                                                                  
+        option apn      orange.co.ke                                                                                                  
+        option username <phone #>                                                                                                   
+        option password <pin>
+}}}
 
 
 
