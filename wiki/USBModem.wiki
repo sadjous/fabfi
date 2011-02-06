@@ -1,0 +1,16 @@
+#summary Unstalling USB modem on linksys wrt160nl
+
+= Introduction =
+
+  # Install stock image
+  # install usbutils kmod-usb-serial kmod-usb2 kmod-usb-uhci kmod-usb-ohci usb-modeswitch usb-modeswitch-data
+
+Now your device should be recognised and have the correct device type (0xfff1 - read from lsusb)
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
