@@ -26,6 +26,10 @@ config interface wan
 
 Now your device should be recognised and have the correct device type (0xfff1 - read from lsusb)
 
+NOTES:
+
+on reboot, device is recognized after a while (I think).  In it's base state light blinks red. you have to manually switch it (usb_modeswitch /etc/usb_modeswitch.d/19d2\:fff5), then ifup wan works and turns light fast blinking green.
+
 
 = Details =
 
