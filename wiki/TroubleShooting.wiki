@@ -41,6 +41,23 @@ to list running processes
 $ ps
 }}}
 
+== Operators ==
+
+Pipe: 
+{{{
+<command> | <other command>
+}}}
+Takes the output of the first command and sends it to the input of the next
+
+Double Ampersand:
+{{{
+<command> && <other command>
+}}}
+executes the first command and then the second if the first is successful
+
+[http://www.gnu.org/software/bash/manual/bashref.html Complete Bash reference guide] Note: OpenWRT does  not use a complete/standard bash, so expect only basic things to work.
+
+
 = Headnode Debugging =
 
   # Check internet connectivity (use ping with IP)
