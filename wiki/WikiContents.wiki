@@ -1,4 +1,5 @@
   * [WikiHome Wiki Home]
+  * [TroubleShooting]
   * [AdministrativeTidbits Administrative Tidbits]
     * [AdministrativeTidbits#SVN_Basics SVN Basics]
     * [AdministrativeTidbits#Uploading_Images_to_SVN_(for_the_wiki) Uploading images to SVN]
