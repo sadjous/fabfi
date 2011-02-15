@@ -9,7 +9,7 @@ To log into a device
 {{{
 $ ssh root@<ip of device>
 
-Example ssh root@10.100.0.49
+example: ssh root@10.100.0.49
 }}}
 
 To see what other olsr devices a node has as a neighbor
@@ -34,3 +34,22 @@ to check DNS and connectivity
 $ ping <url>
 
 example: ping google.com
+}}}
+
+to list running processes
+{{{
+$ ps
+}}}
+
+= Headnode Debugging =
+
+  # Check internet connectivity (use ping with IP)
+  # Check DNS (use ping with URL)
+  # Check that squid is running
+{{{
+$ ps
+}}}
+then check for a process called 
+{{{
+squid
+}}}
