@@ -4,5 +4,6 @@
 This is the troubleshooting page
 
 = Basic Commands =
-
-
+{{{
+ssh root@10.100.0.49
+}}}
