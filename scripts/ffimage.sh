@@ -12,7 +12,7 @@ read profile
 here=$(pwd) #svn/fabfi/trunk/scripts/
 
 #
-echo "enter path to the image builder (no trailing /)"
+echo "enter path to the contents of the image builder directory (no trailing /)"
 read IBPATH
 
 #IBDIR='OpenWrt-ImageBuilder-ar71xx-for-Linux-i686'

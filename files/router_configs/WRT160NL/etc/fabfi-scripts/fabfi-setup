@@ -9,6 +9,9 @@ ec="etc/config/"
 i_d="etc/init.d/"
 r_d="etc/rc.d/"
 chilliconf="etc/chilli/defaults"
+INITS=/etc/init.d/squidsetup
+INITRC=/etc/rc.d/S99squidsetup
+INITSCR=/etc/fabfi-scripts/squidsetup
 
 #temporary directory for downloaded files
 ff_tmp='/tmp/'
@@ -98,24 +101,26 @@ gps=""
 #done 
 
 if  [ $headnode == "n" ]; then
-until (echo $nodetype | grep "^[1-7]$"); do
+until (echo $nodetype | grep "^[1-6]$"); do
 	echo "Choose a radio mode: "
 	echo "1: STA"
 	echo "2: Dual AP"
 	echo "3: ADHOC"
 	echo "4: Client AP"
 	echo "5: Fabfi AP"
+	echo "6: Admin AP"
 	read nodetype
 done 
 else
 	echo "What is the IP of your cloud server?. There's no check on this text so don't screw it up!"
 	read cloudIP
 
-until (echo $nodetype | grep "^[135]$"); do
+until (echo $nodetype | grep "^[1356]$"); do
 	echo "Choose a radio mode: "
 	echo "1: STA"
 	echo "3: ADHOC"
 	echo "5: Fabfi AP"
+	echo "6: Admin AP"
 	read nodetype
 done 
 fi
@@ -155,24 +160,40 @@ if  [ $headnode == "y" ]; then
 		echo "n for new partition"
 		echo "p for primary partition"
 		echo "1 for partition number"
+		echo "1 for first block"
+    		echo "+7.75M for next block"
+		echo "n for new partition"
+		echo "p for primary position"
+		echo "2 for partition number"
 		echo "<enter> 2x for defaults"
 		echo "w to write changes"
 		sleep 2
 		fdisk /dev/sda
 		mkfs.ext3 /dev/sda1
+		mkswap /dev/sda2
 		mkdir /home
 		uci set fstab.@mount[0].enabled=1
+		uci set fstab.@swap[0].device=/dev/sda2
+		uci set fstab.@swap[0].enabled=1
 		uci commit fstab
-		/etc/init.d/fstab restart
+		#/etc/init.d/fstab restart
 		sleep 1
 		mkdir /home/squid
 		mkdir /home/squid/log
 		mkdir /home/squid/cache
 		chmod -R 777 /home/squid
-		squid -z
-		echo "ln -s /home/squid/log/ /var/logs" >> /etc/init.d/custom-user-startup
-		echo "squid" >> /etc/init.d/custom-user-startup
-		echo "iptables -t nat -A PREROUTING -p tcp -d ! 10.0.0.0/8 --dport 80 -j DNAT --to ${ff_m_abIP}${ff_m_cIP}${m_dIP}:3128" > /etc/firewall.user
+
+
+	#create reboot script file and link to rc.d
+	echo "#!/bin/sh /etc/rc.common" > $INITS
+	echo "" >> $INITS
+	echo "START=04" >> $INITS
+	echo ". $INITSCR" >> $INITS
+	echo "" >> $INITS
+
+	ln -s $INITS $INITRC
+	chmod +x $INITS
+
 	fi
 fi
 
@@ -447,7 +468,26 @@ else if [ $nodetype == "5" ]; then
 	uci set olsrd.@Interface[${wifimesh_index}].ignore="0"
 
 	uci delete wireless.@wifi-iface[1]
+if [ $nodetype == "6" ]; then
+	uci set mini_snmpd.@mini_snmpd[0].interfaces=eth0.1,eth0.2,eth1,wlan0
+	uci set wireless.@wifi-iface[0].ssid="JAA"
+	uci set wireless.@wifi-iface[0].mode="ap"
+	uci set wireless.@wifi-iface[0].encryption="psk2"
+	uci set wireless.@wifi-iface[0].network="alan"
+	uci set wireless.@wifi-iface[0].key=$wep_key
+	uci set network.alan.type="bridge"
+	uci delete network.wifimesh
 
+	uci add olsrd Hna4
+	uci set olsrd.@Hna4[-1].netaddr=${ff_l_abIP}${lan_cIP}.0
+	uci set olsrd.@Hna4[-1].netmask=255.255.255.0
+
+	uci set olsrd.@Interface[${mesh_index}].ignore="0"
+	uci set olsrd.@Interface[${adhocmesh_index}].ignore="1"
+	uci set olsrd.@Interface[${wifimesh_index}].ignore="1"
+
+	uci delete wireless.@wifi-iface[1]
+fi
 fi
 fi
 fi
@@ -461,6 +501,7 @@ uci set wireless.radio0.disabled=0
 
 if  [ $headnode == "y" ]; then
 
+cp /etc/fabfi-scripts/sigmeter-hn /etc/fabfi-scripts/sigmeter
 
 uci add dhcp domain
 uci set dhcp.@domain[-1]=domain
