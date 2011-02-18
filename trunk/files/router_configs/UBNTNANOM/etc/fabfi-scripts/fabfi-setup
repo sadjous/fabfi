@@ -34,9 +34,11 @@ dhcp_lease="12h"
 default_wep="8bb8d3c8d3dabbedffd38db33f"
 
 echo ""
-echo "Welcome to the FabFi 4.0 device configuration script."  
-sleep 2
+echo "Welcome to the FabFi device configuration script."  
 echo ""
+echo "This is firmware revision:"
+sh /etc/fabfi-scripts/version
+sleep 2
 
 
 until ((echo $fabfi_num | grep "^1[0-9][0-9]$")||(echo $fabfi_num | 
