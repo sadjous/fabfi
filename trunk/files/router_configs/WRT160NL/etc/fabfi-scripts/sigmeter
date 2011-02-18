@@ -65,39 +65,39 @@ then
         if [ $REZ -ne 0 ]; then
                 if [ $REZ -ne $OLDVAL ]; then
                         clear_all
-                        if [ $REZ -le $TRH1 ]; then
+                        if [ $REZ -gt $TRH1 ]; then
 #echo "level1 $REZ"
                                 set1 $LED1
                                 set1 $LED3
                         else
-                        if [ $REZ -le $TRH1B ]; then
+                        if [ $REZ -gt $TRH1B ]; then
 #echo "level1b"
                                 blink1 $LED1
                                 set1 $LED3
                         else
-                                if [ $REZ -le $TRH2 ]; then
+                                if [ $REZ -gt $TRH2 ]; then
 #echo "level2"
 	                                set1 $LED1
                                         set1 $LED2
                                         set1 $LED3
                                 else
-                                if [ $REZ -le $TRH2B ]; then
+                                if [ $REZ -gt $TRH2B ]; then
 #echo "level2b"
                                         blink1 $LED1
                                         blink1 $LED2
                                         set1 $LED3
                                 else
-                                        if [ $REZ -le $TRH3 ]; then
+                                        if [ $REZ -gt $TRH3 ]; then
 #echo "level3"
                                                 set1 $LED2
 	                                        set1 $LED3
                                         else
-                                        if [ $REZ -le $TRH3B ]; then
+                                        if [ $REZ -gt $TRH3B ]; then
 #echo "level3b"
                                                 blink1 $LED2
                                                 set1 $LED3
                                         else
-                                                if [ $REZ -le $TRH4 ]; then
+                                                if [ $REZ -gt $TRH4 ]; then
 #echo "level4"
                                                         set1 $LED3               
                                                 else

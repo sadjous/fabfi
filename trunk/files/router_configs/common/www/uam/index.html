@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 <!--
       A purely HTML based captive portal using the JSON interface of CoovaChilli
@@ -23,6 +24,7 @@ body {
   height:500px;
   text-align: left;
   padding: 0px 0 0px 0;
+  z-index:5000;
 }
 #locationName {
   position:relative;
@@ -33,6 +35,7 @@ body {
   font-style:italic;
   top:18px;
   left:235px;
+  z-index:3000;
 }
 #chilliPage {
   position:relative;
@@ -41,10 +44,7 @@ body {
   top:190px;
   width:200px;
   margin-top:0px;
-  z-index:200;
-}
-#locationName {
-  z-index:200
+  z-index:4000;
 }
 #startTimeRow {
   display: none;
@@ -57,6 +57,15 @@ body {
 }
 -->
 </style>
+<!---<script>
+// Courtesy of SimplytheBest.net - http://simplythebest.net/scripts/
+var browser_type=navigator.appName
+var browser_version=parseInt(navigator.appVersion)
+if (browser_type=="Microsoft Internet Explorer"&&browser_version<9)
+document.getElementById('remotesplash').style.display='none';
+else
+window.location="http://simplythebest.net/scripts/"
+</script>-->
 </head>
 <body>
 		<div id="MyChilli">
@@ -66,8 +75,8 @@ body {
 
 			<script id='chillijs' src='/uam/chilli.js'></script>
 		</div>
-<iframe src ="http://master.mesh/splash.html" width="670" height="500" 
- frameborder="0" scrolling="no"  style="position:relative; top:-500px;margin:auto;z-index:100;">
+<iframe id=remotesplash src ="http://master.mesh/splash.html" width="670" height="500" 
+ frameborder="0" scrolling="no"  style="position:relative; top:-500px;margin:auto;z-index:1000;">
   <p>Your browser does not support iframes.</p>
 </iframe>
 </body>

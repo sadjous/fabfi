@@ -15,7 +15,7 @@ kmod-gpio-dev kmod-input-core kmod-input-gpio-buttons kmod-input-polldev kmod-le
 olsrd olsrd-mod-nameservice olsrd-mod-txtinfo olsrd-mod-dyn-gw \
 mini-httpd netcat \
 kmod-tun \
-libopenssl libpthread squid \
+libopenssl libpthread swap-utils squid \
 mini-snmpd \
 uclibcxx iperf \
 libpcap tcpdump \
