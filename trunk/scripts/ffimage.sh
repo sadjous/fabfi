@@ -6,8 +6,10 @@
 #IBPATH=../../../openwrt/$owrtv/bin/ar71xx/
 echo "WARNING, this script will forever change your imagebuilder!"
 sleep 1;
-echo "Did you sync trunk in your svn archive? (y/n)  If not, revision number will not be marked as unverified."
-read synced
+until (echo $synced | grep "^[yn]$"); do
+	echo "Did you sync trunk in your svn archive? (y/n)  If not, revision number will not be marked as unverified."
+	read synced
+done
 
 echo "pick a profile (and you'd better spell it right or this thing blows up)"
 read profile
@@ -37,7 +39,11 @@ mkdir ${IBPATH}/fabfi
 cp -a $(pwd)/files/router_configs/${profile} /tmp/fabfi/
 cp -a $(pwd)/files/router_configs/common/* /tmp/fabfi/
 find /tmp/fabfi -name '.svn' -exec rm -rf {} \;
-echo echo 4.0.0_RC2.`svn info -r BASE ../ | grep "Revision:" | sed 's/Revision: //'` >> /tmp/fabfi/etc/fabfi-scripts/version
+if  [ $headnode == "n" ]; then
+	echo echo 4.0.0_RC2.`svn info -r BASE ../ | grep "Revision:" | sed 's/Revision: //'`U >> /tmp/fabfi/etc/fabfi-scripts/version
+else
+	echo echo 4.0.0_RC2.`svn info -r BASE ../ | grep "Revision:" | sed 's/Revision: //'` >> /tmp/fabfi/etc/fabfi-scripts/version
+fi
 cp -a /tmp/fabfi ${IBPATH}/
 
 rm -rf /tmp/fabfi
