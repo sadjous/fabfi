@@ -1,0 +1,8 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+This is how the system works.  The first section describes the most important things the need to happen for the system to function properly. The rest describes the gory details.
+
+== Required Signaling ==
+
