@@ -50,6 +50,46 @@ Each Fabfi device has the ability to provide up to 6 subnets.  These Subnets are
   * Client access
   * Administrative access
 
+The *Infrstructure Access* group consists of subnets used to connect Fabfi devices with each other.  There are three infrastructure networks:
+
+  * MESH: 10.100.0.0/22 (for wired connections)
+  * WIFIMESH: 10.104.0.0/22 (for infrastructure mode wireless connections)
+  * ADHOCMESH: 10.120.0.0/22 (for adhoc mode wireless connections)
+
+All three networks transparently forward traffic to one another so as to be have as a single network (they are not bridged together into one because olsr does not support bridging).  
+
+Each fabfi device is given a unique number during setup.  The hex equivalent of this number makes up the class C and D octets of the unique address of each fabfi on every infrastructure subnet. For devices 1-254, the fabfi number will simply be the class D octet (example.  Fabfi 145 would have a MESH address of 10.100.0.145).  In general, most fabfis can always be reached on their MESH address. 
+
+ _Note: the nature of the the setup script does addressing requires fabfi numbers that would result in "special" class D octets (0, 255) not be used._
+
+_Note2: Pending the implementation of N-speeds for adhoc wireless, the ADHOCMESH network will be deleted and all wireless connections will be adhoc, running on the WIFIMESH network_
+
+The *Client Access* group consists of networks used by clients to access the internet.  There are two such networks:
+
+  * LAN: 10.112-115.0.0/24
+  * TUNNEL: 10.116-119.0.0/24
+
+Clients directly connect to the LAN network, however chilli captures the traffic and provides DHCP from the TUNNEL subnet.  The LAN subnet is isolated such that even if you manually configure yourself to connect to it, it won't pass traffic out of the subnet.
+
+The *Administrative Access* networks are designed to give system administrators easy access to the system.  There are two "networks"
+
+  * ALAN: 10.108-111.0.0/24
+  * ALIAS: 192.168.1.10/24 (overlays MESH, devices are always 192.168.1.10)
+
+The ALAN network is usually only seen on headnodes, while every device provides ALIAS on a MESH port.  This latter feature is both useful and dangerous.  For an isolated device, the administrator can be assured of connecting to the device at 192.168.1.10, but if multiple fabfi devices are on the same layer2 net, which device will respond is undefined.
+
+_NOTE: the ports and/or wireless interfaces used for each network are defined dynamically by the setup script._
+
+
+
+
+
+
+
+
+
+
+
 
 
 The *Client Access* group is 
