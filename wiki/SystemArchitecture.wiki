@@ -12,18 +12,30 @@ This is how the system works.  The first section describes the most important th
     # The headnode
     # The the awesome-chilli program on client access nodes.
 
-In the system setup, The headnode must be configured with the correct IP address of the RADIUS Server.  The headnode then advertises this address at the urls: 
+In the system setup, The headnode must be configured with the correct IP address of the RADIUS Server (the RADIUS server is a server on the public internet that has been configured with the user database.  You will either set this server up yourself or be given the connection info for one that has been set up for you already) The headnode then advertises this RADIUS server address at the urls: 
 {{{
 master.mesh
 radius.mesh
 map.mesh
+time.mesh
 }}}
+Note: it is currently only coincidence that map.mesh, master.mesh, and time.mesh are the same IP as the RADIUS server.  This is not required. 
+
 because all the nodes forward DNS requests to their gateway, every node will automatically resolve the above urls to the correct IP without any special configuration.  (Notably, the urls above need to be listed in the 'uamallowed' option in the chilli config for each router. This should be the case by default)
 
-  * When a client access node starts up, it will check its connection to the RADIUS server.  Chilli WILL NOT START if it cannot connect to the RADIUS server.
+  * When a client access node starts up, chilli will check its connection to the RADIUS server.  Chilli WILL NOT START if it cannot connect to the RADIUS server.
 
 _Because Chilli provides DHCP to clients, clients will not be able to connect to the wifi if chilli is not running_
 
 _If chilli is started and it loses a connection to the RADIUS server it will continue to run, but will not be able to authenticate clients or show the remotely hosted portion of the splash page_
 
-  * When the headnode finds a gateway to the internet, it advertises itself as a DNS server and an uplink (0.0.0.0) to the rest of the network. (This is done through olsrd-mod-dyn-gw and the /etc/fabfi-scripts/check-uplink script.  
+  * When the headnode finds a gateway to the internet, it advertises itself as a DNS server and an uplink (0.0.0.0) to the rest of the network. (This is done through olsrd-mod-dyn-gw (uplink) and the /etc/fabfi-scripts/check-uplink script (DNS)).  For the system to work, every node must add the address of the headnode to 
+{{{
+/var/resolv.conf.auto.  
+}}}
+without this, nodes will not be able to resolve the urls listed above and chilli will not start.  The longest expected settle time for the network after the headnode gets an internet connection is about three minutes. _If the headnode is conncted to the internet but the leaf nodes are not updating their DNS, restarting olsr will usually resolve the problem._  This is done by running:
+{{{
+$ /etc/init.d/olsrd restart
+}}}
+
+
