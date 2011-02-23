@@ -28,7 +28,7 @@ _Note: in our experiences, we found this all easier to do in linux, and even eas
    * (If the text is not understandable (lots of black blocks, etc.) it means you are either at the wrong baud rate, or the physical serial connection is not good. Try fiddling with the wires)
  # Immediately start pressing any key (i used 'enter') - because the serial terminal will soon tell you "hit any key to stop autoboot" - but only give you a fraction of a second to do so
  # Assuming you have done this correctly, you should see the console message change to "ar7100>" (or something like that) and it should be ready for you to write commands
-# Enter the command "upgrade code.bin"
+ # Enter the command "upgrade code.bin"
 
 Ok take a deep breath (and keep the serial connection open) - now we will enter the tftp side of things.
 
