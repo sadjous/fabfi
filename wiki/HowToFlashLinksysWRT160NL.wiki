@@ -1,3 +1,28 @@
+Note: currently, we are using "Linksys WRT160NL" as "head nodes" for the FabFi network
+
+===How to Flash a Head Node:===
+
+==Prerequisites==
+
+*Hardware you will need:*
+ * A serial cable (or, for most modern users, a usb --> serial connection)
+ * A Linksys WRT160NL Router
+
+*Software you will need:*
+ * The latest image to be flashed
+   * (This can either be built using openWRT and the latest SVN download, or by going __here__ to the downloads page to find the latest stable build)
+ * A TFTP program
+   * Linux: minicom (sudo apt-get tftp)
+   * Windows: google for "how to enable windows tftp"
+ * A Serial program
+   * Linux: minicom (sudo apt-get minicom)
+   * Windows: google for "windows serial alternatives" (we used "Tera Term" and it worked great)
+
+Note: in our experiences, we found this all easier to do in linux, and even easier if you have both windows and linux. We were able to easily connect 
+
+
+ # 
+
 connect to the serial port
 
 start minicom on your computer. make sure you've specified the serial port to which your router is connected
