@@ -4,6 +4,8 @@ The Fabfi server is a cloud-hosted device that houses the authentication databas
 
 *NOTE: This configuration was documented piecemeal, so there may be redundant instructions, especially related to package installation.  It is unlikely that doing anything multiple times will cause problems, however.*
 
+**NOTE2:  This page does NOT cover configuration of user accounts.  For information on user acconuts configuration go to the [UserAccountManagement] page.  
+
 == OS Installation ==
 
   * Used U10.04 server i386, 
