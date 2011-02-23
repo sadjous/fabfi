@@ -5,55 +5,71 @@ This is the troubleshooting page.  Before starting you should understand the [Ad
 
 = Basic Commands =
 
-To log into a device
+ * Log into a device
 {{{
 $ ssh root@<ip of device>
 
 example: ssh root@10.100.0.49
 }}}
 
-To see what other olsr devices a node has as a neighbor
+ * View a file
+{{{
+$ cat <filename>
+}}}
+
+ * Edit a file
+{{{
+$ vi <filename>
+}}}
+ for more info on vi go [http://www.cs.fsu.edu/general/vimanual.html here]
+
+ * To see what other olsr devices a node has as a neighbor
 {{{
 $ echo '/links' nc | localhost 2006
 }}}
 
-to reboot a device 
+ * to reboot a device 
 {{{
 $ reboot && exit
 }}}
 
-to check connectivity with another device
+ * Check connectivity with another device
 {{{
 $ ping <ip address>
 
 example: ping 8.8.8.8
 }}}
 
-to check DNS and connectivity
+ *heck DNS and connectivity
 {{{
 $ ping <url>
 
 example: ping google.com
 }}}
 
-to list running processes
+ * list running processes
 {{{
 $ ps
 }}}
 
+ * Test the download of a web page
+{{{
+$ wget -s http://<your url here>
+}}}
+
 == Operators ==
 
-Pipe: 
+ * Pipe: 
 {{{
 <command> | <other command>
 }}}
-Takes the output of the first command and sends it to the input of the next
+ Takes the output of the first command and sends it to the input of the next
 
-Double Ampersand:
+ * Double Ampersand:
 {{{
 <command> && <other command>
 }}}
-executes the first command and then the second if the first is successful
+ executes the first command and then the second if the first is successful
 
 [http://www.gnu.org/software/bash/manual/bashref.html Complete Bash reference guide] Note: OpenWRT does  not use a complete/standard bash, so expect only basic things to work.
 
@@ -62,6 +78,7 @@ executes the first command and then the second if the first is successful
 
   # Check internet connectivity (use ping with IP)
   # Check DNS (use ping with URL)
+    _Note: some ISPs will drop or block pings.  If this is the case on your network, use wget instead of ping_
   # Check that squid is running
 {{{
 $ ps
@@ -136,6 +153,7 @@ check that /var/resolv.conf.auto has IP of headnode listed in it.
 cat /var/resolv.conf.auto
 }}}
 
-
-
-If No:
+if not, restart olsrd on node
+{{{
+$ /etc/init.d/olsrd restart
+}}}
