@@ -1,8 +1,8 @@
 Note: currently, we are using "Linksys WRT160NL" as "head nodes" for the FabFi network
 
-===How to Flash a Head Node:===
+==How to Flash a Head Node:==
 
-==Prerequisites==
+===Prerequisites===
 
 *Hardware you will need:*
  * A serial cable (or, for most modern users, a usb --> serial connection)
@@ -10,41 +10,60 @@ Note: currently, we are using "Linksys WRT160NL" as "head nodes" for the FabFi n
 
 *Software you will need:*
  * The latest image to be flashed
-   * (This can either be built using openWRT and the latest SVN download, or by going __here__ to the downloads page to find the latest stable build)
+   * (This can either be built using openWRT and the latest SVN download, or by going __here__ to the 
+
+downloads page to find the latest stable build)
  * A TFTP program
    * Linux: minicom (sudo apt-get tftp)
    * Windows: google for "how to enable windows tftp"
- * A Serial program
+ * A Serial program ("hyperterminal")
    * Linux: minicom (sudo apt-get minicom)
-   * Windows: google for "windows serial alternatives" (we used "Tera Term" and it worked great)
+   * Windows: google for "windows hyperterminal alternatives" (we used "Tera Term", recommended from 
 
-Note: in our experiences, we found this all easier to do in linux, and even easier if you have both windows and linux. We were able to easily connect 
+http://helpdeskgeek.com/windows-7/windows-7-hyperterminal/ and it worked great)
 
+Note: in our experiences, we found this all easier to do in linux, and even easier if you have both 
 
- # 
+windows and linux. We were able to easily connect 
 
-connect to the serial port
+===The Procedure===
+ # Open up the Linksys device & connect your computer to the Linksys Device via serial cable (image)
+ # Launch your hyperterminal (serial) program and set the baud rate to 115200
+ # Restart the router (by power cycling)
+ # You should see lots of things start printing in the serial connection
+   * (If the text is not understandable (lots of black blocks, etc.) it means you are either at the wrong 
 
-start minicom on your computer. make sure you've specified the serial port to which your router is connected
+baud rate, or the physical serial connection is not good. Try fiddling with the wires)
+ # Immediately start pressing any key (i used 'enter') - because the serial terminal will soon tell you 
 
-reboot the router
+"hit any key to stop autoboot" - but only give you a fraction of a second to do so
+ # Assuming you have done this correctly, you should see the console message change to "ar7100>" (or 
 
-press any key at "Hit any key to stop the boot process"
+something like that) and it should be ready for you to write commands
+# Enter the command "upgrade code.bin"
 
-enter the command "upgrade code.bin"
+Ok take a deep breath (and keep the serial connection open) - now we will enter the tftp side of things.
 
-start tftp on a separate window.
+Note: "tftp" stands for 'trivial ftp', and is used for simple transfer protocols - like flashing a 
 
-tftp 192.168.1.1
+device. 
 
-tftp>binary
+Now..
+# Open up a new console
+# Navigate to the folder where you have saved the file "openwrt-ar71xx-wrt160nl-squashfs-factory.bin" 
 
-tftp>rexmt 1
+(btw you can rename this to "code.bin" or something else more easily read)
+# Now type:
+  # tftp 192.168.1.1
+  # tftp>binary
+  # tftp>rexmt 1
+  # tftp>trace on
+  # tftp>put code.bin
 
-tftp>trace on
+As the tftp starts pushing data to the router, you should be able to read the router's responses in the 
 
-tftp>put code.bin
+serial window. There should come a point when the router indicates "done" (a successful flash) on the 
 
-Your router should show that it has received the code.
+serial console.
 
-Wait until it indicates "done" on the serial console.
+Whala! You have now re-programmed (flashed) a headnode. Now it's on to configuration!!
