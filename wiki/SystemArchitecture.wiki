@@ -82,4 +82,14 @@ The ALAN network is usually only seen on headnodes, while every device provides 
 
  _NOTE: the ports and/or wireless interfaces used for each network are defined dynamically by the setup script._
 
+== Wireless Network Partitioning ==
+
+In the current iteration (changing soon) wireless devices can be in AP, STA or ADHOC mode.  The former two are only used now because N-speeds have yet to be fully achieved in ADHOC mode with the ath9k driver.  
+
+In AP/STA mode the wireless network is segmented by SSID/channel.  This is selected at configuration time where the user selects a channel and this will dictate a SSID in 1:1 correspondence with the channel.  
+
+In ADHOC mode, channel selection during setup selects both the channel and the BSSID.  BSSID is <channel in hex>:fa:bf:1f:ab:f1.
+
+By selecting channels, it is possible to control topology and traffic flow of the network.  
+
 == System Block Diagram ==
