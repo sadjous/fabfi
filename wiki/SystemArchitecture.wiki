@@ -29,7 +29,7 @@ because all the nodes forward DNS requests to their gateway, every node will aut
 
 *If chilli is started and it loses a connection to the RADIUS server it will continue to run, but will not be able to authenticate clients or show the remotely hosted portion of the splash page*
 
-  * The headnode checks every two minutes on its WAN interface to see if it can download a page from the radius server (it also pings various sites as a backup). When this check succeeds, it advertises itself as a DNS server and an uplink (0.0.0.0) to the rest of the network***. (This is done through olsrd-mod-dyn-gw (uplink) and the /etc/fabfi-scripts/check-uplink script (DNS)).  For the system to work, every node must add the address of the headnode to 
+  * The headnode checks every two minutes on its WAN interface to see if it can download a page from the radius server (it also pings various sites as a backup). When this check succeeds, it advertises itself as a DNS server and an uplink (0.0.0.0) to the rest of the network. (This is done through olsrd-mod-dyn-gw (uplink) and the /etc/fabfi-scripts/check-uplink script (DNS)).  For the system to work, every node must add the address of the headnode to 
 {{{
 /var/resolv.conf.auto.  
 }}}
@@ -42,7 +42,7 @@ This is done by running:
 $ /etc/init.d/olsrd restart
 }}}
 
-***As of 3/2011, the headnode uplink check (/etc/fabfi-scripts/check-uplink) is broken when pings do not return on a working uplink.  This can be solved for a single headnode implementation by setting the ping site for olsrd-mod-dyn-gateway in /etc/config/olsrd to the mesh ip of the headnode.  There is currently no fix for multiple uplink installations.
+_NOTE: As of 3/2011, the headnode uplink check (/etc/fabfi-scripts/check-uplink) is broken when pings do not return on a working uplink.  This can be solved for a single headnode implementation by setting the ping site for olsrd-mod-dyn-gateway in /etc/config/olsrd to the mesh ip of the headnode.  There is currently no fix for multiple uplink installations._
 
 == Network Architecture and Addressing Conventions ==
 
