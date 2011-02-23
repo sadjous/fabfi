@@ -37,16 +37,15 @@ Ok take a deep breath (and keep the serial connection open) - now we will enter 
 _Note: "tftp" stands for 'trivial ftp', and is used for simple transfer protocols - like flashing a device._
 
 Now..
-# Open up a new console
-# Navigate to the folder where you have saved the file "openwrt-ar71xx-wrt160nl-squashfs-factory.bin" 
-
-(btw you can rename this to "code.bin" or something else more easily read)
-# Now type:
-  # tftp 192.168.1.1
-  # tftp>binary
-  # tftp>rexmt 1
-  # tftp>trace on
-  # tftp>put code.bin
+ # Open up a new console
+ # Navigate to the folder where you have saved the file "openwrt-ar71xx-wrt160nl-squashfs-factory.bin" 
+   * (btw you can rename this to "code.bin" or something else more easily read)
+ # Now type:
+   # tftp 192.168.1.1
+   # tftp>binary
+   # tftp>rexmt 1
+   # tftp>trace on
+   # tftp>put code.bin
 
 As the tftp starts pushing data to the router, you should be able to read the router's responses in the serial window. There should come a point when the router indicates "done" (a successful flash) on the serial console.
 
