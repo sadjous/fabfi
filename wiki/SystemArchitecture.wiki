@@ -33,7 +33,23 @@ because all the nodes forward DNS requests to their gateway, every node will aut
 {{{
 /var/resolv.conf.auto.  
 }}}
-without this, nodes will not be able to resolve the urls listed above and chilli will not start.  The longest expected settle time for the network after the headnode gets an internet connection is about three minutes. _If the headnode is conncted to the internet but the leaf nodes are not updating their DNS, restarting olsr will usually resolve the problem._  This is done by running:
+without this, nodes will not be able to resolve the urls listed above and chilli will not start.  The longest expected settle time for the network after the headnode gets an internet connection is about three minutes.
+
+ _If the headnode is conncted to the internet but the leaf nodes are not updating their DNS, restarting olsr will usually resolve the problem._  
+
+This is done by running:
 {{{
 $ /etc/init.d/olsrd restart
 }}}
+
+== Network Architecture and Addressing Conventions ==
+
+Each Fabfi device has the ability to provide up to 6 subnets.  These Subnets are divided into three groups:
+
+  * Infrastructure access
+  * Client access
+  * Administrative access
+
+
+
+The *Client Access* group is 
