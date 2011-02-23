@@ -1,4 +1,5 @@
   * [WikiHome Wiki Home]
+  * [WhatIsFabFi]?
   * [TroubleShooting]
   * [AdministrativeTidbits Administrative Tidbits]
     * [AdministrativeTidbits#SVN_Basics SVN Basics]
@@ -17,7 +18,6 @@
     * [HowToMake#AdvancedDevelopment Advanced Development]
         * [HowtoBuildAFabFiImage Build a Fabfi node image]
 
-  * FabFi
   * HowtoFlashUbiquitiDevices
   * HowToConfigureHeadNode
   * [HowToFlashLinksysWRT160NL] 
