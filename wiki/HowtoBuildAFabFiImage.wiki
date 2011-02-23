@@ -2,7 +2,7 @@
 
 = Introduction = 
 
-Instead of using the images we provide on the site, you can build your own images either from source or from the OpenWRT imagebuilder. This page outlines both methods.  
+Instead of using the images we provide on the site, you can build your own images either from source or from our customized OpenWRT imagebuilder. This page outlines both methods.  
 
 == Workflow ==
 
@@ -45,11 +45,13 @@ the above command will probably take an hour or so the first time you run it.  W
 
 Open this archive and extract the contained folder to your hard drive.  You will use it to complete the rest of the build process
 
-*NOTE: Imagebuilder for 10.03.1-rc4 will not build kmod-fs-mbcache.  You need to separately get the package from [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/kmod-fs-mbcache_2.6.32.25-1_ar71xx.ipk here], put it in the packages folder in imagebuilder and the splice the kmod-fs-mbcache section of the [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/Packages Packages file] into your packages file.
+*NOTE: Imagebuilder for 10.03.1-rc4 will not build kmod-fs-mbcache as of the r25055.  You need to separately get the package from [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/kmod-fs-mbcache_2.6.32.25-1_ar71xx.ipk here], put it in the packages folder in imagebuilder and the splice the kmod-fs-mbcache section of the [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/Packages Packages file] into your packages file.
 
 === Building from Imagbuilder ===
 
-*NOTE: as of this version, you can no longer simply download the stock OpenWRT imagebuilder from OpenWRT and proceed.  You will need to separately download and build awesome-chilli from [http://afrimesh.googlecode.com/svn/branches/unstable/package-scripts/openwrt/ afrimesh].  Assuming you have done this and updated the package list (which I have no idea how to do), or built the imagebuilder from scratch above, you may proceed...*
+*NOTE: as of this version, you can no longer simply download the stock OpenWRT imagebuilder from OpenWRT and proceed.  You must instead use our custom imagebuilder or download and build awesome-chilli from [http://afrimesh.googlecode.com/svn/branches/unstable/package-scripts/openwrt/ afrimesh] then update the package list (I have no idea how to do the latter part).*
+
+If you're not building from source or hacking stock OpenWRT, [http://portal.joinafrica.org/dev/fabfi-OpenWrt-ImageBuilder-ar71xx-for-Linux-i686.tar.bz2 get our custom imagebuilder here].
 
 still in the scripts directory from above, run:
 {{{
@@ -57,10 +59,8 @@ $ sh ffimage.sh
 }}}
 
 You will be asked to enter the profile name and the path to the imagebuilder.  The currently available profiles are 
-  * WRT160NLFF
-  * NS5L
-  * NS2L
-  * PICO2M
+  * WRT160NL
+  * UBNTNANOM (works for ubiquiti nanom and picoM devices)
 
 Note: "path to the imagebuilder" is the path to the contents of the imagebuilder folder you extracted above.  
 
@@ -69,5 +69,5 @@ If this process completes with no errors (and it should), you will find you imag
 {path to imagebuilder}/bin/ar71xx/
 }}}
 
-The ones you are about are the .trx files ending in "factory" and "sysupgrade"
+The ones you care about are the .bin files ending in "factory" and "sysupgrade" with the device name of the device you built fw for.  
 
