@@ -19,15 +19,15 @@ radius.mesh
 map.mesh
 time.mesh
 }}}
-Note: it is currently only coincidence that map.mesh, master.mesh, and time.mesh are the same IP as the RADIUS server.  This is not required. 
+_Note: it is currently only coincidence that map.mesh, master.mesh, and time.mesh are the same IP as the RADIUS server.  This is not required._
 
 because all the nodes forward DNS requests to their gateway, every node will automatically resolve the above urls to the correct IP without any special configuration.  (Notably, the urls above need to be listed in the 'uamallowed' option in the chilli config for each router. This should be the case by default)
 
   * When a client access node starts up, chilli will check its connection to the RADIUS server.  Chilli WILL NOT START if it cannot connect to the RADIUS server.
 
-_Because Chilli provides DHCP to clients, clients will not be able to connect to the wifi if chilli is not running_
+*Because Chilli provides DHCP to clients, clients will not be able to connect to the wifi if chilli is not running*
 
-_If chilli is started and it loses a connection to the RADIUS server it will continue to run, but will not be able to authenticate clients or show the remotely hosted portion of the splash page_
+*If chilli is started and it loses a connection to the RADIUS server it will continue to run, but will not be able to authenticate clients or show the remotely hosted portion of the splash page*
 
   * When the headnode finds a gateway to the internet, it advertises itself as a DNS server and an uplink (0.0.0.0) to the rest of the network. (This is done through olsrd-mod-dyn-gw (uplink) and the /etc/fabfi-scripts/check-uplink script (DNS)).  For the system to work, every node must add the address of the headnode to 
 {{{
@@ -37,5 +37,3 @@ without this, nodes will not be able to resolve the urls listed above and chilli
 {{{
 $ /etc/init.d/olsrd restart
 }}}
-
-
