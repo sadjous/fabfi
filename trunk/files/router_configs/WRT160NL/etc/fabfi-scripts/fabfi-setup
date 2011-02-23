@@ -179,11 +179,6 @@ if  [ $headnode == "y" ]; then
 		uci set fstab.@swap[0].enabled=1
 		uci commit fstab
 		#/etc/init.d/fstab restart
-		sleep 1
-		mkdir /home/squid
-		mkdir /home/squid/log
-		mkdir /home/squid/cache
-		chmod -R 777 /home/squid
 
 
 	#create reboot script file and link to rc.d
