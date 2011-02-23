@@ -62,7 +62,7 @@ Each fabfi device is given a unique number during setup.  The hex equivalent of 
 
  _Note: the nature of the the setup script does addressing requires fabfi numbers that would result in "special" class D octets (0, 255) not be used._
 
-_Note2: Pending the implementation of N-speeds for adhoc wireless, the ADHOCMESH network will be deleted and all wireless connections will be adhoc, running on the WIFIMESH network_
+ _Note2: Pending the implementation of N-speeds for adhoc wireless, the ADHOCMESH network will be deleted and all wireless connections will be adhoc, running on the WIFIMESH network_
 
 The *Client Access* group consists of networks used by clients to access the internet.  There are two such networks:
 
@@ -78,18 +78,6 @@ The *Administrative Access* networks are designed to give system administrators 
 
 The ALAN network is usually only seen on headnodes, while every device provides ALIAS on a MESH port.  This latter feature is both useful and dangerous.  For an isolated device, the administrator can be assured of connecting to the device at 192.168.1.10, but if multiple fabfi devices are on the same layer2 net, which device will respond is undefined.
 
-_NOTE: the ports and/or wireless interfaces used for each network are defined dynamically by the setup script._
+ _NOTE: the ports and/or wireless interfaces used for each network are defined dynamically by the setup script._
 
-
-
-
-
-
-
-
-
-
-
-
-
-The *Client Access* group is 
+== System Block Diagram ==
