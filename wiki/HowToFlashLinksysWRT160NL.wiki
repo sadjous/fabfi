@@ -13,16 +13,16 @@ _Note: currently, we are using "Linksys WRT160NL" as "head nodes" for the FabFi 
    * (This can either be built using openWRT and the latest SVN download, or by going __here__ to the downloads page to find the latest stable build)
  * A TFTP program
    * Linux: minicom (sudo apt-get tftp)
-   * Windows: google for "how to enable windows tftp"
+   * Windows: google for "how to enable windows tftp" (though we found we couldn't really ever get tftp working on windows - the commands are too weird)
  * A Serial program ("hyperterminal")
-   * Linux: minicom (sudo apt-get minicom)
+   * Linux: minicom (sudo apt-get minicom), then HowToSetUpSerialMinicomLinux
    * Windows: google for "windows hyperterminal alternatives" (we used "Tera Term", recommended from http://helpdeskgeek.com/windows-7/windows-7-hyperterminal/ and it worked great)
 
 _Note: in our experiences, we found this all easier to do in linux, and even easier if you have both windows and linux. We were able to easily connect_
 
 ===The Procedure===
  # Open up the Linksys device & connect your computer to the Linksys Device via serial cable (image)
- # Launch your hyperterminal (serial) program and set the baud rate to 115200
+ # Launch your hyperterminal (serial) program and set the baud rate to 115200. Or, if you are in linux, HowToSetUpSerialMinicomLinux
  # Restart the router (by power cycling)
  # You should see lots of things start printing in the serial connection
    * (If the text is not understandable (lots of black blocks, etc.) it means you are either at the wrong baud rate, or the physical serial connection is not good. Try fiddling with the wires)
@@ -60,3 +60,24 @@ When the tftp finishes sending all of the commands, you should
 There should come a point when the router indicates "done" (a successful flash) on the serial console.
 
 Whala! You have now re-programmed (flashed) a headnode. Now it's on to configuration!! HowToConfigureHeadNode
+
+Note: if you are continuing directly to configuring the head node (which you probably should), then you should type:
+ * "reboot" (which will restart the router)
+ * You should see many things print out (you may have to hit 'enter' once or twice if it seems to stop for a long time) - and eventually get to some text that says "open wrt" and "wirless freedom". This is good. Your router is now flashed properly and ready to roll
+
+
+====Possible Errors While Flashing:====
+Problems:
+ * While re-flashing, on the serial console something is printed out about "bad code sector" (or something serial) OR
+ * On reboot, the device never finishes starting up, and (despite you trying to press enter a couple times) will never get to the "open wrt wirless freedom" screen.
+
+Diagnosis:
+ * Possible incomplete or corrupt code download OR
+ * Image too old
+
+Solution: 
+  * Check to make sure you have the correct .bin file (the flash image)
+    * You should have the flash image - not the sys-upgrade image
+  * Try downloading the .bin file again (it may have gotten corrupted on download
+    * Note: firefox is better for downloading than chrome
+  * Try contacting the Fab Fi admins to get the latest image - you may have an image that's too old.
