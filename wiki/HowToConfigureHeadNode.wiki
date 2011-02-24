@@ -1,4 +1,119 @@
-Run:
+The head node can be configured either using ssh or using the serial console. We have, so far, only managed to configure using serial
+
+===Configuring Head Node Using Serial Connection===
+
+*Warning: while in serial mode, you have to be *very careful* with what you type and how. The "backspace" key will not work - and oftentimes if you mess up, you will have to start over (see the "troubleshooting" guide at the bottom of the page)*
+
+Make sure you are connected via serial and have allowed the router to do a full reboot (get to the 'openwrt wireless freedom' screen)
+
+Now, type *"sh setup"* to begin the setup process. You will see the following prompts/settings when you do so, so you should prepare all of your settings beforehand. Explanations/examples are listed below:
+
+ * Number of Fabfi:
+ * Wireless Channel:
+ * Headnode? (y/n):
+ * Transmit distance: (100m)
+ * WEP Key (d for default): (d)
+ * Device Name: 
+ * Device Type:
+ * GPS Location? (using decimals):
+ * IP of your Cloud Server: 18.181.3.77 (radius server)
+
+Now the device will indicate "done" or "terminated", and prompt you to set up squid and/or a usb stick. Squid is the proxy server and is necessary for slow connections (I believe it also allows for caching of visited pages - which can, depending on your setup, greatly increase browsing speed and network load). 
+
+When it asks you "would you like to set up squid?", select "yes"
+Then, insert a usb stick which will be used for the cache, but take note about it's size, and know that it will be formatted.
+
+Once you insert the usb stick, you will be presented with the following commands:
+ * d - delete all partitions
+ * n - new partition
+ * p - primary partition
+ * 1 - for partition number
+ * 1 - for first block
+ * +7.75M for next block 
+   * (this setting you need to change. It should be about a gig or two smaller than the disk size. For example, we used a 30gb drive, so we set the size at +28M)
+ * n - for new partition
+ * p - for primary position
+ * 2 - for partition number
+ * <enter> 2x - for defaults
+ * w - write changes
+
+These are instructions that you should just follow, typing them into the console one-by-one. They will format the flash disk cache to the correct format, so it can be utilized by the headnode.
+
+Now, your headnode should be configured! Reboot it and then you may need to configure the router IP (below)
+
+===Setting Your Router IP===
+
+You will need to connect via ssh to the router. To do so, follow these instructions:
+ * Connect a serial cable to your laptop and ports 1-3 on the router
+ * Configure your ip/wired connection as follows:
+   * Set the wired connection mode to "manual" (instead of dhcp)
+   * ip: 192.168.1.(2-254) (ie. 192.168.1.254)
+   * netmask: 255.255.255.0
+   * default gateway: 192.168.1.1
+ * Now, type *"ssh root@192.168.1.10"* (this is the default gateway ip of the headnode)
+
+Once you are ssh-ed in to the router, do the following:
+ * Navigate to the directory "/etc/config"
+   * type "cd /etc"
+   * type "cd config"
+   * (you can now view the configuration file by typing "vi network" and scrolling around to see all the settings)
+
+Now we will use uci to change the settings. Type in:
+ * "uci set network.wan.proto=static"
+ * "uci set network.wan.ifname=eth1"
+ * "uci set network.wan.ipaddr=(your desired ip address)"
+ * "uci Set network.wan.netmask=(ask.whoever.gave.you.above.address)"
+ * "uci set network.wan.gateway=(ask.whoever.gave.you.above.address)"
+ * "uci set network.wan.dns=8.8.8.8"
+ * "uci commit"
+
+Note: to find out which gateway and netmask you should use, connect a wired ethernet connection to your laptop, and type "ipconfig" in a terminal. Then use whatever is listed under the ethernet connection. Also, for the ipaddr, there is the option of using your private or public ip - we used the private.
+
+Now, you should be all configured!
+
+
+===Testing Head Node Connectivity===
+
+To test whether the head node is connected and configured properly, you can try, while still ssh-ed, to type "ping 8.8.8.8". If you get a reply, this is good.
+
+Other than that, the next test you can do is to connect internet to the router, and then connect a picostation to it, and see if you can connect to the picostation and obtain internet.
+
+Another method suggested is to plug in internet to the router, change your ip to 10.100.0.254, and then connect via ssh to the router also (on ports 1-3). Then, while ssh-ed in, you should get internet with the above ip, but you will not be able to do so with 192.168.1....
+
+
+=====Troubleshooting (for serial setup)=====
+
+If you mess up the setup script at any point, do the following (in the serial console):
+ * Type "firstboot"
+ * Wait 15 seconds (for the command to finish)
+ * Do a full hard reboot
+ * Try the setup process again
+
+
+====Troubleshooting====
+
+The password may not have registered, and when you try to log into ssh, it refuses your password. Solution:
+ * Connect via serial
+ * Type "passwd" and reset your password. Then try logging in again
+
+Another way to ssh is this:
+ * Set your connection mode to "DHCP" (automatic)
+ * Reset your network connection, and see which ip you have been given
+ * Now, you can connect to the device using the command: *"ssh root@XXX.XXX.XXX.1"* (which will be the default gateway given to you by dhcp)
+ * Now, you can do your business
+
+
+
+
+
+
+
+
+
+
+
+
+Run (Old? - where is this used?):
 
  uci set network.wan.proto=static
 
