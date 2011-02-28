@@ -9,15 +9,16 @@ VER="4.0.0_RC2"
 
 echo "WARNING, this script will forever change your imagebuilder!"
 sleep 1;
-until (echo $synced | grep "^[yn]$"); do
-	echo "Did you sync trunk in your svn archive with svn update? (y/n)  If not, revision number will not be marked as unverified."
-	read synced
+until (echo $revok | grep "^[yn]$"); do
+	echo "Did you sync trunk in your svn archive with svn update? (y/n)  If not, rev number will be marked as unverified."
+	read revok
 done
 
-if [ "y" == "n" ]; then
-	rev=${VER}.`svn info ../ | grep "Revision:" | sed 's/Revision: //'`U
+if [ $revok = "n" ]
+then
+	rev=${VER}.`svn info ../ | grep "Revision:" | sed 's/Revision: //'`U;
 else
-	rev=${VER}.`svn info ../ | grep "Revision:" | sed 's/Revision: //'`
+	rev=${VER}.`svn info ../ | grep "Revision:" | sed 's/Revision: //'`;
 fi
 
 echo "pick a profile (and you'd better spell it right or this thing blows up)"
