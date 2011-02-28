@@ -58,51 +58,51 @@ clear_all
 while true
         do
         iw dev $1 station dump | grep 'signal' | cut -d - -f 2 | cut -d d -f 1 > $SIGTMP
-        REZ="0"
+        REZ="100"
         while read line
                 do 
-                if [ $line -gt $REZ ]
+                if [ $line -lt $REZ ]
                         then
                         REZ=$line
                 fi
         done < $SIGTMP
-        if [ $REZ -ne 0 ]; then
+        if [ $REZ -ne 100 ]; then
                 if [ $REZ -ne $OLDVAL ]; then
                         clear_all
-                        if [ $REZ -gt $TRH1 ]; then
+                        if [ $REZ -lt $TRH1 ]; then
                                 set1 $LED1
                                 set1 $LED2
                                 set1 $LED3
                                 set1 $LED4
                         else
-                        if [ $REZ -gt $TRH1B ]; then
+                        if [ $REZ -lt $TRH1B ]; then
                                 blink1 $LED1
                                 set1 $LED2
                                 set1 $LED3
                                 set1 $LED4
                         else
-                                if [ $REZ -gt $TRH2 ]; then
+                                if [ $REZ -lt $TRH2 ]; then
                                         set1 $LED2
                                         set1 $LED3
                                         set1 $LED4
                                 else
-                                if [ $REZ -gt $TRH2B ]; then
+                                if [ $REZ -lt $TRH2B ]; then
                                         blink1 $LED2
                                         set1 $LED3
                                         set1 $LED4
                                 else
-                                        if [ $REZ -gt $TRH3 ]; then
+                                        if [ $REZ -lt $TRH3 ]; then
                                                 set1 $LED3
                                                 set1 $LED4
                                         else
-                                        if [ $REZ -gt $TRH3B ]; then
+                                        if [ $REZ -lt $TRH3B ]; then
                                                 blink1 $LED3
                                                 set1 $LED4
                                         else
-                                                if [ $REZ -gt $TRH4 ]; then
+                                                if [ $REZ -lt $TRH4 ]; then
                                                         set1 $LED4               
                                                 else
-                                                        blink1 $LED4                            
+                                                        blink1 $LED4               
                                                 fi
                                         fi
                                         fi
