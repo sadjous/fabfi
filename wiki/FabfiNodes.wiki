@@ -14,7 +14,7 @@ Common nodes are all the other nodes in the network.  They may or may not have u
 
 It's likely that the current version of Fabfi will run on any ar71xx platform device, but the devices we've used and tested are:
  * Linksys WRT160NL
- * Ubiquiti NanoM5-loco
- * Ubiquiti NanoM2-loco
- * Ubiquiti PicoM2-HP
+ * Ubiquiti `NanoM5-loco`
+ * Ubiquiti `NanoM2-loco`
+ * Ubiquiti `PicoM2-HP`
 We have not tested any other platforms or devices at this time.  
