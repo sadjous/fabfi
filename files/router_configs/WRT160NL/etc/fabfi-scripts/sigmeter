@@ -53,58 +53,56 @@ then
         iw dev $1 station dump | grep 'signal' | cut -d - -f 2 | cut -d d -f 1 > $SIGTMP
 #echo "----------------------"
 #echo "oldval $OLDVAL"        
-        REZ="0"
+        REZ="100"
         while read line
                 do 
-                if [ $line -gt $REZ ]
+                if [ $line -lt $REZ ]
                         then
                         REZ=$line
                 fi
         done < $SIGTMP
 #echo "rez $REZ"
-        if [ $REZ -ne 0 ]; then
+        if [ $REZ -ne 100 ]; then
                 if [ $REZ -ne $OLDVAL ]; then
                         clear_all
-                        if [ $REZ -gt $TRH1 ]; then
+                        if [ $REZ -lt $TRH1 ]; then
 #echo "level1 $REZ"
                                 set1 $LED1
                                 set1 $LED3
                         else
-                        if [ $REZ -gt $TRH1B ]; then
+                        if [ $REZ -lt $TRH1B ]; then
 #echo "level1b"
                                 blink1 $LED1
                                 set1 $LED3
                         else
-                                if [ $REZ -gt $TRH2 ]; then
+                                if [ $REZ -lt $TRH2 ]; then
 #echo "level2"
 	                                set1 $LED1
                                         set1 $LED2
                                         set1 $LED3
                                 else
-                                if [ $REZ -gt $TRH2B ]; then
+                                if [ $REZ -lt $TRH2B ]; then
 #echo "level2b"
                                         blink1 $LED1
                                         blink1 $LED2
                                         set1 $LED3
                                 else
-                                        if [ $REZ -gt $TRH3 ]; then
+                                        if [ $REZ -lt $TRH3 ]; then
 #echo "level3"
                                                 set1 $LED2
 	                                        set1 $LED3
                                         else
-                                        if [ $REZ -gt $TRH3B ]; then
+                                        if [ $REZ -lt $TRH3B ]; then
 #echo "level3b"
                                                 blink1 $LED2
                                                 set1 $LED3
                                         else
-                                                if [ $REZ -gt $TRH4 ]; then
+                                                if [ $REZ -lt $TRH4 ]; then
 #echo "level4"
                                                         set1 $LED3               
                                                 else
-                                                if [ $REZ -le $TRH4 ]; then
 #echo "level4b"
                                                         blink1 $LED3                            
-                                                fi
                                                 fi
                                         fi
                                         fi

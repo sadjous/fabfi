@@ -24,6 +24,9 @@ cp -a ${IBMake}/.config ${IBPATH}/
 cp -a ${IBMake}/feeds.conf.default ${IBPATH}/
 cd $here
 echo "now go back to the openwrt source and run"
+echo "./scripts/feeds update -a"
+#note: to make building source less of a huge pain, we need to only install te stuff that's actually needed
+echo "./scripts/feeds install"
 echo "make V=99"
 sleep 5
 

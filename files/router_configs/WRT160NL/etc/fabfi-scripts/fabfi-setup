@@ -102,8 +102,12 @@ gps=""
 	read gps
 #done 
 
-if  [ $headnode == "n" ]; then
+if  [ $headnode == "y" ]; then
+	echo "What is the IP of your cloud server?. There's no check on this text so don't screw it up!"
+	read cloudIP
+fi
 until (echo $nodetype | grep "^[1-6]$"); do
+
 	echo "Choose a radio mode: "
 	echo "1: STA"
 	echo "2: Dual AP"
@@ -113,19 +117,7 @@ until (echo $nodetype | grep "^[1-6]$"); do
 	echo "6: Admin AP"
 	read nodetype
 done 
-else
-	echo "What is the IP of your cloud server?. There's no check on this text so don't screw it up!"
-	read cloudIP
 
-until (echo $nodetype | grep "^[1356]$"); do
-	echo "Choose a radio mode: "
-	echo "1: STA"
-	echo "3: ADHOC"
-	echo "5: Fabfi AP"
-	echo "6: Admin AP"
-	read nodetype
-done 
-fi
 
 if [ $nodetype == "2" ] || [ $nodetype == "4" ]; then
 	echo "Enter your radius secret"
@@ -151,7 +143,7 @@ if  [ $headnode == "y" ]; then
 	echo "do you want to configure squid on your headnode? This will require you to have your USB disk ready (y/n)"
 	read squidme
 	done
-	if test $squidme="y"
+       if [ $squidme == "y" ]
 		then
 		echo "Insert your USB disk and press ENTER"
 		read junk	
@@ -163,7 +155,7 @@ if  [ $headnode == "y" ]; then
 		echo "p for primary partition"
 		echo "1 for partition number"
 		echo "1 for first block"
-    		echo "+7.75M for next block"
+    		echo "+7750M for next block"
 		echo "n for new partition"
 		echo "p for primary position"
 		echo "2 for partition number"
