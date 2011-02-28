@@ -143,7 +143,7 @@ if  [ $headnode == "y" ]; then
 	echo "do you want to configure squid on your headnode? This will require you to have your USB disk ready (y/n)"
 	read squidme
 	done
-	if test $squidme="y"
+       if [ $squidme == "y" ]
 		then
 		echo "Insert your USB disk and press ENTER"
 		read junk	

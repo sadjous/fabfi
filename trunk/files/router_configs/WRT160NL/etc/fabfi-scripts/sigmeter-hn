@@ -53,27 +53,24 @@ then
         iw dev $1 station dump | grep 'signal' | cut -d - -f 2 | cut -d d -f 1 > $SIGTMP
 #echo "----------------------"
 #echo "oldval $OLDVAL"        
-        REZ="0"
+        REZ="100"
         while read line
                 do 
-                if [ $line -gt $REZ ]
+                if [ $line -lt $REZ ]
                         then
                         REZ=$line
                 fi
         done < $SIGTMP
 #echo "rez $REZ"
-        if [ $REZ -ne 0 ]; then
+        if [ $REZ -ne 100 ]; then
                 if [ $REZ -ne $OLDVAL ]; then
                         clear_all
 
-                        if [ $REZ -gt $TRH3B ]; then
+                        if [ $REZ -lt $TRH3B ]; then
 #echo "level3b"
                             set1 $LED1               
                         else
-                        if [ $REZ -le $TRH3B ]; then
-#echo "level3b"
                             blink1 $LED1                            
-                        fi
                         fi
 
                 fi
