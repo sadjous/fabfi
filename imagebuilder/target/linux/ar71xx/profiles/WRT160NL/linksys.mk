@@ -21,7 +21,7 @@ uclibcxx iperf \
 libpcap tcpdump \
 awesome-chilli libjson \
 -ppp -ppp-mod-pppoe -kmod-ppp -kmod-pppoe -kmod-crc-ccitt -uhttpd \
-nagios nagios-plugins send-nsca libmcrypt libwrap nrpe
+nagios-plugins send-nsca libmcrypt libwrap nrpe
 
 endef
 
