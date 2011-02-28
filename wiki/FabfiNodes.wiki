@@ -10,11 +10,11 @@ Headnodes are the control nodes for the network.  They do useful stuff like reso
 
 Common nodes are all the other nodes in the network.  They may or may not have uplinks and may or may not directly service clients.  
 
-= Device Support =
+= Device Support and Specfic Installation Instructions =
 
 It's likely that the current version of Fabfi will run on any ar71xx platform device, but the devices we've used and tested are:
- * Linksys WRT160NL
- * Ubiquiti `NanoM5-loco`
- * Ubiquiti `NanoM2-loco`
- * Ubiquiti `PicoM2-HP`
-We have not tested any other platforms or devices at this time.  
+ * [LinksysWRT160NL Linksys WRT160NL]
+ * [UbiquitiAR71xx Ubiquiti NanoM5-loco]
+ * [UbiquitiAR71xx Ubiquiti NanoM2-loco]
+ * [UbiquitiAR71xx Ubiquiti PicoM2-HP]
+We have not tested any other platforms or devices at this time.  Click on the device above for detailed instructions
