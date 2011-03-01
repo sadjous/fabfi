@@ -25,18 +25,18 @@ The Fabfi server is a cloud-hosted device that houses the authentication databas
 {{{
 sudo dpkg-reconfigure tzdata
 }}}
-select "etc" and then "UTC"
+ select "etc" and then "UTC"
 
  * Set custom date format for apache log
-_Note: the only matters if we're doing custom parsing of this log later, which we currently do not do_
+ _Note: the only matters if we're doing custom parsing of this log later, which we currently do not do_
 {{{
 $ sudo vi /etc/apache2/apache2.conf
 }}}
-Change
+ Change
 {{{
 LogFormat "%h %l %u %{%Y-%m-%d %H:%M:%S}t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
 }}}
-to 
+ to 
 {{{
 LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
 }}}
