@@ -41,6 +41,15 @@ LogFormat "%h %l %u %{%Y-%m-%d %H:%M:%S}t \"%r\" %>s %O \"%{Referer}i\" \"%{User
 LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
 }}}
 
+ * Configure time Sync
+{{{
+$ sudo vi /etc/cron.daily/ntpdate
+}}}
+ enter
+{{{
+ntpdate ntp.ubuntu.com
+}}}
+
 
 == Install 3rd Party Software ==
 
