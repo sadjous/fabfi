@@ -77,7 +77,8 @@ $ wget -s http://<your url here>
 
  * Pull the timestamps for the last day+ (will be more if you had downtime) of "phone home" messages from the apache logs for a particular node at a particular IP.  This is a quick hack to see uptime downtime
 {{{
-cat /var/log/apache2/access.log | grep "<your IP>" | grep "=<node number>%20" | \ cut -c20-39 | sed 's,\(.*\)/\(.*\)/2011:,\2/\1/2011 ,' | \
+cat /var/log/apache2/access.log | grep "<your IP>" | grep "=<node number>%20" | \
+cut -c20-39 | sed 's,\(.*\)/\(.*\)/2011:,\2/\1/2011 ,' | \
 sed 's/Jan/01/' | sed 's/Feb/02/' | sed 's/Mar/03/' | sed 's/Apr/04/' | \ 
 sed 's/May/05/' | sed 's/Jun/06/' | sed 's/Jul/07/' | sed 's/Aug/08/' | \ 
 sed 's/Sep/09/' | sed 's/Oct/10/' | sed 's/Nov/11/' | sed 's/Dec/12/' | \ 
