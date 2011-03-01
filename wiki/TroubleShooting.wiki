@@ -75,7 +75,7 @@ $ wget -s http://<your url here>
 
 = Advanced commands and Scripts =
 
- * Pull the timestamps for the last day+ (will be more if you had downtime) of "phone home" messages from the apache logs for a particular node at a particular IP.  This is a quick hack to see uptime downtime
+ * Pull the timestamps for the last day+ (will be more if you had downtime) of "phone home" messages from a default apache log for a particular node at a particular IP.  This is a quick hack to see uptime downtime
 {{{
 cat /var/log/apache2/access.log | grep "<your IP>" | grep "=<node number>%20" | \
 cut -c20-39 | sed 's,\(.*\)/\(.*\)/2011:,\2/\1/2011 ,' | \
@@ -85,6 +85,13 @@ sed 's/Sep/09/' | sed 's/Oct/10/' | sed 's/Nov/11/' | sed 's/Dec/12/' | \
 tail -1440
 }}}
 Note: change the "cut" numbers based on IP address length.  20-39 works for an IP that's xx.xxx.xx.xxx
+
+ * Pull the timestamps for the last day+ (will be more if you had downtime) of "phone home" messages from our custom-configured apache log for a particular node at a particular IP.  This is a quick hack to see uptime downtime
+{{{
+cat /var/log/apache2/access.log | grep "<your IP>" | grep "=<node number>%20" | \
+cut -c19-38 | tail -1440
+}}}
+Note: change the "cut" numbers based on IP address length.  20-39 works for an IP that's xx.xxx.xx.xxx.  This gives output with the date and time in two different columns.  
 
 = Headnode Debugging =
 
