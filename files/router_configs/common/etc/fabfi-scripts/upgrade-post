@@ -1,9 +1,31 @@
 #!/bin/sh 
-INITRC=/etc/rc.d/S04upgrade-post
+RCL=/etc/rc.local
 
 #fill in your custom commands here
 
-rm $INITRC
+#these commands designed to upgrade from 4.0.0_RC2
+echo ""
+echo ""
+echo "RUNNING POSTUPGRADE ACTIONS"
+
+uci delete system.@rdate[0]
+uci add system rdate
+uci commit system
+cd /overlay/etc/config
+rm timeserver
+sed "/timeserver/d" `ls | grep "META_"` > /tmp/META
+mv -f /tmp/META `ls | grep "META_"`
+
+mkdir /home
+echo "POSTUPGRADE COMPLETE.  Deleting rc.local entry for this script"
+
+#remove entry for upgrade-post from rc.local
+sed "/sh \/etc\/fabfi-scripts\/upgrade-post/d" $RCL > /tmp/RCL
+mv -f /tmp/RCL $RCL
+
+echo "Rebooting.  Bye!"
+echo "" 
+echo ""
 
 sleep 1
 reboot &
