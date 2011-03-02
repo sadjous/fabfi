@@ -490,8 +490,6 @@ uci set wireless.radio0.disabled=0
 
 if  [ $headnode == "y" ]; then
 
-cp /etc/fabfi-scripts/sigmeter-hn /etc/fabfi-scripts/sigmeter
-
 uci add dhcp domain
 uci set dhcp.@domain[-1]=domain
 uci set dhcp.@domain[-1].name=time.mesh
