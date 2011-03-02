@@ -4,7 +4,7 @@ sp='\t'
 plen=450
 tlen=5000
 
-if (test "00" = `date +"%y"`)
+if (test "2010" -gt `date +"%Y"`)
 then
 	sh /etc/fabfi-scripts/set-time
 fi

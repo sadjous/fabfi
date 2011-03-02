@@ -1,32 +1,13 @@
 #!/bin/sh 
-TIME="time.mesh"
-TIME2="time2.mesh"
-TIME3="time3.mesh"
-TIME4="time4.mesh"
-TIME99="time.mit.edu"
 
-if `rdate -s $TIME`
-	then
-echo "got time"
-	exit 0;
-fi
-if `rdate -s $TIME2`
-	then
-echo "got time"
-	exit 0;
-fi
-if `rdate -s $TIME3`
-	then
-echo "got time"
-	exit 0;
-fi
-if `rdate -s $TIME4`
-	then
-echo "got time"
-	exit 0;
-fi
-if `rdate -s $TIME99`
-	then
-echo "got time"
-	exit 0;
-fi
+for line in `uci show timeserver | grep hostname | cut -d "=" -f 2`
+	do
+	echo "trying to sync with $line"
+	if `rdate -s $line`
+		then
+		echo "got time"
+		exit 0;
+	fi
+done
+echo "set-time: failed to update time"
+exit 0;
