@@ -15,13 +15,18 @@ echo "model is $model"
 cd $LOCAL
 if `wget "${SWURL}fabfi-${model}-sysupgrade.bin"`
     then
+#stop services so we don't get weird race conditions
+/etc/init.d/cron stop
+/etc/init.d/nrpe stop
+/etc/init.d/nagios stop
+sleep 10
 
 #add a line to rc.local for upgrade-post
 sed "/exit 0/d" $RCL > /tmp/RCL
 mv -f /tmp/RCL $RCL
 echo "sh /etc/fabfi-scripts/upgrade-post" >> $RCL
 echo "exit 0" >> $RCL
-
+sleep 5
 	tar -czf ${LOCAL}ffconfig.tar.gz $PASS $CFG $GRP $DRP $FW $RCL
 
 	#flash and reboot
