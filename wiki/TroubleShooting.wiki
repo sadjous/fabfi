@@ -1,7 +1,10 @@
 <wiki:toc max_depth="4" />
 
 = Introduction =
-This is the troubleshooting page.  Before starting you should understand the [SystemArchitecture#Required_Signaling  Required Signaling].  The Required Signaling page has lots of links to term definitions and generally gives the overview of how things are glued together.
+This is the troubleshooting page.  Come here for help with solving network problems.  Before reaching out to others for help, you should do the following: 
+ # Read and understand the [SystemArchitecture#Required_Signaling  Required Signaling].  The Required Signaling page has lots of links to term definitions and generally gives the overview of how things are glued together.  
+ # Know how to use [#Basic_Commands Basic Linux Commands]
+ # Work through the [#Troubleshooting_Procedures troubleshooting procedures] at the end of this page.
 
 = Basic Commands =
 
