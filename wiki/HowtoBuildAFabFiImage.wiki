@@ -45,8 +45,6 @@ the above command will probably take an hour or so the first time you run it.  W
 
 Open this archive and extract the contained folder to your hard drive.  You will use it to complete the rest of the build process
 
-*NOTE: Imagebuilder for 10.03.1-rc4 will not build kmod-fs-mbcache as of the r25055.  You need to separately get the package from [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/kmod-fs-mbcache_2.6.32.25-1_ar71xx.ipk here], put it in the packages folder in imagebuilder and the splice the kmod-fs-mbcache section of the [http://downloads.openwrt.org/backfire/10.03.1-rc4/ar71xx/packages/Packages Packages file] into your packages file.
-
 === Building from Imagbuilder ===
 
 *NOTE: as of this version, you can no longer simply download the stock OpenWRT imagebuilder from OpenWRT and proceed.  You must instead use our custom imagebuilder or download and build awesome-chilli from [http://afrimesh.googlecode.com/svn/branches/unstable/package-scripts/openwrt/ afrimesh] then update the package list (I have no idea how to do the latter part).*
