@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+<wiki:toc max_depth="4" />
 
 = Introduction =
 
@@ -39,11 +39,11 @@ Signal strength is measured in [http://en.wikipedia.org/wiki/DBm dBm], with 0 eq
 
 When diagnosing a wireless connection you want to test, in order: 
 
- # Connection
- # Signal strength
- # Transfer speed
+ # [#Connection Connection]
+ # [#Signal_Strength_and_Quality Signal Strength and Quality]
+ # [#Link_Speed Link speed]
 
-== Connection ==
+=== Connection ===
 
 As with wired links, fabfi nodes have LED indicators for connection, but the LEDs can also be used to measure signal strength.  Each device indicates the receive signal strength of its best wireless neighbor on one or more LEDs.  
 
@@ -101,9 +101,9 @@ wifi
 }}}
 try on the remote device if running it on the local device.  
 
-== Signal Strength and Quality ==
+=== Signal Strength and Quality ===
 
-The most common reason for wireless failures is weak signal strength. You can improve signal strength by 
+The most common reason for wireless failures is weak signal strength. As mentioned in the previous section you can visually measure signal strength using the LEDs on the devices. You can improve signal strength by 
  * Improving the pointing of directional devices
  * Adding RF reflectors with larger gain
  * Raising devices higher above obstacles (get a bigger pole)
