@@ -141,6 +141,14 @@ Answer each of the questions below.  If you answer "yes", move on to the next qu
  
 If you've answered "Yes" to all the above, you should be online. If you're not, contact your local representative for more help.
 
+== Advanced Troubleshooting Start Here ==
+
+Which of the following statements best describe the issue you're trying to solve? 
+
+ * I'm having trouble powering a device
+ * My node is having connection problems with other nodes or the internet
+ * The Chilli captive portal is not working properly
+ * The Squid proxy is not functioning properly
 
 = Headnode Debugging =
 
