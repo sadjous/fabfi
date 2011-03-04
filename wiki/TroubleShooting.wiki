@@ -133,9 +133,9 @@ Answer each of the questions below.  If you answer "yes", move on to the next qu
 
  # On your computer, can you see the "JoinAfrica `<#>`" wireless network? [#Power_Off No]
  # Can you connect to the "JoinAfrica `<#>`" without any wireless errors? [#Chilli_Down No]
- # Can you see the content in the center of the splash page (without error)? [No_Master_via_HTTP No]
- # Can you see the login fields on the splash page? [HTTP_Layering_Error No]
- # Can you click on the links in the main section of the splash page? [HTTP_Layering_Error No]
+ # Can you see the content in the center of the splash page (without error)? [#No_Master_via_HTTP No]
+ # Can you see the login fields on the splash page? [#HTTP_Layering_Error No]
+ # Can you click on the links in the main section of the splash page? [#HTTP_Layering_Error No]
  # Does clicking on the links take you to a web page without error?
  # When you enter your username and password, do you get a response other than the "loading" icon?
  # Does the response you receive say you are "logged in"?
