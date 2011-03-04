@@ -1,0 +1,32 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+A [http://en.wikipedia.org/wiki/Physical_Layer physical link] is just that: a physical connection between two devices.  Fabfi nodes have both wired and wireless physical links.  Choose the Section that applies to your link:
+
+== Wired links ==
+
+Wired links are made this ethernet cables.  Every device has a "link light" that lights up when the ethernet port has successfully negotiated a link over the cable.  The following images describe the locations of the link lights for each of the devices we use: 
+
+<insert pics>
+
+If the light is not on, you don't have a connection.  Check your cabling.
+
+== Wireless Links ==
+
+Wireless links are a little more complex than wired ones. Every link has:
+ * A frequency band
+ * A channel within the frequency band
+ * A distance setting
+ * An ESSID or BSSID
+ * A mode: AP / STA / ADHOC
+ * An encryption mode(psk2, none)
+ * An encryption key (if encrypted)
+
+In order for a link to function properly, all of these must be set correctly.  This should all be configured by default, but here are a few general rules to remember:
+
+ * Devices must be in the same band
+ * AP and STA devices must share an ESSID (called ssid in the config file)
+ * ADHOC devices share a BSSID
+ * Any two devices must share the same encryption key and mode
+ * Any device where a channel is explicitly specified must share that channel with the other device it talks to
