@@ -92,6 +92,12 @@ Double Ampersand:
 
 == Advanced commands and Scripts ==
 
+Repeatedly measure the receive signal of a wireless neighbor for signal peaking:
+{{{
+$ while true; do iw dev wlan0 station get "<MAC Address from above>" | grep "signal"; sleep 1; clear; done;
+}}}
+When you've got the best signal, stop the program above by hitting the ctrl and c keys at the same time. 
+
 Pull the timestamps for the last day+ (will be more if you had downtime) of "phone home" messages from a default apache log for a particular node at a particular IP.  This is a quick hack to see uptime downtime
 {{{
 cat /var/log/apache2/access.log | grep "<your IP>" | grep "=<node number>%20" | \
