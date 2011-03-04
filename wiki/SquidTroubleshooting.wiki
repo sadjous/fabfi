@@ -6,3 +6,26 @@
 Running squid transparently (no special settings needed for clients) requires both the proxy program and a firewall rule to direct traffic to the proxy.  
 
 From a troubleshooting perspective, the above is important because if squid turns off, all the web traffic is directed into a black hole.  
+
+A classic example of this manifesting itself is when a user can log in to the system, but the content of the splash page is missing and users cannot browse to web pages.  
+
+if squid is not running, first try to start it at thecommand line with:
+{{{
+$ squid -D
+}}}
+then look to see if squid is running by running 
+{{{
+ps
+}}}
+and looking for three processes:
+{{{
+squid -D
+(squid -D)
+(unlinkd)
+}}}
+
+Then check the log for squid error messages by running 
+{{{
+logread
+}}}
+you shouldn't see any errors here unless you have config file issues. 
