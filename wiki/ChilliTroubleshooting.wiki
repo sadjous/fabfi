@@ -20,8 +20,31 @@ Check for a line that includes this
 {{{
 /usr/sbin/chilli
 }}}
-If you see it, chilli is running.  If, not try to start it with:
+If you see it, chilli is running and you can [#Check_for_Chilli_Complaints_in_the_Log continue to the next section].  If, not try to start it with:
 {{{
 $ /etc/init.d/chilli start
 }}}
-If you get any errors about the config file...
+If you get any errors about the config file, edit the configuration in 
+{{{
+/etc/config/chilli
+}}}
+according the the instructions [HeadnodeConfiguration here] until chilli starts, then continue to the next section below. 
+
+== Check for Chilli Complaints in the Log ==
+
+If chilli is already running, run:
+{{{
+logread
+}}}
+and look for messages related to chilli.  It's likely that you'll see an error about not being able to connect to the radius server.  if you see this message, check each of the checks beloe.  After each check, restart chilli with 
+{{{
+/etc/init.d/chilli restart
+}}}
+then try to reassociate to the JoinAfrica wireless and browse to a web page to log in.
+
+ # Check your network connection
+ # Test the RADIUS server
+ # Check that Squid is functioning
+
+If all these tests succeed you should be online.
+ 
