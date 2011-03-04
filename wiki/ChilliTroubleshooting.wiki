@@ -1,0 +1,27 @@
+<wiki:toc max_depth="4" />
+
+= Introduction =
+
+[http://coova.org/CoovaChilli Chilli] is the program that provides the captive portal for client logins to the system.  To start it requires a connection to the [http://freeradius.org/ RADIUS server].
+
+If you're having trouble with client logins, it's likely a chilli problem.  Follow the troubleshooting procedure to figure out what's wrong.
+
+= Troubleshooting procedure =
+Perform each test and follow the instructions based on the results.  
+
+Most tests will require you to log in with ssh to the router that should be running chilli.  Go back to [TroubleShooting#Useful_Commands the commands section] in you need more info on SSH.
+
+== Check if Chilli is Running ==
+Log into the offending device and run
+{{{
+$ ps
+}}}
+Check for a line that includes this 
+{{{
+/usr/sbin/chilli
+}}}
+If you see it, chilli is running.  If, not try to start it with:
+{{{
+$ /etc/init.d/chilli start
+}}}
+If you get any errors about the config file...
