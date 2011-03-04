@@ -1,0 +1,8 @@
+= Introduction =
+[http://www.squid-cache.org/ Squid] is a caching web proxy used to accelerate web traffic.  
+
+= How it works = 
+
+Running squid transparently (no special settings needed for clients) requires both the proxy program and a firewall rule to direct traffic to the proxy.  
+
+From a troubleshooting perspective, the above is important because if squid turns off, all the web traffic is directed into a black hole.  
