@@ -132,7 +132,7 @@ $ echo '/links' | nc localhost 2006
 }}}
 and view the ETX value. A perfect connection will have a value of 1.  A passable connection will have a value of 2 or less.  A connection losing a lot of packets will have a greater value (bad).  Links that drop a lot of packets will be slower and less reliable _Note: these values only apply to link-local connections.  Multi-hop connections will have higher values._
 
-== Link Speed ==
+=== Link Speed ===
 
 While any connection will probably support some data transfer, performance is an important concern.  You can explicitly test the link speed using the `iperf` program.  
 
