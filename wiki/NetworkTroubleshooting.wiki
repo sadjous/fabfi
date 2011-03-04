@@ -1,0 +1,77 @@
+<wiki:toc max_depth="4" />
+
+= Introduction =
+
+in the fabfi mesh, netwrowk debugging for any given node goes like this:
+
+ # Can I see my neighbors?
+ # Do I have a gateway to the internet?
+ # Can I resolve DNS?
+ # Can I download web pages?
+
+The following sections will outline how to answer each of these questions...
+
+= Troubleshooting Procedures =
+
+Go through the following subsections in order...
+
+== Check that OLSR is running ==
+
+Before doing anything, make sure the routing daemon is running by running:
+{{{
+$ ps
+}}}
+and searching for a line that includes this:
+{{{
+olsrd -f /var/etc/olsrd.conf -nofork 
+}}}
+You should see one or more of these lines.  If you don't, try restarting olsrd by running
+{{{
+$ /etc/init.d/olsrd restart
+}}}
+then checking the process list again.  Once olsrd is running, continue to the next step.  
+
+
+== Find your Neighbors ==
+
+With the exception of nodes that have direct connections to the internet, every node needs to have at least one neighbor to reach the internet.  If you're dealing with a node that has a direct uplink to the internet, you may skip to the next section. 
+
+[http://www.olsr.org/ OLSRD], our mesh routing daemon, keeps a list of all its [http://en.wikipedia.org/wiki/Link-local_address link-local] neighbors.  Check to determine if you have any link-local neighbors by logging into the router you're interested in and running: 
+{{{
+$ echo '/links' | nc localhost 2006
+}}}
+You will be returned a list that looks something like this:
+{{{
+HTTP/1.0 200 OK
+Content-type: text/plain
+
+Table: Links
+Local IP	Remote IP	Hyst.	LQ	NLQ	Cost
+10.100.0.200	10.100.0.218	0.00	1.000	1.000	1.000	
+10.100.0.200	10.100.0.211	0.00	1.000	1.000	1.000	
+10.100.0.200	10.100.0.205	0.00	1.000	1.000	1.000	
+}}}
+where the local IP is from the device you're loged into and the Remote IP is a neighbor.  You should have an enry in this list for every link-local device you expect to be connecting to.
+
+If you don't see the device you expect, check the physical connection as described on [PhysicalLinkTroublshooting this page].  Once your physical link is working, check the links list again. If you're still not seeing your link, try restarting olsrd as described in the previous section.
+
+When everything is working, you should be able to ping any Remote IP in the links list like this:
+{{{
+$ ping 10.100.0.218
+}}}
+and receive replies.
+
+== Test your Gateway ==
+
+
+
+
+
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
