@@ -4,10 +4,10 @@
 
 in the fabfi mesh, netwrowk debugging for any given node goes like this:
 
- # Can I see my neighbors?
- # Do I have a gateway to the internet?
- # Can I resolve DNS?
- # Can I download web pages?
+ # [#Find_your_Neighbors Can I see my neighbors?]
+ # [#Test_your_Gateway Do I have a gateway to the internet?]
+ # [#DNS Can I resolve DNS?]
+ # [#Download_a_Webpage Can I download web pages?]
 
 The following sections will outline how to answer each of these questions...
 
@@ -166,4 +166,23 @@ $ cat /var/resolv.conf.auto
 }}}
 If this file contains no IP addresses, you don't have DNS!
 
-To solve this, find out what fabfi number the headnode is, and perform all the tests above on it.  Once they all succeed, your network should be full functional. 
+To solve this, find out what fabfi number the headnode is, and perform all the tests above on it.  Once they all succeed, restart olsrd on the local node and check the resolv file again.  Once you have a DNS server listed there, try to perform a DNS lookup:
+{{{
+$ nslookup www.google.com
+}}}
+This should return an IP address.  If not, your headnode is not resolving DNS.  Check that your network settings on the headnode's uplink interface are correct.  
+
+== Download a Webpage == 
+
+Finally, test that you can download a webpage on the node running chilli just like above:
+{{{
+root@fabfi8:~# wget -s http://google.com
+Connecting to google.com (74.125.226.115:80)
+Connecting to www.google.com (74.125.226.112:80)
+root@fabfi8:~#
+}}}
+If this does not return happily and your gateway is running squid, it is likely that your squid server is not running.  Go to [SquidTroubleshooting] to fix.  
+
+Otherwise, you should be back online.
+
+_Be Careful: this test will pass on the gateway node even if squid is not running_
