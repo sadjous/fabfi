@@ -47,7 +47,7 @@ After each of these checks, restart chilli with
 then try to reassociate to the JoinAfrica wireless and browse to a web page to log in.
 
  # [NetworkTroubleshooting Check your network connection]
- # [FreeradiusTroubleshooting Test the RADIUS server]
+ # [RadiusTroubleshooting Test the RADIUS server]
  # [SquidTroubleshooting Check that Squid is functioning]
 
 If all these tests succeed you should be online.
