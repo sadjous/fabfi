@@ -129,11 +129,13 @@ The section is written from the client perspective and assumes less less access 
 
 Answer each of the questions below.  If you answer "yes", move on to the next question.  If you answer "No", click on the link.
 
- # On your computer, can you see the "JoinAfrica `<#>`" wireless network? [#Check_Power No]
- # Can you connect to the "JoinAfrica `<#>`" without any wireless errors?
- # Can you see the content in the center of the splash page (without error)?
- # Can you see the login fields on the splash page?
- # Can you click on the links in the main section of the splash page?
+*Before beginning the questions, disconnect your wireless connection and try to reconnect from scratch.*
+
+ # On your computer, can you see the "JoinAfrica `<#>`" wireless network? [#Power_Off No]
+ # Can you connect to the "JoinAfrica `<#>`" without any wireless errors? [#Chilli_Down No]
+ # Can you see the content in the center of the splash page (without error)? [No_Master_via_HTTP No]
+ # Can you see the login fields on the splash page? [HTTP_Layering_Error No]
+ # Can you click on the links in the main section of the splash page? [HTTP_Layering_Error No]
  # Does clicking on the links take you to a web page without error?
  # When you enter your username and password, do you get a response other than the "loading" icon?
  # Does the response you receive say you are "logged in"?
@@ -228,3 +230,49 @@ if not, restart olsrd on node
 {{{
 $ /etc/init.d/olsrd restart
 }}}
+
+== Conclusions ==
+
+This section consists of landing answers from the Basic and Advanced troubleshooting sections.  It is not mean to be read out of context.  
+
+=== Power Off ===
+
+Is the wireless device on your computer enabled/powered up?  If not, enable it and start over.
+
+If your computer's wireless is on, your symptoms suggest the wireless node that serves you is powered off.  Verify this is true by checking that there is at least one LED lit solidly on the node.  If all the LEDs on your device are off, [PoweringDevices click here].
+
+=== Chilli Down ===
+
+Your symptoms suggest that chilli, the program that provides the [http://en.wikipedia.org/wiki/Captive_portal captive portal], is not running.  The most likely reason for this is the chilli program cannot connect to the RADIUS server.  Contact someone with administrative access to the network and direct them to [ChilliTroubleshooting]
+
+=== No Master via HTTP ===
+
+Your symptoms suggest that you cannot make HTTP requests to master.mesh over http.
+
+Open a terminal window (linux) or the command prompt (windows) and run
+{{{
+$ ping master.mesh
+}}}
+If you don't get something that looks roughly like this:
+{{{
+$ ping master.mesh
+PING master.mesh (18.181.3.77): 56 data bytes
+64 bytes from 18.181.3.77: seq=0 ttl=51 time=276.607 ms
+64 bytes from 18.181.3.77: seq=1 ttl=51 time=272.640 ms
+64 bytes from 18.181.3.77: seq=2 ttl=51 time=273.117 ms
+}}}
+[No_Net Click Here]
+
+Otherwise, it is likely the [http://www.squid-cache.org/ squid] proxy located on the network headnode has shut down. Contact someone with administrative access to the network and direct them to [SquidTroubleshooting]
+
+=== HTTP Layering Error ===
+
+Some web browsers don't display web pages properly.  You have one of them.  It's not your fault. It probably shipped with your operating system.  
+
+We'd like to know what browser you have so we can work around the problem.  Go to:
+{{{
+Help > About
+}}}
+in the menu for your browser and note the name and version number. Then contact your local support person and explain what you see.  
+
+In the meantime, you won't have any problems if you [http://www.mozilla.com/en-US/firefox/ browse with Firefox].
