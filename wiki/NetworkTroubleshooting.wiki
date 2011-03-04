@@ -63,6 +63,12 @@ and receive replies.
 
 == Test your Gateway ==
 
+Every node will have at least two important gateways. in te simple case of two gateways, one is the link-local or "first hop" gateway and the other is the mesh's global internet gateway.  If a node is only one hop from the internet, these two will be the same.  In network speak, a gateway is a route to 
+{{{
+0.0.0.0
+}}}
+
+
 
 
 
