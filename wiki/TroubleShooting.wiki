@@ -17,6 +17,7 @@ $ ssh root@<ip of device>
 
 example: ssh root@10.100.0.49
 }}}
+To do the above, you will need a terminal client that supports SSH. in Linux or MacOS, the native terminal will work.  In windows, you should use [http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe PuTTY].
 
 View a file
 {{{
@@ -242,7 +243,9 @@ This section consists of landing answers from the Basic and Advanced troubleshoo
 
 Is the wireless device on your computer enabled/powered up?  If not, enable it and start over.
 
-If your computer's wireless is on, your symptoms suggest the wireless node that serves you is powered off.  Verify this is true by checking that there is at least one LED lit solidly on the node.  If all the LEDs on your device are off, [PoweringDevices click here].
+If your computer's wireless is on, your symptoms suggest the wireless node that serves you is powered off.  Verify this is true by checking that there is at least one LED lit solidly on the node.  If all the LEDs on your device are off, check that all the cables are plugged in and mains power is on.  For devices with a UPS, make sure the power button for the UPS is in the "on" position (the UPS should have a power LED as well).  If you're not sure about the mains, check with a multimeter or a device you know works.  
+
+For more information on device power, [PoweringDevices click here].
 
 === Chilli Down ===
 
