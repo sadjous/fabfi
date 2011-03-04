@@ -132,8 +132,8 @@ Answer each of the questions below.  If you answer "yes", move on to the next qu
 
 *Before beginning the questions, disconnect your wireless connection and try to reconnect from scratch.*
 
- # On your computer, can you see the "JoinAfrica `<#>`" wireless network? [#Power_Off No]
- # Can you connect to the "JoinAfrica `<#>`" without any wireless errors? [#Chilli_Down No]
+ # On your computer, can you see the "`JoinAfrica <#>`" wireless network? [#Power_Off No]
+ # Can you connect to the "`JoinAfrica <#>`" without any wireless errors? [#Chilli_Down No]
  # Can you see the content in the center of the splash page (without error)? [#No_Master_via_HTTP No]
  # Can you see the login fields on the splash page? [#HTTP_Layering_Error No]
  # Can you click on the links in the main section of the splash page? [#HTTP_Layering_Error No]
