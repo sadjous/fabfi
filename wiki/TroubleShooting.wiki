@@ -136,7 +136,7 @@ Answer each of the questions below.  If you answer "yes", move on to the next qu
  # Can you see the content in the center of the splash page (without error)? [#No_Master_via_HTTP No]
  # Can you see the login fields on the splash page? [#HTTP_Layering_Error No]
  # Can you click on the links in the main section of the splash page? [#HTTP_Layering_Error No]
- # When you enter your username and password, do you get a response other than the "loading" icon? [#No_Radius_Response]
+ # When you enter your username and password, do you get a response other than the "loading" icon? [#No_Radius_Response No]
  # Does the response you receive say you are "logged in"? [#Login_Errors No]
  
 If you've answered "Yes" to all the above, you should be online. If you're not, contact your local representative for more help.
