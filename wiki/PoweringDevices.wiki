@@ -1,0 +1,35 @@
+<wiki:toc max_depth="4" />
+
+= Overview =
+
+All currently supported devices will run on 12v DC power.  This page is dedicated to the various ways we get that power to the devices.  
+
+= Device Specifics =
+
+There are two classes of devices we use: [http://en.wikipedia.org/wiki/Power_over_Ethernet "Power over Ethernet" (PoE)], and Non-POE.  As follows: 
+
+== PoE Devices ==
+
+Most of the devices we use in the current version of fabfi use PoE.  All the Ubiquiti devices we use fit into this category.  ubiquiti devices use a particular type of PoE called [http://en.wikipedia.org/wiki/Power_over_Ethernet#Passive "passive" PoE].  Passive PoE supplies positive voltage (12-15V) on pins 4-5 of the ethernet cable, completing the circuit over pins 7-8 ([http://en.wikipedia.org/wiki/Category_5_cable see here for cat5 pinout]).  Out of the box, these devices are powered by a PoE injector that runs on AC power and provides 15V DC.  This injector is placed inline on the ethernet cable like so:
+
+<insert pic>
+
+It is also possible to inject power via a number of other means by modifying the cat5 cable as shown here:
+
+<insert pic>
+
+power mods are discussed in more detail below.
+
+== Non-PoE Devices
+
+Both the linksys wrt160nl and the switches we use are powered directly by 12V AC-DC power adaptors.  For these devices, the center pin on the plug is generally positive.  
+
+*Importantly, the linksys devices and many commodity switches DO NOT support PoE* in particular, the switchports on the linksys are wires such that plugging a PoE cable into the switch will short-circuit the cable.  
+
+When using PoE devices with the linksys or a non-PoE switch, it is important to make sure the end that connects to the switch is NOT powered.  For the supplied PoE injectors, this means that the LAN end goes to the linksys or switch.  For modified cables, this means that leads 4-5 and 7-8 be removed from the end connected to the linksys or switch.  
+
+For a device you're not sure about, check the resistance between all four possible combinations of power and ground lines with a multimeter.  If you don't get a very very large resistance value, you can be sure that PoE will not work with the device.
+
+= Power Supplies = 
+
+Coming soon.
