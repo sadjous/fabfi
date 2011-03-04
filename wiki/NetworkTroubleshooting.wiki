@@ -53,7 +53,7 @@ Local IP	Remote IP	Hyst.	LQ	NLQ	Cost
 }}}
 where the local IP is from the device you're loged into and the Remote IP is a neighbor.  You should have an enry in this list for every link-local device you expect to be connecting to.
 
-If you don't see the device you expect, check the physical connection as described on [PhysicalLinkTroublshooting this page].  Once your physical link is working, check the links list again. If you're still not seeing your link, try restarting olsrd as described in the previous section.
+If you don't see the device you expect, check the physical connection as described [PhysicalLinkTroublshooting on this page].  Once your physical link is working, check the links list again. If you're still not seeing your link, try restarting olsrd as described in the previous section.
 
 When everything is working, you should be able to ping any Remote IP in the links list like this:
 {{{
