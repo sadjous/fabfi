@@ -36,7 +36,7 @@ If chilli is already running, run:
 {{{
 logread
 }}}
-and look for messages related to chilli.  It's likely that you'll see an error about not being able to connect to the radius server.  if you see this message, check each of the checks beloe.  After each check, restart chilli with 
+and look for messages related to chilli.  It's likely that you'll see an error about not being able to connect to the radius server.  if you see this message, do each of the checks below.  After each check, restart chilli with 
 {{{
 /etc/init.d/chilli restart
 }}}
