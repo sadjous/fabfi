@@ -3,6 +3,8 @@
 = Introduction =
 [http://www.squid-cache.org/ Squid] is a caching web proxy used to accelerate web traffic.  
 
+*NOTE: Due to the limitations of USB drives, Squid will probably provide little value on connections faster than 2Mbps when using a Flash drive or 10Mbps when using a USB hard drive.*
+
 = Squid Configuration = 
 
 As of version 4.0.0, the squid configuration is only partially automated.  This is half because squid configs are very application-specific and partially because we haven't gotten around to it yet.  In any case, there are a few things that you'll have to edit manually.  All settings live in /etc/config/squid (previously this was /etc/squid/squid.conf so check there if you are using a less-than-current version)
