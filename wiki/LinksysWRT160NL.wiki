@@ -115,7 +115,7 @@ Solution:
     * Note: firefox is better for downloading than chrome
   * Try contacting the FabFi admins to get the latest image - you may have an image that's too old.
 
-= Configuration =
+= Configuration Script =
 
 Once you've flashed and power-cycled your router, you're ready to run the configuration script. 
 
@@ -167,8 +167,50 @@ After the script completes, the router will reboot automatically and will be rea
 
 If you choose "y" for creating a headnode, you will be asked if you want to configure squid.  
 
-Squid requires the use of a USB storage device.  It can be a USB stick or an external hard-drive.  When you choose to install squid, the script will attempt to configure your drive for you.  
+Squid requires the use of a USB storage device.  It can be a USB stick or an external hard-drive.  When you choose to install squid, the script will attempt to configure your drive for you.  We're not geniuses at writing software, so for some parts the script will simply give you instructions for what to enter into the terminal (in particular for formatting the hard disk).  Simply follow them.  The instructions will look something like this:
+
+{{{
+ * d - delete all partitions
+ * n - new partition
+ * p - primary partition
+ * 1 - for partition number
+ * 1 - for first block
+ * +<somenumber>M for next block where <somenumber> is the size of your drive in MB. minus 250MB.
+ * n - for new partition
+ * p - for primary position
+ * 2 - for partition number
+ * <enter> 2x - for defaults
+ * w - write changes
+}}}
+This will format your external disk for squid and swap.
 
 *Choosing squid configuration adds and extra automatic reboot cycle after you have completed the script* at the end of the script the router will reboot all the way, run some more tasks, then reboot again.  *Do not disturb the device during this process*.
 
-At this stage of development, there are some manual tasks that need to be completed after the auto-config has completed.  see [SquidTroubleshooting#Squid_Configuration the squid page] for more information.  
+At this stage of development, there are some manual tasks that need to be completed after the auto-config has completed.  see [SquidTroubleshooting#Squid_Configuration the squid page] for more information. 
+
+== Config Script Troubleshooting ==
+
+If you mess up the setup script at any point, do the following (in the serial console):
+ * Type "firstboot"
+ * Wait 15 seconds (for the command to finish)
+ * Do a full hard reboot
+ * Try the setup process again
+
+If your password did not have register correctly, and when you try to log into ssh, it refuses your password:
+ * Connect via serial
+ * Type "passwd" and reset your password. Then try logging in again
+
+
+= Additional Configuration = 
+
+In many installations, you will want to have static I settings for the WAN connection on your headnode.  By default the WAN is set to automatic.  You will have to manually edit the network settings if you want it to be otherwise. Here's how. 
+
+In all the auto-configurations, port 4 on the router (and sometimes others too) is a good old-fashioned LAN port.  Set your laptop to automatic and plug into it with a network cable.  You should get a dhcp address.  Then do the following
+
+log in:
+{{{
+$ ssh root@fabfi.lan
+}}}
+fabfi.lan should simply be the default gateway you get from dhcp. 
+
+Once you're logged in, configure the wan interface [CustomConfigurations#Static_WAN_IP according to these instructions]
