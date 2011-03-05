@@ -29,6 +29,7 @@ It's likely that the current version of Fabfi will run on any ar71xx platform de
  * [UbiquitiAR71xx Ubiquiti NanoM5-loco]
  * [UbiquitiAR71xx Ubiquiti NanoM2-loco]
  * [UbiquitiAR71xx Ubiquiti PicoM2-HP]
+
 We have not tested any other platforms or devices at this time.  *Click on the device above for detailed instructions*
 
 = Reconfiguring and Upgrading Fabfi Devices ==
@@ -70,4 +71,4 @@ After rebooting the
 }}}
 script will run, making any required changes to the files listed above.  
 
-look at the [http://code.google.com/p/fabfi/source/browse/trunk/files/router_configs/common/etc/fabfi-scripts/upgrade-post script source]for the version up are upgrading to for details on what will be changed in the config files.
+look at the [http://code.google.com/p/fabfi/source/browse/trunk/files/router_configs/common/etc/fabfi-scripts/upgrade-post script source] for the version up are upgrading to for details on what will be changed in the config files.
