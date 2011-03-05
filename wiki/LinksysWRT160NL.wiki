@@ -2,12 +2,127 @@
 
 = Introduction =
 
-Add your content here.
+The LinksysWRT16NL is the device most commonly used as a headnode in Fabfi.  It has a weaker radio than the Ubiquiti devices, so it is generally not used for client access or long-range applications.  
+
+= Flashing =
+
+==Prerequisites==
+
+*Hardware you will need:*
+ # A serial cable (or, for most modern users, a usb --> serial connection)
+ # A RS232 converter 
+   * combine 1 and 2: Google "USB to TTL Serial" and you'll find lots of products [http://www.makershed.com/ProductDetails.asp?ProductCode=TTL232R like this].
+ # A Linksys WRT160NL Router
+
+*Software you will need:*
+ * The latest image to be flashed
+   * (This can either be built using openWRT and the latest SVN download, or by going __here__ to the downloads page to find the latest stable build)
+ * A TFTP program
+   * Linux: tftp
+{{{
+sudo apt-get tftp
+}}}
+   * Windows: tftp
+      * On Windows 7 you'll have to enable TFTP.  open Control Panel > Programs and Features > click Turn Windows features on or off in left side > enable Client Telnet  and  Client TFTP then click in OK.
+      * we found we couldn't really ever get tftp working well on windows, but we're biased.
+ * A Serial program
+   * Linux: minicom
+{{{
+sudo apt-get minicom
+}}}
+then read HowToSetUpSerialMinicomLinux
+   * Windows: Did we mention windows is not recommended? Windows no longer has "hyperterminal". Google for "windows hyperterminal alternatives" (we used "Tera Term", recommended from http://helpdeskgeek.com/windows-7/windows-7-hyperterminal/ and it worked ok)
+
+==Procedure==
+
+      * Windows TFTP is troublesome.  But at sometime in the distant past this used to be the 
+
+In this procedure you will be setting up the linksys to receive a firmware image via TFTP, then sending the image from your computer over an ethernet connection. TFTP is VERY sensitive to extra stuff being sent over the wire.  In order to minimize the time between when the reouter starts listenting for data and when you send the firmware, we recommend you do the [#On_the_Computer "on the computer"] section below all the way through step #, then do all of the [#On_the_Router "on the router"] section, then finish the [#On_the_Computer "on the computer"] section.
+
+=== On the Router ===
+
+ # Open up the Linksys case (OMG, you just voided your warranty!  Why'd you do that?!?) connect your computer to the Linksys Device via serial cable as shown below.  Pinout is 
+  # 3.3V
+  # TX
+  # RX
+  # NC
+  # GND (this is the pin closest to the fromt of the device)
+  * Note: serial pins are also accessible from the ethernet ports. See the link in the intro for an image of this.  
+[image]
+ # Launch your hyperterminal (serial) program and set the baud rate to 115200. Or, if you are in linux, HowToSetUpSerialMinicomLinux
+ # Restart the router (by power cycling)
+ # You should see lots of things start printing in the serial connection
+   * (If the text is not understandable (lots of black blocks, etc.) it means you are either at the wrong baud rate, or the physical serial connection is not good. Try fiddling with the wires)
+ # You'll see the text "hit any key to stop autoboot".  Immediately start pressing any key.  You get a fraction of a second to do so.
+ # Assuming you have done this correctly, you should see the console message change to "ar7100>"  and it should be ready for you to write commands
+ # Enter the command
+{{{
+$ upgrade code.bin
+}}}
+
+=== On the Computer ===
+
+ _Note: "tftp" stands for 'trivial ftp', and is used for simple transfer protocols - like flashing a device._
+
+ # Download the [http://fabfi.googlecode.com/files/fabfi-wrt160nl-factory.bin fabfi firmware for linksysWRT160NL].
+ # Connect an ethernet cable to port 4 on the linksys device
+ # Change your ip (or if linux, your network connection) to the following settings:
+   # Set the wired connection mode to "manual" (instead of dhcp)
+   # ip: 192.168.1.(2-254) (ie. 192.168.1.254)
+   # netmask: 255.255.255.0
+   # default gateway: 192.168.1.1
+ # Make sure you are connected and your computer can see the ethernet connection to the linksys
+ # Open up a new terminal window
+ # Navigate to the folder where you have saved firmware
+ # Now type:
+{{{
+$ tftp 192.168.1.1
+}}}
+this will take you into the TFTP program and you'll have a "tftp" prompt
+ # Now type:
+{{{
+$ binary (sets program mode to binary)
+$ trace on (shows you output)
+}}}
+ # Now type
+{{{
+$ put fabfi-wrt160nl-factory.bin code.bin
+}}}
+As the tftp starts pushing data to the router, you should be lots of stuff happening in your terminal window.
+
+When the tftp finishes sending all of the commands, you should
+ * Exit tftp
+ * Unplug the ethernet cable
+ * DON'T TOUCH THE ROUTER UNTIL IT SAYS DONE in the minicom window.
+
+Once the minicom window says "done", power cycle the router and move on to the next section
+
+== Configuration ==
 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+There should come a point when the router indicates "done" (a successful flash) on the serial console.
+
+Whala! You have now re-programmed (flashed) a headnode. Now it's on to configuration!! HowToConfigureHeadNode
+
+Note: if you are continuing directly to configuring the head node (which you probably should), then you should type:
+ * "reboot" (which will restart the router)
+ * You should see many things print out (you may have to hit 'enter' once or twice if it seems to stop for a long time) - and eventually get to some text that says "open wrt" and "wirless freedom". This is good. Your router is now flashed properly and ready to roll
+
+
+====Possible Errors While Flashing:====
+Problems:
+ * While re-flashing, on the serial console something is printed out about "bad code sector" (or something serial) OR
+ * On reboot, the device never finishes starting up, and (despite you trying to press enter a couple times) will never get to the "open wrt wirless freedom" screen.
+
+Diagnosis:
+ * Possible incomplete or corrupt code download OR
+ * Image too old
+
+Solution: 
+  * Check to make sure you have the correct .bin file (the flash image)
+    * You should have the flash image - not the sys-upgrade image
+  * Try downloading the .bin file again (it may have gotten corrupted on download
+    * Note: firefox is better for downloading than chrome
+  * Try contacting the Fab Fi admins to get the latest image - you may have an image that's too old.
