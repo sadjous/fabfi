@@ -1,3 +1,5 @@
+<wiki:toc max_depth="4" />
+
 = Introduction =
 [http://www.squid-cache.org/ Squid] is a caching web proxy used to accelerate web traffic.  
 
@@ -53,4 +55,3 @@ Then check the log for squid error messages by running
 logread
 }}}
 you shouldn't see any errors here unless you have config file issues.  
-
