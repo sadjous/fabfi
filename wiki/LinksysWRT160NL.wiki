@@ -37,8 +37,6 @@ then read HowToSetUpSerialMinicomLinux
 
 ==Procedure==
 
-      * Windows TFTP is troublesome.  But at sometime in the distant past this used to be the 
-
 In this procedure you will be setting up the linksys to receive a firmware image via TFTP, then sending the image from your computer over an ethernet connection. TFTP is VERY sensitive to extra stuff being sent over the wire.  In order to minimize the time between when the reouter starts listenting for data and when you send the firmware, we recommend you do the [#On_the_Computer "on the computer"] section below all the way through step #, then do all of the [#On_the_Router "on the router"] section, then finish the [#On_the_Computer "on the computer"] section.
 
 === On the Router ===
