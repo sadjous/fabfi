@@ -12,6 +12,15 @@ Headnodes are the control nodes for the network.  They do useful stuff like reso
 
 Common nodes are all the other nodes in the network.  They may or may not have uplinks and may or may not directly service clients.  
 
+= Process overview = 
+
+Turning an off-the-shelf wireless router into a fabfi has three major steps:
+ # Flash the router with custom Fabfi firmware
+ # Log into the newly flashed device and run a configuration script
+ # (optional) Manually edit the router files to create custom configurations not included in the [FabfiConfig configuration script].
+
+The specifics of the process are different for each device.  Follow the links in the next section for device-specific instructions.
+
 = Device Support and Installation Instructions =
 
 It's likely that the current version of Fabfi will run on any ar71xx platform device, but the devices we've used and tested are:
