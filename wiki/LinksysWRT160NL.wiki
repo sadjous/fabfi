@@ -18,7 +18,7 @@ The LinksysWRT16NL is the device most commonly used as a headnode in Fabfi.  It 
 
 *Software you will need:*
  * The latest image to be flashed
-   * (This can either be built using openWRT and the latest SVN download, or by going __here__ to the downloads page to find the latest stable build)
+   * (This can either be [HowtoBuildAFabFiImage built using openWRT and the latest SVN download], or downloaded directly from [http://fabfi.googlecode.com/files/fabfi-wrt160nl-factory.bin here])
  * A TFTP program
    * Linux: tftp
 {{{
