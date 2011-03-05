@@ -6,7 +6,7 @@ This page explains how to build fabfi nodes.  While fabfi can run on many differ
 
 == Headnode ==
 
-Headnodes are the control nodes for the network.  They do useful stuff like resolving local URL aliases and communicating with the dashboard server.  They generally are also uplinks to the internet.  
+Headnodes are the control nodes for the network.  They do useful stuff like resolving local DNS names and communicating with the dashboard server.  Generally, they are also uplinks to the internet.  
 
 == Common Nodes ==
 
