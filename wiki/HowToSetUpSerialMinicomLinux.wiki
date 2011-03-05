@@ -2,6 +2,10 @@
 
 _This is primarily intended for communicating between your pc and the linksys headnode router, for the purpose of configuring and flashing it_
 
+ * Download minicom
+{{{
+sudo apt-get install minicom
+}}}
  * Open up a terminal window
  * Type "sudo minicom -s" _(minicom -s is for setting up minicom)_
    * The sudo here is important - since we need administrative rights to set the default settings for the minicom
