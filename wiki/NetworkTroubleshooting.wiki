@@ -166,11 +166,48 @@ $ cat /var/resolv.conf.auto
 }}}
 If this file contains no IP addresses, you don't have DNS!
 
-To solve this, find out what fabfi number the headnode is, and perform all the tests above on it.  Once they all succeed, restart olsrd on the local node and check the resolv file again.  Once you have a DNS server listed there, try to perform a DNS lookup:
+To solve this, find out what fabfi number the headnode is, and perform all the tests above on it.  Once they all succeed, restart olsrd on the local node and check the resolv file again.  Once you have a DNS server listed there, try to perform a local DNS lookup:
+{{{
+$ nslookup master.mesh
+}}}
+This should return the IP address of your cloud server.  If it does not, check that you have entries in
+{{{
+/etc/config/dhcp
+}}}
+on the headnode that look like this:
+{{{
+config 'domain'
+	option 'name' 'time.mesh'
+	option 'ip' '1.2.3.4'
+
+config 'domain'
+	option 'name' 'master.mesh'
+	option 'ip' '1.2.3.4'
+
+config 'domain'
+	option 'name' 'radius.mesh'
+	option 'ip' '1.2.3.4'
+config 'domain'
+	option 'name' 'map.mesh'
+	option 'ip' '1.2.3.4'
+}}}
+where `1.2.3.4` is the IP of your cloud server.  If these entries exist check that dnsmasq is running on the headnode by running:
+{{{
+$ ps
+}}}
+and checking for a process with `dnsmasq` in the name.  
+
+dnsmasq can be restarted if it is absent or not working by running
+{{{
+$ /etc/init.d/dnsmasq restart
+}}}
+
+
+Once you have local DNS, try something on the web:
 {{{
 $ nslookup www.google.com
 }}}
-This should return an IP address.  If not, your headnode is not resolving DNS.  Check that your network settings on the headnode's uplink interface are correct.  
+This should return an IP address.  If not, your headnode is not forwarding DNS requests to a functioning DNS server.  Check that your network settings on the headnode's uplink interface are correct.  
 
 == Download a Webpage == 
 
