@@ -1,3 +1,5 @@
+<wiki:toc max_depth="4" />
+
 = Introduction =
 
 This page explains how to build fabfi nodes.  While fabfi can run on many different types of hardware, there are essentially only two types of nodes: Common Nodes and Headnodes, as explained below 
@@ -17,4 +19,4 @@ It's likely that the current version of Fabfi will run on any ar71xx platform de
  * [UbiquitiAR71xx Ubiquiti NanoM5-loco]
  * [UbiquitiAR71xx Ubiquiti NanoM2-loco]
  * [UbiquitiAR71xx Ubiquiti PicoM2-HP]
-We have not tested any other platforms or devices at this time.  Click on the device above for detailed instructions
+We have not tested any other platforms or devices at this time.  *Click on the device above for detailed instructions*
