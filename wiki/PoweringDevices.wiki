@@ -20,7 +20,7 @@ It is also possible to inject power via a number of other means by modifying the
 
 power mods are discussed in more detail below.
 
-== Non-PoE Devices
+== Non-PoE Devices ==
 
 Both the linksys wrt160nl and the switches we use are powered directly by 12V AC-DC power adaptors.  For these devices, the center pin on the plug is generally positive.  
 
