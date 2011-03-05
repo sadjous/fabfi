@@ -23,4 +23,4 @@ Fabfi Reflectors are used to enhance the RF signal of wifi devices for long-rang
 
 In addition to the basic configuration instructions, we also have a section on Advanced Development that explains how to build images from scratch and perform other custom tasks: 
 
-  * HowtoBuildAFabImage
+  * [HowtoBuildAFabFiImage Build your own FabFi Image
