@@ -35,14 +35,3 @@ This will cause the server to print status messages to the console.
 With freeraius in debug mode, you can try to log in your client and watch the debug messages to determine the issue. 
 
 When you're done kill the running freeradius by hitting `ctrl` and `c` at the same time, then restart the normal way with the start command shown earlier.
-
-
-
-First, kill the running freradius process
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
