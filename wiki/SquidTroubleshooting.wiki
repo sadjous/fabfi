@@ -1,6 +1,10 @@
 = Introduction =
 [http://www.squid-cache.org/ Squid] is a caching web proxy used to accelerate web traffic.  
 
+= Squid Configuration = 
+
+As of ...
+
 = How it works = 
 
 Running squid transparently (no special settings needed for clients) requires both the proxy program and a firewall rule to direct traffic to the proxy.  
@@ -9,7 +13,13 @@ From a troubleshooting perspective, the above is important because if squid turn
 
 A classic example of this manifesting itself is when a user can log in to the system, but the content of the splash page is missing and users cannot browse to web pages.  
 
-if squid is not running, first try to start it at thecommand line with:
+if squid is not running, first make sure your external drive is mounted by trying to enter the cache directory:
+{{{
+cd /home/squid
+}}}
+if this directory is not there (and you ran setup proerly), make sure your drive is inserted and reboot the device.  if this was the isue, squid should start automatically.  
+
+If the drive mounts, but squid does not start, try to start it at the command line with:
 {{{
 $ squid -D
 }}}
@@ -28,4 +38,6 @@ Then check the log for squid error messages by running
 {{{
 logread
 }}}
-you shouldn't see any errors here unless you have config file issues. 
+you shouldn't see any errors here unless you have config file issues.  
+
+= Configuration tips =
