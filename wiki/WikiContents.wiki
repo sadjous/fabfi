@@ -8,8 +8,6 @@
   * [HowToMake How To Make]
     * FabfiServer
     * FabfiNodes
-      * [FabfiNodes#Device_Support Device Support]
-      * [FabfiNodes#Downloading_and_Installing_Firmware Downloading_and_Installing_Firmware]
         * [FlashLinksysWRT160NL Flash a LinksysWRT160NL]
         * [FlashUbiquitiDevices Flash Ubiquiti Devices]
       * [FabfiNodes#Initial_Configuration Initial Configuration]
