@@ -119,7 +119,7 @@ Solution:
 
 Once you've flashed and power-cycled your router, you're ready to run the configuration script. 
 
-_Note: In addition to the connection method described below, is also possible to run the configuration script from the serial console (but BEWARE, you can't use backspace when running the script fro mthe serial console).  You can also connect to the router on port 1 or 2 at 192.168.1.10, using the same static settings as you used in the flashing section._
+_Note: In addition to the connection method described below, is also possible to run the configuration script from the serial console (but BEWARE, you can't use backspace when running the script from the serial console).  You can also connect to the router on port 1 or 2 at 192.168.1.10, using the same static settings as you used in the flashing section._
 
  # set your ethernet settings back to automatic
  # Plug into port 4 of the router (you should get a DHCP address)
