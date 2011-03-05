@@ -8,6 +8,10 @@ When a node wants to authenticate a client, it makes a request to freeradius wit
 
 Without freradius running, nobody gets access.  
 
+= Configuration = 
+
+For information on configuring RADIUS with different user settings, see [UserAndGroupSettings]
+
 = Troubleshooting = 
 
 The best way to see what's going on with a client login is to open a terminal to the freradius machine and run freeradius in debug mode.  like so:
