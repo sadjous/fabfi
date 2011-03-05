@@ -19,7 +19,7 @@ Common nodes make up the physical mesh network, with headnodes acting as local D
 
 Fabfi Reflectors are used to enhance the RF signal of wifi devices for long-range links.  
 
-== Advanced Development ==
+= Advanced Development =
 
 In addition to the basic configuration instructions, we also have a section on Advanced Development that explains how to build images from scratch and perform other custom tasks: 
 
