@@ -11,11 +11,11 @@ The fabfi wireless system consists of three major components:
   * [FabfiNodes Fabfi Nodes]
     * [FabfiNodes#HeadNode Headnode]
     * [FabfiNodes#CommonNode Common Nodes]
-  * [FabfiReflectors Fabfi Reflectors]
+  * [RFReflectors Fabfi Reflectors]
 
 The Fabfi server runs in "the cloud", handles the authentication of clients and serves the stats page.
 
-Fabfi nodes make up the physical mesh network, with headnodes at internet gateways. 
+Common nodes make up the physical mesh network, with headnodes acting as local DNS servers and web caches. Any node can be an uplink to the internet.
 
 Fabfi Reflectors are used to enhance the RF signal of wifi devices for long-range links.  
 
@@ -23,4 +23,4 @@ Fabfi Reflectors are used to enhance the RF signal of wifi devices for long-rang
 
 In addition to the basic configuration instructions, we also have a section on Advanced Development that explains how to build images from scratch and perform other custom tasks: 
 
-  * HowtoBuildFabImage
+  * HowtoBuildAFabImage
