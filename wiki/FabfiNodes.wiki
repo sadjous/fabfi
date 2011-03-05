@@ -15,10 +15,9 @@ Common nodes are all the other nodes in the network.  They may or may not have u
 = Process overview = 
 
 Turning an off-the-shelf wireless router into a fabfi has three major steps:
- # Flash the router with custom Fabfi firmware
- # Log into the newly flashed device and run a configuration script
- # (optional) Manually edit the router files to create custom configurations not included in the [FabfiConfig configuration script].
-
+ # Flash the router with custom [http://code.google.com/p/fabfi/downloads/list Fabfi firmware]
+ # Log into the newly flashed device and run a [FabfiConfig configuration script].
+ # (optional) Manually edit the router files to create custom configurations not included in the configuration script.
 The specifics of the process are different for each device.  Follow the links in the next section for device-specific instructions.
 
 = Device Support and Installation Instructions =
