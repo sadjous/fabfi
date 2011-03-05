@@ -6,6 +6,8 @@ The LinksysWRT16NL is the device most commonly used as a headnode in Fabfi.  It 
 
 = Flashing =
 
+*MAKE SURE YOU HAVE STABLE POWER WHEN FLASHING A DEVICE.* A power cycle while the flash is writing will almost surely brick your device.
+
 ==Prerequisites==
 
 *Hardware you will need:*
@@ -97,24 +99,10 @@ When the tftp finishes sending all of the commands, you should
 
 Once the minicom window says "done", power cycle the router and move on to the next section
 
-== Configuration ==
-
-
-
-
-There should come a point when the router indicates "done" (a successful flash) on the serial console.
-
-Whala! You have now re-programmed (flashed) a headnode. Now it's on to configuration!! HowToConfigureHeadNode
-
-Note: if you are continuing directly to configuring the head node (which you probably should), then you should type:
- * "reboot" (which will restart the router)
- * You should see many things print out (you may have to hit 'enter' once or twice if it seems to stop for a long time) - and eventually get to some text that says "open wrt" and "wirless freedom". This is good. Your router is now flashed properly and ready to roll
-
-
-====Possible Errors While Flashing:====
+=== Possible Errors While Flashing:===
 Problems:
  * While re-flashing, on the serial console something is printed out about "bad code sector" (or something serial) OR
- * On reboot, the device never finishes starting up, and (despite you trying to press enter a couple times) will never get to the "open wrt wirless freedom" screen.
+ * On reboot, the device never finishes starting up, and (despite you trying to press enter a couple times) will never get to the "open wrt wireless freedom" screen.
 
 Diagnosis:
  * Possible incomplete or corrupt code download OR
@@ -125,4 +113,62 @@ Solution:
     * You should have the flash image - not the sys-upgrade image
   * Try downloading the .bin file again (it may have gotten corrupted on download
     * Note: firefox is better for downloading than chrome
-  * Try contacting the Fab Fi admins to get the latest image - you may have an image that's too old.
+  * Try contacting the FabFi admins to get the latest image - you may have an image that's too old.
+
+== Configuration ==
+
+Once you've flashed and power-cycled your router, you're ready to run the configuration script. 
+
+_Note: In addition to the connection method described below, is also possible to run the configuration script from the serial console (but BEWARE, you can't use backspace when running the script fro mthe serial console).  You can also connect to the router on port 1 or 2 at 192.168.1.10, using the same static settings as you used in the flashing section._
+
+ # set your ethernet settings back to automatic
+ # Plug into port 4 of the router (you should get a DHCP address)
+ # run
+{{{
+$ telnet fabfi.lan
+}}}
+This should log you into the router
+ # run
+{{{
+$ sh setup
+}}}
+You will see the following prompts/settings when you do so, so you should prepare all of your settings beforehand. Explanations/examples are listed below:
+
+ * Number of Fabfi: A unique number for this node
+ * Wireless Channel: The channel the wireless network will be on
+ * Headnode? (y/n): Is this a headnode?
+ * Transmit distance: How fat away is the farthest device this node will be connecting to?
+ * WEP Key (d for default)
+ * Device Name: A descriptive name for this node
+ * Radio Mode: how would you like to use the wireless interface?
+ * GPS Location? (using decimals): Where is this device?
+ * IP of your Cloud (radius) Server (for headnodes only)
+ * radius secret: (for client access nodes only)
+ * a login password
+
+Most settings are self explanatory, except for the Wireless Configuration.  You will be presented with 7 choices: 
+
+ * STA: wifi is part of WIFIMESH as a Station
+ * Dual AP: wifi is part of WIFIMESH as an AP and provides a client-access AP
+ * ADHOC: wifi is part of the ADHOCMESH
+ * Client AP: wifi is used to provide only a client-access AP
+ * Fabfi AP: wifi is part of WIFIMESH as an AP
+ * Admin AP" wifi is a private AP for administrative use only
+
+Check out [SystemArchitecture#Network_Architecture_and_Addressing_Conventions the addressing conventions] for explanations of what the different networks in caps are, then choose the setting that fits you best.  
+
+For further explanation of exactly what each setting does, you'll have to read [http://code.google.com/p/fabfi/source/browse/trunk/files/router_configs/WRT160NL/etc/fabfi-scripts/fabfi-setup the config script]
+
+After the script completes, the router will reboot automatically and will be ready to go.  
+
+*After running the configuration script, you will no longer be able to use telnet.  You will have to log in using `ssh` and the passwird you set during setup. 
+
+=== Squid Configurations (headnode only) ===
+
+If you choose "y" for creating a headnode, you will be asked if you want to configure squid.  
+
+Squid requires the use of a USB storage device.  It can be a USB stick or an external hard-drive.  When you choose to install squid, the script will attempt to configure your drive for you.  
+
+*Choosing squid configuration adds and extra automatic reboot cycle after you have completed the script* at the end of the script the router will reboot all the way, run some more tasks, then reboot again.  *Do not disturb the device during this process*.
+
+At this stage of development, there are some manual tasks that need to be completed after the auto-config has completed.  see [SquidTroubleshooting#Squid_Configuration the squid page] for more information.  
