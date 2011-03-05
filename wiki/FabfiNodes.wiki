@@ -12,7 +12,7 @@ Headnodes are the control nodes for the network.  They do useful stuff like reso
 
 Common nodes are all the other nodes in the network.  They may or may not have uplinks and may or may not directly service clients.  
 
-= Device Support and Specfic Installation Instructions =
+= Device Support and Installation Instructions =
 
 It's likely that the current version of Fabfi will run on any ar71xx platform device, but the devices we've used and tested are:
  * [LinksysWRT160NL Linksys WRT160NL]
