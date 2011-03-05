@@ -30,3 +30,44 @@ It's likely that the current version of Fabfi will run on any ar71xx platform de
  * [UbiquitiAR71xx Ubiquiti NanoM2-loco]
  * [UbiquitiAR71xx Ubiquiti PicoM2-HP]
 We have not tested any other platforms or devices at this time.  *Click on the device above for detailed instructions*
+
+= Reconfiguring and Upgrading Fabfi Devices ==
+
+=== Fabfi Factory Reset ===
+
+It is always possible to bring fabfi devices back to their "virgin", pre-setup-script state by running 
+{{{
+firstboot
+}}}
+and rebooting the device.  
+
+we don't support bringing youre device back to the manufacturer's factory firmware.  Fabfi is a one-way street :)
+
+=== Firmware Upgrade ===
+
+The fabfi firmware has a built-in utility to automatically download and install the newest firmware revision while retaining device settings.  It's not guaranteed foolproof, so test it on a device you can touch before trying it on a network halfway across the globe, but here's how you do it:
+
+ # log in to the router you want to upgrade
+ # run
+{{{
+$ sh /etc/fabfi-scripts/upgrade
+}}}
+ # cross your fingers
+
+the upgrade script is a wrapper for OpenWRT's `sysupgrade` functionality.  it will copy over all the files from:
+{{{
+PASS=/etc/passwd
+CFG=/etc/config
+GRP=/etc/group 
+DRP=/etc/dropbear
+FW=/etc/firewall.user 
+RCL=/etc/rc.local
+}}
+
+After rebooting the 
+{{{
+/etc/fabfi-scripts/upgrade-post
+}}}
+script will run, making any required changes to the files listed above.  
+
+look at the [http://code.google.com/p/fabfi/source/browse/trunk/files/router_configs/common/etc/fabfi-scripts/upgrade-post script source]for the version up are upgrading to for details on what will be changed in the config files.
