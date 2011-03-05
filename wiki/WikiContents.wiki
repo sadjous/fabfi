@@ -8,11 +8,6 @@
   * [HowToMake How To Make]
     * FabfiServer
     * FabfiNodes
-        * [FlashLinksysWRT160NL Flash a LinksysWRT160NL]
-        * [FlashUbiquitiDevices Flash Ubiquiti Devices]
-      * [FabfiNodes#Initial_Configuration Initial Configuration]
-        * [FabfiNodes#Common_Nodes CommonNode]
-        * [FabfiNodes#Headnode HeadNode]
     * [HowToMake#AdvancedDevelopment Advanced Development]
         * [HowtoBuildAFabFiImage Build a Fabfi node image]
 
