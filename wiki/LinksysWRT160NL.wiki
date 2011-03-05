@@ -115,7 +115,7 @@ Solution:
     * Note: firefox is better for downloading than chrome
   * Try contacting the FabFi admins to get the latest image - you may have an image that's too old.
 
-== Configuration ==
+= Configuration =
 
 Once you've flashed and power-cycled your router, you're ready to run the configuration script. 
 
@@ -163,7 +163,7 @@ After the script completes, the router will reboot automatically and will be rea
 
 *After running the configuration script, you will no longer be able to use telnet.  You will have to log in using `ssh` and the passwird you set during setup. 
 
-=== Squid Configurations (headnode only) ===
+== Squid Configurations (headnode only) ==
 
 If you choose "y" for creating a headnode, you will be asked if you want to configure squid.  
 
