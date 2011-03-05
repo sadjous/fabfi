@@ -3,6 +3,8 @@
 = Introduction =
 This page is a table of contents for all of the !HowTo documentation on this site.  Follow the links below for what you want to build
 
+*Note: We STRONGLY recommend using linux for working with fabfi.  If you don't want to change your OS, run Ubuntu from a [http://www.ubuntu.com/desktop/get-ubuntu/download LiveCD].*
+
 = Core Tasks =
 
 The fabfi wireless system consists of three major components:
