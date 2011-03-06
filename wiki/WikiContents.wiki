@@ -12,4 +12,3 @@
     * [HowToMake#AdvancedDevelopment Advanced Development]
         * [HowtoBuildAFabFiImage Build a Fabfi node image]
   * [http://code.google.com/p/fabfi/w/list Page List]
-  * [ToDo]
