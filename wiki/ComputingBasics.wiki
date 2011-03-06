@@ -4,6 +4,50 @@
 
 This page contains instructions for performing useful basic operations on your computer.  It is almost entirely linux (specifically ubuntu 10.04) focused.  If you don't have linux, run it from a LiveCD and make your life easier.  Windows is not designed to do what we do well.  You're better than Windows. 
 
+= The terminal =
+
+In Linux, the terminal window (the Linux analog of the windows "command prompt") is your friend.  In Ubuntu 10.04, go to *Programs > Accessories > Terminal* to find it.  
+
+The terminal windows lets you directly type commands for your computer to execute or log onto a remoted computer and run commands on it from your desktop.  In general, commands take the following shape:
+{{{
+$ command -option argument
+}}}
+`$` simply illustrates the prompt at the beginning of the line where you type in the terminal.  every command will have a name, which comes first.  Some commeands we use frequently are:
+{{{
+ping
+ps
+cat
+vi
+echo
+free
+route
+ls
+}}}
+
+sometimes you can use a command with nothing after it.
+{{{
+$ route
+}}}
+for instance, prints the contents of your computer's routing table.
+
+Other programs require that some more information be added after the command
+{{{
+$ echo "hello"
+}}}
+prints "hello" to the terminal
+
+finally, some programs require configuration options
+{{{
+$ tar -czf archive.tar.gz etc/
+}}}
+compresses the contents of the `etc/` directory into a file called `archive.tar.gz` while 
+{{{
+$ tar -xzf archive.tar.gz etc/
+}}}
+extracts the contents of the file `archive.tar.gz` back into the current directory.
+
+For examples of useful commands to know when working with Fabfi, [TroubleShooting#Useful_Commands click here].
+
 = Network Settings =
 
 == Configure a Static IP ==
