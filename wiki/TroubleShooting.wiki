@@ -2,8 +2,6 @@
 
 = Introduction =
 
-*NOTE: This page is actively under construction!*
-
 This is the troubleshooting page.  Come here for help with solving network problems.  Before reaching out to others for help, you should do the following: 
  # Read and understand the [SystemArchitecture#Required_Signaling  Required Signaling].  The Required Signaling page has lots of links to term definitions and generally gives the overview of how things are glued together.  
  # Know how to use [#Useful_Commands Basic Linux Commands]
