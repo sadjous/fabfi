@@ -6,5 +6,12 @@ Fabfi devices can be fitted with a variety of RF Reflectors to increase their di
 
 As new designs are solidified, vector files for them will be available in the source archive.  In the meantime, older designs are still available on the [http://fabfi.fabfolk.com/distribution.html old download site] and this page will describe the modifications needed to make those deigns work with the new hardware.  
 
+= Feed Protoype =
 
-<coming soon>
+This prototype feed affixes to the Fabfi3.0 Large "weatherproof" Reflector found on the page linked above
+
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/UbiquitiFeed_Large1.jpg]
+
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/UbiquitiFeed_Large2.jpg]
+
+The v2 prototype dxf can be found [http://fabfi.fablab.af/download/reflectors/large-weatherproof_0_500/ubiquiti_feed_proto.dxf here]. Note there are currently some placement issues with the feed in the linked design
