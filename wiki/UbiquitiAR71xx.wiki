@@ -31,14 +31,7 @@ sudo apt-get tftp
    * Windows: tftp
       * On Windows 7 you'll have to enable TFTP.  open Control Panel > Programs and Features > click Turn Windows features on or off in left side > enable Client Telnet  and  Client TFTP then click in OK.
       * we found we couldn't really ever get tftp working well on windows, but we're biased.
- * A Serial program
-   * Linux: minicom
-{{{
-sudo apt-get minicom
-}}}
-then read HowToSetUpSerialMinicomLinux
-   * Windows: Did we mention windows is not recommended? Windows no longer has "hyperterminal". Google for "windows hyperterminal alternatives" (we used "Tera Term", recommended from http://helpdeskgeek.com/windows-7/windows-7-hyperterminal/ and it worked ok)
-
+ 
 _NOTE: All the instuctions on this page are linux-specific._
 
 ==Procedure==
@@ -161,3 +154,13 @@ For further explanation of exactly what each setting does, you'll have to read [
 After the script completes, the router will reboot automatically and will be ready to go.  
 
 *After running the configuration script, you will no longer be able to use telnet.  You will have to log in using `ssh` and the password you set during setup. 
+
+= Disaster Recovery (serial connection) =
+
+Ubiquiti devices have serial interfaces just like the linksys and can be connected [HowToSetUpSerialMinicomLinux the same way].  In the event you brick a device and lose telnet and ssh access, you'll have to use the serial interface for recovery.
+
+You will have to wire out the pins like this
+
+<picture>
+
+then follow the minicom instructions in the link above.
