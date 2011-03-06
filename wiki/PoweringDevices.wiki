@@ -16,7 +16,7 @@ Most of the devices we use in the current version of fabfi use PoE.  All the Ubi
 
 It is also possible to inject power via a number of other means by modifying the cat5 cable as shown here:
 
-[http://fabfi.googlecode.com/svn/wiki/images/Devices/POEHack.jpg]
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/POEHack.JPG]
 
 power mods are discussed in more detail below.
 
