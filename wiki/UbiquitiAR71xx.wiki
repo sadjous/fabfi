@@ -38,6 +38,8 @@ _NOTE: All the instuctions on this page are linux-specific._
 
 In this procedure you will be setting up the device to receive a firmware image via TFTP, then sending the image from your computer over an ethernet connection. TFTP is VERY sensitive to extra stuff being sent over the wire.  In order to minimize the time between when the reouter starts listening for data and when you send the firmware, *we recommend you do the [#On_the_Computer "on the computer"] section below all the way through step 8, then do all of the [#On_the_Router "on the router"] section, then finish the [#On_the_Computer "on the computer"] section.*
 
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/UbiquitiReset.jpg]
+
 === On the Router ===
  
  # Do steps 1-8 on the [#On_the_Computer "on the computer"] section
@@ -159,8 +161,12 @@ After the script completes, the router will reboot automatically and will be rea
 
 Ubiquiti devices have serial interfaces just like the linksys and can be connected [HowToSetUpSerialMinicomLinux the same way].  In the event you brick a device and lose telnet and ssh access, you'll have to use the serial interface for recovery.
 
-You will have to wire out the pins like this
+You will have to wire out the pins like this:
 
-<picture>
+Nano
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/UbiquitiNanoSerial.jpg]
+
+Pico
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/UbiquitiPicoSerial.jpg]
 
 then follow the minicom instructions in the link above.
