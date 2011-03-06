@@ -93,3 +93,15 @@ In ADHOC mode, channel selection during setup selects both the channel and the B
 By selecting channels, it is possible to control topology and traffic flow of the network.  
 
 == System Block Diagram ==
+
+The Image below describes how the different software components in the system are connected to each other 
+
+[http://fabfi.googlecode.com/svn/wiki/images/SystemArchitecture/block-diagram.png]
+
+This is a simplified network layout 
+
+[http://fabfi.googlecode.com/svn/wiki/images/SystemArchitecture/overviewmap.jpg]
+
+And a simplified diagram of how networks interact with the cloud server:
+
+[http://fabfi.googlecode.com/svn/wiki/images/SystemArchitecture/cloudmap.jpg]
