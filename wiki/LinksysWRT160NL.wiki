@@ -50,7 +50,6 @@ In this procedure you will be setting up the linksys to receive a firmware image
   # NC
   # GND (this is the pin closest to the fromt of the device)
   * Note: serial pins are also accessible from the ethernet ports. See the link in the intro for an image of this.  
-[image]
  # Launch your hyperterminal (serial) program and set the baud rate to 115200. Or, if you are in linux, HowToSetUpSerialMinicomLinux
  # Restart the router (by power cycling)
  # You should see lots of things start printing in the serial connection
