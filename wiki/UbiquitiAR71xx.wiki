@@ -164,9 +164,11 @@ Ubiquiti devices have serial interfaces just like the linksys and can be connect
 You will have to wire out the pins like this:
 
 Nano
+
 [http://fabfi.googlecode.com/svn/wiki/images/Devices/UbiquitiNanoSerial.jpg]
 
 Pico
+
 [http://fabfi.googlecode.com/svn/wiki/images/Devices/UbiquitiPicoSerial.jpg]
 
 then follow the minicom instructions in the link above.
