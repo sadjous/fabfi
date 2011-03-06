@@ -35,9 +35,11 @@ sudo apt-get minicom
 then read HowToSetUpSerialMinicomLinux
    * Windows: Did we mention windows is not recommended? Windows no longer has "hyperterminal". Google for "windows hyperterminal alternatives" (we used "Tera Term", recommended from http://helpdeskgeek.com/windows-7/windows-7-hyperterminal/ and it worked ok)
 
+_NOTE: All the instuctions on this page are linux-specific._
+
 ==Procedure==
 
-In this procedure you will be setting up the linksys to receive a firmware image via TFTP, then sending the image from your computer over an ethernet connection. TFTP is VERY sensitive to extra stuff being sent over the wire.  In order to minimize the time between when the reouter starts listenting for data and when you send the firmware, we recommend you do the [#On_the_Computer "on the computer"] section below all the way through step #, then do all of the [#On_the_Router "on the router"] section, then finish the [#On_the_Computer "on the computer"] section.
+In this procedure you will be setting up the linksys to receive a firmware image via TFTP, then sending the image from your computer over an ethernet connection. TFTP is VERY sensitive to extra stuff being sent over the wire.  In order to minimize the time between when the reouter starts listening for data and when you send the firmware, we recommend you do the [#On_the_Computer "on the computer"] section below all the way through step 8, then do all of the [#On_the_Router "on the router"] section, then finish the [#On_the_Computer "on the computer"] section.
 
 === On the Router ===
 
@@ -74,11 +76,10 @@ $ upgrade code.bin
  # Make sure you are connected and your computer can see the ethernet connection to the linksys
  # Open up a new terminal window
  # Navigate to the folder where you have saved firmware
- # Now type:
+ # Now type the following to start the tftp program and bring up the "tftp" prompt
 {{{
 $ tftp 192.168.1.1
 }}}
-this will take you into the TFTP program and you'll have a "tftp" prompt
  # Now type:
 {{{
 $ binary (sets program mode to binary)
@@ -91,8 +92,10 @@ $ put fabfi-wrt160nl-factory.bin code.bin
 As the tftp starts pushing data to the router, you should be lots of stuff happening in your terminal window.
 
 When the tftp finishes sending all of the commands, you should
- * Exit tftp
- * Unplug the ethernet cable
+ * Exit tftp by typing 
+{{{
+$ q
+}}}
  * DON'T TOUCH THE ROUTER UNTIL IT SAYS DONE in the minicom window.
 
 Once the minicom window says "done", power cycle the router and move on to the next section
@@ -159,7 +162,7 @@ For further explanation of exactly what each setting does, you'll have to read [
 
 After the script completes, the router will reboot automatically and will be ready to go.  
 
-*After running the configuration script, you will no longer be able to use telnet.  You will have to log in using `ssh` and the passwird you set during setup. 
+*After running the configuration script, you will no longer be able to use telnet.  You will have to log in using `ssh` and the password you set during setup. 
 
 == Squid Configurations (headnode only) ==
 
