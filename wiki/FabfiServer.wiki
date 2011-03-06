@@ -121,7 +121,7 @@ and change username and password to match the user and password you created abov
         server = "localhost"
         #port = 3306
         login = "radius"
-        password = "cisco123"
+        password = "<your password>"
 
         # Database table configuration for everything except Oracle
         radius_db = "radiusdb"
@@ -136,24 +136,23 @@ Then edit
 set your NAS secret
 
 {{{
-secret = yoursecret
+secret = <yoursecret>
 }}}
 
 and add 
 
 {{{
 client 10.0.0.0/8 {
-  secret = cisco123
+  secret = <radius secret for this domain>
   shortname = fabfi-portal
 }
 
 client 41.0.0.0/8 {
-  secret = cisco123
+  secret = <radius secret for this domain>
   shortname = fabfi-cloud
 }
 }}}
-
-at the end of the file.
+at the end of the file.  The IPs in this last section are the IPs your networks will be connecting from
 
 
 === Install Daloradius ==
