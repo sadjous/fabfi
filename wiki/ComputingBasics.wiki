@@ -1,0 +1,18 @@
+<wiki:toc max_depth="4" />
+
+= Introduction =
+
+This page contains instructions for performing useful basic operations on your computer.  It is almost entirely linux (specifically ubuntu 10.04) focused.  If you don't have linux, run it from a LiveCD and make your life easier.  Windows is not designed to do what we do well.  You're better than Windows. 
+
+= Network Settings =
+
+== Configure a Static IP ==
+ # Go to *System tab-> Preferences-> Network Connections*:
+ # Select the Wired option-> Add (you may rename this "connection")
+ # Select *ipv4* and set method to *Manual*
+ # Under *Address* put say *192.168.1.254*
+ # Under *Netmask* put *255.255.255.0*
+ # Under *Gateway* put *192.168.1.1* and press *Enter*
+ # (optional) Click the *routes* button and in the resulting dialog, check the box for *Use this connection only for resources on its network*
+  * Checking this box will allow you to be connected to a router on the wired link and browse the internet with your wireless connection at the same time.
+ # Apply the changes.
