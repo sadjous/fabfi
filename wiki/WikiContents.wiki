@@ -9,6 +9,7 @@
     * FabfiServer
     * FabfiNodes
     * [RFReflectors Fabfi Reflectors]
+    * [UserAndGroupSettings User and Group Settings]
     * [HowToMake#AdvancedDevelopment Advanced Development]
         * [HowtoBuildAFabFiImage Build a Fabfi node image]
   * [http://code.google.com/p/fabfi/w/list Page List]
