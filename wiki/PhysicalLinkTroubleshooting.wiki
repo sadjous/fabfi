@@ -6,9 +6,7 @@ A [http://en.wikipedia.org/wiki/Physical_Layer physical link] is just that: a ph
 
 == Wired links ==
 
-Wired links are made this ethernet cables.  Every device has a "link light" that lights up when the ethernet port has successfully negotiated a link over the cable.  The following images describe the locations of the link lights for each of the devices we use: 
-
-<insert pics>
+Wired links are made this ethernet cables.  Every device has a "link light" that lights up when the ethernet port has successfully negotiated a link over the cable.  See the links in the wireless section for images of LEDs.
 
 If the light is not on, you don't have a connection.  Check your cabling.  
 
@@ -49,7 +47,7 @@ As with wired links, fabfi nodes have LED indicators for connection, but the LED
 
 For Ubiquiti devices, 4 LEDS are used as shown below:
 
-<insert pics>
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/UbiquitiLED.jpg]
 
 These four LEDs can be either solid or blinking, indicating 8 states (solid indicates a stronger signal than blinking).  Each LED indicates a range of 10dBm, with a solid/blink cutoff at the midpoint, as follows:
 
@@ -60,8 +58,7 @@ Green2: -54 and above (blink below 49)
 
 For Linksys Devices, two LEDs are used (one has three colors):
 
-<insert Pic>
-
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/wrt160nl_LED.jpg]
 
 WLAN Blue: -75 and below (blink below 79)
 WPS Orange: -65 to -74
