@@ -45,7 +45,7 @@ In this procedure you will be setting up the device to receive a firmware image 
  # Connect a second cable to the POE port on the power supply
  # Press and hold the reset button next to the ethernet port 
  # insert the other end of the second network cable into the device while continuing to hold the reset button.  You should see a green and orange LED
- # Hold the reset button until you see a red and an orange LED light in sequence, then release.  
+ # Hold the reset button until you see a red and an orange LED light in sequence, then release.  If you succeed, you'll get pairs of LEDs blinking on and off.
 
 === On the Computer ===
 
