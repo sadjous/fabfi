@@ -1,6 +1,6 @@
 == Welcome to the FabFi Project Wiki ==
 
-Navigate the system documentation using menu on the left.  
+*Navigate the system documentation using menu on the left.*
 
 If you're brand new to Linux (and we really suggest you use it), you might want to check out some ComputingBasics.
 
