@@ -12,11 +12,11 @@ There are two classes of devices we use: [http://en.wikipedia.org/wiki/Power_ove
 
 Most of the devices we use in the current version of fabfi use PoE.  All the Ubiquiti devices we use fit into this category.  ubiquiti devices use a particular type of PoE called [http://en.wikipedia.org/wiki/Power_over_Ethernet#Passive "passive" PoE].  Passive PoE supplies positive voltage (12-15V) on pins 4-5 of the ethernet cable, completing the circuit over pins 7-8 ([http://en.wikipedia.org/wiki/Category_5_cable see here for cat5 pinout]).  Out of the box, these devices are powered by a PoE injector that runs on AC power and provides 15V DC.  This injector is placed inline on the ethernet cable like so:
 
-[http://code.google.com/p/fabfi/source/browse/wiki/images/Devices/StockPOE.png]
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/StockPOE.png]
 
 It is also possible to inject power via a number of other means by modifying the cat5 cable as shown here:
 
-[http://code.google.com/p/fabfi/source/browse/wiki/images/Devices/POEHack.jpg]
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/POEHack.jpg]
 
 power mods are discussed in more detail below.
 
