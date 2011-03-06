@@ -1,0 +1,10 @@
+<wiki:toc max_depth="4" />
+
+= Introduction =
+
+Fabfi devices can be fitted with a variety of RF Reflectors to increase their directional range.  We are currently in the process of transitioning from the obsolete WRT54GL to newer devices from Linksys and Ubiquiti, thus may of the reflector designs are actively under revision.  
+
+As new designs are solidified, vector files for them will be available in the source archive.  In the meantime, older designs are still available on the [http://fabfi.fabfolk.com/distribution.html old download site] and this page will describe the modifications needed to make those deigns work with the new hardware.  
+
+
+<coming soon>
