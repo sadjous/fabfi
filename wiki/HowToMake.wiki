@@ -21,6 +21,8 @@ Common nodes make up the physical mesh network, with headnodes acting as local D
 
 Fabfi Reflectors are used to enhance the RF signal of wifi devices for long-range links.  
 
+Administrators [UserAndGroupSettings configure Users and Groups] to control access to the network.  Authentication and user accounting is managed centrally on the Fabfi Server.
+
 = Advanced Development =
 
 In addition to the basic configuration instructions, we also have a section on Advanced Development that explains how to build images from scratch and perform other custom tasks: 
