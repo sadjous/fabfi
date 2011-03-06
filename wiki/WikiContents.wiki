@@ -11,9 +11,5 @@
     * [RFReflectors Fabfi Reflectors]
     * [HowToMake#AdvancedDevelopment Advanced Development]
         * [HowtoBuildAFabFiImage Build a Fabfi node image]
-
-  * HowtoFlashUbiquitiDevices
-  * HowToConfigureHeadNode
-  * [HowToFlashLinksysWRT160NL] 
   * [http://code.google.com/p/fabfi/w/list Page List]
   * [ToDo]
