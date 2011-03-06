@@ -1,3 +1,11 @@
 == Welcome to the FabFi Project Wiki ==
 
-Navigate using menu on the left
+Navigate the system documentation using menu on the left.  
+
+If you're brand new to Linux (and we really suggest you use it), you might want to check out some ComputingBasics.
+
+Want to know how everything fits together? Go to SystemArchitecture
+
+If you want to make a Fabfi (or 100 of them) jump to HowToMake
+
+If you're looking for troubleshooting support jump to TroubleShooting (this page also has a bunch of useful command line commands and scripts).
