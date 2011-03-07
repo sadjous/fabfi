@@ -7,7 +7,7 @@ This page will soon contain tools and tricks for managing your network installat
 Thanks to some help from Christiaan Adams of the Google Earth team, we have a nifty automated way of visualizing nodes in google maps or earth.  
 
 There are two parts to the system:
- * [https://spreadsheets.google.com/a/fabfolk.com/viewform?hl=en&formkey=dFVORHdaUnRQMWVCMXpIY3VMajExU1E6MA#gid=0 A Google form to enter node data]. Get a copy [https://spreadsheets.google.com/a/fabfolk.com/ccc?key=0Apnn7ogs3vm1dFVORHdaUnRQMWVCMXpIY3VMajExU1E&newcopy here].  
+ * [https://spreadsheets.google.com/a/fabfolk.com/viewform?hl=en&formkey=dFZoRm9zRUtkYktiNTU3NFhFU255Tnc6MA#gid=0 A Google form to enter node data]. Get a copy [https://spreadsheets.google.com/a/fabfolk.com/ccc?key=0Apnn7ogs3vm1dFVORHdaUnRQMWVCMXpIY3VMajExU1E&newcopy here].  
  * [https://spreadsheets.google.com/a/fabfolk.com/ccc?key=0Apnn7ogs3vm1dHNCX0tFVHZYTE1Qakc2LWxocWtOd3c&hl=en#gid=1 A special Google spreadsheet that makes map overlays]. Get a copy [https://spreadsheets.google.com/a/fabfolk.com/ccc?key=0Apnn7ogs3vm1dHNCX0tFVHZYTE1Qakc2LWxocWtOd3c&newcopy here].
 
 Once you have your copies of both documents, fill in the red fields on the first sheet of the spreadsheet, then enter your node data with a form.  If you want to have pictures for your nodes, upload them to the web directory you specified in the spreadsheet with the name:
