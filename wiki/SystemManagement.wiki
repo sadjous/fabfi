@@ -15,4 +15,4 @@ Once you have your copies of both documents, fill in the red fields on the first
 <node number>.jpg
 }}}
 
-When you're all done, the spreadsheet will give you a link to a Google map that you can post online [http://maps.google.com/maps?f=q&hl=en&geocode=&q=https:%2F%2Fspreadsheets.google.com%2Fa%2Ffabfolk.com%2Fpub%3Fhl%3Den%26hl%3Den%26key%3D0Apnn7ogs3vm1dHNCX0tFVHZYTE1Qakc2LWxocWtOd3c%26output%3Dtxt%26gid%3D0%26range%3Dkml_output%26time1%3D4060932 like this].
+When you're all done, the spreadsheet will give you a link to a Google map that you can post online [http://maps.google.com/maps?f=q&hl=en&geocode=&q=https:%2F%2Fspreadsheets.google.com%2Fa%2Ffabfolk.com%2Fpub%3Fhl%3Den%26hl%3Den%26key%3D0Apnn7ogs3vm1dHNCX0tFVHZYTE1Qakc2LWxocWtOd3c%26output%3Dtxt%26gid%3D0%26range%3Dkml_output%26time1%3D4060933 like this].
