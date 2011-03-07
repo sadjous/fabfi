@@ -10,7 +10,7 @@ More information on the original designs and build instructions can be found [ht
 
 = Feed Protoype =
 
-This prototype feed affixes to the Fabfi3.0 Large "weatherproof" Reflector found on the page linked above
+This prototype feed affixes to the Fabfi3.0 Large "weatherproof" Reflector found on the download site linked above
 
 [http://fabfi.googlecode.com/svn/wiki/images/Devices/UbiquitiFeed_Large1.jpg]
 
