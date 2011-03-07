@@ -6,7 +6,7 @@ A [http://en.wikipedia.org/wiki/Physical_Layer physical link] is just that: a ph
 
 == Wired links ==
 
-Wired links are made this ethernet cables.  Every device has a "link light" that lights up when the ethernet port has successfully negotiated a link over the cable.  See the links in the wireless section for images of LEDs.
+Wired links are made with ethernet cables.  Every device has a "link light" that lights up when the ethernet port has successfully negotiated a link over the cable.  See the links in the wireless section for images of LEDs.
 
 If the light is not on, you don't have a connection.  Check your cabling.  
 
