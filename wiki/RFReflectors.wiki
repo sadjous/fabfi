@@ -6,6 +6,8 @@ Fabfi devices can be fitted with a variety of RF Reflectors to increase their di
 
 As new designs are solidified, vector files for them will be available in the source archive.  In the meantime, older designs are still available on the [http://fabfi.fabfolk.com/distribution.html old download site] and this page will describe the modifications needed to make those deigns work with the new hardware.  
 
+More information on the original designs and build instructions can be found [http://wiki.fablab.af/index.php/Reflector_Tech here].
+
 = Feed Protoype =
 
 This prototype feed affixes to the Fabfi3.0 Large "weatherproof" Reflector found on the page linked above
