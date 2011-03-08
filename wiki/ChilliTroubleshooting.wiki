@@ -1,3 +1,4 @@
+#summary Troubleshooting Chilli Captive portal
 <wiki:toc max_depth="4" />
 
 = Introduction =

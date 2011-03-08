@@ -1,3 +1,4 @@
+#summary Instructions for using minicom
 === How to set up Minicom (Linux Serial app) ===
 
 _This is primarily intended for communicating between your pc and the linksys headnode router, for the purpose of configuring and flashing it_

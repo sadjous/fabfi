@@ -1,3 +1,4 @@
+#summary Tips for managing your network
 <wiki:toc max_depth="4" />
 
 = Introduction =

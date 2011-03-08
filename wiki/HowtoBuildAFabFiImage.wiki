@@ -1,3 +1,4 @@
+#summary How to compile your own fabfi image
 <wiki:toc max_depth="4" />
 
 = Introduction = 

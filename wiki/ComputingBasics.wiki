@@ -1,3 +1,4 @@
+#summary Essential computer skills for working with Fabfi
 <wiki:toc max_depth="4" />
 
 = Introduction =

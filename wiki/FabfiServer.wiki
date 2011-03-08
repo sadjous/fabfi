@@ -1,10 +1,11 @@
+#summary How to build the fabfi server
 <wiki:toc max_depth="4" />
 = Introduction =
 The Fabfi server is a cloud-hosted device that houses the authentication database and Management/Monitoring web GUI for the network.  The current version runs on Ubuntu 10.04 Server (i386).  This page provides configuration instructions for building the server from bare metal.
 
 *NOTE: This configuration was documented piecemeal, so there may be redundant instructions, especially related to package installation.  It is unlikely that doing anything multiple times will cause problems, however.*
 
-**NOTE2:  This page does NOT cover configuration of user accounts.  For information on user acconuts configuration go to the [UserAccountManagement] page.  
+**NOTE2:  This page does NOT cover configuration of user accounts.  For information on user acconuts configuration go to the [UserAndGroupSettings] page.  
 
 == OS Installation ==
 

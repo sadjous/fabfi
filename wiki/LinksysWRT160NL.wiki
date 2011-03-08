@@ -1,3 +1,4 @@
+#summary How to flash and configure a linksys WRT160NL
 <wiki:toc max_depth="4" />
 
 = Introduction =

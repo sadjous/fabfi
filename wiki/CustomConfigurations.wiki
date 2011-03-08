@@ -1,8 +1,9 @@
+#summary Advanced manual configurations for fabfi nodes
 <wiki:toc max_depth="4" />
 
 = Introduction =
 
-This page contains instructions for semi-common custom configurations that aren't yet included in the auto-confic script
+This page contains instructions for semi-common custom configurations that aren't yet included in the auto-config script
 
 
 = Static WAN IP =
@@ -22,4 +23,8 @@ uci set network.wan.gateway=(ask.whoever.gave.you.above.address)
 uci set network.wan.dns=8.8.8.8
 uci commit network
 }}}
+
+= USB Modem WAN =
+
+If you're using a USB Modem as an internet connection, follow [USBModem these instructions] to run the USB Modem directly with the linksys.
 

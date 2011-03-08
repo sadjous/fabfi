@@ -1,3 +1,4 @@
+#summary Top level How-To page
 <wiki:toc max_depth="4" />
 
 = Introduction =
