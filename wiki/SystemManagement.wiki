@@ -1,3 +1,5 @@
+<wiki:toc max_depth="4" />
+
 = Introduction =
 
 This page will soon contain tools and tricks for managing your network installation.
