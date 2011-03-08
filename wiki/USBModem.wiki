@@ -1,8 +1,10 @@
-#summary Unstalling USB modem on linksys wrt160nl
+#summary Installing USB modem on linksys wrt160nl
 
 = Introduction =
 
-This page details the steps for using various USB Modems with OpenWRT
+This page details the steps for using various USB Modems with OpenWRT.  Though we have not tried it, we suspect that it is possible to use a single linksys with both a USB Storage device and a USB modem by adding a USB hub. This page currently explains how to install the modem on a stock OpenWRT image.  
+
+When using a USB modem as an uplink we always suggest running s squid cache on your headnode for best performance.
 
 = Basic Requirements =
 
