@@ -26,7 +26,7 @@ because all the nodes forward [http://en.wikipedia.org/wiki/Domain_Name_System D
 
   * When a client access node starts up, chilli will check its connection to the RADIUS server.  Chilli WILL NOT START if it cannot connect to the RADIUS server.
 
-*Because Chilli provides DHCP to clients, clients will not be able to connect to the wifi if chilli is not running*
+*Because Chilli provides [http://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol DHCP] to clients, clients will not be able to connect to the wifi if chilli is not running*
 
 *If chilli is started and it loses a connection to the RADIUS server it will continue to run, but will not be able to authenticate clients or show the remotely hosted portion of the splash page*
 
