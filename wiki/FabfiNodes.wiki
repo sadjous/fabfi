@@ -56,6 +56,8 @@ $ sh /etc/fabfi-scripts/upgrade
 }}}
  # cross your fingers
 
+_NOTE: If your router does not have te "upgrade" script, but instead has "upgrade-pre" copy the upgrade script to the router and run that instead of upgrade pre_
+
 the upgrade script is a wrapper for OpenWRT's `sysupgrade` functionality.  it will copy over all the files from:
 {{{
 PASS=/etc/passwd
