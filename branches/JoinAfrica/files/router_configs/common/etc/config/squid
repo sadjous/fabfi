@@ -3,13 +3,12 @@ http_port 3128 transparent
 #acl QUERY urlpath_regex cgi-bin \?
 #cache deny QUERY
 refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
+refresh_pattern ^ftp: 1440 20% 10080
+refresh_pattern ^gopher: 1440 0% 1440
 refresh_pattern .            0 20% 4320
 acl apache rep_header Server ^Apache
 access_log /home/squid/log/access.log squid
 hosts_file /etc/hosts
-refresh_pattern ^ftp: 1440 20% 10080
-refresh_pattern ^gopher: 1440 0% 1440
-refresh_pattern . 0 20% 4320
 # newer Squid's don't need "all", it's built in:
 acl all src 0.0.0.0/0.0.0.0
 
