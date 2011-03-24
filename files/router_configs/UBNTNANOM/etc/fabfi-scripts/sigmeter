@@ -122,5 +122,5 @@ while [ $RUNS -lt $MAXRUNS ]
         fi
         sleep 2
 done
-exec sh /etc/fabfi-scripts/sigmeter wlan0 &
+exec sh /etc/fabfi-scripts/sigmeter $1 &
 
