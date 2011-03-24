@@ -6,6 +6,9 @@ LED3="wrt160nl:blue:wlan"
 LED2="wrt160nl:amber:wps"
 LED1="wrt160nl:blue:wps"
 
+RUNS=0
+MAXRUNS=900
+
 TRH1=50
 TRH1B=55
 
@@ -46,8 +49,10 @@ clear_all() {
 
 
 clear_all
-while true
+while [ $RUNS -lt $MAXRUNS ]
         do
+        RUNS=`expr $RUNS + 1`
+
 if [ `iwconfig $1 | grep -c $1` -gt 0 ]
 then
         iw dev $1 station dump | grep 'signal' | cut -d - -f 2 | cut -d d -f 1 > $SIGTMP
@@ -118,4 +123,5 @@ then
 fi
 sleep 2
 done
+exec sh /etc/fabfi-scripts/sigmeter $1 &
 
