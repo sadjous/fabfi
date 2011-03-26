@@ -4,8 +4,8 @@
 #read owrtv
 #OWRTPATH=openwrt
 #IBPATH=../../../openwrt/$owrtv/bin/ar71xx/
-echo "Before running this script, you should update your Openwrt source and then run"
-echo "./scripts/feeds update -a"
+echo "Before running this script, you should update your Openwrt source"
+#echo "./scripts/feeds update -a"
 echo "from the source directory"
 echo "WARNING. THIS SCRIPT WILL IRREVOCABLY CHANGE YOUR SOURCE DIRECTORY!!"
 sleep 1;
