@@ -20,7 +20,7 @@ nbor=`echo '/link' | nc localhost 2006 | grep -oe "^[0-9].*" | cut -f 2,4,5 | tr
 gw=""
 for line in `echo '/hna' | nc localhost 2006 | grep 0.0.0.0 | cut -f 2`
  	do
- 		responses=`ping -c4 $line | grep -oe "[0-9]*\.[0-9]* ms" | grep -oe "[0-9]*\.[0-9]*" | tr '\n\r' '\t'`
+ 		responses=`ping -c4 -s1 $line | grep -oe "[0-9]*\.[0-9]* ms" | grep -oe "[0-9]*\.[0-9]*" | tr '\n\r' '\t'`
  		if !(test "" = "$responses")
  		then 
  			gw="${line};${gw}"
@@ -29,7 +29,7 @@ for line in `echo '/hna' | nc localhost 2006 | grep 0.0.0.0 | cut -f 2`
 done
 
 #test net
-responses=`ping -c4 $net_test | grep -oe "[0-9]*\.[0-9]* ms" | grep -oe "[0-9]*\.[0-9]*" | tr '\n\r' '\t'`
+responses=`ping -c4 -s1 $net_test | grep -oe "[0-9]*\.[0-9]* ms" | grep -oe "[0-9]*\.[0-9]*" | tr '\n\r' '\t'`
 if (test "" = "$responses")
 then 
 	net=0

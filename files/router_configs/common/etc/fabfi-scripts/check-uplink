@@ -132,7 +132,7 @@ if [ $? -eq 0 ]
 fi
 
 echo "`date` got default route, pinging gateway $GW" >> $LG
-		responses=`ping -c4 $GW | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
+		responses=`ping -c4 -s1 $GW | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
 	       	if (test "" = "$responses")
 	       		then 
 echo "`date` can't ping gateway at $GW"	>> $LG	
@@ -142,7 +142,7 @@ echo "`date` can't ping gateway at $GW"	>> $LG
 			for ping_ip in `uci get olsrd.@LoadPlugin[$pl_gw_index].Ping | sed 's/[:space:]/\n/'`
 				do
 echo "`date` trying to ping remote server $ping_ip" >> $LG
-				responses=`ping -c4 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
+				responses=`ping -c4 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
 				  grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
 				if !(test "" = "$responses")
 					then 
@@ -160,7 +160,7 @@ echo "`date` no default route, pinging remote servers" >> $LG
 			do
 echo "`date` adding route and trying to ping remote server $ping_ip" >> $LG
 			route add -host $ping_ip gw $GW $IFACE 
-			responses=`ping -c4 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
+			responses=`ping -c4 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
 			  grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
 			route del -host $ping_ip gw $GW $IFACE 
 			if !(test "" = "$responses")
@@ -172,7 +172,7 @@ echo "`date` adding route and trying to ping remote server $ping_ip" >> $LG
 			fi
 		done
 echo "`date` can't ping remote servers, testing gateway" >> $LG
-		responses=`ping -c4 $GW | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
+		responses=`ping -c4 -s1 $GW | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
 	       	if (test "" = "$responses")
        			then 
 echo "`date` can't ping gateway at $GW" >> $LG		
