@@ -3,7 +3,7 @@ INITRC=/etc/rc.d/S99squidsetup
 RCL=/etc/rc.local
 
 #fill in your custom commands here
-
+sip=`uci get network.mesh.ipaddr`
 rm $INITRC
 mkdir /home/squid
 mkdir /home/squid/log
@@ -12,11 +12,12 @@ chmod -R 777 /home/squid
 squid -z
 sed "/exit 0/d" $RCL > /tmp/RCL
 mv -f /tmp/RCL $RCL
-echo "sh /etc/fabfi-scripts/upgrade-post" >> $RCL
+#dunno why next line was ever in here...
+#echo "sh /etc/fabfi-scripts/upgrade-post" >> $RCL
 echo "ln -s /home/squid/log/ /var/logs" >> $RCL
 echo "squid -D" >> $RCL
 echo "exit 0" >> $RCL
-echo "iptables -t nat -A PREROUTING -p tcp -d ! 10.0.0.0/8 --dport 80 -j DNAT --to ${ff_m_abIP}${ff_m_cIP}${m_dIP}:3128" > /etc/firewall.user
+echo "iptables -t nat -A PREROUTING -p tcp -d ! 10.0.0.0/8 --dport 80 -j DNAT --to ${sip}:3128" > /etc/firewall.user
 sleep 1
 reboot &
 
