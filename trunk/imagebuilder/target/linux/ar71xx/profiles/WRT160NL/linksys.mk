@@ -16,12 +16,14 @@ olsrd olsrd-mod-nameservice olsrd-mod-txtinfo olsrd-mod-dyn-gw \
 mini-httpd netcat \
 kmod-tun \
 libopenssl libpthread swap-utils squid \
-mini-snmpd \
+snmpd-static libelf \
+qos-scripts tc kmod-sched kmod-ifb iptables-mod-filter kmod-ipt-filter kmod-textsearch \
+iptables-mod-ipopt kmod-ipt-ipopt iptables-mod-conntrack-extra kmod-ipt-conntrack-extra \
 uclibcxx iperf \
 libpcap tcpdump \
 awesome-chilli libjson \
--ppp -ppp-mod-pppoe -kmod-ppp -kmod-pppoe -kmod-crc-ccitt -uhttpd \
-nagios nagios-plugins send-nsca libmcrypt libwrap nrpe
+-ppp -ppp-mod-pppoe -kmod-ppp -kmod-pppoe -kmod-crc-ccitt -uhttpd
+#nagios nagios-plugins send-nsca libmcrypt libwrap nrpe
 
 endef
 

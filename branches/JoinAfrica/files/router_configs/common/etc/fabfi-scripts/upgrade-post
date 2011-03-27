@@ -13,7 +13,10 @@ uci add system rdate
 uci commit system
 cd /overlay/etc/config
 rm timeserver
+rm qos
 sed "/timeserver/d" `ls | grep "META_"` > /tmp/META
+mv -f /tmp/META `ls | grep "META_"`
+sed "/qos/d" `ls | grep "META_"` > /tmp/META
 mv -f /tmp/META `ls | grep "META_"`
 
 mkdir /home
