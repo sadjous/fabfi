@@ -137,7 +137,7 @@ let lan_cIP="$fabfi_num+$ff_cIP"
 /etc/init.d/chilli disable
 
 if  [ $headnode == "y" ]; then
-	echo "/usr/bin/nagios -d /etc/nagios/nagios.cfg" >> /etc/init.d/custom-user-startup
+	#echo "/usr/bin/nagios -d /etc/nagios/nagios.cfg" >> /etc/init.d/custom-user-startup
 
 	until (echo $squidme | grep "^[yn]$"); do
 	echo "do you want to configure squid on your headnode? This will require you to have your USB disk ready (y/n)"
