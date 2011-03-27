@@ -1,17 +1,14 @@
 # QoS configuration for OpenWrt
 
 # INTERFACES:
-config interface lan
+config interface wan
 	option classgroup  "Default"
-	option overhead     1
-    option enabled  0
-	option upload       1000000
-	option download     1000000
+	option enabled      0
+	option overhead     0
+	option upload       102400
+	option download     102400
 
 # RULES:
-config classify
-	option target       "Bulk"
-	option ipp2p        "all"
 config classify
 	option target       "Bulk"
 	option layer7       "edonkey"
@@ -87,3 +84,4 @@ config class "Normal_down"
 config class "Bulk"
 	option avgrate     1
 	option packetdelay 200
+
