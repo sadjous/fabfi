@@ -20,6 +20,10 @@ sed "/qos/d" `ls | grep "META_"` > /tmp/META
 mv -f /tmp/META `ls | grep "META_"`
 
 mkdir /home
+mkdir /home/squid
+mkdir /home/squid/log
+mkdir /home/squid/cache
+chmod -R 777 /home/squid
 echo "POSTUPGRADE COMPLETE.  Deleting rc.local entry for this script"
 
 #remove entry for upgrade-post from rc.local
