@@ -53,7 +53,7 @@ on reboot, device is recognized after a while (I think).  In it's base state lig
 
 _This section is under construction_
 
-The following script looks for one of the supported modems.  If it doesn't find it, it tries modeswitching.  Once it finds a modem it enables the correct interface (assumes you have configured two interfaces called `wan` and `saf` and expects to be dealing with Huawei modems (a CDMA and a HSPA)
+The following script looks for one of the supported modems.  If it doesn't find it, it tries modeswitching.  Once it finds a modem it enables the correct interface (assumes you have configured two interfaces called `wan` and `saf` and expects to be dealing with Huawei modems (a CDMA and a HSPA))
 {{{
 #!/bin/sh
 
