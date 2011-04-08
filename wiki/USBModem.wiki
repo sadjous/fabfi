@@ -49,7 +49,7 @@ on reboot, device is recognized after a while (I think).  In it's base state lig
 
 [http://josefsson.org/openwrt/dongle.html Start here] and scroll down to "Enabling 3G/UMTS"
 
-== Auto-switching and detecting Modems ==
+= Auto-switching and detecting Modems =
 
 _This section is under construction_
 
