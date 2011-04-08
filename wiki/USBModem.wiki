@@ -48,3 +48,36 @@ on reboot, device is recognized after a while (I think).  In it's base state lig
 == Huawei E160 / 220 ==
 
 [http://josefsson.org/openwrt/dongle.html Start here] and scroll down to "Enabling 3G/UMTS"
+
+== Auto-switching and detecting Modems ==
+
+_This section is under construction_
+
+The following script looks for one of the supported modems.  If it doesn't find it, it tries modeswitching.  Once it finds a modem it enables the correct interface (assumes you have configured two interfaces called `wan` and `saf`)
+{{{
+#!/bin/sh
+
+#the huawei modem doesn't switch on the first run of usb_modeswitch. it will switch after the second, third, etc
+while  ( lsusb | grep -i 12d1:1446 ) do 
+
+echo "Trying to switch device to modem mode";
+usb_modeswitch;
+done
+
+sleep 2;
+#orange modem settings are defined in /etc/config/network under interface wan
+#safaricom modem settings are defined under saf
+
+if ( lsusb | grep -i 12d1:1001 ) then  
+echo "Orange Modem detected";
+ifup wan;
+fi
+
+#the safaricom modem works out of the box - no need for modeswitching. The Kisumu one , however, does require modeswitching
+
+if ( lsusb | grep -i 12d1:1003 ) then 
+echo "Safaricom Modem detected";
+ifup saf
+
+fi
+}}}
