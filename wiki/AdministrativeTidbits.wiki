@@ -56,19 +56,11 @@ svn rmdir #remove directory
 
 ===Committing===
 
-When you're ready to push changes use
+In SVN, nothing is changed in the online archive until you explicitly commit it.  When you're ready to push changes use
 {{{
 svn commit [file or folder]
 }}}
 this will commit everything in the working directory in a recursive fashion. You can optionally specify a file or folder.  The terminal will show you a list of changes and status codes, and ask you to write a comment about the commit.  MAKE THIS COMMENT USEFULLY DESCRIPTIVE!
-
-
-=== Removing files or Directories ===
-
-{{{
-$ svn rm <thing you want to delete>
-$ svn commit
-}}}
 
 === Uploading Images to SVN (for the wiki) ===
 
