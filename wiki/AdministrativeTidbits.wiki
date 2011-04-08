@@ -5,7 +5,7 @@
 This page contains instructions for all the administrative tasks required to manage this site.  If you learn any new processes (like how to upload images to the wiki, for instance), document them here.  
 
 == SVN ==
-=== SVN Basics ===
+
 Subversion (SVN) is the version control system used to track all the files on this site.  In order to modify files offline you must download them (checkout) and then upload them again (commit).  To add a new file you must add it to your local SVN copy and then commit it (add / commit).  
 
 SVN works by making a local copy of the files on the website on your local drive.  When you checkout some code, you will specify a local directory to put it in.  until you delete the contents of this directory, SVN will then require that you put the same source tree in that directory forevermore.
