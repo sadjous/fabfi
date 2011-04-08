@@ -10,17 +10,57 @@ Subversion (SVN) is the version control system used to track all the files on th
 
 SVN works by making a local copy of the files on the website on your local drive.  When you checkout some code, you will specify a local directory to put it in.  until you delete the contents of this directory, SVN will then require that you put the same source tree in that directory forevermore.
 
+===Checkout, Status and Update===
+
 To check out the WHOLE source tree into a sub-directory called fabfi in your current working directory:
 {{{
 $ svn checkout https://fabfi.googlecode.com/svn/ fabfi --username yourgoogleusername
 }}}
 
-Now, let's say you want to update just the wiki part of your source tree
+Now, let's say you want to check out just the wiki part of your source tree
 {{{
 $ svn checkout https://fabfi.googlecode.com/svn/wiki wiki --username yourgoogleusername
 }}}
 
-YOU SHOULD ALWAYS CHECK OUT THE MOST CURRENT VERSION BEFORE YOU START EDITING.
+once you have checked out the source, you now keep your source current using short commands. All SVN commands function with respect to the current working directory and most are recursive by default.   To see the status of your local copy, go to the top level and run:
+{{{
+svn st
+}}}
+Here's a list of common status codes: 
+[http://knaddison.com/sites/knaddison.com/files/svn_codes.png]
+
+To update all or a part of your local tree from the archive, go to the top level of the thing you want to update and run:
+{{{
+svn up
+}}}
+
+ALWAYS UPDATE YOUR SOURCE BEFORE BEGINNING YOUR EDITS!!!
+
+===Add, Delete, Move and Undo===
+
+to bring your local copy back to the original state of the revision you have checked out, go to the level above the thing you want to revert and do:
+{{{
+svn revert <thing>
+}}}
+If you create a new file or folder and want it to become part of the archive:
+{{{
+svn add <thing>
+}}}
+if you want to delete or move something in the archive (and have the changes tracked, which you ususally do):
+{{{
+svn mv #move
+svn rm #remove
+svn rmdir #remove directory
+}}}
+
+===Committing===
+
+When you're ready to push changes use
+{{{
+svn commit [file or folder]
+}}}
+this will commit everything in the working directory in a recursive fashion. You can optionally specify a file or folder.  The terminal will show you a list of changes and status codes, and ask you to write a comment about the commit.  MAKE THIS COMMENT USEFULLY DESCRIPTIVE!
+
 
 === Removing files or Directories ===
 
