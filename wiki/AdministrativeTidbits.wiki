@@ -27,6 +27,7 @@ once you have checked out the source, you now keep your source current using sho
 svn st
 }}}
 Here's a list of common status codes: 
+
 [http://knaddison.com/sites/knaddison.com/files/svn_codes.png]
 
 To update all or a part of your local tree from the archive, go to the top level of the thing you want to update and run:
