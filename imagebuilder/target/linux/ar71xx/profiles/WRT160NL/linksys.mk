@@ -11,19 +11,23 @@ define Profile/WRT160NL
 	PACKAGES:=kmod-ath9k kmod-mac80211 wpad-mini kmod-usb-core -kmod-madwifi kmod-usb2 swconfig \
 libuci bridge \
 kmod-scsi-core kmod-usb-storage kmod-fs-ext3 e2fsprogs block-extroot fdisk block-mount \
-kmod-gpio-dev kmod-input-core kmod-input-gpio-buttons kmod-input-polldev kmod-leds-gpio \
+kmod-gpio-dev kmod-input-core kmod-input-gpio-buttons kmod-input-polldev kmod-leds-gpio kmod-usb-serial \
+kmod-usb-serial-option kmod-usb-uhci \
+kmod-usb-ohci kmod-nls-base kmod-scsi-generic   \
 olsrd olsrd-mod-nameservice olsrd-mod-txtinfo olsrd-mod-dyn-gw \
 mini-httpd netcat \
 kmod-tun \
 libopenssl libpthread swap-utils squid \
-snmpd-static libelf \
-qos-scripts tc kmod-sched kmod-ifb iptables-mod-filter kmod-ipt-filter kmod-textsearch \
-iptables-mod-ipopt kmod-ipt-ipopt iptables-mod-conntrack-extra kmod-ipt-conntrack-extra \
+snmpd \
 uclibcxx iperf \
 libpcap tcpdump \
 awesome-chilli libjson \
--ppp -ppp-mod-pppoe -kmod-ppp -kmod-pppoe -kmod-crc-ccitt -uhttpd
-#nagios nagios-plugins send-nsca libmcrypt libwrap nrpe
+libmcrypt libwrap vnstat vnstati iftop libjpeg libgd libpng usb-modeswitch usb-modeswitch-data \
+sdparm comgt chat  usbutils zlib libusb  \
+ppp ppp-mod-pppoe kmod-ppp kmod-pppoe kmod-crc-ccitt qos-scripts snmp-utils \
+libnetsnmp collectd collectd-mod-network collectd-mod-rrdtool rrdtool libart \
+libfreetype librrd 
+
 
 endef
 

@@ -167,6 +167,7 @@ if  [ $headnode == "y" ]; then
 		mkswap /dev/sda2
 		mkdir /home
 		uci set fstab.@mount[0].enabled=1
+		uci set fstab.@mount[0].options=rw,noatime
 		uci set fstab.@swap[0].device=/dev/sda2
 		uci set fstab.@swap[0].enabled=1
 		uci commit fstab
