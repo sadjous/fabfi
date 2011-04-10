@@ -1,4 +1,4 @@
-== Welcome to the FabFi Project ==
+== Welcome to the [http://fabfi.fabfolk.com FabFi] Project ==
 
 _NOTE: This Wiki is designed to help anyone with some computer experience to build a fabfi network.  As such, we deliberately build from base principles and provide additional explanations whenever possible.  We apologize if this is a little tedious for more advanced users._
 
