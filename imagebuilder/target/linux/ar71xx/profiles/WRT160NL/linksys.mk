@@ -22,8 +22,8 @@ snmpd \
 uclibcxx iperf \
 libpcap tcpdump \
 awesome-chilli libjson \
-libmcrypt libwrap vnstat vnstati iftop libjpeg libgd libpng usb-modeswitch usb-modeswitch-data \
-sdparm comgt chat  usbutils zlib libusb  \
+libmcrypt libwrap vnstat vnstati iftop libjpeg libgd libpng \
+sdparm comgt chat  usbutils zlib libusb usb-modeswitch usb-modeswitch-data \
 ppp ppp-mod-pppoe kmod-ppp kmod-pppoe kmod-crc-ccitt qos-scripts snmp-utils \
 libnetsnmp collectd collectd-mod-network collectd-mod-rrdtool rrdtool libart \
 libfreetype librrd 

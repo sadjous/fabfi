@@ -90,10 +90,12 @@ until (echo $location | grep "^[0-9a-zA-z\-\_]*$"); do
 	read location
 done 
 
-gps=""
+#gps=""
 #until (echo $gps | grep "^[0-9a-zA-z\-\_]*$"); do
-	echo "What is your GPS location? (N{1,3}.NNNNN, N{1,3},NNNNN). There's no check on this text so don't screw it up!"
-	read gps
+	echo "What is your latitude (N{1,3}.NNNNN) There's no check on this text so don't screw it up!"
+	read lat
+	echo "What is your longitude (N{1,3}.NNNNN) There's no check on this text so don't screw it up!"
+	read lon
 #done 
 
 until (echo $nodetype | grep "^[1-7]$"); do
@@ -128,10 +130,8 @@ fi
 #always disable chilli, we'll reenable if needed
 /etc/init.d/chilli disable
 
-
-
-echo "nodeCoords=\"$gps\"" > /etc/config/fabfimap.cfg
-echo "note=\"${fabfi_num} - ${location}\"" >> /etc/config/fabfimap.cfg
+#echo "nodeCoords=\"$gps\"" > /etc/config/fabfimap.cfg
+#echo "note=\"${fabfi_num} - ${location}\"" >> /etc/config/fabfimap.cfg
 
 
 #echo "ENTER THE FOLLOWING FOR COOVA.NET RADIUS CONFIG (or nothing's going to work)"
@@ -529,7 +529,9 @@ fi
 fi
 fi
 
-uci set olsrd.@LoadPlugin[${ns_index}].name=fabfi${fabfi_num}
+uci set olsrd.@LoadPlugin[${ns_index}].name=fabfi${fabfi_num}-$location
+uci set olsrd.@LoadPlugin[${ns_index}].lat=$lat
+uci set olsrd.@LoadPlugin[${ns_index}].lon=$lon
 
 uci set wireless.radio0.disabled=0
 
