@@ -24,6 +24,17 @@ mkdir /home/squid
 mkdir /home/squid/log
 mkdir /home/squid/cache
 chmod -R 777 /home/squid
+
+source /etc/config/fabfimap.cfg
+lat=`echo $nodeCoords | sed 's/\(.*\), .*/\1/'`
+lon=`echo $nodeCoords | sed 's/.*, \(.*\)/\1/'`
+ns_index=`uci show olsrd | grep -e 'olsrd\.@LoadPlugin\[.*\]\.library=olsrd_nameservice\.so' | awk 'FS="[";{print $2}' | awk 'FS="]";{print $1};' | tail -1`
+uci set olsrd.@LoadPlugin[${ns_index}].lat=$lat
+uci set olsrd.@LoadPlugin[${ns_index}].lon=$lon
+uci set olsrd.@LoadPlugin[${ns_index}].latlon_file=/var/run/latlon.js
+uci commit olsrd
+
+
 echo "POSTUPGRADE COMPLETE.  Deleting rc.local entry for this script"
 
 #remove entry for upgrade-post from rc.local

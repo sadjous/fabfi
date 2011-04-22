@@ -19,7 +19,7 @@ echo "`date` getting name" >> $LG
 }
 
 get_meshIP() {
-echo "`date` getting meshIP" >> $LG
+echo "`date` getting meshIP, prefer: wired, wireless, adhoc" >> $LG
         if [ `uci get network.mesh` ]; then                             
 echo "`date` getting meshIP" >> $LG                                     
                 echo `uci get network.mesh.ipaddr`                      
@@ -97,89 +97,234 @@ echo "`date` server already cleared" >> $LG
 	fi		
 }
 
+
+######################
+## Main Starts HERE ##
+######################
+
 echo "" > $LG
 if [ `uci get wireless.radio0.disabled` == 0 ] && [ `uci get wireless.@wifi-iface[0].network` == "wan" ] 
 	then
-echo "`date` wan is wireless." >> $LG
-	if ! cat $NETFILE | grep -c "network.wan.up=1"
+
+	echo "`date` wan is wireless." >> $LG
+	
+	IFACE="wlan0"
+	IFACER=`echo $IFACE | sed 's/\./\\\./'`
+
+	if iwconfig wlan0 | grep -c "Not-Associated"
 		then 
-echo "`date` wireless wan is not up. Bumping wifi." >> $LG
+
+		echo "`date` wireless wan is not associated. Bumping wifi." >> $LG
+		
+		# Note, this procedure assumes you're only using wifi for one thing.  otherwise it'll make a mess
 		wifi
 		sleep 10
+		if iwconfig wlan0 | grep -c "Not-Associated"
+			then
+			clear_server
+			route del default $IFACE
+			exit 0
+		fi
 	fi
 fi
 
+# check if the device thinks the WAN interface is enabled
+# this will fail on no ether for DHCPed setups or no-connect on timed-out wifi connect fail
+# static ifaces will pass
 if cat $NETFILE | grep -c "network.wan.up=1"
 	then
-echo "`date` iface is configured" >> $LG	
 
+	echo "`date` iface is configured" >> $LG	
+
+	# Find the configured WAN gateway IP
+	# this will grab for DHCP or static GW
 	uci show network > $NETTMP
 	GW=`cat $NETFILE $NETTMP | grep -m 1 -e "network.wan.gateway=.*" | sed 's/network.wan.gateway=\(.*\)/\1/'`
+	
+	# get UCI index for OLSRD dyn_gw plugin
 	pl_gw_index=`uci show olsrd | grep -e 'olsrd\.@LoadPlugin\[.*\]\.library=olsrd_dyn_gw\.so' |
 	  sed 's/olsrd\.@LoadPlugin\[\(.*\)\]\.library=olsrd_dyn_gw\.so.*/\1/'`
 	rm $NETTMP
+
+	#Get Master IP.  This should succeed only if this device is a headnode
+	master_ip=`uci show dhcp | grep -A1 master.mesh | grep ".ip=" | sed 's/.*ip=\(.*\)/\1/'`
+
+	google_ip=`nslookup google.com | grep "Address 1:" | grep -v localhost | sed 's/.* \([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\) .*/\1/'`
+	
+	# Check if the default route is on the WAN interface	
 	str="^0\.0\.0\.0 .*${IFACER}\$"
 	if route -n | grep -ce "$str" 
 		then
 
-echo "`date` got default route, w-getting master.mesh" >> $LG
-wget -s http://master.mesh
-if [ $? -eq 0 ]
-	then
-	echo "`date` w-got master.mesh" >> $LG
-	set_server
-	exit 0
-fi
+		echo "`date` wan is listed as a default route" >> $LG
 
-echo "`date` got default route, pinging gateway $GW" >> $LG
-		responses=`ping -c4 -s1 $GW | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
-	       	if (test "" = "$responses")
-	       		then 
-echo "`date` can't ping gateway at $GW"	>> $LG	
-			ifup wan > /dev/null 2>&1
-	       		sleep 10
-		else
-			for ping_ip in `uci get olsrd.@LoadPlugin[$pl_gw_index].Ping | sed 's/[:space:]/\n/'`
-				do
-echo "`date` trying to ping remote server $ping_ip" >> $LG
-				responses=`ping -c4 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
-				  grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
-				if !(test "" = "$responses")
-					then 
-echo "`date` got a reply from remote server $ping_ip" >> $LG
-					set_server
-					exit 0
-				fi
-			done
-echo "`date` can't ping remote servers.  deleting default route" >> $LG
-			route del default
-		fi
-       	else
-echo "`date` no default route, pinging remote servers" >> $LG
-		for ping_ip in `uci get olsrd.@LoadPlugin[$pl_gw_index].Ping | sed 's/[:space:]/\n/'`
-			do
-echo "`date` adding route and trying to ping remote server $ping_ip" >> $LG
-			route add -host $ping_ip gw $GW $IFACE 
-			responses=`ping -c4 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
-			  grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
-			route del -host $ping_ip gw $GW $IFACE 
-			if !(test "" = "$responses")
-				then 
-				ifup wan > /dev/null 2>&1
-				sleep 10
+		if !(test "" = "$master_ip")
+			then
+
+			echo "`date` this is a headnode" >> $LG
+
+			#note: policy routing in this script assumes iproute2, with this rule:
+			#ip rule add iif lo table fabfi
+			#and an entry for a table called "fabfi" at location that is evaluated first in /etc/iproute2/rt_tables
+			#This script assumes that master.mesh is ALWAYS outside the network on the public internet
+			ip route add $master_ip via $GW dev $IFACE table fabfi
+			wget -s http://master.mesh
+			ip route del $master_ip via $GW dev $IFACE table fabfi
+			if [ $? -eq 0 ]
+				then
+
+				echo "`date` w-got master.mesh" >> $LG
+
 				set_server
 				exit 0
 			fi
+
+			echo "`date` failed to w-get master.mesh, checking ping in case of bad cloud server" >> $LG
+
+		else
+			if !(test "" = "$google_ip")
+				then
+	
+				ip route add $google_ip via $GW dev $IFACE table fabfi
+				wget -s http://${google_ip}
+				ip route del $google_ip via $GW dev $IFACE table fabfi
+				if [ $? -eq 0 ]
+					then
+
+					echo "`date` w-got google.com, but we're not a headnode" >> $LG
+
+					clear_server
+					exit 0
+				fi
+			fi
+
+			echo "`date` failed to w-get google.com, checking ping in case of bad DNS" >> $LG
+
+		fi
+
+		# Check if dyn_gw IPs respond on the WAN by manually adding a route for them that way
+		# This could be buggy in the case of only one dyn_gw IP?
+		for ping_ip in `uci get olsrd.@LoadPlugin[$pl_gw_index].Ping | sed 's/[:space:]/\n/'`
+			do
+
+			echo "`date` adding route and trying to ping remote server $ping_ip" >> $LG
+
+			ip route add $ping_ip via $GW dev $IFACE table fabfi 
+			responses=`ping -c4 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
+			  grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
+			ip route del $ping_ip via $GW dev $IFACE table fabfi
+			if !(test "" = "$responses")
+				then 
+
+				echo "`date` successfully pinged $ping_ip" >> $LG
+
+				if !(test "" = "$master_ip")
+					then
+
+					echo "`date` and this is a headnode" >> $LG
+
+					set_server
+				else
+
+					echo "`date` but this is not a headnode" >> $LG
+
+					clear_server
+				fi
+				exit 0
+			fi
 		done
-echo "`date` can't ping remote servers, testing gateway" >> $LG
-		responses=`ping -c4 -s1 $GW | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
-	       	if (test "" = "$responses")
-       			then 
-echo "`date` can't ping gateway at $GW" >> $LG		
-			ifup wan > /dev/null 2>&1
-       			sleep 10
-       		fi
-       	fi
+
+		echo "`date` w-get and ping failed, deleting default route on wan" >> $LG
+
+		route del default $IFACE
+	  	
+	else
+
+		echo "`date` wan is NOT listed as a default route" >> $LG
+
+		if !(test "" = "$master_ip")
+			then
+
+			echo "`date` this is a headnode" >> $LG
+
+			#note: policy routing in this script assumes iproute2, with this rule:
+			#ip rule add iif lo table fabfi
+			#and an entry for a table called "fabfi" at location that is evaluated first in /etc/iproute2/rt_tables
+			#This script assumes that master.mesh is ALWAYS outside the network on the public internet
+			ip route add $master_ip via $GW dev $IFACE table fabfi
+			wget -s http://master.mesh
+			ip route del $master_ip via $GW dev $IFACE table fabfi
+			if [ $? -eq 0 ]
+				then
+
+				echo "`date` w-got master.mesh, adding default route" >> $LG
+
+				route add default gw $GW $IFACE
+				set_server
+				exit 0
+			fi
+
+			echo "`date` failed to w-get master.mesh, checking ping in case of bad cloud server" >> $LG
+
+		else
+			if !(test "" = "$google_ip")
+				then
+	
+				ip route add $google_ip via $GW dev $IFACE table fabfi
+				wget -s http://${google_ip}
+				ip route del $google_ip via $GW dev $IFACE table fabfi
+				if [ $? -eq 0 ]
+					then
+
+					echo "`date` w-got google.com so adding default route, but we're not a headnode" >> $LG
+
+					route add default gw $GW $IFACE
+					clear_server
+					exit 0
+				fi
+			fi
+
+			echo "`date` failed to w-get google.com, checking ping in case of bad DNS" >> $LG
+
+		fi
+
+		# Check if dyn_gw IPs respond on the WAN by manually adding a route for them that way
+		# This could be buggy in the case of only one dyn_gw IP?
+		for ping_ip in `uci get olsrd.@LoadPlugin[$pl_gw_index].Ping | sed 's/[:space:]/\n/'`
+			do
+
+			echo "`date` adding route and trying to ping remote server $ping_ip" >> $LG
+
+			ip route add $ping_ip via $GW dev $IFACE table fabfi 
+			responses=`ping -c4 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
+			  grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
+			ip route del $ping_ip via $GW dev $IFACE table fabfi
+			if !(test "" = "$responses")
+				then 
+
+				echo "`date` successfully pinged $ping_ip. Adding default route" >> $LG
+
+				if !(test "" = "$master_ip")
+					then
+
+					echo "`date` and this is a headnode" >> $LG
+					
+					route add default gw $GW $IFACE
+					set_server
+				else
+
+					echo "`date` but this is not a headnode" >> $LG
+
+					route add default gw $GW $IFACE
+					clear_server
+				fi
+				exit 0
+			fi
+		done
+
+		echo "`date` w-get and ping failed, no route changes will be made" >> $LG
+
+	fi
 fi
 clear_server
 exit 0

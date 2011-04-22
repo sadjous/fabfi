@@ -16,7 +16,7 @@ kmod-usb-serial-option kmod-usb-uhci \
 kmod-usb-ohci kmod-nls-base kmod-scsi-generic   \
 olsrd olsrd-mod-nameservice olsrd-mod-txtinfo olsrd-mod-dyn-gw \
 mini-httpd netcat \
-kmod-tun \
+kmod-tun ip \
 libopenssl libpthread swap-utils squid \
 snmpd \
 uclibcxx iperf \
