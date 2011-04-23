@@ -1,1 +1,1 @@
-/var/www/mygooglemapscoords.txt
+/var/run/mygooglemapscoords.txt

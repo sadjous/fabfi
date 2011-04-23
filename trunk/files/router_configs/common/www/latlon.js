@@ -1,1 +1,1 @@
-/var/www/latlon.js
+/var/run/latlon.js
