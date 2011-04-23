@@ -33,7 +33,9 @@ uci set olsrd.@LoadPlugin[${ns_index}].lat=$lat
 uci set olsrd.@LoadPlugin[${ns_index}].lon=$lon
 uci set olsrd.@LoadPlugin[${ns_index}].latlon_file=/var/run/latlon.js
 uci commit olsrd
-
+newserver=echo `uci get chilli.@configuration[0].uamserver` | sed 's,^\(.*\)\(10\.116\)\(.*\)$,\110.112\3,' 
+uci set chilli.@configuration[0].uamserver=$newserver
+uci commit chilli
 
 echo "POSTUPGRADE COMPLETE.  Deleting rc.local entry for this script"
 
