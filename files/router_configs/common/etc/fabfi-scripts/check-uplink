@@ -121,8 +121,12 @@ if [ `uci get wireless.radio0.disabled` == 0 ] && [ `uci get wireless.@wifi-ifac
 		sleep 10
 		if iwconfig wlan0 | grep -c "Not-Associated"
 			then
+			str="^0\.0\.0\.0 .*${IFACER}\$"
+			if route -n | grep -ce "$str" 
+				then
+				route del default $IFACE
+			fi
 			clear_server
-			route del default $IFACE
 			exit 0
 		fi
 	fi
@@ -169,15 +173,16 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 			#This script assumes that master.mesh is ALWAYS outside the network on the public internet
 			ip route add $master_ip via $GW dev $IFACE table fabfi
 			wget -s http://master.mesh
-			ip route del $master_ip via $GW dev $IFACE table fabfi
 			if [ $? -eq 0 ]
 				then
+				ip route del $master_ip via $GW dev $IFACE table fabfi
 
 				echo "`date` w-got master.mesh" >> $LG
-
+				
 				set_server
 				exit 0
 			fi
+			ip route del $master_ip via $GW dev $IFACE table fabfi
 
 			echo "`date` failed to w-get master.mesh, checking ping in case of bad cloud server" >> $LG
 
@@ -187,15 +192,16 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 	
 				ip route add $google_ip via $GW dev $IFACE table fabfi
 				wget -s http://${google_ip}
-				ip route del $google_ip via $GW dev $IFACE table fabfi
 				if [ $? -eq 0 ]
 					then
+					ip route del $google_ip via $GW dev $IFACE table fabfi
 
 					echo "`date` w-got google.com, but we're not a headnode" >> $LG
 
 					clear_server
 					exit 0
 				fi
+				ip route del $google_ip via $GW dev $IFACE table fabfi
 			fi
 
 			echo "`date` failed to w-get google.com, checking ping in case of bad DNS" >> $LG
@@ -253,9 +259,9 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 			#This script assumes that master.mesh is ALWAYS outside the network on the public internet
 			ip route add $master_ip via $GW dev $IFACE table fabfi
 			wget -s http://master.mesh
-			ip route del $master_ip via $GW dev $IFACE table fabfi
 			if [ $? -eq 0 ]
 				then
+				ip route del $master_ip via $GW dev $IFACE table fabfi
 
 				echo "`date` w-got master.mesh, adding default route" >> $LG
 
@@ -263,6 +269,7 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 				set_server
 				exit 0
 			fi
+			ip route del $master_ip via $GW dev $IFACE table fabfi
 
 			echo "`date` failed to w-get master.mesh, checking ping in case of bad cloud server" >> $LG
 
@@ -272,9 +279,9 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 	
 				ip route add $google_ip via $GW dev $IFACE table fabfi
 				wget -s http://${google_ip}
-				ip route del $google_ip via $GW dev $IFACE table fabfi
 				if [ $? -eq 0 ]
 					then
+					ip route del $google_ip via $GW dev $IFACE table fabfi
 
 					echo "`date` w-got google.com so adding default route, but we're not a headnode" >> $LG
 
@@ -282,6 +289,7 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 					clear_server
 					exit 0
 				fi
+				ip route del $google_ip via $GW dev $IFACE table fabfi
 			fi
 
 			echo "`date` failed to w-get google.com, checking ping in case of bad DNS" >> $LG
