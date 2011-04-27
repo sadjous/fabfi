@@ -33,8 +33,19 @@ uci set olsrd.@LoadPlugin[${ns_index}].lat=$lat
 uci set olsrd.@LoadPlugin[${ns_index}].lon=$lon
 uci set olsrd.@LoadPlugin[${ns_index}].latlon_file=/var/run/latlon.js
 uci commit olsrd
-newserver=echo `uci get chilli.@configuration[0].uamserver` | sed 's,^\(.*\)\(10\.116\)\(.*\)$,\110.112\3,' 
+newserver=`uci get chilli.@configuration[0].uamserver | sed 's,^\(.*\)\(10\.116\)\(.*\)$,\110.112\3,'` 
 uci set chilli.@configuration[0].uamserver=$newserver
+uci set chilli.@configuration[0].uamallowed=master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8
+uci set chilli.@configuration[0].uamdomain3=.wikipedia.org
+uci set chilli.@configuration[0].uamdomain4=.wikimedia.org
+uci set chilli.@configuration[0].uamdomain=.ac.ke
+uci set chilli.@configuration[0].uamdomain2=.edu
+uci set chilli.options.keepalive=1
+uci set chilli.options.statusfile=/var/run/chilli.status
+uci set chilli.options.layer3=0
+uci set chilli.options.anyip=0
+uci set chilli.options.redir=0
+
 uci commit chilli
 
 echo "POSTUPGRADE COMPLETE.  Deleting rc.local entry for this script"

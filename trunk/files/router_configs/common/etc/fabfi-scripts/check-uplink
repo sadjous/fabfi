@@ -5,7 +5,34 @@ IFACE=`uci get network.wan.ifname`
 IFACER=`echo $IFACE | sed 's/\./\\\./'`
 # not used.  I threw it in as a magic number below IFACE=eth0\.1  #is a regex
 OLSRD=/etc/init.d/olsrd
-LG=/etc/fabfi-scripts/check-uplink.log
+LG=/var/etc/check-uplink.log
+#be careful not to set sleeptime too low, because you need to wait for lots of other processes to settle
+SLEEPTIME=45
+RTCHECK_INTERVAL=2
+TIMER=0
+
+watchloop_and_exit() {
+	echo "`date` Entering watchloop" >> $LG
+	while [ $TIMER -lt $SLEEPTIME ]
+        	do
+        	TIMER=`expr $TIMER + $RTCHECK_INTERVAL`
+		NEWDEFIFACE=`route -n | grep -m1 -e "^0\.0\.0\.0 .*" | sed 's/^0\.0\.0\.0.* \([a-zA-Z0-9\.]*\)$/\1/'`
+		if [ ! "$DEFIFACE" = "$NEWDEFIFACE" ]
+			then
+
+			echo "`date` Physical interface [${DEFIFACE}] changed to [${NEWDEFIFACE}], bumping chilli" >> $LG
+
+			DEFIFACE=$NEWDEFIFACE
+			/etc/init.d/chilli restart
+			sleep 3
+		fi
+		sleep $RTCHECK_INTERVAL
+	done
+	echo "`date` Exiting and respawning" >> $LG
+	echo "" >> $LG
+	exec sh /etc/fabfi-scripts/check-uplink &
+	exit 0
+}
 
 get_pl_index() {
 	echo `uci show olsrd | grep 'olsrd\.@LoadPlugin\[.*\]\.library=olsrd_nameservice\.so' |
@@ -80,7 +107,8 @@ echo "`date` updating server and restarting" >> $LG
             set_name                   
             $OLSRD start               
         fi                                 
-    fi 		
+    fi 	
+    watchloop_and_exit	
 }
 
 clear_server() {
@@ -94,43 +122,51 @@ echo "`date` clearing server and restarting" >> $LG
 		$OLSRD start
 	else
 echo "`date` server already cleared" >> $LG		
-	fi		
+	fi	
+	watchloop_and_exit	
 }
 
 
 ######################
 ## Main Starts HERE ##
-######################
+######################  
+DEFIFACE=`route -n | grep -m1 -e "^0\.0\.0\.0 .*" | sed 's/^0\.0\.0\.0.* \([a-zA-Z0-9\.]*\)$/\1/'`
 
 echo "" > $LG
-if [ `uci get wireless.radio0.disabled` == 0 ] && [ `uci get wireless.@wifi-iface[0].network` == "wan" ] 
-	then
-
-	echo "`date` wan is wireless." >> $LG
-	
-	IFACE="wlan0"
-	IFACER=`echo $IFACE | sed 's/\./\\\./'`
-
-	if iwconfig wlan0 | grep -c "Not-Associated"
-		then 
-
-		echo "`date` wireless wan is not associated. Bumping wifi." >> $LG
-		
-		# Note, this procedure assumes you're only using wifi for one thing.  otherwise it'll make a mess
-		wifi
-		sleep 10
-		if iwconfig wlan0 | grep -c "Not-Associated"
-			then
-			str="^0\.0\.0\.0 .*${IFACER}\$"
-			if route -n | grep -ce "$str" 
-				then
-				route del default $IFACE
-			fi
-			clear_server
-			exit 0
-		fi
-	fi
-fi
+if [ `uci get wireless.radio0.disabled` == 0 ] && [ `uci get wireless.@wifi-iface[0].network` == "wan" ]
+        then                                                                                            
+                                                                                                        
+        echo "`date` wan is wireless." >> $LG                                                           
+                                                                                                        
+        IFACE="wlan0"                                                                                   
+        IFACER=`echo $IFACE | sed 's/\./\\\./'`                                                         
+                                                                                                        
+        if iwconfig wlan0 | grep -c "Not-Associated"                                                    
+                then                                                                                    
+                                                                                                        
+                echo "`date` wireless wan is not associated. Searching for SSID" >> $LG                 
+                                                                                                        
+                # Note, this procedure assumes you're only using wifi for one thing.  otherwise it'll make a mess
+                str="^0\.0\.0\.0 .*${IFACER}\$"                                                                  
+                if iw dev wlan0 scan dump | grep -c "SSID: `uci get wireless.@wifi-iface[0].ssid`"               
+                        then                                                                                     
+                                                                                                                 
+                        echo "`date` got SSID, bumping wifi" >> $LG                                              
+                                                                                                                 
+                        wifi                                                                                     
+                        sleep 5                                                                                  
+                fi                                                                                               
+                if iwconfig wlan0 | grep -c "Not-Associated"                                                     
+                        then                                                                                     
+                        if route -n | grep -ce "$str"                                                            
+                                then                                                                             
+                                route del default $IFACE                                                  
+                        fi                                                                                       
+                        clear_server                                                                             
+                        #exit 0                                                                                   
+                fi                                                                                      
+        fi                                                                                                       
+fi 
 
 # check if the device thinks the WAN interface is enabled
 # this will fail on no ether for DHCPed setups or no-connect on timed-out wifi connect fail
@@ -180,7 +216,7 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 				echo "`date` w-got master.mesh" >> $LG
 				
 				set_server
-				exit 0
+				#exit 0
 			fi
 			ip route del $master_ip via $GW dev $IFACE table fabfi
 
@@ -199,7 +235,7 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 					echo "`date` w-got google.com, but we're not a headnode" >> $LG
 
 					clear_server
-					exit 0
+					#exit 0
 				fi
 				ip route del $google_ip via $GW dev $IFACE table fabfi
 			fi
@@ -216,12 +252,14 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 			echo "`date` adding route and trying to ping remote server $ping_ip" >> $LG
 
 			ip route add $ping_ip via $GW dev $IFACE table fabfi 
-			responses=`ping -c4 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
-			  grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
-			ip route del $ping_ip via $GW dev $IFACE table fabfi
-			if !(test "" = "$responses")
+#			responses=`ping -c2 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
+#			  grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
+#			ip route del $ping_ip via $GW dev $IFACE table fabfi
+#			if !(test "" = "$responses")
+			ping -q -c2 -s1 $ping_ip
+			if [ $? -eq 0 ] 
 				then 
-
+				ip route del $ping_ip via $GW dev $IFACE table fabfi
 				echo "`date` successfully pinged $ping_ip" >> $LG
 
 				if !(test "" = "$master_ip")
@@ -236,8 +274,9 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 
 					clear_server
 				fi
-				exit 0
+				#exit 0
 			fi
+			ip route del $ping_ip via $GW dev $IFACE table fabfi
 		done
 
 		echo "`date` w-get and ping failed, deleting default route on wan" >> $LG
@@ -267,7 +306,7 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 
 				route add default gw $GW $IFACE
 				set_server
-				exit 0
+				#exit 0
 			fi
 			ip route del $master_ip via $GW dev $IFACE table fabfi
 
@@ -287,7 +326,7 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 
 					route add default gw $GW $IFACE
 					clear_server
-					exit 0
+					#exit 0
 				fi
 				ip route del $google_ip via $GW dev $IFACE table fabfi
 			fi
@@ -304,11 +343,14 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 			echo "`date` adding route and trying to ping remote server $ping_ip" >> $LG
 
 			ip route add $ping_ip via $GW dev $IFACE table fabfi 
-			responses=`ping -c4 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
-			  grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
-			ip route del $ping_ip via $GW dev $IFACE table fabfi
-			if !(test "" = "$responses")
+#			responses=`ping -c2 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
+#			  grep -oe "^[0-9]*\.[0-9]*$" | tr '\n\r' '\t'`
+#			ip route del $ping_ip via $GW dev $IFACE table fabfi
+#			if !(test "" = "$responses")
+			ping -q -c2 -s1 $ping_ip
+			if [ $? -eq 0 ] 
 				then 
+				ip route del $ping_ip via $GW dev $IFACE table fabfi
 
 				echo "`date` successfully pinged $ping_ip. Adding default route" >> $LG
 
@@ -326,8 +368,9 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 					route add default gw $GW $IFACE
 					clear_server
 				fi
-				exit 0
+				#exit 0
 			fi
+			ip route del $ping_ip via $GW dev $IFACE table fabfi
 		done
 
 		echo "`date` w-get and ping failed, no route changes will be made" >> $LG
@@ -335,4 +378,4 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 	fi
 fi
 clear_server
-exit 0
+#exit 0
