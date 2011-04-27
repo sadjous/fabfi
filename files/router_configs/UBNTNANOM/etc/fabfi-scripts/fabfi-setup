@@ -382,9 +382,7 @@ uci set chilli.options.wwwdir=/etc/chilli/www
 uci set chilli.options.wwwbin=/etc/chilli/wwwsh                                         
 uci set chilli.@configuration[0]=configuration                                          
 uci set chilli.@configuration[0].name=default                                           
-uci set chilli.@configuration[0].locationname=${fabfi_num}                         
-uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8,wikipedia.org'
-uci set chilli.@configuration[0].uamdomain='.wikimedia.org'                 
+uci set chilli.@configuration[0].locationname=fabfi${fabfi_num}                                         
 uci set chilli.@configuration[0].radiusserver1=radius.mesh    
 #uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
 uci set chilli.@configuration[0].radiussecret=${radsecret}                                  
@@ -394,6 +392,16 @@ uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}.1:3990/w
 uci set chilli.@configuration[0].uamaliasname=chilli                                                               
 uci set chilli.@configuration[0].papalwaysok=1                                          
 uci set chilli.@configuration[0].mschapv2=0 
+uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8'
+uci set chilli.@configuration[0].uamdomain3='.wikipedia.org'
+uci set chilli.@configuration[0].uamdomain4='.wikimedia.org'
+uci set chilli.@configuration[0].uamdomain='.ac.ke'
+uci set chilli.@configuration[0].uamdomain2='.edu'
+uci set chilli.options.keepalive=1
+uci set chilli.options.statusfile=/var/run/chilli.status
+uci set chilli.options.layer3=0
+uci set chilli.options.anyip=0
+uci set chilli.options.redir=0
 
 /etc/init.d/chilli enable
 
@@ -491,9 +499,7 @@ uci set chilli.options.wwwdir=/etc/chilli/www
 uci set chilli.options.wwwbin=/etc/chilli/wwwsh                                         
 uci set chilli.@configuration[0]=configuration                                          
 uci set chilli.@configuration[0].name=default                                           
-uci set chilli.@configuration[0].locationname=${fabfi_num}                         
-uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8,wikipedia.org'
-uci set chilli.@configuration[0].uamdomain='.wikimedia.org'                 
+uci set chilli.@configuration[0].locationname=fabfi${fabfi_num}                                         
 uci set chilli.@configuration[0].radiusserver1=radius.mesh    
 #uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
 uci set chilli.@configuration[0].radiussecret=${radsecret}                                  
@@ -503,6 +509,17 @@ uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}.1:3990/w
 uci set chilli.@configuration[0].uamaliasname=chilli                                                               
 uci set chilli.@configuration[0].papalwaysok=1                                          
 uci set chilli.@configuration[0].mschapv2=0 
+uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8'
+uci set chilli.@configuration[0].uamdomain3='.wikipedia.org'
+uci set chilli.@configuration[0].uamdomain4='.wikimedia.org'
+uci set chilli.@configuration[0].uamdomain='.ac.ke'
+uci set chilli.@configuration[0].uamdomain2='.edu'
+uci set chilli.options.keepalive=1
+uci set chilli.options.statusfile=/var/run/chilli.status
+uci set chilli.options.layer3=0
+uci set chilli.options.anyip=0
+uci set chilli.options.redir=0
+
 /etc/init.d/chilli enable
 
 	uci add olsrd Hna4
