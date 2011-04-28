@@ -376,10 +376,13 @@ clear_server
 ######################
 ## Main Starts HERE ##
 ######################  
+echo "" > $LG
 if [ "$CU_DEFIFACE" = "" ]
 	then
 	export CU_DEFIFACE=`route -n | grep -m1 -e "^0\.0\.0\.0 .*" | sed 's/^0\.0\.0\.0.* \([a-zA-Z0-9\.]*\)$/\1/'`
+	echo "`date` Initializing default interface variable to [${CU_DEFIFACE}]" >> $LG
+else
+	echo "`date` Got interface from last run [${CU_DEFIFACE}]" >> $LG
 fi
-echo "" > $LG
 do_main
 #exit 0
