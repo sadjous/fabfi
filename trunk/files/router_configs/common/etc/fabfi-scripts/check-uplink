@@ -9,22 +9,21 @@ LG=/var/etc/check-uplink.log
 #be careful not to set sleeptime too low, because you need to wait for lots of other processes to settle
 SLEEPTIME=45
 RTCHECK_INTERVAL=2
-TIMER=0
 
 watchloop_and_exit() {
+	TIMER=0
 	echo "`date` Entering watchloop" >> $LG
 	while [ $TIMER -lt $SLEEPTIME ]
         	do
         	TIMER=`expr $TIMER + $RTCHECK_INTERVAL`
 		NEWDEFIFACE=`route -n | grep -m1 -e "^0\.0\.0\.0 .*" | sed 's/^0\.0\.0\.0.* \([a-zA-Z0-9\.]*\)$/\1/'`
-		if [ ! "$DEFIFACE" = "$NEWDEFIFACE" ]
+		if [ ! "$CU_DEFIFACE" = "$NEWDEFIFACE" ]
 			then
+			echo "`date` Physical interface [${CU_DEFIFACE}] changed to [${NEWDEFIFACE}], bumping chilli" >> $LG
 
-			echo "`date` Physical interface [${DEFIFACE}] changed to [${NEWDEFIFACE}], bumping chilli" >> $LG
-
-			DEFIFACE=$NEWDEFIFACE
+			export CU_DEFIFACE=$NEWDEFIFACE
 			/etc/init.d/chilli restart
-			sleep 3
+			do_main
 		fi
 		sleep $RTCHECK_INTERVAL
 	done
@@ -126,13 +125,7 @@ echo "`date` server already cleared" >> $LG
 	watchloop_and_exit	
 }
 
-
-######################
-## Main Starts HERE ##
-######################  
-DEFIFACE=`route -n | grep -m1 -e "^0\.0\.0\.0 .*" | sed 's/^0\.0\.0\.0.* \([a-zA-Z0-9\.]*\)$/\1/'`
-
-echo "" > $LG
+do_main() {
 if [ `uci get wireless.radio0.disabled` == 0 ] && [ `uci get wireless.@wifi-iface[0].network` == "wan" ]
         then                                                                                            
                                                                                                         
@@ -378,4 +371,15 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 	fi
 fi
 clear_server
+}
+
+######################
+## Main Starts HERE ##
+######################  
+if [ "$CU_DEFIFACE" = "" ]
+	then
+	export CU_DEFIFACE=`route -n | grep -m1 -e "^0\.0\.0\.0 .*" | sed 's/^0\.0\.0\.0.* \([a-zA-Z0-9\.]*\)$/\1/'`
+fi
+echo "" > $LG
+do_main
 #exit 0
