@@ -46,7 +46,6 @@ config 'LoadPlugin'
 	option 'timeout' '300'
 	option 'interval' '30'
 	option 'suffix' '.mesh'
-	option 'name_change_script' '/etc/init.d/dnsmasq restart'
 	option 'latlon_file' '/var/run/latlon.js'
 	option 'name' 'fabfi1'
 
