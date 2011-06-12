@@ -16,4 +16,4 @@
       * [USBModem Using a USB Modem as an uplink]
   * [http://code.google.com/p/fabfi/w/list Page List]
 
-Text on this wiki is available under a [CC-BY license]http://creativecommons.org/licenses/by/3.0/
+Text on this wiki is available under a [http://creativecommons.org/licenses/by/3.0/]CC-BY license.
