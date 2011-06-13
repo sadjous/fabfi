@@ -10,6 +10,8 @@
     * FabfiServer
     * FabfiNodes
     * [RFReflectors Fabfi Reflectors]
+    * [PoweringDevices Power Systems]
+    * [MountingDevices Mounting Systems]
     * [UserAndGroupSettings User and Group Settings]
     * [HowToMake#AdvancedDevelopment Advanced Development]
       * [HowtoBuildAFabFiImage Build a Fabfi node image]
