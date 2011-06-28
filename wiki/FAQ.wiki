@@ -4,6 +4,32 @@
 
 <wiki:toc max_depth="2" />
 
+= General =
+
+== I want to work for you! ==
+
+Great!  If you can code, go here http://code.google.com/p/fabfi/issues/list and fix something.  (Ask us if you need to log in to a testbed to do whatever.)
+
+If you are interested in volunteering at a deployment, write us at fabfi at fabfolk.com  
+
+== I want to make a business from this, how can I do that? ==
+
+== I am planning / have made a FabFi network, will you list me on your page? ==
+
+Absolutely!  Email us at fabfi at fabfolk.com
+
+== How can I get/give help funding, planning, installing, or running a FabFi network in my village? ==
+
+The community of people who can answer questions grows every day.  We're always happy to answer your questions but may not be able to show up in your village with a suitcase full of gear.  The lovely thing about FabFi is you can start small and add as your local community interest grows.
+
+We get lots of mail from both people interested in helping overseas small communities as well as people from those communities.  We do our best to help match them up.  FabFi is currently mostly technical geeks and open to further help with this process.  Some kind of web thing would be nice.
+
+== Do you provide funding to help with my project? ==
+
+FabFolk, the Fab User's Organization, makes small grants for projects that are socially impactful (meaning it's not just good for only you), uses Fab processes (FabFi already counts), and *contributes to* the larger Fab community.  
+
+Generally, however, FabFolk is unable to fund isolated instances of FabFi networks alone.  We are willing to help you propose your project to other philanthropic or community organizations.
+
 = Architecting (Planning) Your System =
 
 == How should I size my ISP uplink? ==
@@ -52,3 +78,84 @@ Some useful calculators here.
 http://www.terabeam.com/support/calculations/
 
 You want about 20dB above the noise floor for a totally robust link.  The ubiquiti datasheets will give ballpark numbers for what sort of hardware speeds you can expect at different signal strengths (the listed values will be at least double the real throughput).
+
+= Philospophical =
+
+== How does FabFi differ from Freifunk? ==
+(aka, an essay by A. van Gelder)
+
+* Freifunk and FabFi *
+
+To better understand the differences between the Freifunk and FabFi
+projects and identify valuable similarities we need look no further
+than the different circumstances into which each was born.
+
+The initial development of Freifunk took place in Berlin, Germany at a
+time when many communities found themselves struggling to cope with
+the effects of depopulation, unemployment and social instability that
+followed the fall of the Berlin Wall. From the beginning, the goal of
+the developers was the creation of a communal infrastructure for the
+sharing of information and resources without the need for any central
+authority or control. The ready availability of fast Internet access
+in Germany created a situation where many users were willing to share
+their connections with the mesh, creating a lifeline for residents who
+could not afford commercial Internet access. 
+
+Set against the backdrop of reconstruction efforts in Afghanistan the
+birth of FabFi took place in the Jalalabad FabLab with the goal of
+bringing high-speed Internet to a village, hospital, university and
+NGO in the city. The constraints imposed by a rural environment with
+low population-density, the high cost of Internet access, limited
+availability of networking equipment and scarcity of technical skills
+drove FabFi development to solve a very different set of problems.
+
+The urban environment of Berlin is an ideal environment for rapid
+growth of a mesh network. High population density places nodes close
+enough to each other that reliable communication can be established
+without a complex installation procedure or specialized equipment to
+extend the limited range of WiFi. The proportion of technically
+skilled users on the network is sufficient to provision and manage the
+network without requiring centralized infrastructure or dedicated
+staff. Finally, the cost of Internet is low enough that bandwidth can
+be shared freely without the need for billing systems or access
+control.
+
+By contrast, the rural environment of the Jalalabad network is made up
+of small clusters of nodes joined by long-range links that require
+expensive equipment and a high-level of skill to install. In the
+absence of a pre-existing skillbase to provision and maintain the
+network dedicated staff need to receive support, training and
+centralized management infrastructure. Internet connectivity can only
+be provided sustainably by instituting access charges.
+
+Freifunk consists of the following components:
+  * Mesh router hardware, generally the Linksys WRT54GL
+  * Mesh router firmware consisting of:
+    ** olsr mesh routing software
+    ** web configuration interface
+    ** a choice of two functional modes:
+       # mesh node 
+       # mesh node sharing an Internet gateway
+
+
+FabFi is comprised of the following components:
+  * Mesh router hardware
+  * Mesh router firmware 
+    ** olsr mesh routing daemon
+    ** captive portal
+    ** command-line configuration interface
+    ** a choice of three functional modes:
+      # mesh node
+      # backhaul
+      # head node
+  * Backhaul router hardware
+  * Reflector
+  * Training materials
+  * Mesh management server hardware
+  * Mesh management server software
+    ** Management dashboard
+    ** Provisioning service
+    **Gateway router
+    ** AAA service
+    ** Content filter
+    ** Caching proxy
