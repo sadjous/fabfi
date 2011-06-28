@@ -44,4 +44,5 @@
 
 == USA, Massachusetts, Cambridge ==
   *  FabFi 3.0
+  *  At the Center for Bits and Atoms
   *  consists of 10 nodes, 1 uplink
