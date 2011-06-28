@@ -38,12 +38,18 @@ The rule of thumb is to allow 100 kbps for each subscriber.  This would provide 
 
 == How big can my mesh get? ==
 
-The achilles heel (weak point) of meshes is that speeds are reduced with every hop.  If most of your mesh is 3 or more hops away from an uplink, consider adding a backbone through the mesh.  
+The achilles heel (weak point) of meshes is that speeds are reduced every time data has to pass from A --> B --> C where B has a single radio and the A-B and B-C links are both wireless. If you're building a large mesh, you want to configure your network topology avoid this situation whenever possible.  
+
+The primary strategy for doing this is pairing multiple devices together with a wired ethernet connection and setting the radios to non-overlapping channels.  If these pairs are arranged properly in your network, you'll be able to transit traffic over many hops with very little penalty.
+
+Another element that affects performance at scale is local interference.  Because only one device can use a radio channel at a time, dense meshes will perform poorly if all the communications are on the same channel.  Selecting channels so that adjacent access nodes are non-overlapping will improve throughput.  
 
 When configuring nodes, the current version only provides N speeds with AP in station mode.  Ad
 hoc mode will peak out at ~15Mbps real.  There have been work reported
 online of ath9k driver improvements that give N speeds in ad hoc.  We
 haven't had a chance to try it yet, but we want to hear about it if you do.  
+
+Assuming you have all the details right, a completely unsegmented mesh (that is, a mesh where there is no hierarchical routing) can theoretically scale to on the order of 10,000 nodes before devices are unable to handle the necessary routing information. 
 
 == Sometimes you show a node with more than one radio frequency.  Are the radios dual band? ==
 
