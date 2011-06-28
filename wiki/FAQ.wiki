@@ -66,7 +66,7 @@ There are dual band radios such as from [OpenMesh http://www.open-mesh.com/index
 
 == Is there a way to use a single channel or is everything set up to use non-overlapping channels? ==
 
-You *could* use a single channel for everything, however this would have a significant impact on performance, particularly for multiple hops.
+It is possible to use a single channel for everything, however this would have a significant impact on performance, particularly for multiple hops.
 
 Where you care most is the backhaul links.  That is, the links that are carrying aggregated traffic from multiple access devices.  Those you want to carefully plan so that each hop is on a non-overlapping channel and you don't get hidden node interference from adjacent links.  
 
