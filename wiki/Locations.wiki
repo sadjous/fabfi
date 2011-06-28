@@ -25,10 +25,14 @@
 
 = Existed / Temporary =
 
+== Kenya, Nairobi ==
+  * August 2010 for 3 days
+  * approximately 3 nodes installed to service Maker Faire Africa
+
 == India, Pune ==
-  * August 2009
+  * August 2009 for about 3 weeks
   * FabFi 2.0 
-  * approximately 10 nodes installed in, around, and near COEP 
+  * approximately 10 nodes installed in, around, and near COEP to service the Global Fab Conference
   * approximately 4 nodes at Vigyan Ashram in Pabal
 
 = Development Testbeds =
