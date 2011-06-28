@@ -6,11 +6,13 @@
 
 == Afghanistan, Jalalabad ==
   * FabFi 3.0 
+  * 45 nodes 
   * By the [http://www.fablab.af FabLab Jalalabad].  
   * Free internet connection, no service differences
 
 ==  Kenya, Mountain View ==
   * FabFi 4.0  
+  * 50 nodes 
   * By FabCom with support from the University of Nairobi Science and Technology Park and its Fab Lab.
   * Mixed free and fee based internet connection based on content and service 
 
@@ -18,7 +20,7 @@
 
 == Malawi, Mhalaunda ==
   * approximate deployment August 2011
-  * 13 nodes including a school, hospital, community center, and homes
+  * 13 nodes 
   * contact gjschnellbacher at gmail.com
 
 = Existed / Temporary =
