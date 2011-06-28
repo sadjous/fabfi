@@ -2,6 +2,7 @@
 
 = Frequently Asked Questions =
 
+<wiki:toc max_depth="2" />
 
 = Architecting (Planning) Your System =
 
@@ -21,7 +22,7 @@ The Ubiquity (Kenya) and Linksys (Jalalabad) devices are single band.  We use mu
 configured network of paired devices will have much better multi-hop
 throughput.  With single devices, every hop will degrade throughput
 down to a floor of 1/7 of single link capacity at 5-6 hops. Paired
-devices that go <wireless> - <wire> - <wireless> on non-overlapping
+devices that go `wireless` - `wire` -`wireless` on non-overlapping
 channels will experience little or no degradation.
 
 There are dual band radios such as from [OpenMesh http://www.open-mesh.com/index.php/enterprise-mesh.html]  which we have not tried but are eager to hear your experiences with.
