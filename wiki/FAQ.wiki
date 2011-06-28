@@ -30,3 +30,16 @@ There are dual band radios such as from [OpenMesh http://www.open-mesh.com/index
 == Is there a way to use a single channel or is everything set up to use non-overlapping channels? ==
 
 You *could* use a single channel for everything, however this would have a significant impact on performance, particularly for multiple hops.
+
+== I'm planning a system that is 36km away from an internet connection.  What do you think about spanning 36km for backhaul? Should we use the PowerBridgeM with 2.4 GHz or try to use a Bullet M with 11x14" grid antenna? ==
+
+For a 35km link, you can expect somewhere between 130-140dB of free space loss (depending on freq), so you're going to need 20dBi gain or more.  2.4Ghz will likely be more robust for a very long link, but requires a much greater Fresnel clearance (33m vs 22m).  
+
+The powerbridge _should_ have enough gain (barely) @25dB, but the bullet has the advantage that you can always get a bigger antenna if you find you need more (I don't know what gain you're getting out of an 11x14" grid).  
+
+IME, large parabolics are more effective for links with weak signals than high-gain patches.  We have had good luck using nanostation-loco devices as feed elements for parabolics, increasing their gain up to 15dBi with a 3.5' homemade reflector.  Given how directional the powerstations are, I'm not sure if the same approach would give you similar results.  
+
+Some useful calculators here. 
+http://www.terabeam.com/support/calculations/
+
+You want about 20dB above the noise floor for a totally robust link.  The ubiquiti datasheets will give ballpark numbers for what sort of hardware speeds you can expect at different signal strengths (the listed values will be at least double the real throughput).
