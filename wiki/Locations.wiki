@@ -16,6 +16,10 @@
 
 = Planned / Under Construction =
 
+== Malawi, Mhalaunda ==
+  * approximate deployment August 2011
+  * 13 nodes including a school, hospital, community center, and homes
+  * contact gjschnellbacher at gmail.com
 
 = Existed / Temporary =
 
