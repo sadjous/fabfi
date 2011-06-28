@@ -1,6 +1,6 @@
   * [WikiHome Wiki Home]
   * [FabFi What is FabFi]
-  * [Frequently Asked Questions]
+  * [FAQ Frequently Asked Questions]
 ----
   * [TroubleShooting]
   * [AdministrativeTidbits Administrative Tidbits]
