@@ -25,6 +25,11 @@
 
 = Existed / Temporary =
 
+== India, Pune ==
+  * August 2009
+  * FabFi 2.0 
+  * approximately 10 nodes installed in, around, and near COEP 
+  * approximately 4 nodes at Vigyan Ashram in Pabal
 
 = Development Testbeds =
 
