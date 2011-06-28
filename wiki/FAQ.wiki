@@ -14,8 +14,7 @@ The rule of thumb is to allow 100 kbps for each subscriber.  This would provide 
 
 The achilles heel (weak point) of meshes is that speeds are reduced with every hop.  If most of your mesh is 3 or more hops away from an uplink, consider adding a backbone through the mesh.  
 
- When configuring nodes, the
-current version only provides N speeds with AP in station mode.  Ad
+When configuring nodes, the current version only provides N speeds with AP in station mode.  Ad
 hoc mode will peak out at ~15Mbps real.  There have been work reported
 online of ath9k driver improvements that give N speeds in ad hoc.  We
 haven't had a chance to try it yet, but we want to hear about it if you do.  
