@@ -1,0 +1,32 @@
+#Global FabFi Deployments 
+
+<wiki:toc max_depth="2" />
+
+= Existing / Permanent =
+
+== Afghanistan, Jalalabad ==
+* FabFi 3.0  
+* By the [http://www.fablab.af FabLab Jalalabad].  
+* Free internet connection, no service differences
+
+==  Kenya, Mountain View ==
+* FabFi 4.0  
+* By FabCom with support from the University of Nairobi Science and Technology Park and it's Fab Lab.
+* Mixed free and fee based internet connection based on content and service 
+
+= Planned / Under Construction =
+
+
+= Existed / Temporary =
+
+
+= Development Testbeds =
+
+== USA, Massachusetts, Somerville ==
+* FabFi 4.0  
+* At the Davis Square Fab Lab Annex. 
+* usually consists head node with a proxy, two regular nodes, and two uplinks
+
+== USA, Massachusetts, Cambridge ==
+*  FabFi 3.0
+*  consists of 10 nodes, 1 uplink
