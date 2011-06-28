@@ -1,0 +1,31 @@
+#summary Frequently Asked Questions.
+
+= Frequently Asked Questions =
+
+
+= Architecting (Planning) Your System =
+
+== How should I size my ISP uplink? ==
+
+The rule of thumb is to allow 100 kbps for each subscriber.  This would provide decent speeds suitable for streaming content.  
+
+== How big can my mesh get? ==
+
+The achilles heel (weak point) of meshes is that speeds are reduced with every hop.  If most of your mesh is 3 or more hops away from an uplink, consider adding a backbone through the mesh.  
+
+== Sometimes you show a node with more than one radio frequency.  Are the radios dual band? ==
+
+A "node" can refer to more than one piece of hardware or device.  All the devices together at a single site is usually termed a "node".  
+
+The Ubiquity (Kenya) and Linksys (Jalalabad) devices are single band.  We use multiple devices together, sometimes termed "[back_to_back back to back]" to accomplish the multiple frequencies.  This is advisable in every case because a correctly
+configured network of paired devices will have much better multi-hop
+throughput.  With single devices, every hop will degrade throughput
+down to a floor of 1/7 of single link capacity at 5-6 hops. Paired
+devices that go <wireless> - <wire> - <wireless> on non-overlapping
+channels will experience little or no degradation.
+
+There are dual band radios such as from [OpenMesh http://www.open-mesh.com/index.php/enterprise-mesh.html]  which we have not tried but are eager to hear your experiences with.
+
+== Is there a way to use a single channel or is everything set up to use non-overlapping channels? ==
+
+You *could* use a single channel for everything, however this would have a significant impact on performance, particularly for multiple hops.
