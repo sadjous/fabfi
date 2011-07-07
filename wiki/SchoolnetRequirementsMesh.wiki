@@ -79,14 +79,22 @@
 
 == Routing Architecture ==
 
+TODO Keith
+
 
 == Roaming and Mobility ==
+
+TODO 
 
 
 == Gateway Routing ==
 
+TODO Keith/Thomas
+
 
 == Network Provisioning ==
+
+TODO Keith/Thomas/Antoine
 
 === Gateway Provisioning ===
 
@@ -99,3 +107,4 @@
 
 == Access, Authorization and Accounting ==
 
+TODO Amy/Keith/Thomas
