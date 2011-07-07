@@ -78,9 +78,9 @@
 
 
 === linkage ===
-  * _OLSR IPv6 HOWTO_ http://tldp.org/HOWTO/OLSR-IPv6-HOWTO/
-  * _OLSR IPv6 Tools_ http://wiki.freifunk.net/6mesh.freifunk.net
-  * _batman-adv_ http://www.open-mesh.org/wiki/batman-adv
+  * http://tldp.org/HOWTO/OLSR-IPv6-HOWTO/  _OLSR IPv6 HOWTO_ 
+  * http://wiki.freifunk.net/6mesh.freifunk.net  _OLSR IPv6 Tools_ 
+  * http://www.open-mesh.org/wiki/batman-adv  _B.A.T.M.A.N. Advanced_ 
 
 == Routing Architecture ==
 
