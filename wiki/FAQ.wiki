@@ -14,6 +14,8 @@ If you are interested in volunteering at a deployment, write us at fabfi at fabf
 
 == I want to make a business from this, how can I do that? ==
 
+All of the software and hardware used in the FabFi project are open source under various licenses; most of the FabFi contributions to put it together as a system are CC-BY which allows others distribute, remix, tweak, and build upon your work, even commercially, as long as we are credited for the original creation as appropriate.   Everything is freely available to download at http://fabfi.fabfolk.com
+
 == I am planning / have made a FabFi network, will you list me on your page? ==
 
 Absolutely!  Email us at fabfi at fabfolk.com
