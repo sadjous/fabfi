@@ -1,0 +1,34 @@
+#summary Frequently Asked Questions from the Press Media
+
+<wiki:toc max_depth="1" />
+
+== What is the quality of the Internet access in Afghanistan right now? ==
+
+Internet access in Afghanistan varies in quality and price.  Generally speaking it is possible for a regular person in a major city to purchase internet for their home.  However there is no concept of service uptime guarantees, so often there may be long periods of outages and very inconsistent speed performance.  ISP's often run internet cafes as well with the same connectivity difficulties.  Some international companies install private satellite connections and often times Afghans employed by these companies are allowed to use the computers at work for email; even these are often not terribly fast and the total satellite capacity into the region is nearly maximized already.
+
+== In which sense can FabFi project help? ==
+
+With all of the difficulties, one of the biggest hinderances to internet access is simply perception of complexity and cost.  More and more people own computers, laptops, or smartphones but don't understand networking.  FabFi can help in two ways.  One is to lower the perceived "barrier for entry" by teaching and sharing the FabFi system, and the other is by allowing people to come together to share the bandwidth from an uplink or local content server.  
+
+
+== Is it difficult for people with no extensive technological knowledge? ==
+
+The FabFi system is a project using commercial IEEE 802.11 devices and home made reflectors to create long(er) range connections and networks.  While specific, extensive knowledge is not necessary, general familiarity with using a computer, using or installing 12V DC power lines, and following written tutorials (at the moment all in English) are necessary unless the new user has access to someone who has done it before.
+
+One of the reasons we chose 802.11 radios (commonly known as "wireless devices") is that in most/all countries 2.4, 3.6 and 5 GHz frequency bands are available for unlicensed use. The underlying processes and technologies will work at other frequencies so you can adapt and/or bridge other devices into the network.  Another reason is that 802.11 devices are easily available for purchase by ordinary consumers in most countries.  
+
+In Afghanistan, the initial project work was done in the Fab Lab (it is the Fab Lab's internet connection that is being shared with the FabFi users; the name FabFi is from "FabLab" and "WiFi").  The Fab Lab provides access to digital fabrication equipment and opportunities for people to use them hands-on for whatever projects they wish.  The teaching and learning in the fab lab is accomplished peer-to-peer, and in this manner the knowledge and ability to make and install additional routers is spread.
+
+
+== What are your motivations to set up this project? ==
+
+Since approximately 2001 I have been involved in setting up Fab Labs around the globe to see what people make - the projects tackled are always user-initiated and therefore probably meaningful in the local context.  In many places communications related projects have been popular.  In Afghanistan municipal services are often not robust and do not service outside of a small region, usually close to the center of the city (or the center of wealth in a city).  The Fab Lab was originally built just outside of a city so it did not have power or running water and very marginal cell service.  Our users very much wanted to be able to extend the internet and connectivity of the Fab Lab to a nearby school and their homes.  In Afghanistan (and later Kenya) this desire to meet their own communications needs was met by building on previous Fab users' communications projects from distant places such as Norway, Greece, and India.
+
+
+== Can you explain some concrete case of success using FabFi, perhaps a great experience of a user? ==
+
+The best story is that two of our most experienced FabFi builders (they have shown many of their friends how to add in to the network) demonstrated that they fully understood the system when they were able to cobble together a reflector of their own design using "trash" material.  They did this completely on their own and tried it out to show that it would work, then surprised us with photos afterwards.  Third world education systems are often criticized for producing people who only know "rote" learning, that is exact copying or mimicking rather than comprehension.  While we made the FabFi design and guides so that you could just follow the instructions without understanding the technical details, these guys obviously "really" learned.
+
+== Some of your project was funded by the National Science Foundation, a US government agency.  Doesn't that mean it's really another secret US plot to control and undermine foreign governments?  ==
+
+Our tax dollars pay for a diversity of things; the presence of US funding does not imply subversive intent.  The fab lab in Jalalabad was established with NSF funds as part of our technological outreach  project to see what people in a conflict / reconstruction area would make with access to digital fabrication technologies.  While users also made many other projects, they have clearly shown that communications is sufficiently important to them that they have put in great effort to implement the FabFi system.
