@@ -35,7 +35,7 @@
   * approximately 10 nodes installed in, around, and near COEP to service the Global Fab Conference
   * approximately 4 nodes at Vigyan Ashram in Pabal
 
-= Development Testbeds =
+= (Permanent) Development Testbeds =
 
 == USA, Massachusetts, Somerville ==
   * FabFi 4.0  
