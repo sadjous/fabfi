@@ -1,4 +1,6 @@
 #labels Phase-Requirements
+# requirement specification for the Schoolnet mesh network
+
 = Schoolnet Mesh Network Requirements =
 
 == Mesh Architecture ==
@@ -96,6 +98,4 @@
 
 
 == Access, Authorization and Accounting ==
-
-
 
