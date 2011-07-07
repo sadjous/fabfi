@@ -22,6 +22,3 @@ evaluation goes here
 = Hardware: Power =
 
 = Hardware: Other =
-
-= Coffee Machine =
-Seriously, why doesn't FabFi make coffee?
