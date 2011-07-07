@@ -9,7 +9,25 @@
 = Software: Routing =
 The order of magnitude increase in the number of devices ...
 
-Table of olsr ipv4/6/batman here
+=== protocol evaluation ===
+
+|| || OLSR IPv4 || B.A.T.M.A.N. IPv4 || OLSR IPv6 || B.A.T.M.A.N. advanced IPv6 ||
+|| Previous experience || FabFi, SWUG, BB4ALL || Afrimesh, VT || BB4ALL || Testbed ||
+|| Node deploy sizes || ~1000 (Freifunk, Berlin) || ~50 (VT, Cape Town) || ~200 (BB4ALL, .za) || elektra sez <= 50  ||
+|| User deploy sizes || ~5000 (Freifunk, Berlin) || ~100 (VT, Cape Town) || ~1000 (BB4ALL, .za) || unknown ||
+|| Node Address assignment || Static/Dynamic || Static || RFC2462/OLSR || RFC2462 ||
+|| Client Address Assignment || DHCP/NAT || DHCP/NAT || RFC2462/OLSR, niit || RFC2462 ||
+|| Node Roaming || No || No || niit, RFC3775, ? || RFC3775 ||
+|| Client Mesh Roaming || maybe (Layer3-Chilli) || No || niit, local bat0 || maybe ||
+|| Network Segmentation || No || No || Yes || Yes ||
+|| UserSpace Plugin API || Yes || No || Yes || No ||
+|| Platform Availability || POSIX, WIN32 || LINUX || POSIX, WIN32 || LINUX ||
+|| Layer 2 support || Plugin || No || Plugin || Yes ||
+|| Programmable gateway selection || Yes || Limited || Yes || Limited ||
+|| Ecosystem maturity || ~10 years || ~3 years || ~5 years || ~1 year ||
+|| Duplicate addresses || Catastrophic || Catastrophic || Proactive detection || Unknown ||
+|| Gateway Control || chilli, plugin, manual || chilli, manual || pepperspot, plugin, manual || chilli, manual ||
+|| Management Messaging || plugin/transparent || kludge/limited || plugin/transparent  || kludge/limited ||
 
 = Hardware: RF =
 The FabFi projects have historically used Linksys WRT54GL or Ubiquity Nano and Pico stations, all of which are single band devices.
