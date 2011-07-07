@@ -22,6 +22,8 @@
 ----
   * [Locations Global FabFi Deployments]
   * [BeyondFabFi Beyond FabFi]
+  * [nextgen Next Gen FabFi]
+----
   * [http://code.google.com/p/fabfi/w/list Page List]
 
 Text on this wiki is available under a [http://creativecommons.org/licenses/by/3.0/ CC-BY license].
