@@ -1,6 +1,6 @@
 #summary Frequently Asked Questions from the Press Media
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 == What is the quality of the Internet access in Afghanistan right now? ==
 
