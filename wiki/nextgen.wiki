@@ -3,8 +3,8 @@
 <wiki:toc max_depth="2" />
 
 = What are the hallmarks of "the next version"? =
-* massively larger number of nodes and devices (order 1000 to 2000)
-* possible large load of rsync/mirror traffic among content servers in the mesh
+  * massively larger number of nodes and devices (order 1000 to 2000)
+  * possible large load of rsync/mirror traffic among content servers in the mesh
 
 = Software: Routing =
 The order of magnitude increase in the number of devices ...
