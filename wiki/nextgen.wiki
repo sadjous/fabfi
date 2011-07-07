@@ -1,0 +1,27 @@
+#summary Evaluation summaries of packages, hardware, and processes under consideration in "the next version" of FabFi
+
+<wiki:toc max_depth="2" />
+
+= What are the hallmarks of "the next version"? =
+* massively larger number of nodes and devices (order 1000 to 2000)
+* possible large load of rsync/mirror traffic among content servers in the mesh
+
+= Software: Routing =
+The order of magnitude increase in the number of devices ...
+
+Table of olsr ipv4/6/batman here
+
+= Hardware: RF =
+The FabFi projects have historically used Linksys WRT54GL or Ubiquity Nano and Pico stations, all of which are single band devices.
+
+== Open Mesh Dual Band (Model #) ==
+evaluation goes here
+
+= Hardware: Server =
+
+= Hardware: Power =
+
+= Hardware: Other =
+
+= Coffee Machine =
+Seriously, why doesn't FabFi make coffee?
