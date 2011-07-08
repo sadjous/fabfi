@@ -21,7 +21,7 @@ Refer to http://tools.ietf.org/html/rfc5952 for other methods of representation
 
 ==Address types==
 
-There are many categories of IPv6 addresses, however, since this is just a "basic tutorial", we'll consider only 3 :
+There are many categories of IPv6 addresses, however, since this is just a "basic tutorial", we'll consider only 3 important ones :
 
 === Localhost address ===
 Like IPv4's 127.0.0.1, in IPv6, the localhost address is 0000:0000:0000:0000:0000:0000:0000:0001 , or in simpler way ::1
