@@ -79,6 +79,12 @@ To completely specify an IPv6 address, it is advisable to include the subnet mas
 
 Routing in IPv6 is very similar to IPv4 routing under [http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing CIDR] with the exception that IPv6 addresses are 128 bits long while IPv4 addresses are 32-bits long.
 
+To add a route
+
+#ip -6 route add <destination> via <router>
+
+note the -6 after ip
+
 To view the your IPv6 routing table in linux use
 
 #route -A inet6
@@ -92,7 +98,15 @@ The router advertisement daemon can also send information such as the default ga
 
 Read http://tldp.org/HOWTO/Linux+IPv6-HOWTO/hints-daemons-radvd.html for info on how to configure radvd 
 
+==Tools to use with IPv6==
 
+*Ping* - largely depends on your system. In Ubuntu linux, use `ping6` instead of the "normal" ping. In openwrt, when pinging an IPv6 address, use `ping -6`
+
+*traceroute* - Use `traceroute6`
+
+*ip* - Most ip commands work with IPv6 except that you need a `-6` switch after `ip`
+
+*iptables* - Install and use `ip6tables` for IPv6 filtering
 
 References
 
