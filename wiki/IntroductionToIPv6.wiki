@@ -2,13 +2,13 @@
 
 =Introduction to IPv6=
 
-IPv6 is the successor to IPv4 .IPv6 addresses are 128 bits long ( compared with IPv4's 32 bits). For easy representation, an IPv6 address is divided into 8 hexadecimal numbers, for example
+IPv6 is the successor to IPv4. IPv6 addresses are 128 bits long ( compared with IPv4's 32 bits). For easy representation, an IPv6 address is divided into 8 hexadecimal numbers, for example
 
-2001:0470:1f08:1b61:725a:b6ff:fe30:cf08
+*2001:0470:1f08:1b61:725a:b6ff:fe30:cf08*
 
-If the hexadecimal number starts with a zero, the zero can be omitted.
-The hexadecimal digits are case-sensitive.
-If an entire block is zero, it can be omitted and represented with an additional colon ( : ). For example 
+If the hexadecimal block starts with a zero, the leading zero can be omitted.
+Also note that the hexadecimal digits are case-sensitive.
+If an entire block or ( continuous sequence of blocks ) is zero, it can be omitted and represented with an extra colon ( : ). For example 
 
 2001:470:1f08:1b61:0000:0000:0000:0054
 
@@ -21,14 +21,17 @@ Refer to http://tools.ietf.org/html/rfc5952 for other methods of representation
 
 ==Address types==
 
-There are many categories of IPv6 addresses, however, in this "basic tutorial", we'll consider only 3
+There are many categories of IPv6 addresses, however, since this is just a "basic tutorial", we'll consider only 3 :
 
-Localhost address 
+=== Localhost address ===
 Like IPv4's 127.0.0.1, in IPv6, the localhost address is 0000:0000:0000:0000:0000:0000:0000:0001 , or in simpler way ::1
 
-Link local address type
+=== Link local address type ===
 
-Global address type 
+These begin with fe8x: , usually fe80: . Addresses beginning with fe9x:, feax: and febx also belong to this category though these prefixes aren't in use at the moment. 
+e.g fe80::725a:b6ff:fe30:cf08
+
+=== Global address type ===
 
 These begin with 2xxx: or 3xxx: e.g 2a00:1450:400b:c00::63
 These are globally routable IP addresses and are given by ISPs.
