@@ -1,4 +1,4 @@
-*This is only but a basic introduction to IPv6 addressing. For more info, refer to the links at the bottom of the page* 
+#summary This is only but a basic introduction to IPv6 addressing. For more info, refer to the links at the bottom of the page
 
 =Introduction to IPv6=
 
