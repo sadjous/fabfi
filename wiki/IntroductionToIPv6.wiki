@@ -64,7 +64,7 @@ To know more on EUI-64 method refer to http://standards.ieee.org/regauth/oui/tut
 
 ==Router Advertisement Daemon==
 
-The router prefix is usually advertised on the network by a router advertisement daemon such as radvd. Hosts in the network only need to pick the router prefix and will then complete it with their host addresses which is computed from the MAC address
+In the "Automatic/stateless" address assignment, the router prefix is usually advertised on the network by a router advertisement daemon such as radvd. Hosts in the network only need to pick the route prefix (64 bits long) and will then form the complete address by concatenating their host addresses (computed from the MAC address)
 The router advertisement daemon can also send information such as the default gateway, other routes, MTU etc.
 
 Read http://tldp.org/HOWTO/Linux+IPv6-HOWTO/hints-daemons-radvd.html for info on how to configure radvd 
