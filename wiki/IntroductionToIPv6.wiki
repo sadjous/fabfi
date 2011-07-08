@@ -66,6 +66,11 @@ The host address is computed automatically from the mac address of the host - Th
 For example, if the mac address of the host interface is 70:5a:b6:30:cf:0c, the host address is computed as 725a:b6ff:fe30:cf08
 
 To know more on EUI-64 method refer to http://standards.ieee.org/regauth/oui/tutorials/EUI64.html
+=== Subnetting ===
+Similar to IPv4 subnetting except that IPv6 address spaces are much larger. The most commonly used subnet mask is /64 for reasons explained above.
+
+Other Subnet masks used ( albeit rarely ) are /48 , /56 etc
+
 
 ==Router Advertisement Daemon==
 
