@@ -75,7 +75,15 @@ To completely specify an IPv6 address, it is advisable to include the subnet mas
  e.g  2001:470:1f08:1b61:725a:b6ff:fe30:cf08/64
 
 
-==Router Advertisement Daemon==
+== IPv6 Routing ==
+
+To view the your IPv6 routing table in linux use
+
+#route -A inet6
+
+#ip -6 route show
+
+=== Router Advertisement Daemon ===
 
 In the "Automatic/stateless" address assignment, the router prefix is usually advertised on the network by a router advertisement daemon such as radvd. Hosts in the network only need to pick the route prefix (64 bits long) and will then form the complete address by concatenating their host addresses (computed from the MAC address)
 The router advertisement daemon can also send information such as the default gateway, other routes, MTU etc.
