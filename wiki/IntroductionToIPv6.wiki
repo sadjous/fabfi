@@ -71,6 +71,9 @@ Similar to IPv4 subnetting except that IPv6 address spaces are much larger. The 
 
 Other Subnet masks used ( albeit rarely ) are /48 , /56 etc
 
+To completely specify an IPv6 address, it is advisable to include the subnet mask. 
+ e.g  2001:470:1f08:1b61:725a:b6ff:fe30:cf08/64
+
 
 ==Router Advertisement Daemon==
 
