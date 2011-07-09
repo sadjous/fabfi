@@ -20,7 +20,7 @@ This is done with the command
 
 for example 
 
-`{{{#rrdtool create meshdata.rrd --step 60  \
+{{{#rrdtool create meshdata.rrd --step 60  \
 	DS:meshin:DERIVE:600:0:12500000 \
 	DS:meshout:DERIVE:600:0:12500000 \
 	RRA:AVERAGE:0.5:1:60 \
@@ -28,15 +28,15 @@ for example
 	RRA:AVERAGE:0.5:60:168 \
 	RRA:AVERAGE:0.5:300:150 \
 	RRA:AVERAGE:0.5:1440:365
-}}}`
+}}}
 
 Where :
 
-* meshdata.rrd is the name of the rrd database we are creating
+*meshdata.rrd* is the name of the rrd database we are creating
 
-* --step 60 - means that the database is to be updated every 60 seconds
+*--step 60* - means that the database is to be updated every 60 seconds - or rather, the rrd database expects data every 60 seconds
 
-* DS - stands for data source. In this example, we have two data sources : meshin and meshout
+*DS* - stands for data source. In this example, we have two data sources : meshin and meshout
 
 == Updating a RRD database ==
 
