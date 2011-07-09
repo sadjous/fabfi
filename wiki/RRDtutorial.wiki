@@ -1,0 +1,11 @@
+#summary An introduction to RRD and graphing
+
+= Introduction =
+
+RRD stands for Round Robin Database
+
+
+References
+
+http://oss.oetiker.ch/rrdtool/tut/rrdtutorial.en.html
+
