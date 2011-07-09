@@ -60,7 +60,7 @@ For example
 
 This would update the datasources meshin and meshout with the values 100 and 250 respectively.
 
-To make this more realworld like, lets write a script to update meshdata.rrd with interface data and cron it to run minute.
+To make this more realistic, lets write a script to update meshdata.rrd with interface data and cron it to run minute.
 
 {{{
 #!/bin/bash
@@ -69,7 +69,7 @@ MESHRRD=/home/user/meshdata.rrd
 MESHIF=eth0
 MESHIN=`ifconfig "${MESHIF}" |grep bytes|awk -F ":" '{print $2}'|awk '{print $1}'`
 MESHOUT=`ifconfig "${MESHIF}" |grep bytes|awk -F ":" '{print $3}'|awk '{print $1}'`
-rrdupdate "${MESHRRD}" -t in:out N:"${MESHIN}":"${MESHOUT}
+rrdupdate "${MESHRRD}" -t meshin:meshout N:"${MESHIN}":"${MESHOUT}
 
 }}}
 
