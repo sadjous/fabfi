@@ -100,7 +100,7 @@ rrdtool graph meshgraph.png -a PNG -s -120 -w 550 -h 240 -v "bits/s" \
   
 }}}
 
-This will create a simple line graph that shows the last 2 hours ( -s 120 ) of traffic through the mesh interface.
+This will create a simple line graph ( title=MeshDataGraph ) that shows the last 2 hours ( -s 120 ) of traffic through the mesh interface.
 
 For more on rrdtool, follow the links below.
 
