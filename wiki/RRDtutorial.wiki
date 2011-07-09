@@ -54,7 +54,7 @@ GAUGE, COUNTER, DERIVE and ABSOLUTE.
 
 600 is the minimum value - below which the reading will be ignored
 
-30 is the heartbeat  - Heartbeat is the period ( in seconds ) that rrdtool will wait for a reading before storing the value as "unknown" ( remember rrdtool expects a value every 60 seconds )
+30 is the heartbeat  - Heartbeat is the period ( in seconds ) that rrdtool will wait for a reading before storing the value as "unknown" ( remember rrdtool expects a value every 60 seconds i.e the step value )
 
 12500000 is the maximum value - above which the reading will be ignored.
 
