@@ -43,16 +43,20 @@ Where :
 *Derive* - is a data source type . The data source types are 
 GAUGE, COUNTER, DERIVE and ABSOLUTE.
 
-       _COUNTER_ - 
+       _COUNTER_ - Stores continuously increasing that increase
 
-       _GAUGE_ -
+       _GAUGE_ -  
 
-       _DERIVE_ -
+       _DERIVE_ - Stores a derivative of the last and the current value
 
-       _ABSOLUTE_ -
+       _ABSOLUTE_ - Stores values which reset after each reading
 
 
-Read more on consolidation functions [http://oss.oetiker.ch/rrdtool/tut/rrdtutorial.en.html here].
+600 is the minimum value - below which the reading will be ignored
+
+0 is the heartbeat
+
+12500000 is the maximum value - above which the reading will be ignored.
 
 *RRA* - stands for round robin archive. This example defines 3 RRAs. The first RRA `RRA:AVERAGE:0.5:1:60` - averages data every time it is read and stores 60 such values. Since our `--step` was 60 seconds ( one minute ), this RRA will store an hour of data.AVERAGE is a consolidation function - Used to consolidate multiple primary data points (PDPs). Typical consolidation functions are AVERAGE, MIN, MAX.
 
