@@ -8,9 +8,9 @@ rrdtool is the successor to [http://en.wikipedia.org/wiki/Multi_Router_Traffic_G
 
 There are basically three things done with rrdtool :
 
-  *Create a round robin database
-  *Updating the round robin database
-  *Graphing the information in the RRD database
+  * Create a round robin database
+  * Updating the round robin database
+  * Graphing the information in the RRD database
  
 == Creating a RRD database ==
 
