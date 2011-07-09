@@ -20,7 +20,8 @@ This is done with the command
 
 for example 
 
-{{{#rrdtool create meshdata.rrd --step 60  \
+{{{
+#rrdtool create meshdata.rrd --step 60  \
 	DS:meshin:DERIVE:600:0:12500000 \
 	DS:meshout:DERIVE:600:0:12500000 \
 	RRA:AVERAGE:0.5:1:60 \
