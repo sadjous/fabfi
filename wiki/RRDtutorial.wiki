@@ -40,7 +40,19 @@ Where :
 
 *DS* - stands for data source. In this example, we have two data sources : meshin and meshout
 
-*Derive* - is a consolidation function . The four consolidation functions are GAUGE, COUNTER, DERIVE and ABSOLUTE. Read more on consolidation functions [http://oss.oetiker.ch/rrdtool/tut/rrdtutorial.en.html here].
+*Derive* - is a data source type . The data source types are 
+GAUGE, COUNTER, DERIVE and ABSOLUTE.
+
+       _COUNTER_ - 
+
+       _GAUGE_ -
+
+       _DERIVE_ -
+
+       _ABSOLUTE_ -
+
+
+Read more on consolidation functions [http://oss.oetiker.ch/rrdtool/tut/rrdtutorial.en.html here].
 
 *RRA* - stands for round robin archive. This example defines 3 RRAs. The first RRA `RRA:AVERAGE:0.5:1:60` - averages data every time it is read and stores 60 such values. Since our `--step` was 60 seconds ( one minute ), this RRA will store an hour of data.AVERAGE is a consolidation function - Used to consolidate multiple primary data points (PDPs). Typical consolidation functions are AVERAGE, MIN, MAX.
 
