@@ -83,7 +83,7 @@ For example, to graph the data we just created
 
 {{{
 
-rrdtool graph meshgraph.png -a PNG -s -86400 -w 550 -h 240 -v "bits/s" \
+rrdtool graph meshgraph.png -a PNG -s -120 -w 550 -h 240 -v "bits/s" \
   'DEF:ds1=meshdata.rrd:meshin:AVERAGE' \
   'DEF:ds2=meshdata.rrd:meshout:AVERAGE' \
   'LINE1:ds1#00FF00:Incoming Traffic' \
@@ -99,6 +99,10 @@ rrdtool graph meshgraph.png -a PNG -s -86400 -w 550 -h 240 -v "bits/s" \
   -t MeshDataGraph
   
 }}}
+
+This will create a simple line graph that shows the last 2 hours ( -s 120 ) of traffic through the mesh interface.
+
+For more on rrdtool, follow the links below.
 
 References
 
