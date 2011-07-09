@@ -79,6 +79,27 @@ This is done with the command
 
 `rrdtool graph`
 
+For example, to graph the data we just created
+
+{{{
+
+rrdtool graph meshgraph.png -a PNG -s -86400 -w 550 -h 240 -v "bits/s" \
+  'DEF:ds1=meshdata.rrd:meshin:AVERAGE' \
+  'DEF:ds2=meshdata.rrd:meshout:AVERAGE' \
+  'LINE1:ds1#00FF00:Incoming Traffic' \
+  GPRINT:ds1:MAX:"Max %6.2lf %s" \
+  GPRINT:ds1:MIN:"Min %6.2lf %s" \
+  GPRINT:ds1:AVERAGE:"Avg %6.2lf %s" \
+  GPRINT:ds1:LAST:"Curr %6.2lf %s\n" \
+  'LINE1:ds2#0000FF:Outgoing Traffic' \
+  GPRINT:ds2:MAX:"Max %6.2lf %s" \
+  GPRINT:ds2:MIN:"Min %6.2lf %s" \
+  GPRINT:ds2:AVERAGE:"Avg %6.2lf %s" \
+  GPRINT:ds2:LAST:"Curr %6.2lf %s" \
+  -t MeshDataGraph
+  
+}}}
+
 References
 
 http://oss.oetiker.ch/rrdtool/tut/rrdtutorial.en.html
