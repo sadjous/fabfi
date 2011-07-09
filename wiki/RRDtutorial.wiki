@@ -21,7 +21,7 @@ This is done with the command
 for example 
 
 {{{
-#rrdtool create meshdata.rrd --step 60  \
+rrdtool create meshdata.rrd --step 60  \
 	DS:meshin:DERIVE:600:0:12500000 \
 	DS:meshout:DERIVE:600:0:12500000 \
 	RRA:AVERAGE:0.5:1:60 \
@@ -72,6 +72,15 @@ MESHOUT=`ifconfig "${MESHIF}" |grep bytes|awk -F ":" '{print $3}'|awk '{print $1
 rrdupdate "${MESHRRD}" -t meshin:meshout N:"${MESHIN}":"${MESHOUT}
 
 }}}
+
+=== Fetching data from an RRD database ===
+
+This is done using the command `rrdtool fetch`
+
+For example 
+
+`rrdtool fetch meshdata.rrd AVERAGE`
+
 
 == Generating a graph ==
 
