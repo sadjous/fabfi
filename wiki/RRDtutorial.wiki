@@ -20,29 +20,18 @@ This is done with the command
 
 for example 
 
-`#rrdtool create wifidata.rrd --step 60  \
-
-DS:meshin:DERIVE:600:0:12500000 \
-
-DS:meshout:DERIVE:600:0:12500000 \
-
-DS:wifimeshin:DERIVE:600:0:12500000 \
-
-DS:wifimeshout:DERIVE:600:0:12500000 \
-
-DS:clientsin:DERIVE:600:0:12500000 \
-
-DS:clientsout:DERIVE:600:0:12500000 \
-
-RRA:AVERAGE:0.5:1:60 \
-
-RRA:AVERAGE:0.5:5:288 \
-
-RRA:AVERAGE:0.5:60:168 \
-
-RRA:AVERAGE:0.5:300:150 \
-
-RRA:AVERAGE:0.5:1440:365`
+ `#rrdtool create wifidata.rrd --step 60  \
+ DS:meshin:DERIVE:600:0:12500000 \
+ DS:meshout:DERIVE:600:0:12500000 \
+ DS:wifimeshin:DERIVE:600:0:12500000 \
+ DS:wifimeshout:DERIVE:600:0:12500000 \
+ DS:clientsin:DERIVE:600:0:12500000 \
+ DS:clientsout:DERIVE:600:0:12500000 \
+ RRA:AVERAGE:0.5:1:60 \
+ RRA:AVERAGE:0.5:5:288 \
+ RRA:AVERAGE:0.5:60:168 \
+ RRA:AVERAGE:0.5:300:150 \
+ RRA:AVERAGE:0.5:1440:365`
 
 
 
