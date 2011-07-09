@@ -6,6 +6,8 @@ RRDTOOL stands for Round Robin Database Tool. Unlike ordinary databases, a round
 
 rrdtool is the successor to [http://en.wikipedia.org/wiki/Multi_Router_Traffic_Grapher MRTG] - the Multi Router Traffic Grapher.
 
+rrdtool is used by cacti to store and graph data.
+
 There are basically three things done with rrdtool :
 
   * Create a round robin database
