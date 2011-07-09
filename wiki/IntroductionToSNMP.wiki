@@ -1,0 +1,62 @@
+#summary A short introduction to the Simple Network Management Protocol.
+
+= Introduction =
+
+SNMP stands for Simple Network Management Protocol and is an Internet standard protocol for managing devices on IP networks. The SNMP agent must be installed on a host device ( router, server, switch etc ) that is to be monitored.
+The monitoring device is known as the SNMP manager.
+
+The SNMP manager and SNMP agent use an SNMP Management Information Base ( MIB ) and a set of commands to exchange information. The MIB files describe the structure of the management data of a device subsystem and use a hierarchical namespace containing Object Identifiers (OIDs).
+Each OID identifies a variable that can be read or set via SNMP.
+
+SNMP can be used to minitor information such as 
+
+There are 5 basic SNMP commands:
+
+*GET* - Retrieve OID data from a device
+
+*GETNEXT* - Retrieve the next OID from the device
+
+*SET * - Used to set configuration data on an OID ( if allowed )
+
+
+*TRAP* - A network node can send a notification to the management station
+
+*INFORM* - An acknowledged trap (network nodes can try and send it again if no acknowledgement is received) 
+
+
+= Some SNMP Commands and examples =
+
+*snmpwalk* - Used to display all OIDs and their corresponding values
+
+e.g To view all OIDs of a device whose IP address is 192.168.1.1
+
+`snmpwalk -v 2c public -c public 192.168.1.1`
+
+snmpwalk can also be used to view just a single 'branch' of the MiB tree
+
+e.g To display MiB  iso.3.6.1.2.1.31.1.1.1
+
+`snmpwalk -v2c -c public 41.204.176.76 iso.3.6.1.2.1.31.1.1.1`
+
+where
+
+-v is version ( 2c in this example )
+
+-c is community ( public )
+
+*snmpget* - Used to retrieve the value of an OID
+
+e.g. 
+
+`snmpget -v 2c -c public 192.168.1.1 iso.3.6.1.2.1.31.1.1.1.16.9` 
+
+Where iso.3.6.1.2.1.31.1.1.1.16.9 is the OID whose value we want to retrieve..
+
+*snmpset* - This is used to set the value of an OID ( if the host device allows )
+
+
+References
+
+http://en.wikipedia.org/wiki/Simple_Network_Management_Protocol
+
+http://www.net-snmp.org/wiki/index.php/Tutorials
