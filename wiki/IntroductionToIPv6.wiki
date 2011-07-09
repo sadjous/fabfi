@@ -94,7 +94,7 @@ To view the your IPv6 routing table in linux use
 === Router Advertisement Daemon ===
 
 In the "Automatic/stateless" address assignment, the router prefix is usually advertised on the network by a router advertisement daemon such as radvd. Hosts in the network only need to pick the route prefix (64 bits long) and will then form the complete address by concatenating their host addresses (computed from the MAC address)
-The router advertisement daemon can also send information such as the default gateway, other routes, MTU etc.
+The router advertisement daemon can also send information such as the default gateway, other routes, MTU ,default hoplimit and router lifetime.
 
 Read http://tldp.org/HOWTO/Linux+IPv6-HOWTO/hints-daemons-radvd.html for info on how to configure radvd 
 
