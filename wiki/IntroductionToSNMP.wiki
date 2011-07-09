@@ -26,7 +26,7 @@ There are 5 basic SNMP commands:
 
 = Some SNMP Commands and examples =
 
-*snmpwalk* - Used to display all OIDs and their corresponding values at once.
+*snmpwalk* - Used to display all OiDs and their corresponding values at once.
 
 e.g To view all OIDs of a device whose IP address is 192.168.1.1
 
