@@ -43,9 +43,9 @@ Where :
 *Derive* - is a data source type . The data source types are 
 GAUGE, COUNTER, DERIVE and ABSOLUTE.
 
-       _COUNTER_ - Stores continuously increasing that increase
+       _COUNTER_ - Used to store continuously increasing values i.e where the current value is always greater than the last value e.g consider the reading on a car mileage counter. The value stored is the difference between the current and the previous value.
 
-       _GAUGE_ -  
+       _GAUGE_ -  Stores the actual value as it is read. i.e does nothing special with the reading -just stores it. 
 
        _DERIVE_ - Stores a derivative of the last and the current value
 
