@@ -56,7 +56,7 @@ This is done with the command
 
 For example
 
-`rrdupdate meshrrd -t meshin:meshout N:100:250`
+`rrdupdate meshdata.rrd -t meshin:meshout N:100:250`
 
 This would update the datasources meshin and meshout with the values 100 and 250 respectively.
 
