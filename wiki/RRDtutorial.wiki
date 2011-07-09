@@ -78,7 +78,7 @@ For example
 
 This would update the datasources meshin and meshout with the values 100 and 250 respectively.
 
-To make this more realistic, lets write a script to update meshdata.rrd with interface data and cron it to run minute.
+To make this more realistic, lets write a script to update meshdata.rrd with interface data and cron it to run every one minute.
 
 {{{
 #!/bin/bash
