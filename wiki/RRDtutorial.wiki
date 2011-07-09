@@ -2,10 +2,11 @@
 
 = Introduction =
 
-RRD stands for Round Robin Database
+RRD stands for Round Robin Database. Unlike ordinary databases, a round robin database never grows in size - it simply writes over old data.
+
+rrdgraph is used to graph data stored in an rrd database
 
 
 References
 
 http://oss.oetiker.ch/rrdtool/tut/rrdtutorial.en.html
-
