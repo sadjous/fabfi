@@ -2,13 +2,21 @@
 
 = Introduction =
 
-SNMP stands for Simple Network Management Protocol and is an Internet standard protocol for managing devices on IP networks. The SNMP agent must be installed on a host device ( router, server, switch etc ) that is to be monitored.
-The monitoring device is known as the SNMP manager.
+SNMP stands for Simple Network Management Protocol and is an Internet standard protocol for managing devices on IP networks. 
 
-The SNMP manager and SNMP agent use an SNMP Management Information Base ( MiB ) and a set of commands to exchange information. The MIB files describe the structure of the management data of a device subsystem and use a hierarchical namespace containing Object Identifiers (OiDs).
+The SNMP architecture consists of 3 major components
+
+*SNMP Agent* - This is software that resides in the device that is to be monitored ( for example, snmpd - the SNMP daemon ). SNMP Agents provide information to managers.
+
+*SNMP Manager* - 
+
+*Management Information Base* - The MIB files describe the structure of the management data of a device subsystem and use a hierarchical namespace containing Object Identifiers (OiDs). In other words, an MiB is a collection of OiDs.
 Each OiD identifies a variable that can be read or set via SNMP.
 
-SNMP can be used to minitor information such as 
+The SNMP manager and SNMP agent use an SNMP Management Information Base ( MiB ) and a set of commands to exchange information. 
+
+
+SNMP can be used to monitor information such as 
 
 There are 5 basic SNMP commands:
 
