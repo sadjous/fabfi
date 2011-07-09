@@ -25,4 +25,9 @@ When you're all done, the spreadsheet will give you a link to a Google map that 
 Cacti is an RRD based monitoring tool that uses SNMP and RRD to graph node data.
 A complete tutorial on how to use cacti and on other data input methods besides SNMP can be found [http://docs.cacti.net/manual:087:2_basics.0_principles_of_operation#basics here].
 
+To install cacti on an ubuntu desktop/server computer :
+
+`#sudo apt-get install cacti` 
+
+This will require you to install Php, Apache and rrdtool ( if you haven't installed them yet )
 For a short tutorial on SNMP , go [IntroductionToSNMP here] . Links are provided to more extensive tutorials.
