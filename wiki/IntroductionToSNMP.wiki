@@ -5,8 +5,8 @@
 SNMP stands for Simple Network Management Protocol and is an Internet standard protocol for managing devices on IP networks. The SNMP agent must be installed on a host device ( router, server, switch etc ) that is to be monitored.
 The monitoring device is known as the SNMP manager.
 
-The SNMP manager and SNMP agent use an SNMP Management Information Base ( MIB ) and a set of commands to exchange information. The MIB files describe the structure of the management data of a device subsystem and use a hierarchical namespace containing Object Identifiers (OIDs).
-Each OID identifies a variable that can be read or set via SNMP.
+The SNMP manager and SNMP agent use an SNMP Management Information Base ( MiB ) and a set of commands to exchange information. The MIB files describe the structure of the management data of a device subsystem and use a hierarchical namespace containing Object Identifiers (OiDs).
+Each OiD identifies a variable that can be read or set via SNMP.
 
 SNMP can be used to minitor information such as 
 
@@ -40,9 +40,9 @@ e.g To display MiB  iso.3.6.1.2.1.31.1.1.1
 
 where
 
--v is version ( 2c in this example )
+-v is the snmp version ( 2c in this example )
 
--c is community ( public )
+-c is community ( public in this example ) - The snmp community string is like a password and is used to restrict access to reading or writing snmp data. 
 
 *snmpget* - Used to retrieve the value of a specific OID
 
