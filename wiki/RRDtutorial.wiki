@@ -24,8 +24,8 @@ for example
 
 {{{
 rrdtool create meshdata.rrd --step 60  \
-	DS:meshin:DERIVE:600:0:12500000 \
-	DS:meshout:DERIVE:600:0:12500000 \
+	DS:meshin:DERIVE:600:30:12500000 \
+	DS:meshout:DERIVE:600:30:12500000 \
 	RRA:AVERAGE:0.5:1:60 \
 	RRA:AVERAGE:0.5:5:288 \
 	RRA:AVERAGE:0.5:60:168 
@@ -43,9 +43,9 @@ Where :
 *Derive* - is a data source type . The data source types are 
 GAUGE, COUNTER, DERIVE and ABSOLUTE.
 
-       _COUNTER_ - Used to store continuously increasing values i.e where the current value is always greater than the last value e.g consider the reading on a car mileage counter. The value stored is the difference between the current and the previous value.
+       _COUNTER_ - Used to store continuously increasing values i.e where the current value is always greater than the last value e.g consider the reading on a car mileage counter. The value stored is the difference between the current and the previous value ( stored value is always positive ).
 
-       _GAUGE_ -  Stores the actual value as it is read. i.e does nothing special with the reading -just stores it. 
+       _GAUGE_ -  Stores the actual value as it is read. i.e does nothing special with the reading -just stores it.
 
        _DERIVE_ - Stores a derivative of the last and the current value
 
@@ -54,7 +54,7 @@ GAUGE, COUNTER, DERIVE and ABSOLUTE.
 
 600 is the minimum value - below which the reading will be ignored
 
-0 is the heartbeat
+30 is the heartbeat  - Heartbeat is the period ( in seconds ) that rrdtool will wait for a reading before storing the value as "unknown" ( remember rrdtool expects a value every 60 seconds )
 
 12500000 is the maximum value - above which the reading will be ignored.
 
