@@ -2,7 +2,7 @@
 
 =Introduction to IPv6=
 
-IPv6 is the successor to IPv4. IPv6 addresses are 128 bits long ( compared with IPv4's 32 bits). For easy representation, an IPv6 address is divided into 8 hexadecimal numbers, for example
+IPv6 is the successor to IPv4. IPv6 addresses are 128 bits long ( compared with IPv4's 32 bits). For easy representation, an IPv6 address is divided into 8 16 bit hexadecimal numbers, for example
 
 *2001:0470:1f08:1b61:725a:b6ff:fe30:cf08*
 
