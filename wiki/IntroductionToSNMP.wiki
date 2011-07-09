@@ -26,7 +26,7 @@ There are 5 basic SNMP commands:
 
 = Some SNMP Commands and examples =
 
-*snmpwalk* - Used to display all OIDs and their corresponding values
+*snmpwalk* - Used to display all OIDs and their corresponding values at once.
 
 e.g To view all OIDs of a device whose IP address is 192.168.1.1
 
@@ -44,13 +44,21 @@ where
 
 -c is community ( public )
 
-*snmpget* - Used to retrieve the value of an OID
+*snmpget* - Used to retrieve the value of a specific OID
 
 e.g. 
 
 `snmpget -v 2c -c public 192.168.1.1 iso.3.6.1.2.1.31.1.1.1.16.9` 
 
 Where iso.3.6.1.2.1.31.1.1.1.16.9 is the OID whose value we want to retrieve..
+
+*snmpgetnext* - This is used to retrieve the "next" valid OiD.
+
+e.g 
+
+`snmpgetnext -v2c -c public 41.204.176.76 iso.3.6.1.2.1.31.1.1.1.16.1`
+
+will return the value for OiD iso.3.6.1.2.1.31.1.1.1.16.2 ( if it exists )
 
 *snmpset* - This is used to set the value of an OID ( if the host device allows )
 
