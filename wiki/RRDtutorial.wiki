@@ -4,9 +4,13 @@
 
 RRD stands for Round Robin Database. Unlike ordinary databases, a round robin database never grows in size - it simply writes over old data.
 
+rrdtool is the successor to [http://en.wikipedia.org/wiki/Multi_Router_Traffic_Grapher MRTG] - the multirouter traffic grapher.  
+ 
 rrdgraph is used to graph data stored in an rrd database
 
 
 References
 
 http://oss.oetiker.ch/rrdtool/tut/rrdtutorial.en.html
+
+http://www.cuddletech.com/articles/rrd/index.html
