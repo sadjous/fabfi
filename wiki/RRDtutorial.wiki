@@ -38,7 +38,13 @@ Where :
 
 *DS* - stands for data source. In this example, we have two data sources : meshin and meshout
 
-*RRA* - stands for round robin archive. This example defines 3 RRAs
+*RRA* - stands for round robin archive. This example defines 3 RRAs. The first RRA `RRA:AVERAGE:0.5:1:60` - averages data every time it is read and stores 60 such values. Since our `--step` was 60 seconds ( one minute ), this RRA will store an hour of data
+
+`RRA:AVERAGE:0.5:5:288` - averages every 5 samples of data ( 5 minute averages ) and stores 288 averages. i.e it will keep a day's worth of data ( 5 * 288 = 1440 minutes & 1440/60 = 24 hours )
+
+`RRA:AVERAGE:0.5:60:168` - averages 60 samples ( one hour averages, since step size = 60 ) and stores 168 such values . i.e 1 week of data ( 24 * 7 = 168 hours )
+
+Check the links at the bottom of the page for more examples.
 
 == Updating a RRD database ==
 
