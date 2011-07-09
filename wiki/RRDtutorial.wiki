@@ -1,12 +1,32 @@
-#summary An introduction to RRD and graphing
+#summary An introduction to RRDTOOL and graphing
 
 = Introduction =
 
-RRD stands for Round Robin Database. Unlike ordinary databases, a round robin database never grows in size - it simply writes over old data.
+RRDTOOL stands for Round Robin Database Tool. Unlike ordinary databases, a round robin database never grows in size - it simply writes over old data.
 
-rrdtool is the successor to [http://en.wikipedia.org/wiki/Multi_Router_Traffic_Grapher MRTG] - the multirouter traffic grapher.  
+rrdtool is the successor to [http://en.wikipedia.org/wiki/Multi_Router_Traffic_Grapher MRTG] - the MultiRouter Traffic Grapher.  
  
-rrdgraph is used to graph data stored in an rrd database
+== Creating a RRD database ==
+
+This is done with the command
+
+`#rrdtool create`
+
+for example 
+
+`#rrdtool create "${1}" --step 60  \
+DS:meshin:DERIVE:600:0:12500000 \
+DS:meshout:DERIVE:600:0:12500000 \
+DS:wifimeshin:DERIVE:600:0:12500000 \
+DS:wifimeshout:DERIVE:600:0:12500000 \
+DS:clientsin:DERIVE:600:0:12500000 \
+DS:clientsout:DERIVE:600:0:12500000 \
+RRA:AVERAGE:0.5:1:60 \
+RRA:AVERAGE:0.5:5:288 \
+RRA:AVERAGE:0.5:60:168 \
+RRA:AVERAGE:0.5:300:150 \
+RRA:AVERAGE:0.5:1440:365`
+
 
 
 References
