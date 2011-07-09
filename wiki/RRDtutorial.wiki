@@ -6,7 +6,7 @@ RRDTOOL stands for Round Robin Database Tool. Unlike ordinary databases, a round
 
 rrdtool is the successor to [http://en.wikipedia.org/wiki/Multi_Router_Traffic_Grapher MRTG] - the Multi Router Traffic Grapher.
 
-rrdtool is used by cacti to store and graph data.
+Cacti uses rrdtool to store and graph data.
 
 There are basically three things done with rrdtool :
 
@@ -98,6 +98,10 @@ This is done using the command `rrdtool fetch`
 For example 
 
 `rrdtool fetch meshdata.rrd AVERAGE`
+
+To fetch data stored between certain periods ( in unix time stamp )
+
+`rrdtool fetch meshdata.rrd AVERAGE --start 1310229568 --end 1310229868`
 
 
 == Generating a graph ==
