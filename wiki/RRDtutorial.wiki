@@ -38,6 +38,8 @@ Where :
 
 *DS* - stands for data source. In this example, we have two data sources : meshin and meshout
 
+*Derive* - is a consolidation function . Read more on consolidation functions [here http://oss.oetiker.ch/rrdtool/tut/rrdtutorial.en.html]
+
 *RRA* - stands for round robin archive. This example defines 3 RRAs. The first RRA `RRA:AVERAGE:0.5:1:60` - averages data every time it is read and stores 60 such values. Since our `--step` was 60 seconds ( one minute ), this RRA will store an hour of data.
 
 `RRA:AVERAGE:0.5:5:288` - averages every 5 samples of data ( 5 minute averages ) and stores 288 averages. i.e it will keep a day's worth of data ( 5 x 288 = 1440 minutes & 1440/60 = 24 hours )
