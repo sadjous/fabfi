@@ -16,7 +16,9 @@ can be represented
 
 2001:470:1f08:1b61::54
 
-Refer to http://tools.ietf.org/html/rfc5952 for other methods of representation
+Refer to http://tools.ietf.org/html/rfc5952 for other methods of representation.
+
+A rather weird method of representation is also given in [http://tools.ietf.org/html/rfc1924 RFC 1924].
 
 
 ==Address types==
