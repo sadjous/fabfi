@@ -36,21 +36,24 @@ e.g fe80::725a:b6ff:fe30:cf08
 
 These begin with ffxy: 
 
-The multicast address type is further divided into scopes namely
+The multicast address type is further divided into scopes as defined in [http://www.ietf.org/rfc/rfc2373.txt RFC 2373]. The currently defined scopes are :
 
-ffx1: node-local, packets never leave the node.
-
-
-ffx2: link-local, packets are never forwarded by routers, so they never leave the specified link.
+ffx1: node-local
 
 
-ffx5: site-local, packets never leave the site.
+ffx2: link-local
 
 
-ffx8: organization-local, packets never leave the organization (not so easy to implement, must be covered by routing protocol).
+ffx5: site-local
+
+
+ffx8: organization-local
 
 
 ffxe: global scope.
+
+
+i.e ffx1 never leave the node, ffx2 addresses never leave the link ( are never forwarded by routers ) etc.
 
 === Global address type ===
 
