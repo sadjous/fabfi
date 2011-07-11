@@ -27,9 +27,9 @@ For a short tutorial on SNMP , go [IntroductionToSNMP here] and to learn a littl
 
 To install cacti on an ubuntu desktop/server computer :
 
-Install `mysql-server`
+Install `mysql server`
 
-`sudo apt-get install mysql`
+`sudo apt-get install mysql-server`
 
 don't forget the root database password
 
