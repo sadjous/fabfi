@@ -31,4 +31,38 @@ To install cacti on an ubuntu desktop/server computer :
 
 `#sudo apt-get install cacti` 
 
-This will require you to install Php, Apache and rrdtool ( if you haven't installed them yet )
+This will require you to install php, Apache and rrdtool ( if you haven't installed them yet )
+
+Access cacti from http://localhost/cacti/
+
+Should you get a 404 error while trying to install cacti ( Ubuntu desktop ), add these lines to your `/etc/apache2/sites-enabled/000-default`
+
+{{{
+Alias /cacti /usr/share/cacti/site
+
+<Directory /usr/share/cacti/site>
+        Options +FollowSymLinks
+        AllowOverride None
+        order allow,deny
+        allow from all
+
+        AddType application/x-httpd-php .php
+
+        <IfModule mod_php5.c>
+                php_flag magic_quotes_gpc Off
+                php_flag short_open_tag On
+                php_flag register_globals Off
+                php_flag register_argc_argv On
+                php_flag track_vars On
+                # this setting is necessary for some locales
+                php_value mbstring.func_overload 0
+                php_value include_path .
+        </IfModule>
+
+        DirectoryIndex index.php
+</Directory>
+}}}
+
+Access cacti from http://localhost/cacti/ or from another computer http://<server-ip-address>/cacti/
+
+Follow the instructions on the webgui
