@@ -63,6 +63,6 @@ Alias /cacti /usr/share/cacti/site
 </Directory>
 }}}
 
-Access cacti from http://localhost/cacti/ or from another computer http://<server-ip-address>/cacti/
+Access cacti from http://localhost/cacti/ or from another computer `http://<server-ip-address>/cacti/`
 
 Follow the instructions on the webgui
