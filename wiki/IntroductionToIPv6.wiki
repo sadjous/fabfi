@@ -104,6 +104,8 @@ To completely specify an IPv6 address, it is advisable to include the subnet mas
 
 Routing in IPv6 is very similar to IPv4 routing under [http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing CIDR] with the exception that IPv6 addresses are 128 bits long while IPv4 addresses are 32-bits long.
 
+As mentioned above, the first 64 bits of an IPv6 address are used for routing while the last 64 uniquely identify a host.
+
 To add a route
 
 `#ip -6 route add <destination> via <router>`
