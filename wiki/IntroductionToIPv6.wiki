@@ -112,7 +112,7 @@ Read http://tldp.org/HOWTO/Linux+IPv6-HOWTO/hints-daemons-radvd.html for info on
 
 == Tips ==
 
-Always put square brackets around an ipv6 address when using most programs e.g ssh, scp
+Always put square brackets around an ipv6 address when using most programs e.g scp, firefox. 
 
 References
 
