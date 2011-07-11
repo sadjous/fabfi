@@ -32,6 +32,10 @@ These begin with fe8x: , usually fe80: . Addresses beginning with fe9x:, feax: a
 
 e.g fe80::725a:b6ff:fe30:cf08
 
+=== Multicast Address type ===
+
+These begin with ffxy: - most commonly ff02: 
+
 === Global address type ===
 
 These begin with 2xxx: or 3xxx: e.g 2a00:1450:400b:c00::63
