@@ -65,4 +65,8 @@ Alias /cacti /usr/share/cacti/site
 
 Access cacti from http://localhost/cacti/ or from another computer `http://<server-ip-address>/cacti/`
 
-Follow the instructions on the webgui
+Click next ( if you agree with the terms )
+
+Login to cacti - the default username is "admin" and password is "admin". Cacti will prompt a password change after the first login.
+
+ 
