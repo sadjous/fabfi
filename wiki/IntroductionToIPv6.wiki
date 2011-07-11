@@ -1,4 +1,4 @@
-#summary This is only but a basic introduction to IPv6 addressing. For more info, refer to the links at the bottom of the page
+#summary This is only but a basic introduction to IPv6 addressing. The reader should be familiar with IPv4. For more information/complete tutorial on IPv6, refer to the links at the bottom of the page
 
 =Introduction to IPv6=
 
