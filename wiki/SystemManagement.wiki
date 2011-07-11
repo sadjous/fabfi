@@ -27,9 +27,30 @@ For a short tutorial on SNMP , go [IntroductionToSNMP here] and to learn a littl
 
 To install cacti on an ubuntu desktop/server computer :
 
-`#sudo apt-get install cacti` 
+Install `mysql-server`
 
-This will require you to install php, Apache and rrdtool ( if you haven't installed them yet )
+`sudo apt-get install mysql`
+
+don't forget the root database password
+
+`sudo apt-get install apache2`
+
+Test your webserver - make sure it works ( go to http://127.0.0.1 - you should see "IT WORKS" in bold h1 )
+
+
+`sudo apt-get install php5`
+
+`sudo apt-get install libapache2-mod-php5`
+
+Now,
+
+`sudo apt-get install snmpd snmp php5-mysql php5-cli php5-snmp`
+
+`sudo apt-get install rrdtool`
+
+`sudo apt-get install cacti`
+
+Running the last command should resolve other cacti dependencies 
 
 Access cacti from http://localhost/cacti/
 
