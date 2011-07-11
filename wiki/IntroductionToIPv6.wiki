@@ -34,7 +34,23 @@ e.g fe80::725a:b6ff:fe30:cf08
 
 === Multicast Address type ===
 
-These begin with ffxx: - most commonly ff02: 
+These begin with ffxy: 
+
+The multicast address type is further divided into scopes namely
+
+ffx1: node-local, packets never leave the node.
+
+
+ffx2: link-local, packets are never forwarded by routers, so they never leave the specified link.
+
+
+ffx5: site-local, packets never leave the site.
+
+
+ffx8: organization-local, packets never leave the organization (not so easy to implement, must be covered by routing protocol).
+
+
+ffxe: global scope.
 
 === Global address type ===
 
