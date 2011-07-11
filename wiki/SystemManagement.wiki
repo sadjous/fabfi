@@ -23,9 +23,8 @@ When you're all done, the spreadsheet will give you a link to a Google map that 
 = Monitoring with Cacti =
 
 Cacti is an RRD based monitoring tool that uses SNMP and RRD to graph node data.
-For a short tutorial on SNMP , go [IntroductionToSNMP here] - Links have been provided to more extensive tutorials.
+For a short tutorial on SNMP , go [IntroductionToSNMP here] and to learn a little on rrdtool, go [RRDtutorial here] .
 
-A complete tutorial on how to use cacti and on other data input methods besides SNMP can be found [http://docs.cacti.net/manual:087:2_basics.0_principles_of_operation#basics here].
 
 To install cacti on an ubuntu desktop/server computer :
 
@@ -69,4 +68,8 @@ Click next ( if you agree with the terms )
 
 Login to cacti - the default username is "admin" and password is "admin". Cacti will prompt a password change after the first login.
 
+
+References
+
+[http://docs.cacti.net/manual:087:2_basics.0_principles_of_operation#basics Complete cacti manual].
  
