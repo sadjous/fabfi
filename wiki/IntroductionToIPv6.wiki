@@ -53,7 +53,7 @@ ffx8: organization-local
 ffxe: global scope.
 
 
-i.e ffx1 never leave the node, ffx2 addresses never leave the link ( are never forwarded by routers ) etc.
+i.e ffx1 addresses never leave the node , ffx2 addresses never leave the link ( are never forwarded by routers ) etc.
 
 === Global address type ===
 
