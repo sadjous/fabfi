@@ -34,7 +34,7 @@ e.g fe80::725a:b6ff:fe30:cf08
 
 === Multicast Address type ===
 
-These begin with ffxy: - most commonly ff02: 
+These begin with ffxx: - most commonly ff02: 
 
 === Global address type ===
 
