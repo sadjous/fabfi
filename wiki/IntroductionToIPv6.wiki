@@ -127,6 +127,8 @@ Read http://tldp.org/HOWTO/Linux+IPv6-HOWTO/hints-daemons-radvd.html for info on
 
 ==Tools to use with IPv6==
 
+Most of the commonly used networking tools ( including RJ45 crimping tool ) work with ipv6 albeit with some slight variations. Below is a summary of some of the tools you're likely to use , and the modifications needed for ipv6.
+
 *Ping* - largely depends on your system. In Ubuntu linux, use `ping6` instead of the "normal" ping. In openwrt, when pinging an IPv6 address, use `ping -6`
 
 *traceroute* - Use `traceroute6`
