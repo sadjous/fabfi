@@ -2,7 +2,6 @@
   * [FabFi What is FabFi]
   * [FAQ Frequently Asked Questions]
     * [FAQPress Frequently Asked Questions by the Press Media]
-
   * [TroubleShooting]
   * [AdministrativeTidbits Administrative Tidbits]
     * [AdministrativeTidbits#SVN_Basics SVN Basics]
