@@ -106,17 +106,6 @@ Routing in IPv6 is very similar to IPv4 routing under [http://en.wikipedia.org/w
 
 As mentioned above, the first 64 bits of an IPv6 address are used for routing while the last 64 uniquely identify a host.
 
-To add a route
-
-`#ip -6 route add <destination> via <router>`
-
-note the -6 after ip
-
-To view the your IPv6 routing table in linux use
-
-`#route -A inet6`
-
-`#ip -6 route show`
 
 === Router Advertisement Daemon ===
 
@@ -134,6 +123,21 @@ Most of the commonly used networking tools ( including RJ45 crimping tool ) work
 *traceroute* - Use `traceroute6`
 
 *ip* - Most ip commands work with IPv6 except that you need a `-6` switch after `ip`
+
+e.g 
+
+To add a route
+
+`ip -6 route add <destination> via <router>`
+
+note the -6 after ip
+
+To view the your IPv6 routing table in linux use
+
+`route -A inet6`
+
+`ip -6 route show`
+
 
 *iptables* - Install and use `ip6tables` for IPv6 filtering
 
