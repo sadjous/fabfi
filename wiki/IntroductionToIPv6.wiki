@@ -114,6 +114,52 @@ The router advertisement daemon can also send information such as the default ga
 
 Read http://tldp.org/HOWTO/Linux+IPv6-HOWTO/hints-daemons-radvd.html for info on how to configure radvd 
 
+== Setting up an IPv6 tunnel ==
+
+If your ISP does not provide you with a native IPv6 address, don't lose hope - you can still get IPv6 connectivity via a Simple-Internet-Transition tunnel (SIT tunnel).
+
+If you are on a public IP address (IPv4), the easiest way to setup a SIT tunnel is through a tunnel broker such as hurricane electric ( http://www.tunnelbroker.com ).
+You'll be required to create an account with them, after which you should be able to setup up to 5 tunnels.
+
+Assuming, you've registered with http://www.tunnelbroker.com and assuming that you're using a linux computer, the procedure for setting up a SIT tunnel is:
+
+`ip tunnel add tun0 mode sit remote <remote-address> local <local-address> ttl 255`
+
+e.g 
+
+`ip tunnel add tun0 mode sit remote 216.66.80.26 local 41.204.176.75 ttl 255`
+
+where tun0 is the name of your tunnel, 216.66.80.26 is the remote end of the tunnel (check your tunnel details for the remote end address) and 41.204.176.75 is your global IPv4 address.
+
+Set up the tunnel with
+
+`ip link set tun0 up`
+
+Give your tunnel an IPv6 address
+
+`ip -6 addr add 2001:470:1f08:1b88::2/64 dev tun0`
+
+Give your ethernet port an IP address too
+
+`ip -6 addr add 2001:470:1f08:1b88::3/64 dev eth0`
+
+Now to setup the default route for IPv6 requests, use
+
+`ip -6 route add ::/0 dev tun0`
+
+Test if your IPv6 connection works by pinging another IPv6 host, e.g
+
+`ping6 2a00:1450:400b:c00::63`
+
+if you get a reply, congratulations - you now have IPv6 connectivity, else, try again :-(
+
+
+
+
+
+
+
+
 ==Tools to use with IPv6==
 
 Most of the commonly used networking tools ( including RJ45 crimping tool ) work with ipv6 albeit with some slight variations. Below is a summary of some of the tools you're likely to use , and the modifications needed for ipv6.
@@ -146,6 +192,8 @@ To view the your IPv6 routing table in linux use
 *iperf*  -  Add -V . e.g `iperf -s -V` on the server side
 
 `iperf -c -V <server address>` On client side
+
+
 
 == Tips ==
 
