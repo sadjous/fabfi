@@ -137,9 +137,15 @@ Set up the tunnel with
 
 Give your tunnel an IPv6 address
 
+e.g 
+
+`ip -6 addr add <IPv6 address> dev tun0`
+
 `ip -6 addr add 2001:470:1f08:1b88::2/64 dev tun0`
 
 Give your ethernet port an IP address too
+
+e.g
 
 `ip -6 addr add 2001:470:1f08:1b88::3/64 dev eth0`
 
