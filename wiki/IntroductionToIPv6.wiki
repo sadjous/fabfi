@@ -112,6 +112,8 @@ As mentioned above, the first 64 bits of an IPv6 address are used for routing wh
 In the "Automatic/stateless" address assignment, the router prefix is usually advertised on the network by a router advertisement daemon such as radvd. Hosts in the network only need to pick the route prefix (64 bits long) and will then form the complete address by concatenating their host addresses (computed from the MAC address)
 The router advertisement daemon can also send information such as the default gateway, other routes, MTU ,default hoplimit and router lifetime.
 
+Note that when you use radvd, your default route might appear not to be in the same subnet as your assigned ip address : Relax, by default, routes are assigned to link-local addresses. so while your ip address might be a 2001:xxxx::xx , your default route will be a fe80::xxxx:xxxx
+
 Read http://tldp.org/HOWTO/Linux+IPv6-HOWTO/hints-daemons-radvd.html for info on how to configure radvd 
 
 == Setting up an IPv6 tunnel ==
