@@ -23,6 +23,11 @@
   * 13 nodes 
   * contact gjschnellbacher at gmail.com
 
+== Herat, Afghanistan ==
+  * approximate deployment October 2011
+  * phase 1: 200 nodes
+  * final configuration: >10,000 nodes
+
 = Existed / Temporary =
 
 == Kenya, Nairobi ==
