@@ -162,7 +162,7 @@ Test if your IPv6 connection works by pinging another IPv6 host, e.g
 if you get a reply, congratulations - you now have IPv6 connectivity, else, try again :-(
 
 
-
+n.b - For those behind a NAT firewall, check out [https://www.sixxs.net/tools/ayiya/ AYIYA]
 
 
 
