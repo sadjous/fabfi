@@ -50,6 +50,12 @@ Local DNS served from all triangle nodes.
 
 In ipv6, we expect OLSR to transparently handle local mesh node switches from one triangle gateway to another, while still advertising nodes properly to the non-mesh core.  
 
+For redundancy to core, we have triangles advertising multiple network local addresses.  = statically configured redundancy.
+
+Tests:
+- Do multiple network local address advertisements functionally route (see redundancy statement above)
+- Can we run AP+Adhoc on the same radio and still get and still get g-speed throughput?  
+
 == Open Mesh Dual Band (Model #) ==
 evaluation goes here
 
