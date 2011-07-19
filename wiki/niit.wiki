@@ -25,20 +25,28 @@ Add the niit sources to your feeds list. git://gitorious.org/eigennet/packages.g
 
 If you're using a Kernel version greater than 2.6.37, patch the niit.c file as shown below
 
-	86	goto tx_error_icmp;
-	87	87	}
-	88	88	
-		89	#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,37)
-	89	90	tdev = rt6->u.dst.dev;
-	90	91	dst_release(&rt6->u.dst);
-		92	#else
-		93	tdev = rt6->dst.dev;
-		94	dst_release(&rt6->dst);
-		95	#endif
-	91	96	if (tdev == dev) {
-	92	97	PDEBUG("niit: recursion detected todev = dev \n");
-	93	98	stats->collisions++;
+{{{
+--- zzzzdd19/src/niit.c 2011-07-08 07:33:18.194299089 +0300
++++ sss/niit/src/niit.c 2011-07-14 16:18:12.894563695 +0300
+@@ -85,9 +85,14 @@
+                        stats->tx_carrier_errors++;
+                        goto tx_error_icmp;
+                }
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,37)
++tdev = rt6->u.dst.dev;
++dst_release(&rt6->u.dst);
++#else
++tdev = rt6->dst.dev;
++dst_release(&rt6->dst);
++#endif
+ 
+-               tdev = rt6->u.dst.dev;
+-               dst_release(&rt6->u.dst);
+                if (tdev == dev) {
+                        PDEBUG("niit: recursion detected todev = dev \n");
+                        stats->collisions++;
 
+}}}
 Select and install kmod-niit from your menuconfig screen.
 
 Compile and install the image.
