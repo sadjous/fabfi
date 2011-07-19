@@ -67,6 +67,9 @@ evaluation goes here
 = Hardware: Other =
 
 = Software: Security / Captive portal
+
+Considerations
+
   * OLSR Secure for node joins
   * Smart Gateway, possibly scripted for failover to tunnel out of mesh (this is potentially overkill since peer-to-peer would be totally unsecured)
   * 802.11x with an autoconfig page and dual SSIDs.  Radius provisions certs.
