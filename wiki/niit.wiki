@@ -69,7 +69,7 @@ config 'interface' 'niit6to4'
 
 By default, OLSR is configured to use Niit, but for completeness, add the UseNiit option to your olsrd configuration file
 
-uci set olsrd.@olsrd[0].UseNiit=yes
+`uci set olsrd.@olsrd[0].UseNiit=yes`
 
 Add your router's IPv6-mapped-IPv4 address/addresses as hna6 addresses to your olsrd configuration file ( /etc/config/olsrd didn't seem to work for me, so I added the lines to /var/etc/olsrd.conf ) 
 
