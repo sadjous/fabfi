@@ -55,7 +55,8 @@ For redundancy to core, we have triangles advertising multiple network local add
 Tests:
   * Do multiple network local address advertisements functionally route (see redundancy statement above)
   * Can we run AP+Adhoc on the same radio and still get and still get g-speed throughput?  
-
+  * test client roaming on ipv6
+  * 
 == Open Mesh Dual Band (Model #) ==
 evaluation goes here
 
