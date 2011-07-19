@@ -121,3 +121,13 @@ The IPv6 routing table in every router
 ::ffff:192.168.2.4 via 2001:470:1f08:1b61::100:7 dev eth0  metric 2
 
 Ping to confirm the results
+
+==References==
+
+https://dev.dd19.de/~alx/alx-niit/Niit%20presentation.pdf
+
+http://wiki.freifunk.net/Niit
+
+http://svn.dd-wrt.com:8000/browser/src/router/olsrd/README-Olsr-Extensions?rev=14710
+
+http://www.qmp.cat/redmine/issues/49
