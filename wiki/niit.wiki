@@ -97,6 +97,7 @@ to your headnode ( default IPv4 gateway )
 
 The IPv4 routing table in every router should look like
 
+{{{
 #ip r
 default dev niit4to6  scope link  metric 2 
 192.168.1.0/24 dev eth0  proto kernel  scope link  src 192.168.1.1 
@@ -104,10 +105,14 @@ default dev niit4to6  scope link  metric 2
 192.168.1.4 dev niit4to6  scope link  metric 2 
 192.168.1.5 dev niit4to6  scope link  metric 2 
 192.168.1.6 dev niit4to6  scope link  metric
-
+.
+.
+.
+}}}
 
 The IPv6 routing table in every router 
 
+{{{
 #ip -6 r
 
 ::ffff:192.168.1.1 dev niit6to4  metric 2 
@@ -119,6 +124,11 @@ The IPv6 routing table in every router
 ::ffff:192.168.2.1 dev niit6to4  metric 2 
 ::ffff:192.168.2.3 via 2001:470:1f08:1b61::104:3 dev wlan0  metric 2 
 ::ffff:192.168.2.4 via 2001:470:1f08:1b61::100:7 dev eth0  metric 2
+.
+.
+.
+.
+}}}
 
 Ping to confirm the results
 
