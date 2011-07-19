@@ -16,7 +16,7 @@ Tip - to get the corresponding IPv6 netmask - add the IPv4 netmask to 96.
 Niit then automatically tunnels IPv4 traffic and corresponding IPv6-mapped-IPv4 traffic to specially created interfaces ( niit4to6 and niit6to4 ).
 These interfaces MUST be created manually and MUST be named accordingly.
 The niit4to6 interface converts IPv4 addresses to IPv6 SIIT format then forwards the traffic to the IPv6 mesh.
-For IPv4 traffic destined for the router's network, the niit6to4 interface converts the IPv6-mapped-IPv4 addresses back to IPv4 then forwards them to the IPv4 network. 
+For IPv4 traffic destined for the router's network, the niit6to4 interface converts the IPv4-mapped IPv6 addresses back to IPv4 then forwards them to the IPv4 network. 
 
 
 ==COMPILING NIIT==
@@ -71,7 +71,7 @@ By default, OLSR is configured to use Niit, but for completeness, add the UseNii
 
 `uci set olsrd.@olsrd[0].UseNiit=yes`
 
-Add your router's IPv6-mapped-IPv4 address/addresses as hna6 addresses to your olsrd configuration file ( /etc/config/olsrd didn't seem to work for me, so I added the lines to /var/etc/olsrd.conf ) 
+Add your router's IPv4-mapped IPv6 address/addresses to your router's hna6in your olsrd configuration file ( /etc/config/olsrd didn't seem to work for me, so I added the lines to /var/etc/olsrd.conf ) 
 
 e.g to add 192.168.1.1 and 192.168.2.1
 
