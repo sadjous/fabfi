@@ -42,6 +42,14 @@ The order of magnitude increase in the number of devices ...
 = Hardware: RF =
 The FabFi projects have historically used Linksys WRT54GL or Ubiquity Nano and Pico stations, all of which are single band devices.
 
+All ubiquiti preferred.  
+
+core: central router.  w/ bridged 5g Nano.  Scales happily to 2000 addresses.
+
+Local DNS served from all triangle nodes.
+
+In ipv6, we expect OLSR to transparently handle local mesh node switches from one triangle gateway to another, while still advertising nodes properly to the non-mesh core.  
+
 == Open Mesh Dual Band (Model #) ==
 evaluation goes here
 
