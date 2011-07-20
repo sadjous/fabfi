@@ -1,7 +1,7 @@
   * :::: -- ::::  
   * [WikiHome Wiki Home]
   * [http://code.google.com/p/fabfi/w/list Page List]
-  * :: About ::  
+  * :::: About ::::  
   * [FabFi What is FabFi]
   * [Locations Global FabFi Deployments]
   * [FAQ Frequently Asked Questions]
