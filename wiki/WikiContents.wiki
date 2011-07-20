@@ -2,7 +2,6 @@
   * [FabFi What is FabFi]
   * [FAQ Frequently Asked Questions]
     * [FAQPress Frequently Asked Questions by the Press Media]
- * [http://code.google.com/p/fabfi/w/list Page List]
   * [TroubleShooting]
   * [AdministrativeTidbits Administrative Tidbits]
     * [AdministrativeTidbits#SVN_Basics SVN Basics]
@@ -24,5 +23,6 @@
   * [BeyondFabFi Beyond FabFi]
   * [nextgen Next Gen FabFi]
   * [shop Where to Buy/Get]
+  * [http://code.google.com/p/fabfi/w/list Page List]
  
 Text on this wiki is available under a [http://creativecommons.org/licenses/by/3.0/ CC-BY license].
