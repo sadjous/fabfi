@@ -2,13 +2,13 @@
 
 = Baseline Components in Test Bed =
 
-|| Device || Price ||USA source link || ZA source, if available ||
+|| Quantity || Device || Price ||USA source link || ZA source, if available, with price ||
 
 = Test X Devices =
 
-|| Device || Price || USA source link || ZA source, if available ||
+|| Quantity || Device || Price || USA source link || ZA source, if available, with price ||
 
 = For Evaluation =
 
-|| Device || Possible Use || Price || USA source link || ZA source, if available ||
-|| Netgear ReadyNAS Duo 2-Bay 2 TB (2 x 1 TB) Network Attached Storage RND2210 || Content Server "Square" || 299.99 || [http://www.amazon.com/Netgear-ReadyNAS-Network-Attached-Storage/dp/B002UV8YZK/ref=sr_1_9?s=electronics&ie=UTF8&qid=1311194668&sr=1-9 Amazon] ||
+|| Quantity || Device || Possible Use || Price || USA source link || ZA source, if available, with price ||
+|| 1 || Netgear ReadyNAS Duo 2-Bay 2 TB (2 x 1 TB) Network Attached Storage RND2210 || Content Server "Square" || 299.99 || [http://www.amazon.com/Netgear-ReadyNAS-Network-Attached-Storage/dp/B002UV8YZK/ref=sr_1_9?s=electronics&ie=UTF8&qid=1311194668&sr=1-9 Amazon] ||
