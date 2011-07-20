@@ -6,6 +6,14 @@
   * [Locations Global FabFi Deployments]
   * [FAQ Frequently Asked Questions]
   * [FAQPress Frequently Asked Questions by the Press Media]
+  * :::: General FabFi and Networking ::::
+  * Tutorials   
+     * [DesigningYourNetwork Network Design]
+     * [IntroductionToIPv6 Introduction to IPv6]
+     * [niit Introduction to Niit]
+     * [IntroductionToSNMP Introduction to SNMP]
+     * [RRDtutorial  Introduction to RRDTOOL and graphing]     
+  * [Tools]
   * :::: Version 4.0 ::::
   * [SystemArchitecture System Architecture]
   * [SystemManagement]
@@ -21,14 +29,6 @@
       * [USBModem Using a USB Modem as an uplink]
   * [shop Where to Buy/Get]
   * [TroubleShooting]
-  * :::: General FabFi and Networking ::::
-  * Tutorials   
-     * [DesigningYourNetwork Network Design]
-     * [IntroductionToIPv6 Introduction to IPv6]
-     * [niit Introduction to Niit]
-     * [IntroductionToSNMP Introduction to SNMP]
-     * [RRDtutorial  Introduction to RRDTOOL and graphing]     
-  * [Tools]
   * :::: More ::::
   * [BeyondFabFi Beyond FabFi]
   * [nextgen Next Gen FabFi]
