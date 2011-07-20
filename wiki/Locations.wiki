@@ -12,9 +12,16 @@
 
 ==  Kenya, Mountain View ==
   * FabFi 4.0  
-  * 50 nodes 
+  * 20 nodes 
   * By FabCom with support from the University of Nairobi Science and Technology Park and its Fab Lab.
   * Mixed free and fee based internet connection based on content and service 
+
+==  Kenya, Njabini ==
+  * FabFi 4.0  
+  * 4 nodes 
+  * By Peter Murimi with technical Support from FabCom.
+  * Cyber cafe
+  * Mixed free and fee based internet connection based on content and service
 
 = Planned / Under Construction =
 
