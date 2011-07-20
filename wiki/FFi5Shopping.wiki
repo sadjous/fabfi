@@ -7,7 +7,7 @@
 = Test X Devices =
 
 || Quantity || Device || Price || USA source link || ZA source, if available, with price ||
-|| 1 || Apple iPad2 || $499 || [http://store.apple.com/us/browse/home/shop_ipad/family/ipad?mco=MjE0OTI0MDg Apple]
+|| 1 || Apple iPad2 || $499 || [http://store.apple.com/us/browse/home/shop_ipad/family/ipad?mco=MjE0OTI0MDg Apple] ||
 || 1 || Motorola XOOM Android Tablet || $499 || [http://www.amazon.com/MOTOROLA-XOOM-Android-10-1-Inch-Wi-Fi/dp/B0045FM6SU/ref=sr_1_1?ie=UTF8&qid=1311200130&sr=8-1 Amazon] ||
 
 
