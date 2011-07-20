@@ -2,7 +2,7 @@
 
 = Baseline Components in Test Bed =
 _This should match the test bed topology diagram_
-|| Quantity || Device || Price || USA source link || ZA source, if available, with price ||
+|| Quantity || Device || Use(s) || Price || USA source link || ZA source, if available, with price ||
 
 = Test X Devices =
 
