@@ -7,7 +7,7 @@
   * [FAQ Frequently Asked Questions]
     * [FAQPress Frequently Asked Questions by the Press Media]
 
-= FabFi 4.0 Details =
+== FabFi 4.0 Details ==
   * [TroubleShooting]
   * [AdministrativeTidbits Administrative Tidbits]
     * [AdministrativeTidbits#SVN_Basics SVN Basics]
@@ -27,7 +27,7 @@
       * [USBModem Using a USB Modem as an uplink]
   * [Tutorials]    
 
-= Beyond =
+== Beyond ==
   * [Locations Global FabFi Deployments]
   * [BeyondFabFi Beyond FabFi]
   * [nextgen Next Gen FabFi]
