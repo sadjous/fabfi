@@ -1,6 +1,6 @@
   * [WikiHome Wiki Home]
   * [http://code.google.com/p/fabfi/w/list Page List]
-  * *:::: ---------- About ---------- ::::*  
+  * *:::: ---------------- About ---------------- ::::*  
   * [FabFi What is FabFi]
   * [Locations Global FabFi Deployments]
   * [FAQ Frequently Asked Questions]
@@ -13,7 +13,7 @@
      * [IntroductionToSNMP Introduction to SNMP]
      * [RRDtutorial  Introduction to RRDTOOL and graphing]     
   * [Tools]
-  * *:::: -------- Version 4.0 -------- ::::*
+  * *:::: -------------- Version 4.0 -------------- ::::*
   * [SystemArchitecture System Architecture]
   * [SystemManagement]
   * *[HowToMake How To Make]*
@@ -28,7 +28,7 @@
       * [USBModem Using a USB Modem as an uplink]
   * [shop Where to Buy/Get]
   * [TroubleShooting]
-  * *:::: ------------- More ------------- ::::*
+  * *:::: --------------- More --------------- ::::*
   * [BeyondFabFi Beyond FabFi]
   * [nextgen Next Gen FabFi]
     * [FFi5TB FabFi 5.0 Test Bed]
