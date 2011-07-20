@@ -5,7 +5,7 @@
   * [FabFi What is FabFi]
   * [FAQ Frequently Asked Questions]
     * [FAQPress Frequently Asked Questions by the Press Media]
-  *= 
+  *Version 4.0
   * [TroubleShooting]
   * [AdministrativeTidbits Administrative Tidbits]
     * [AdministrativeTidbits#SVN_Basics SVN Basics]
