@@ -1,0 +1,10 @@
+#FabFi 5.0 Test Bed
+
+= Overview =
+
+The FabFi 5.0 Test Bed ... will come online in late August 2011.  (Tentatively in a working session held in Cape Town).  
+
+
+= Details =
+
+If only there was a topology.  Oh, topology.
