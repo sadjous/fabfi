@@ -6,7 +6,7 @@ This is a tutorial for how to design your network.  It will eventually include d
 
 = Estimating bandwidth = 
 
-It can be proved for a reasonably large number of  users, N (http://perso.rd.francetelecom.fr/bonald/Pub/itc18-dim.pdf) that: 
+It can be proved for a reasonably large number of  users, N (http://perso.rd.francetelecom.fr/bonald/Pub/itc18-dim.pdf) that a reasonable estimate of required capacity is given by: 
 
 C = N/(1/a + 1/d - 1/c) 
 
