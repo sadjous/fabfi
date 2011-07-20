@@ -140,7 +140,7 @@ C-Node design Consideration:  Adding picostation for meshing provides an advanta
 
 = Hardware: Other =
 
-= Software: Security / Captive portal / QoS management
+= Software: Security / Captive portal / QoS management =
 
 Preface all of this with "Antoine Can't Stand Chilli"...  Need to develop a roadmap to quickly prove that this direction isn't biting off more than we can chew.  
 
