@@ -25,6 +25,7 @@
       * [HowtoBuildAFabFiImage Build a Fabfi node image]
       * [USBModem Using a USB Modem as an uplink]
   * [Tutorials]    
+  * [Tools]
   * :::: More ::::
   * [BeyondFabFi Beyond FabFi]
   * [nextgen Next Gen FabFi]
