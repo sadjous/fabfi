@@ -47,7 +47,8 @@ Addressing will be native IPv6 with NIIT encapsulation for IPv4 Clients
 
 Network will consist of two node types.  T-nodes and C-Nodes:  
   
-T-Nodes:
+
+*T-Nodes:*
   * Make up the network core
   * Statically addressed
   * Connect to other T-Nodes using an infrastructure mesh.  
@@ -55,7 +56,7 @@ T-Nodes:
   * Have robust permanent mounting
   * Operate 5 VLANS: WIFIMESHx2, MESH (internal), LAN (bridged to wireless), ALAN (internal, also bridged to wireless) 
 
-C-Nodes:
+*C-Nodes:*
   * are deployed in a less-structured mesh surrounding the T-Nodes
   * Zero-conf addressed
   * are linked to T-Nodes via 5GHz in a hub-spoke arrangement
