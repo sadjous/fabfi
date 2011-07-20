@@ -95,10 +95,10 @@ Note: Open-Mesh dual-band devices do not seem hackable [http://robin.forumup.it/
 == Proposed Configurations ==
 
 *T-Node:*
-* 1 - PowerAP-N, serving clients @2.4G (OpenWRT)
-* 1+ - NanostationM5-Loco, connecting to other T-Nodes (AirOS)
-* 1+ - NanostationM5-Loco, connecting to C-Node Mesh (AirOS)
-* Note: there is no easy all-PassivePOE solution for T-Nodes as RouterStation Pros are 48V and RouterStations Need more Switchports
+  * 1 - PowerAP-N, serving clients @2.4G (OpenWRT)
+  * 1+ - NanostationM5-Loco, connecting to other T-Nodes (AirOS)
+  * 1+ - NanostationM5-Loco, connecting to C-Node Mesh (AirOS)
+  * Note: there is no easy all-PassivePOE solution for T-Nodes as RouterStation Pros are 48V and RouterStations Need more Switchports
 
 T-Node Design Consideration: If Servers include wifi, PowerAP can talk to server wirelessly.
 
