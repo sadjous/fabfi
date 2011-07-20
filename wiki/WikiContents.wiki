@@ -8,9 +8,7 @@
   * [FAQPress Frequently Asked Questions by the Press Media]
   * :::: Version 4.0 ::::
   * [TroubleShooting]
-  * [AdministrativeTidbits Administrative Tidbits]
-    * [AdministrativeTidbits#SVN_Basics SVN Basics]
-    * [AdministrativeTidbits#Uploading_Images_to_SVN_(for_the_wiki) Uploading images to SVN]
+ 
   * [SystemArchitecture System Architecture]
   * [SystemManagement]
   * *[HowToMake How To Make]*
@@ -36,6 +34,9 @@
     * [FFi5TB FabFi 5.0 Test Bed]
     * [FFi5Shopping Shopping List]
   * [shop Where to Buy/Get]
+  * [AdministrativeTidbits Info For Developers]
+    * [AdministrativeTidbits#SVN_Basics SVN Basics]
+    * [AdministrativeTidbits#Uploading_Images_to_SVN_(for_the_wiki) Uploading images to SVN]
  
  
 Text on this wiki is available under a [http://creativecommons.org/licenses/by/3.0/ CC-BY license].
