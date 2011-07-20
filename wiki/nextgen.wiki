@@ -84,49 +84,49 @@ First-third gen FabFi used Linksys WRT54GL.  4th and later gen use 9xxx series A
 
 Harware under consideration for 5th-gen is all ubiquiti-made and 9xxx Atheros-based.  Devices are as follows:
 || Model || RAM || Flash || Processor || Ethernet Ports || USB || Serial || POE || Band || MIMO || Tx PWR|| MSRP ||
-|| `NanostationM2-Loco` || 32M || 8M || 400MHz || 1 || NO || UART || 12-18V || 2.4Ghz || 2x2 || 23dbm || $50 || 
-|| `NanostationM5-Loco` || 32M || 8M || 400MHz || 1 || NO || UART ||12-18V || 5Ghz || 2x2 || 27dbm || $70 ||
-|| `PowerAP-N` || 32M || 8M || 400MHz || 5 || Header Only || UART || NO, 12v jack || 2.4Ghz || 2x2 || 27dbm || $90 ||
-|| `PicostationM2-HP` || 32M || 8M || 400MHz || 1 || NO || UART || 12-15v|| 2.4Ghz || NO || 27dbm || $90 ||
-|| `RouterStation Pro` || 128M || 16M || 680MHz || 4 || YES || DB9 || 48v || Slots Only || N/A || N/A || $80 ||
-|| `Routerstation` || 64M || 16M || 680MHz || 3 || NO || UART || 12-18v || Slots Only || N/A || N/A || $70 ||
+|| !NanostationM2-Loco || 32M || 8M || 400MHz || 1 || NO || UART || 12-18V || 2.4Ghz || 2x2 || 23dbm || $50 || 
+|| !NanostationM5-Loco || 32M || 8M || 400MHz || 1 || NO || UART ||12-18V || 5Ghz || 2x2 || 27dbm || $70 ||
+|| !PowerAP-N || 32M || 8M || 400MHz || 5 || Header Only || UART || NO, 12v jack || 2.4Ghz || 2x2 || 27dbm || $90 ||
+|| !PicostationM2-HP || 32M || 8M || 400MHz || 1 || NO || UART || 12-15v|| 2.4Ghz || NO || 27dbm || $90 ||
+|| !RouterStation Pro || 128M || 16M || 680MHz || 4 || YES || DB9 || 48v || Slots Only || N/A || N/A || $80 ||
+|| !Routerstation || 64M || 16M || 680MHz || 3 || NO || UART || 12-18v || Slots Only || N/A || N/A || $70 ||
 
 Note: Open-Mesh dual-band devices do not seem hackable [http://robin.forumup.it/about4656-robin.html]
 
 == Proposed Configurations ==
 
 *T-Node:*
-  * 1 - PowerAP-N, serving clients @2.4G (OpenWRT)
-  * 1+ - NanostationM5-Loco, connecting to other T-Nodes (AirOS)
-  * 1+ - NanostationM5-Loco, connecting to C-Node Mesh (AirOS)
-  * Note: there is no easy all-PassivePOE solution for T-Nodes as RouterStation Pros are 48V and RouterStations Need more Switchports
+  * 1 - !PowerAP-N (OpenWRT), serving clients @2.4G 
+  * 1+ - !NanostationM5-Loco (AirOS), connecting to other T-Nodes
+  * 1+ - !NanostationM5-Loco (AirOS), connecting to C-Node Mesh
+  * Note: there is no easy all-PassivePOE solution for T-Nodes as !RouterStation Pros are 48V and !RouterStations Need more Switchports
 
-T-Node Design Consideration: If Servers include wifi, PowerAP can talk to server wirelessly.
+T-Node Design Consideration: If Servers include wifi, !PowerAP can talk to server wirelessly.
 
 *C-Node:*
-  * 1 - PowerAP-N (OpenWRT), serving clients AND adhoc mesh @2.4G NB: Assumes: AP+adhoc functional in OpenWRT *ANTOINE: TEST*
-  * 1 - NanostationM5-Loco (AirOS), connecting to T-Node
-  * (option) 1 - PicostationM2-HP, connects to other C-Nodes in an adhoc mesh instead of radio reuse on PowerAP-N
+  * 1 - !PowerAP-N (OpenWRT), serving clients AND adhoc mesh @2.4G NB: Assumes: AP+adhoc functional in OpenWRT *ANTOINE: TEST*
+  * 1 - !NanostationM5-Loco (AirOS), connecting to T-Node
+  * (option) 1 - !PicostationM2-HP (AirOS), connects to other C-Nodes in an adhoc mesh instead of radio reuse on !PowerAP-N
 
 *C-Node (alternate config):*
-  * 1 - RouterStation (OpenWRT)
+  * 1 - !RouterStation (OpenWRT)
   * 1 - 802.11n MIMO PCI radio @2.4G for clients
   * 1 - 802.11g PCI radio @2.4G for mesh
-  * 1 - NanostationM5-Loco, connecting to T-Node (AirOS)
-  * 1 - High-gain MIMO Omni Antenna (ubiquiti) for clients. It may be possible to split this antenna among PowerAP and Pico and still get full duplex *KEITH: TEST*
+  * 1 - !NanostationM5-Loco, connecting to T-Node (AirOS)
+  * 1 - High-gain MIMO Omni Antenna (ubiquiti) for clients. It may be possible to split this antenna among !PowerAP and Pico and still get full duplex *KEITH: TEST*
   * 1 - High-gain Standard Antenna (any brand) for mesh
 Note: This config is all passive POE
 
-C-Node design Consideration:  Adding picostation for meshing provides an advantage that client and mesh connections can be full-duplexed.  We also envision a scheme where all client access devices run on the same channel, but Mesh devices are randomized to other two channels and run a higher power.  This should provide a higher capacity mesh where we take advantage of the node's favorable placement to minimize the number of hops to the gateway.  
+C-Node design Consideration:  Adding !PicoStation for meshing provides an advantage that client and mesh connections can be full-duplexed.  We also envision a scheme where all client access devices run on the same channel, but mesh devices are randomized to other two channels and run a higher power.  This should provide a higher capacity mesh where we take advantage of the node's favorable placement to minimize the number of hops to the gateway.  
 
 
 === Assumptions and Concerns ===
 
-  * PowerAP-N is not designed for outdoor use, meaning we will require weatherproofing.  Suggest: pigtails on PowerAP to separate antennas from body
-  * PowerAP-N seems to be identical to other Ubiquiti devices, however it is as-yet untested
+  * !PowerAP-N is not designed for outdoor use, meaning we will require weatherproofing.  Suggest: pigtails on !PowerAP to separate antennas from body
+  * !PowerAP-N seems to be identical to other Ubiquiti devices, however it is as-yet untested
   * Designs above assume OLSR will run on AirOS.  There seem to be AirOS packages for this.  
   * Last time we tested, AP+adhoc was broken in OpenWRT (issue was that Mesh operated at 1Mbps when no clients were associated).  This may have been fixed by now.  A fix must be verified before C-Node option B above can be used. 
-  * PowerAP-N is a 12V device but is not POE.  This means hacking cables and making adapters (lame), but the powerAP makes for a cheaper setup than 
+  * !PowerAP-N is a 12V device but is not POE.  This means hacking cables and making adapters (lame), but the !powerAP makes for a cheaper setup than any !RouterStation option
 
 = Hardware: Server =
   * look for a network card or motherboard with hardware crypto stupport so that tunneling is less resource-intensive
