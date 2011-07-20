@@ -3,12 +3,12 @@
 NIIT is a special linux kernel device that allows easy transmission of IPv4 unicast traffic through an IPv6 network. Niit works by first translating an IPv4 address to an IPv6 address in the [http://en.wikipedia.org/wiki/IPv6_transition_mechanisms#Stateless_IP.2FICMP_Translation_.28SIIT.29 SIIT] syntax. 
 
 Examples
-
+{{{
 	10.100.0.0/8    --> 0::ffff:10.100.0.0  104 --> 0::ffff:0a64:0000 104
 	192.168.2.0/24  --> 0::ffff:192.168.2.0 120 --> 0::ffff:c0a8:0200 120   
 	172.16.0.55/32  --> 0::ffff:172.16.0.55 128 --> 0::ffff:ac10:0037 128 
 	0.0.0.0/0	--> 0::ffff:0.0.0.0	96  --> 0::ffff:0000:0000 96
-
+}}}
  
 
 Tip - to get the corresponding IPv6 netmask - add the IPv4 netmask to 96.
