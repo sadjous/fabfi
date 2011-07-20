@@ -83,7 +83,7 @@ First-third gen FabFi used Linksys WRT54GL.  4th and later gen use 9xxx series A
 
 Harware under consideration for 5th-gen is all ubiquiti-made and 9xxx Atheros-based.  Devices are as follows:
 || Model || RAM || Flash || Processor || Ethernet Ports || USB || Serial || POE || Band || MIMO || Tx PWR|| MSRP ||
-|| `*`NanostationM2-Loco || 32M || 8M || 400MHz || 1 || NO || UART || 12-18V || 2.4Ghz || 2x2 || 23dbm || $50 || 
+|| `NanostationM2`-Loco || 32M || 8M || 400MHz || 1 || NO || UART || 12-18V || 2.4Ghz || 2x2 || 23dbm || $50 || 
 || NanostationM5-Loco || 32M || 8M || 400MHz || 1 || NO || UART ||12-18V || 5Ghz || 2x2 || 27dbm || $70 ||
 || PowerAP-N || 32M || 8M || 400MHz || 5 || Header Only || UART || NO, 12 jack || 2.4Ghz || 2x2 || 27dbm || $90 ||
 || PicostationM2-HP || 32M || 8M || 400MHz || 1 || NO || UART || 12-15v|| 2.4Ghz || NO || 27dbm || $90 ||
