@@ -9,6 +9,7 @@
   * [SystemArchitecture System Architecture]
   * [SystemManagement]
   * *[HowToMake How To Make]*
+    * [DesigningYourNetwork Network Design]
     * FabfiServer
     * FabfiNodes
     * [RFReflectors Fabfi Reflectors]
