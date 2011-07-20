@@ -73,3 +73,117 @@ Considerations
   * OLSR Secure for node joins
   * Smart Gateway, possibly scripted for failover to tunnel out of mesh (this is potentially overkill since peer-to-peer would be totally unsecured)
   * 802.11x with an autoconfig page and dual SSIDs.  Radius provisions certs.
+
+
+
+*** http://www.cappuccinopc.com
+** Architecture
+*** Access nodes
+   * 802.11n devices benefit hugely from MIMO
+   * Pico out
+   * PowerAP N         -> http://ubnt.com/downloads/datasheets/powerapn/PowerAP_N_Datasheet.pdf
+   * RouterStation
+   * RouterStation Pro -> Embedded, POE, SDCard, 4x eth -> http://ubnt.com/rspro
+*** Backbone routing
+   *         Core: 5GHz Long-haul LOS infrastructure -> Nano5's Bridged into RouterStationPro
+   *    Site Mesh: RouterStationPro
+     - Service: OLSR
+     - Service: Name resolution
+     - Service: Routing redundancy HNA's
+   * Access Nodes: PowerAP (alt. RouterStationPro where needed?)
+     - test dual ssid -> Station/AdHoc
+   * Circle Node: RouterStation = US$400 -> Pico + Nano = US$160 -> 2x Pico + Nano + Switch = US$300
+                  Pico + PowerAP N + Nano = US$250
+     - Connect to schoolnode via 5Ghz - Random Ch1
+     - Local mesh: Mesh with other nodes in the area for redundancy -> 2.4/5 ? Undecided  Ch1 & Ch6
+     - Access network: Connect to laptop via 2.4GHz Ch11
+     - MIMO Antennas, no need share Antenna
+   * Circle Node: Client Routing IPv6
+     - ZeroConf
+   * Circle Node: Client Routing IPv4
+     - niit
+     - gateway local content servers to ipv4 & dns
+   * Radio SR71-A, 2.4/5, Long-range -> US$100
+   * Get recommends on Atheros MiniPci's from WAPA
+*** Auth/Tunneling/Security
+   - Make sure server/gateway supports hardware crypt support for tunnels on eth's or Mobo
+   - Access:
+     Mesh Access Points: No Access Control - maybe anon 802.11x cert
+          Triangle Node: Internet Gateway Access Control
+           Route Access: Primary on router because if Internet Gateway falls over -> log in/log out
+                         Validate @ gateway in case of rogue nodes
+                         Insert client address directly in routing table
+     Kinds: Time, Traffic
+   - Auth:
+     Database: Radius, replicate as required
+     Mesh: None?
+     Triangle Node: Some resources require authorization
+                    Internet Gateway Auth is passworded
+     Portal: Chilli? Probably not...
+             802.11x -> maybe
+             scripted portal -> maybe
+     Routing: Cert determines which route endpoint router tunnels client to? Mesh-only tunnel endpoint,
+                                                                             Internet tunnel end-point,
+                                                                             Limited Internet tunnel end-point.
+   - Traffic Accounting:
+     Database: Radius, replicate as needed
+         Mesh: No
+      Gateway: Traffic Accounting, Time Accounting
+
+*** Traffic Control:
+    Access: Cap on individual client: 4096Mbps
+      Mesh: No QOS -> Build capacity instead
+   Gateway: Fair queing, per-application allocation, channel reservation?
+            http://www.provu.co.uk/converged_ctx1000.html
+            or other?
+
+*** Performance & Monitoring:
+   - % traffic of clients to mesh, % traffic of client to gateway
+   - congested node bottlenecks
+      - line color     -> LQ
+      - line thickness -> b/w capacity
+      - node color -> on/off
+      - node shape -> device type
+      - node coverage :-)
+   - up/down time
+   - throughput -> ntop/sflow (actual)
+   - capacity   -> Assolo estimates capacity
+   - SNMP: SNR, txpower, ETX, wireless packet loss, SSID's, software versions,
+           OLSR LQ, OLSR Neighbor LQ's, OLSR Gateway, Net access,
+           Interface throughput, Interface capacity, status of connected devices
+           Power Monitoring via RS232 to Power Control Device
+           longterm dev: Mesh MIB?
+           FabFi Script that logs it at the moment
+   - For MaximumKudos: UBNT style site surveys
+   - Squid Stats (lightsquid)
+
+*** Generic monitoring:
+   - cacti
+   - nagios?
+   - AirControl?  (http://ubnt.com/forum/showpost.php?p=177840&postcount=1)
+   - Content Server access stats -> Calamaris
+   - Afrimesh for network map -> LONG TERM still they want openmesh
+
+*** Bulk Node management
+   - firmware updates w/ config retention
+   - software versions, services etc.
+   - memory disk-space/processor
+   - change a config var for whole network (e.g. WEP key, SSID's)
+      -> firmware can ship with postupgrade scripts
+
+*** Server management
+   - Puppet/Matahari
+
+*** Provisioning:
+   - physical deploy most by far
+   - design of network -> i.e. what kind of node where
+   - per node configuration -> script
+   - LONGTERM OPTION per node configuration is auto-provisioned by network
+   - Is there zeroconf DNS autoregistration on mesh?
+
+*** Power Architecture
+   - Simple:  Single device w/ POE support
+              Single device w/ 5-12V canon
+   - Complex: Fixed + Battery Backup + Solar + Power Control + POE Feed + POE Adaptor
+
+*** NB: https://github.com/maruscia/ninux-airos-fw-oldstable
