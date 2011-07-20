@@ -28,7 +28,7 @@
       * [USBModem Using a USB Modem as an uplink]
   * [shop Where to Buy/Get]
   * [TroubleShooting]
-  * *:::: ---------------- More ---------------- ::::*
+  * *:::: ------------------ More ------------------ ::::*
   * [BeyondFabFi Beyond FabFi]
   * [nextgen Next Gen FabFi]
     * [FFi5TB FabFi 5.0 Test Bed]
