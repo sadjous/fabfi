@@ -73,8 +73,8 @@ Local DNS will be served at each triangle node (replicated from internet gateway
 
 === Limitations ===
 
-  * Segmenting the mesh below T-Nodes creates a problem for redundant routing.  Specifically, the network-local address of every C-node mesh that routes through any T-node must be statically entered (or otherwise scripted).  In the case that multiple T-Nodes advertise a route to a C-Node, We are usure at this time of the behavior when a client's traffic is routed to a T-node that does not have a connection to the C-Node. ''ANTOINE: Test''
-  * Roaming of clients from one access device to another is expected to drop all TCP connections.  We are unsure at this time whether A) the node gets locked out similar to IPv4 (we're especially unsure for NIIT clients), or whether IPv6 and OLSR gracefully readdresses them, allowing them to continue browsing.  Additionally, we're not sure how badly device roaming breaks PTP connections.  ''ANTOINE: TEST''  Suggest: avoiding roaming
+  * Segmenting the mesh below T-Nodes creates a problem for redundant routing.  Specifically, the network-local address of every C-node mesh that routes through any T-node must be statically entered (or otherwise scripted).  In the case that multiple T-Nodes advertise a route to a C-Node, We are usure at this time of the behavior when a client's traffic is routed to a T-node that does not have a connection to the C-Node. *ANTOINE: Test*
+  * Roaming of clients from one access device to another is expected to drop all TCP connections.  We are unsure at this time whether A) the node gets locked out similar to IPv4 (we're especially unsure for NIIT clients), or whether IPv6 and OLSR gracefully readdresses them, allowing them to continue browsing.  Additionally, we're not sure how badly device roaming breaks PTP connections.  *ANTOINE: TEST*  Suggest: avoiding roaming
   * zero-conf devices cannot reliably serve content because they won't have static IPs.  This causes similar issues for PTP.
   * In the event of a connectivity loss to all T-Nodes, local DNS will no longer be available.
 
@@ -84,7 +84,7 @@ First-third gen FabFi used Linksys WRT54GL.  4th and later gen use 9xxx series A
 Harware under consideration for 5th-gen is all ubiquiti-made and 9xxx Atheros-based.  Devices are as follows:
 || Model || RAM || Flash || Processor || Ethernet Ports || USB || POE || Band || MIMO || Tx PWR|| MSRP ||
 || NanostationM2-Loco || 32M || 8M || 400MHz || 1 || NO || 12-18V || 2.4Ghz || 2x2 || 23dbm || $50 || 
-|| NanostationM5-Loco || 32M || 8M || 400MHz || 1 || NO || 12-18V || 5Ghz || 2x2 || 27dbm || $70
+|| NanostationM5-Loco || 32M || 8M || 400MHz || 1 || NO || 12-18V || 5Ghz || 2x2 || 27dbm || $70 ||
 || PowerAP-N || 32M || 8M || 400MHz || 5 || Header Only || NO|| 2.4Ghz || 2x2 || 27dbm || $90 ||
 || PicostationM2-HP || 32M || 8M || 400MHz || 1 || NO || 12-15v|| 2.4Ghz || NO || 27dbm || $90 ||
 || Routerstation Pro || 128M || 16M || 680MHz || 4 || Yes || 48v || Slots Only || N/A || N/A || $80 ||
@@ -94,7 +94,7 @@ Note: Open-Mesh dual-band devices do not seem hackable [http://robin.forumup.it/
 
 == Proposed Configurations ==
 
-T-Node:
+*T-Node:*
 * 1 - PowerAP-N, serving clients @2.4G (OpenWRT)
 * 1+ - NanostationM5-Loco, connecting to other T-Nodes (AirOS)
 * 1+ - NanostationM5-Loco, connecting to C-Node Mesh (AirOS)
@@ -102,17 +102,17 @@ T-Node:
 
 T-Node Design Consideration: If Servers include wifi, PowerAP can talk to server wirelessly.
 
-C-Node:
-  * 1 - PowerAP-N (OpenWRT), serving clients AND adhoc mesh @2.4G *Assumes: AP+adhoc functional in OpenWRT ''ANTOINE: TEST''
+*C-Node:*
+  * 1 - PowerAP-N (OpenWRT), serving clients AND adhoc mesh @2.4G NB: Assumes: AP+adhoc functional in OpenWRT *ANTOINE: TEST*
   * 1 - NanostationM5-Loco (AirOS), connecting to T-Node
   * (option) 1 - PicostationM2-HP, connects to other C-Nodes in an adhoc mesh instead of radio reuse on PowerAP-N
 
-C-Node (alternate config):
+*C-Node (alternate config):*
   * 1 - RouterStation (OpenWRT)
   * 1 - 802.11n MIMO PCI radio @2.4G for clients
   * 1 - 802.11g PCI radio @2.4G for mesh
   * 1 - NanostationM5-Loco, connecting to T-Node (AirOS)
-  * 1 - High-gain MIMO Omni Antenna (ubiquiti) for clients. It may be possible to split this antenna among PowerAP and Pico and still get full duplex ''KEITH: TEST''
+  * 1 - High-gain MIMO Omni Antenna (ubiquiti) for clients. It may be possible to split this antenna among PowerAP and Pico and still get full duplex *KEITH: TEST*
   * 1 - High-gain Standard Antenna (any brand) for mesh
 Note: This config is all passive POE
 
@@ -153,8 +153,8 @@ Preface all of this with "Antoine Can't Stand Chilli"...  Need to develop a road
 
 == Authorization / Authentication / Accounting ==
   * Run 802.11x on the system
-  ** Mesh Access: Anonymous Cert that can be obtained on an unrestricted SSID
-  ** Web Access: Need more secure Cert that you get some other way.  Access control is checked first at Access node, then again at Triangle. This allows mesh connectivity in the event of isolation from the core.
+    * Mesh Access: Anonymous Cert that can be obtained on an unrestricted SSID
+    * Web Access: Need more secure Cert that you get some other way.  Access control is checked first at Access node, then again at Triangle. This allows mesh connectivity in the event of isolation from the core.
   * Certs are controlled by Radius (which is replicated to all triangles)
   * Certs are partitioned from a web browser.
   * Client addresses are inserted directly in routing table
@@ -174,7 +174,7 @@ Unknowns: Routing for PTP when a user is using a Web Access Cert.
 The qualitative approach is we want to have every piece of data that one might need to do remote diagnosis.  
 
 Major Questions:  
-  * How much value is AirControl? Specifically, will it find nodes across routed, non-AirOS transitions ''ANTOINE: TEST''
+  * How much value is AirControl? Specifically, will it find nodes across routed, non-AirOS transitions *ANTOINE: TEST*
   * How flexible are the AirOS nodes WRT building in our own features?
   * How do we serve all this data up to the Cloud?  (we want/need it at a remote site)
 
@@ -187,36 +187,35 @@ Major Questions:
            Power Monitoring via RS232 to Power Control Device, software versions, memory, disk-space, processor
    * longterm dev: Mesh MIB? (currently FabFi Script that logs mesh data) 
    * For MaximumKudos: UBNT style site surveys
-   * Squid Stats (lightsquid) ''ANTOINE: Why not Squid3?''
+   * Squid Stats (lightsquid) *ANTOINE: Why not Squid3?*
 
 == Visualization ==
    
 On Map (Afrimesh??):
-  - % traffic of clients to mesh, % traffic of client to gateway
-  - congested node bottlenecks
-    - line color     -> LQ
-    - line thickness -> b/w capacity
-    - node color -> on/off
-    - node shape -> device type
-    - node coverage :-)
-  - up/down time
-  - Click Through to node details
+  * % traffic of clients to mesh, % traffic of client to gateway
+  * congested node bottlenecks
+    * line color     -> LQ
+    * line thickness -> b/w capacity
+    * node color -> on/off
+    * node shape -> device type
+    * node coverage :-)
+  * up/down time
+  * Click Through to node details
 
 For Visited URLs
-  - Calamaris
+  * Calamaris
 
 For Graphing
-  - Cacti
+  * Cacti
 
 
 = Software: Network Management = 
 
- - Bulk Node management
-   - firmware updates w/ config retention, incl updates based on current FW version
-   - change a config var for whole network (e.g. WEP key, SSID's)
-      -> firmware can ship with postupgrade scripts
+ * Bulk Node management
+   * firmware updates w/ config retention, incl updates based on current FW version
+   * change a config var for whole network (e.g. WEP key, SSID's)-> firmware can ship with postupgrade scripts
 
- - Server management
-   - Puppet/Matahari
+ * Server management
+   * Puppet/Matahari
 
 *** NB: https://github.com/maruscia/ninux-airos-fw-oldstable
