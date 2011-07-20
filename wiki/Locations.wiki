@@ -4,6 +4,8 @@
 
 = Existing / Permanent =
 
+*NB: the definition of a "node" changes from fabfi 3.0 and earlier to fabfi 4.0.  In fabfi 3.0 "node"=="wireless device". Because wifi is now provided direct to the user without a dedicated device, more users are able to connect with fewer nodes, however each node can consist of multiple wireless devices*
+
 == Afghanistan, Jalalabad ==
   * FabFi 3.0 
   * 45 nodes 
@@ -18,7 +20,7 @@
 
 ==  Kenya, Njabini ==
   * FabFi 4.0  
-  * 4 nodes 
+  * 5 nodes 
   * By Peter Murimi with technical Support from FabCom.
   * Cyber cafe
   * Mixed free and fee based internet connection based on content and service
