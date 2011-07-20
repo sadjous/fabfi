@@ -1,4 +1,3 @@
-  * :::: -- ::::  
   * [WikiHome Wiki Home]
   * [http://code.google.com/p/fabfi/w/list Page List]
   * :::: ---------- About ---------- ::::  
