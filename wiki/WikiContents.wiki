@@ -8,8 +8,8 @@
     * [AdministrativeTidbits#Uploading_Images_to_SVN_(for_the_wiki) Uploading images to SVN]
   * [SystemArchitecture System Architecture]
   * [SystemManagement]
+  * [DesigningYourNetwork Network Design]
   * *[HowToMake How To Make]*
-    * [DesigningYourNetwork Network Design]
     * FabfiServer
     * FabfiNodes
     * [RFReflectors Fabfi Reflectors]
