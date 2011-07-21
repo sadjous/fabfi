@@ -8,4 +8,5 @@ The FabFi 5.0 Test Bed ... will come online in late August 2011.  (Tentatively i
 = Architecture =
 
 [http://fabfi.googlecode.com/svn-history/r723/wiki/images/SystemArchitecture/SysDiagram.png]
+
 [http://fabfi.googlecode.com/svn-history/r722/wiki/files/SysDiagram.odg Draw file for diagram]
