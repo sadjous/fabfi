@@ -5,6 +5,7 @@
 The FabFi 5.0 Test Bed ... will come online in late August 2011.  (Tentatively in a working session held in Cape Town, South Africa).  Its permanent location is TBD.
 
 
-= Details =
+= Architecture =
 
-If only there was a topology.  Oh, topology.
+[http://fabfi.googlecode.com/svn-history/r723/wiki/images/SystemArchitecture/SysDiagram.png]
+[http://fabfi.googlecode.com/svn-history/r722/wiki/files/SysDiagram.odg Draw file for diagram]
