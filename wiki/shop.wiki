@@ -8,14 +8,14 @@
 
 === Distributors and Master Resellers ===
 
-||[http://www.microcom.us/browse-by-brand--ubiquiti-networks.html Microcom Technologies]||[http://www.streakwave.com/product-ubiquiti.asp Streakwave Wireless, Inc.]||[http://www.hol4g.com/ Hutton Comm. of Canada]||[http://www.doubleradius.com/ DoubleRadius, Inc.]||
+||US - [http://www.microcom.us/browse-by-brand--ubiquiti-networks.html Microcom Technologies]||US - [http://www.streakwave.com/product-ubiquiti.asp Streakwave Wireless, Inc.]||Canada - [http://www.hol4g.com/ Hutton Comm. of Canada]||US - [http://www.doubleradius.com/ DoubleRadius, Inc.]||
 
 === Resellers ===
 
-||[http://www.4netonline.com/ 4Net Networking Corp.]||[http://www.balticnetworks.com/ Baltic Networks]||[http://www.bizsyscon.com/ Business System Connection]||[http://www.caymanwireless.com/ Cayman Wireless]||[http://store.cielosystems.net/ Cielo Systems]||[http://www.converbit.ca/magasin Converbit Wi-Fi]||[https://www.ctiacct.com/oasiscrm/shopping.asp?Region=CT&Directive=ItemList&Parent=&Category=I159 CTI]||[http://www.data-alliance.net/ Data Alliance Wireless]||[http://www.dynamictradingco.net/ Dynamic Trading]||
-||[http://epcomsecurity.com/ EPCOM Wireless Distributor]||[http://www.fab-corp.com/ Fleeman Anderson & Bird Corp.]||[http://www.flyteccomputers.com/ Flytec Computers]||[http://www.invictuswireless.com/ Invictus Wireless]||[http://ispsupplies.com/ ISP Supplies, LLC]||[http://www.jeffcosoho.com/ Jeffco Soho, Inc]||[http://www.meshoutlet.com/ Mesh Outlet]||[http://www.metrix.net/ Metrix Communication LLC]||[http://www.netgate.com/ Netgate]||
-||[http://www.mywirelessequipment.com/ Netkrom Technologies Inc.]||[http://www.nwcis.com/store/ Northwoods]||[http://www.wlanparts.com/ Pasadena Networks]||[http://www.pcbay.com/ PCBAY.COM Corp]||[http://www.quicklinkwireless.com/ QuickLink Wireless, LLC]||[http://www.roc-noc.com/ Roc-Noc]||[http://www.rowewireless.com/ Rowe Wireless Networks]||[http://www.squitter.com/ Squitter Electronics Inc]||[http://www.titanwirelessonline.com/ TitanWireless]||
-||[http://www.ubnt.ca/ UBNT.ca]||[http://www.wispequipment.com/ WISP Equipment]||[http://www.xagyl.com/ Xagyl Communications]||
+||US - [http://www.4netonline.com/ 4Net Networking Corp.]||US - [http://www.balticnetworks.com/ Baltic Networks]||US - [http://www.bizsyscon.com/ Business System Connection]||US - [http://www.caymanwireless.com/ Cayman Wireless]||US - [http://store.cielosystems.net/ Cielo Systems]||Canada - [http://www.converbit.ca/magasin Converbit Wi-Fi]||US - [https://www.ctiacct.com/oasiscrm/shopping.asp?Region=CT&Directive=ItemList&Parent=&Category=I159 CTI]||US - [http://www.data-alliance.net/ Data Alliance Wireless]||US - [http://www.dynamictradingco.net/ Dynamic Trading]||
+||[http://epcomsecurity.com/ EPCOM Wireless Distributor]||US - [http://www.fab-corp.com/ Fleeman Anderson & Bird Corp.]||US - [http://www.flyteccomputers.com/ Flytec Computers]||US - [http://www.invictuswireless.com/ Invictus Wireless]||US - [http://ispsupplies.com/ ISP Supplies, LLC]||US - [http://www.jeffcosoho.com/ Jeffco Soho, Inc]||US - [http://www.meshoutlet.com/ Mesh Outlet]||US - [http://www.metrix.net/ Metrix Communication LLC]||US - [http://www.netgate.com/ Netgate]|| 
+||[http://www.mywirelessequipment.com/ Netkrom Technologies Inc.]||US - [http://www.nwcis.com/store/ Northwoods]||US - [http://www.wlanparts.com/ Pasadena Networks]||US - [http://www.pcbay.com/ PCBAY.COM Corp]||US - [http://www.quicklinkwireless.com/ QuickLink Wireless, LLC]||US - [http://www.roc-noc.com/ Roc-Noc]||US - [http://www.rowewireless.com/ Rowe Wireless Networks]||US - [http://www.squitter.com/ Squitter Electronics Inc]||US - [http://www.titanwirelessonline.com/ TitanWireless]||
+||Canada - [http://www.ubnt.ca/ UBNT.ca]||US - [http://www.wispequipment.com/ WISP Equipment]||Canada - [http://www.xagyl.com/ Xagyl Communications]||
 
 
 == Latin America ==
@@ -63,4 +63,4 @@
 
 === Resellers ===
 
-||[http://www.ub-nt.com/ 802.11 wireless]||[http://www.aaaa.com.pk/ AAA Technologies]||[http://www.advancedatan.com/ Advancedata Network Pte Ltd]||[http://www.agndatacom.com/ AGN Computers]||[http://www.airlinxsys.com/ AirLinx Systems Pakistan]||
+||[http://www.ub-nt.com/ 802.11 wireless]||[http://www.aaaa.com.pk/ AAA Technologies]||[http://www.advancedatan.com/ Advancedata Network Pte Ltd]||[http://www.agndatacom.com/ AGN Computers]||[http://www.airlinxsys.com/ AirLinx Systems Pakistan]||[http://www.astra.co.th/ Astra Communication Service Co., Ltd.]||[http://www.axomic.com.sg/ AXOMIC (M) SDN BHD]||[http://www.netdist.com/ Beijing Huasun Unicreate Co., Ltd]||
