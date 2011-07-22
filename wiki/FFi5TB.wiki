@@ -1,11 +1,41 @@
-#FabFi 5.0 Test Bed
+#summary FabFi 5.0 Test Bed
+
 
 = Overview =
 
-The FabFi 5.0 Test Bed ... will come online in late August 2011.  (Tentatively in a working session held in Cape Town, South Africa).  Its permanent location is TBD.
+The FabFi 5.0 Test Bed ... will come online in late August 2011.  (Tentatively in a working session held in Cape Town, South Africa).  
+
+The purpose of the testbed is to implement and test in microcosm all the functional and architectural components of FF5.
+
+Its permanent location is TBD.
+
+= Node Configuration =
 
 
-= Architecture =
+*T-Node:*
+  * 1 - PowerAP-N (OpenWRT), serving clients @2.4G 
+  * 1+ - !NanostationM5-Loco (AirOS), connecting to other T-Nodes
+  * 1+ - !NanostationM5-Loco (AirOS), connecting to C-Node Mesh
+  * Note: there is no easy all-PassivePOE solution for T-Nodes as !RouterStation Pros are 48V and !RouterStations Need more Switchports
+
+T-Node Design Consideration: If Servers include wifi, PowerAP can talk to server wirelessly.
+
+*C-Node:*
+  * 1 - PowerAP-N (OpenWRT), serving clients AND adhoc mesh @2.4G NB: Assumes: AP+adhoc functional in OpenWRT *ANTOINE: TEST*
+  * 1 - !NanostationM5-Loco (AirOS), connecting to T-Node
+  * (option) 1 - !PicostationM2-HP (AirOS), connects to other C-Nodes in an adhoc mesh instead of radio reuse on PowerAP-N
+
+
+= Proposed Architecture =
+
+ * Core
+  * 4 T-nodes
+   * Primary uplink with content server and RADIUS master
+   * Secondary uplink
+   * Non-uplinked content server
+   * Plain T-node
+ * Local Mesh
+  * 5 C-nodes
 
 [http://fabfi.googlecode.com/svn/wiki/images/SystemArchitecture/SysDiagram.png]
 
