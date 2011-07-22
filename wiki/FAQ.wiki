@@ -6,11 +6,15 @@
 
 = General =
 
+== I want to follow fabfi development ==
+
+Subscribe to our [http://groups.google.com/group/fabfi Google Group]
+
 == I want to work for you! ==
 
-Great!  If you can code, go here http://code.google.com/p/fabfi/issues/list and fix something.  (Ask us if you need to log in to a testbed to do whatever.)
-
-If you are interested in volunteering at a deployment, write us at fabfi at fabfolk.com  
+  # Start Listening in: Subscribe to our [http://groups.google.com/group/fabfi Google Group]
+  # If you can code, go here http://code.google.com/p/fabfi/issues/list and fix something.  (Ask us if you need to log in to a testbed to do whatever.)
+  # If you are interested in volunteering at a deployment, write us at fabfi at fabfolk.com  
 
 == I want to make a business from this, how can I do that? ==
 
