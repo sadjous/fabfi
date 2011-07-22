@@ -43,6 +43,20 @@ A major issue of consideration is the ability of mesh protocols to scale.  OLSR 
 
 == Proposed Architecture ==
 
+=== theory ===
+
+  # The the average message distance (in hops) in a multi-hop, single-radio (adhoc) mesh determines throughput
+  # (not surprisingly) you can achieve a guaranteed throughput for any size adhoc mesh by interspersing uplinks with the appropriate frequency
+  # A multi-radio, multi-channel mesh of arbitrary size should be able to achieve 100% throughput
+
+This informs the architecture as follows:  
+
+  # adhoc mesh should be a single channel to maximize connectivity and therefore minimize distance to a 5G gateway
+  # Access channels should alternate so as to minimize cross-cell interference.
+  # 5Ghz links to a multi-radio, multi-channel backbone should be interspersed into the adhoc mesh.
+
+=== Practice ===
+
 Addressing will be native IPv6 with NIIT encapsulation for IPv4 Clients
 
 Network will consist of two node types.  T-nodes and C-Nodes:  
