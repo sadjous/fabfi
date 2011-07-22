@@ -234,4 +234,13 @@ For Graphing
  * Server management
    * Puppet/Matahari
 
+= Etc: Miscellaneous = 
+
+ * Fabfi starter kit:  
+   * Two devices to build a basic network (flashed/configured extra)
+   * Net cables
+   * USB Stick with any relevant software
+
+ * Stable, generally accessible cloud management server for starter kits
+   * When you get your starter kit it automatically can use cloud server with little or no config
 *** NB: https://github.com/maruscia/ninux-airos-fw-oldstable
