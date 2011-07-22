@@ -137,6 +137,7 @@ C-Node design Consideration:  Adding !PicoStation for meshing provides an advant
   * Passive POE injector (correct lines?): [http://www.passivepoe.com/products.html]
   * Solar + POE + Charge Controller + Vout, $50!: [http://tyconpower.com/products/files/TP-SCPOE_Charge_Controller_Spec_Sheet.pdf] This would run a PowerAP + a Nano-loco with NO HACKING.  Could be an awesome solution for C-Node
   * If build self: Power system Monitoring via RS232
+  * Passive POE Switch!!! http://www.beezwaxproducts.com/product_info.php?products_id=194&osCsid=00c9df71ebfff87c0b1a966601b96c49
 
 = Hardware: Other =
 
