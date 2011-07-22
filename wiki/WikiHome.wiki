@@ -13,3 +13,5 @@ If you want to make a Fabfi (or 100 of them) jump to HowToMake
 If you're looking for troubleshooting support jump to TroubleShooting (this page also has a bunch of useful command line commands and scripts).
 
 *If you're looking for the "old" wiki with documentation for Fabfi 3.0 or earlier, [http://wiki.fablab.af/index.php/Fab-Fi it can be found here]*
+
+*#### New #### Development email discussions can be followed on our [http://groups.google.com/group/fabfi Google Group]*
