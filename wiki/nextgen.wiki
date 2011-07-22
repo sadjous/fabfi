@@ -244,5 +244,7 @@ For Graphing
  * Stable, generally accessible cloud management server for starter kits
    * When you get your starter kit it automatically can use cloud server with little or no config
 
+ * FabTrek Tricorder:  Android-based tablet with all the network diagnosis tools you can dream of and a 3g backup in case you need net when fabfi is down. Need a tablet with wired ethernet and USB (for usb-serial or wi-spy) tho.
+
   * Long-link:  build and debug a fabfi link that's 20Km+, develop how-to
 *** NB: https://github.com/maruscia/ninux-airos-fw-oldstable
