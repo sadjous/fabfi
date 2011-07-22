@@ -1,4 +1,5 @@
 #Shopping list for FabFi 5 Test Bed
+Don't forget to answer the all important "how much will it cost?!" column.  
 
 = Baseline Components in Test Bed =
 _This should match the test bed topology diagram_
