@@ -88,4 +88,4 @@
 
 === Resellers ===
 
-||[http://www.airoma.net/ Airoma Ltd - New Zealand]||[http://www.wisp.net.au/ Amcoll Pty Ltd - Australia]||[http://www.comnet.com.au/ ComNet Solutions - Australia]||[http://www.freenet-antennas.com/ Freenet Antennas - Australia]||[http://www.gowifi.co.nz/ Go Wireless NZ Ltd - New Zealand]||[http://www.redbridge.com.au/ Redbridge - Australia]||[Wireless Data Solutions Pty Ltd - Australia]||
+||[http://www.airoma.net/ Airoma Ltd - New Zealand]||[http://www.wisp.net.au/ Amcoll Pty Ltd - Australia]||[http://www.comnet.com.au/ ComNet Solutions - Australia]||[http://www.freenet-antennas.com/ Freenet Antennas - Australia]||[http://www.gowifi.co.nz/ Go Wireless NZ Ltd - New Zealand]||[http://www.redbridge.com.au/ Redbridge - Australia]||[http://www.wirelessdata.com.au/ Wireless Data Solutions Pty Ltd - Australia]||
