@@ -50,7 +50,7 @@ Solar power is a reliable and convenient way to power devices, however you must 
   # PicsostationM2-HP
  # Find out the worst-case hours of sun with the 
  # Multiply the total number of watts for your device by 24 (hours) to get watts/day.
- # multiply this number by a safety factor to make sure you have enough power.  We're using 25% (1.25)
+ # Divide this number by a safety factor to make sure you have enough power.  The safety factor is the fraction of the total panel power that you want your devices to require, We're using 80% (0.8)
  # Find the hours of sunlight for your area [http://rredc.nrel.gov/solar/calculators/PVWATTS/version1/ Solar radiation calculator]
  # Divide the number you got in 4 by the lowest kWh/m^2/day value from the resulting chart in 5 to get the required wattage of your panel.
 
@@ -58,3 +58,14 @@ Solar power is a reliable and convenient way to power devices, however you must 
 = Batteries = 
 
 Beat the marketing hype and learn all about batteries with [http://www.windsun.com/Batteries/Battery_FAQ.htm this FAQ].
+
+== Sizing ==
+
+The amount of battery you need is based on the amount of time you need to run without power (or sun).  Batteries are generally rated in Ah (amp*hours), which is the number of hours the battery can supply a 1 Amp load at it's specified voltage (usually 12V).  
+
+To size a battery system you calculate the following
+{{{
+ wattage required * time on battery / battery safety factor / battery voltage = required capacity in Ah 
+}}}
+
+The battery safety is equal to the fraction of the battery's capacity that you want to consume (it should NEVER be more than 0.8).  We use 0.5.
