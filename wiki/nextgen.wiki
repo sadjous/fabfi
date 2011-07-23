@@ -59,7 +59,7 @@ This informs the architecture as follows:
 
 Addressing will be native IPv6 with NIIT encapsulation for IPv4 Clients
 
-Network will consist of two node types.  T-nodes and C-Nodes:  
+Network will consist of two node types.  T-nodes and C-Nodes (so named because when we draw them, T-nodes are triangles and C-nodes are circles.)
   
 
 *T-Nodes:*
