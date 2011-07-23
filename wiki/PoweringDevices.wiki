@@ -41,6 +41,15 @@ The values in the following section were tested empirically using a benchtop pow
 
 We haven't done any testing of duty cycle.  In our calculations we conservatively guess ...
 
+=== Device Tests ===
+
+The following applies to all the tests below:
+ * Operating Volatge = 12.0 Volts
+ * Test resolution +/- .01A
+ * iperf tests are wireless-only.  
+ * Full-duplex ethernet adds a worst-case .3A for single ethernet devices.  
+ * Peak power includes ethernet current draw.
+
 === UBIQUITI NANO M5 LOCO ===
 {{{
     Operating Volatge = 12.0 Volts
