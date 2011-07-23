@@ -40,3 +40,21 @@ Currently we use a variety of power solutions.  Major components include:
  * Jacobs 7Ah Sealed gel batteries
  * Instek 650VA UPS
  * 15W Solar panels
+
+== Solar Power ==
+
+Solar power is a reliable and convenient way to power devices, however you must do a little calculation to make sure you choose the correct capacity for your area:
+
+ # Calculate the power requirements of your devices.  These are usually much LESS than what it says on the datasheets.  We have measured the following empirically:
+  # NanostationM5-Loco:
+  # PicsostationM2-HP
+ # Find out the worst-case hours of sun with the 
+ # Multiply the total number of watts for your device by 24 (hours) to get watts/day.
+ # multiply this number by a safety factor to make sure you have enough power.  We're using 25% (1.25)
+ # Find the hours of sunlight for your area [http://rredc.nrel.gov/solar/calculators/PVWATTS/version1/ Solar radiation calculator]
+ # Divide the number you got in 4 by the lowest kWh/m^2/day value from the resulting chart in 5 to get the required wattage of your panel.
+
+
+= Batteries = 
+
+Beat the marketing hype and learn all about batteries with [http://www.windsun.com/Batteries/Battery_FAQ.htm this FAQ].
