@@ -6,11 +6,11 @@ This page is an archive of all the key functionality tests we've done for fabfi 
 
 <wiki:toc max_depth="2" />
 
-== Wireless ==
+= Wireless =
 
 All things pertaining to wireless configurations and performance
 
-=== AP + ADHOC ===
+== AP + ADHOC ==
 
 Tested a single device with AP+ADHOC wireless configuration as follows: 
 
