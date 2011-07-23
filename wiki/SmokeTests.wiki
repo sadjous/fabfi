@@ -1,0 +1,52 @@
+#summary Results of basic functionality testing
+
+= Introduction =
+
+This page is an archive of all the key functionality tests we've done for fabfi 5.0, mainly so we don't forget and do them twice.  
+
+
+== Wireless ==
+
+All things pertaining to wireless configurations and performance
+
+=== AP + ADHOC ===
+
+Tested a single device with AP+ADHOC wireless configuration as follows: 
+
+{{{
+config 'wifi-device' 'radio0'
+       option 'type' 'mac80211'
+       option 'channel' '11'
+       option 'macaddr' '68:7f:74:91:37:21'
+       option 'hwmode' '11ng'
+       option 'htmode' 'HT20'
+       list 'ht_capab' 'SHORT-GI-40'
+       list 'ht_capab' 'DSSS_CCK-40'
+       option 'disabled' '0'
+
+config 'wifi-iface'
+       option 'device' 'radio0'
+       option 'ssid' 'hideadhoc'
+       option 'encryption' 'none'
+       option 'network' 'wlan'
+       option 'mode' 'adhoc'
+       option hidden 1
+
+config 'wifi-iface'
+       option 'device' 'radio0'
+       option 'ssid' 'AP-Openwrt'
+       option 'encryption' 'none'
+       option 'network' 'wlan2'
+       option 'mode' 'ap'
+}}}
+This was built on a linksys wrt160nl (atheros 9xxx, compat-wireless 2011-06-22,   2.6.39.2 kernel, openwrt 27724)
+
+Test setup: 
+STA<-->AP/ADHOC<-->ADHOC
+
+Interfaces loaded properly and iperf results were as follows:
+ * AP/ADHOC<-->ADHOC: 24-25Mbps (whether or not client was connected had no effect)
+ * STA<-- * -->ADHOC: 11Mbps
+ * STA<-->AP/ADHOC: 28.6Mbps
+
+The only failure exhibited was that hiding the ADHOC SSID had no effect (SSID still advertised)
