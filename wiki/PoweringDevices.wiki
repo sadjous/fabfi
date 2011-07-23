@@ -63,7 +63,7 @@ The following applies to all the tests below:
     Peak: 0.43 A
 
     Idle Power: 3.4W
-    Peak Power: W
+    Peak Power: 5.2W
 }}}
 
 ==== UBIQUITI NANO M2 LOCO ====
@@ -73,7 +73,7 @@ The following applies to all the tests below:
     Peak: 0.39 A
 
     Idle Power: 2.7W
-    Peak Power: W
+    Peak Power: 4.7W
 }}}
 
 ==== UBIQUITI PICO M2 HP ====
@@ -83,20 +83,19 @@ The following applies to all the tests below:
     Peak: 0.41 A
 
     Idle Power: 2.9W
-    Peak Power: W
+    Peak Power: 5W
 }}}
 
 ==== LINKSYS WRT160NL ====
 {{{
-    Operating Volatge = 12.0 Volts
-
+ 
     MODE: AP+ADHOC
     Idle: 0.25 A
-    Peak: 0.34 A
+    Peak: 0.40 A
 
 
     Idle Power: 3W
-    Peak Power: W
+    Peak Power: 5W
 }}}
 
 = Power Supplies = 
