@@ -85,7 +85,7 @@ The following applies to all the tests below:
     Peak: 0.41 A
 
     Idle Power: 2.9W
-    Peak Power: 5W
+    Peak Power: 5.0W
 }}}
 
 ==== LINKSYS WRT160NL ====
@@ -96,8 +96,8 @@ The following applies to all the tests below:
     Peak: 0.40 A
 
 
-    Idle Power: 3W
-    Peak Power: 5W
+    Idle Power: 3.0W
+    Peak Power: 5.0W
 }}}
 
 = Power Supplies = 
