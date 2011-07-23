@@ -52,7 +52,7 @@ The following applies to all the tests below:
  * changing radio output power had little effect on draw 
  * For multi-port devices, each additional idle device adds .02A
  * For multiple port devices, all four switchports are assumed active (not internet port).  Active, but idle, ports had the same draw as transmitting ones in our tests.
-* Internet port on devices such as linksys is assumed empty.
+ * Internet port on devices such as linksys is assumed empty.
 
 ==== UBIQUITI NANO M5 LOCO ====
 {{{
