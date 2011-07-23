@@ -48,6 +48,6 @@ Test setup:
 Interfaces loaded properly and iperf results were as follows:
  * `AP/ADHOC<-->ADHOC`: 24-25Mbps (whether or not client was connected had no effect)
  * `STA<-- * -->ADHOC`: 11Mbps
- * `STA<-->AP/ADHOC`: 28.6Mbps
+ * `STA<-->AP/ADHOC`: 28.6Mbps (whether or not other ADHOC was available had no effect)
 
 The only failure exhibited was that hiding the ADHOC SSID had no effect (SSID still advertised)
