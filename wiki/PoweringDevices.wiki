@@ -51,7 +51,7 @@ The following applies to all the tests below:
  * Half-duplex ethernet is .06A  
  * Peak power includes full-duplex ethernet current draw.
 
-=== UBIQUITI NANO M5 LOCO ===
+==== UBIQUITI NANO M5 LOCO ====
 {{{
     MODE: STA
     Idle operation : 0.27 A
@@ -67,7 +67,7 @@ The following applies to all the tests below:
     Peak Power: W
 }}}
 
-=== UBIQUITI NANO M2 LOCO ===
+==== UBIQUITI NANO M2 LOCO ====
 {{{
     MODE: Client AP
     Idle operation : 0.22 A
@@ -78,7 +78,7 @@ The following applies to all the tests below:
     Peak Power: W
 }}}
 
-=== UBIQUITI PICO M2 HP ===
+==== UBIQUITI PICO M2 HP ====
 {{{
     MODE: AP
     Idle operation : 0.24 A
@@ -89,7 +89,7 @@ The following applies to all the tests below:
     Peak Power: W
 }}}
 
-=== LINKSYS WRT160NL ===
+==== LINKSYS WRT160NL ====
 {{{
     Operating Volatge = 12.0 Volts
 
