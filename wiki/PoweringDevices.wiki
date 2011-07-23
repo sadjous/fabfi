@@ -65,7 +65,7 @@ The amount of battery you need is based on the amount of time you need to run wi
 
 To size a battery system you calculate the following
 {{{
- wattage required * time on battery / battery safety factor / battery voltage = required capacity in Ah 
+ power required (W) *  battery runtime (h) / battery safety factor / battery voltage (V) = required capacity (Ah) 
 }}}
 
-The battery safety is equal to the fraction of the battery's capacity that you want to consume (it should NEVER be more than 0.8).  We use 0.5.
+The battery safety is equal to the fraction of the battery's capacity that you want to consume (it should NEVER be more than 0.8).  We use 0.5.  We use 24 hours for battery runtime.
