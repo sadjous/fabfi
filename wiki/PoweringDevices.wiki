@@ -47,13 +47,12 @@ The following applies to all the tests below:
  * Operating Volatge = 12.0 Volts
  * Test resolution +/- .01A
  * iperf tests are wireless-only.  
- * Full-duplex ethernet adds a worst-case .3A for single ethernet devices.  
- * Peak power includes ethernet current draw.
+ * Full-duplex ethernet adds a worst-case .3A for single ethernet devices.
+ * Half-duplex ethernet is .06A  
+ * Peak power includes full-duplex ethernet current draw.
 
 === UBIQUITI NANO M5 LOCO ===
 {{{
-    Operating Volatge = 12.0 Volts
-
     MODE: STA
     Idle operation : 0.27 A
     Iperf -c       : 0.40 A
@@ -64,22 +63,30 @@ The following applies to all the tests below:
     Iperf -c       : 0.40 A
     Iperf -s       : 0.37 A
 
-    Idle Power: 3.4W
-    Peak Power: 4.8W
+    Idle Power: W
+    Peak Power: W
 }}}
 
+=== UBIQUITI NANO M2 LOCO ===
+{{{
+    MODE: Client AP
+    Idle operation : 0.22 A
+    Iperf -c       : 0.36 A
+    Iperf -s       : 0.27 A
+
+    Idle Power: W
+    Peak Power: W
+}}}
 
 === UBIQUITI PICO M2 HP ===
 {{{
-    Operating Volatge = 12.0 Volts
-
     MODE: AP
     Idle operation : 0.24 A
     Iperf -c       : 0.38 A
     Iperf -s       : 0.32 A
 
-    Idle Power: 2.9W
-    Peak Power: 4.6W
+    Idle Power: W
+    Peak Power: W
 }}}
 
 === LINKSYS WRT160NL ===
@@ -91,8 +98,8 @@ The following applies to all the tests below:
     Iperf -c       : 0.31 A
     Iperf -s       : 0.27 A
 
-    Idle Power: 2.3W
-    Peak Power: 3.8W
+    Idle Power: W
+    Peak Power: W
 }}}
 
 = Power Supplies = 
