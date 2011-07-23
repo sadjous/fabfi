@@ -46,25 +46,21 @@ We haven't done any testing of duty cycle.  In our calculations we conservativel
 The following applies to all the tests below:
  * Operating Volatge = 12.0 Volts
  * Test resolution +/- .01A
- * iperf tests are wireless-only.  
- * Ethernet Effects (STILL UNDER TESTING!!!!):
-  * Full-duplex ethernet adds a worst-case .3A (for single or multiple ports, did not test both interfaces at same time)
-  * Half-duplex ethernet is .06A (for single or multiple ports)
-  * For multi-port devices, each additional idle device adds .02A
-* Peak power includes full-duplex ethernet current draw.  For multiple port devices, all four switchports are assumed active (not internet port)
-* Idle power for devices with multiple switchports assume switchports (4) are full.  Internet port on devices such as linksys is assumed empty.
+ * Iperf tests are done with simultaneous send-receive between the laptop and the remote device in the photo above, passing through the middle device, which is under test.  
+ * changing radio output power had little effect on draw 
+ * For multi-port devices, each additional idle device adds .02A
+ * For multiple port devices, all four switchports are assumed active (not internet port).  Active, but idle, ports had the same draw as transmitting ones in our tests.
+* Internet port on devices such as linksys is assumed empty.
 
 ==== UBIQUITI NANO M5 LOCO ====
 {{{
     MODE: STA
-    Idle operation : 0.27 A
-    Iperf -c       : 0.40 A
-    Iperf -s       : 0.37 A
+    Idle: 0.27 A
+    Peak: 0.43 A
 
     MODE: AP
-    Idle operation : 0.28 A
-    Iperf -c       : 0.40 A
-    Iperf -s       : 0.37 A
+    Idle: 0.28 A
+    Peak: 0.43 A
 
     Idle Power: 3.4W
     Peak Power: W
@@ -73,9 +69,8 @@ The following applies to all the tests below:
 ==== UBIQUITI NANO M2 LOCO ====
 {{{
     MODE: Client AP
-    Idle operation : 0.22 A
-    Iperf -c       : 0.36 A
-    Iperf -s       : 0.27 A
+    Idle: 0.22 A
+    Peak: 0.39 A
 
     Idle Power: 2.7W
     Peak Power: W
@@ -84,9 +79,8 @@ The following applies to all the tests below:
 ==== UBIQUITI PICO M2 HP ====
 {{{
     MODE: AP
-    Idle operation : 0.24 A
-    Iperf -c       : 0.38 A
-    Iperf -s       : 0.32 A
+    Idle: 0.24 A
+    Peak: 0.41 A
 
     Idle Power: 2.9W
     Peak Power: W
@@ -97,9 +91,9 @@ The following applies to all the tests below:
     Operating Volatge = 12.0 Volts
 
     MODE: AP+ADHOC
-    Idle operation : 0.19 A
-    Iperf -c       : 0.31 A
-    Iperf -s       : 0.27 A
+    Idle: 0.25 A
+    Peak: 0.34 A
+
 
     Idle Power: 3W
     Peak Power: W
