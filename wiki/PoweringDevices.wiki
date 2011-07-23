@@ -101,11 +101,10 @@ Currently we use a variety of power solutions.  Major components include:
 Solar power is a reliable and convenient way to power devices, however you must do a little calculation to make sure you choose the correct capacity for your area:
 
  # Calculate the power requirements of your devices.  These are usually much LESS than what it says on the datasheets, as we measure [PoweringDevices#Power_Requirements above]
- # Find out the worst-case hours of sun with the 
  # Multiply the total number of watts for your device by 24 (hours) to get watts/day.
  # Divide this number by a safety factor to make sure you have enough power.  The safety factor is the fraction of the total panel power that you want your devices to require, We're using 80% (0.8)
  # Find the hours of sunlight for your area [http://rredc.nrel.gov/solar/calculators/PVWATTS/version1/ Solar radiation calculator]
- # Divide the number you got in 4 by the lowest kWh/m^2/day value from the resulting chart in 5 to get the required wattage of your panel.
+ # Divide the number you got in 3 by the lowest kWh/m^2/day value from the resulting chart in 4 to get the required wattage of your panel.
 
 
 = Batteries = 
