@@ -47,9 +47,11 @@ The following applies to all the tests below:
  * Operating Volatge = 12.0 Volts
  * Test resolution +/- .01A
  * iperf tests are wireless-only.  
- * Full-duplex ethernet adds a worst-case .3A for single ethernet devices.
- * Half-duplex ethernet is .06A  
- * Peak power includes full-duplex ethernet current draw.
+ * Ethernet Effects:
+  * Full-duplex ethernet adds a worst-case .3A (for single or multiple ports)
+  * Half-duplex ethernet is .06A (for single or multiple ports)
+  * For multi-port devices, each additional idle device adds .02A
+* Peak power includes full-duplex ethernet current draw.
 
 ==== UBIQUITI NANO M5 LOCO ====
 {{{
