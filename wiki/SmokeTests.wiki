@@ -46,7 +46,7 @@ Test setup:
 `STA<-->AP/ADHOC<-->ADHOC`
 
 Interfaces loaded properly and iperf results were as follows:
- * `AP/ADHOC<-->ADHOC`: 24-25Mbps (whether or not client was connected had no effect)
+ * `AP/ADHOC<-->ADHOC`: 24-25Mbps (whether or not STA was connected had no effect)
  * `STA<-- * -->ADHOC`: 11Mbps
  * `STA<-->AP/ADHOC`: 28.6Mbps (whether or not other ADHOC was available had no effect)
 
