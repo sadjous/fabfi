@@ -33,6 +33,7 @@
   * [nextgen Next Gen FabFi]
     * [FFi5TB FabFi 5.0 Test Bed]
     * [FFi5Shopping Shopping List]
+    * [SmokeTests Smoke Testing]
   * [AdministrativeTidbits Info For Developers]
     * [AdministrativeTidbits#SVN_Basics SVN Basics]
     * [AdministrativeTidbits#Uploading_Images_to_SVN_(for_the_wiki) Uploading images to SVN]
