@@ -42,11 +42,11 @@ config 'wifi-iface'
 This was built on a linksys wrt160nl (atheros 9xxx, compat-wireless 2011-06-22,   2.6.39.2 kernel, openwrt 27724)
 
 Test setup: 
-STA<-->AP/ADHOC<-->ADHOC
+`STA<-->AP/ADHOC<-->ADHOC`
 
 Interfaces loaded properly and iperf results were as follows:
- * AP/ADHOC<-->ADHOC: 24-25Mbps (whether or not client was connected had no effect)
- * STA<-- * -->ADHOC: 11Mbps
- * STA<-->AP/ADHOC: 28.6Mbps
+ * `AP/ADHOC<-->ADHOC`: 24-25Mbps (whether or not client was connected had no effect)
+ * `STA<-- * -->ADHOC`: 11Mbps
+ * `STA<-->AP/ADHOC`: 28.6Mbps
 
 The only failure exhibited was that hiding the ADHOC SSID had no effect (SSID still advertised)
