@@ -43,6 +43,8 @@ We haven't done any testing of duty cycle.  In our calculations we conservativel
 
 === Device Tests ===
 
+[http://fabfi.googlecode.com/svn/wiki/images/Devices/pwrtest.jpg]
+
 The following applies to all the tests below:
  * Operating Volatge = 12.0 Volts
  * Test resolution +/- .01A
