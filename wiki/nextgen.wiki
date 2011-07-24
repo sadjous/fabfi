@@ -19,7 +19,7 @@ With FabFi 5.0 we’re expecting to have a pretty great infrastructure but we ha
 = Software: Routing & DNS =
 The order of magnitude increase in the number of devices ...
 
-A major issue of consideration is the ability of mesh protocols to scale.  OLSR claims to scale with O(log(n)) complexity in the number of addresses.  As a point of context, networks of WRT54GLs (200MHz, 8MB RAM) are running networks of 2000 addresses.  In any case we anticipate the network being large enoguh that it will need segmentation.  
+A major issue of consideration is the ability of mesh protocols to scale.  OLSR claims to scale with O(log(n)) complexity in the number of addresses.  As a point of context, networks of WRT54GLs (200MHz, 8MB RAM) are running networks of 2000 addresses.  In any case we anticipate the network being large enough that it will need segmentation.  
 
 === protocol evaluation ===
 
