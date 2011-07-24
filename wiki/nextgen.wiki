@@ -109,6 +109,8 @@ Note: Open-Mesh dual-band devices do not seem hackable [http://robin.forumup.it/
 
 == Proposed Configurations ==
 
+NB: I believe it ill be possible to use Ubiquiti devices as transparent APs and stations (provided 1:1 mapping of STA:IP)
+
 *T-Node:*
   * 1 - PowerAP-N (OpenWRT), serving clients @2.4G 
   * 1+ - !NanostationM5-Loco (AirOS), connecting to other T-Nodes
