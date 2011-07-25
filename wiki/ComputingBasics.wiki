@@ -75,7 +75,11 @@ Experts who are willing and able to diagnose and solve one-of-a-kind problems ma
 
 Linux distributors have security teams that release fixes in a timely manner so those that use the Linux distro can easily keep their systems secure. Administrators who install non-distro 3rd-party software, especially drivers that closely integrate with other system components, must also themselves ensure that the 3rd-party software continues to operate as the Linux distribution releases security patches. Having a single supplier for all your software greatly simplifies system administration.
 
-Because a Linux distro's software is designed to work as a unit it is always best to obtain support directly from the Linux distribution's official channels, be that the documentation supplied in man pages, in info pages, in written reference guides, or support provided by official mailing lists and their archives, by official web forums, by official irc channels, etc. (Ubuntu software packages may also contain a /usr/share/doc/<packagename>/README.Debian.gz file that describe how the operation of the Ubuntu version of the package differs from that of a stock installation.) 
+Because a Linux distro's software is designed to work as a unit it is always best to obtain support directly from the Linux distribution's official channels, be that the documentation supplied in man pages, in info pages, in written reference guides, or support provided by official mailing lists and their archives, by official web forums, by official irc channels, etc. (Ubuntu software packages may also contain a 
+
+{{{/usr/share/doc/<packagename>/README.Debian.gz}}}
+
+file that describe how the operation of the Ubuntu version of the package differs from that of a stock installation.) 
 
 It is worth remembering that as a rule the people who provide support are volunteers and appreciate at least an attempt at reading whatever written instructions exist before asking for help. Because everyone using your Linux distro is using the same software combination it is likely that someone has already encountered your problem. (Obviously this will not be true if you have installed software from a 3rd party.) 
 
