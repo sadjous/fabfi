@@ -73,7 +73,7 @@ Conclusions:
 
  * *Question: Does the AirOS wifi driver provide better performance?*
 
-Test Details:
+Test Details (All tests performed with openwrt r26751):
 
 {{{
 20Mhz: 
