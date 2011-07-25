@@ -4,7 +4,7 @@
 
 This page is an archive of all the key functionality tests we've done for fabfi 5.0, mainly so we don't forget and do them twice.  
 
-<wiki:toc max_depth="2" />
+<wiki:toc max_depth="3" />
 
 = Wireless =
 
