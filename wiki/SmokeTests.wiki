@@ -71,8 +71,7 @@ Summary:
 Conclusions: 
  * In a real environment, channel bonding may be of little benefit if maximum single link speed is not a priority. This agrees with the research that suggests 40Mhz channels are much more susceptible to interference.
 
-Questions:  
- * *Does the AirOS wifi driver provide better performance?*
+ * *Question: Does the AirOS wifi driver provide better performance?*
 
 Test Details:
 
@@ -171,6 +170,12 @@ config 'wifi-iface'
         option 'mode' 'ap'
 }}}
 
+==== Near Field Effects & Sectoring ====
+
+ * *Question1: what throughput degradation is experienced with closely sectored nanostations on adjacent, non-overlapping channels.  Is degradation materially different with 20Mhz vs. 40Mhz channels?*
+ * *Question2:  How does this compare to non-overlapping Omni-directional operation?*
+ * This test informs whether it is reasonable to sector the NanoStations or whether more expensive antenna hardware will be desirable. 
+
 = Routing & Meshing =
 
-*If a router is running OLSR on a LAN where one or more of the onnections are made with external wireless APs (not routers), will the OLSR device be able to calculate link qualities correctly?*
+ * *Question: If a router is running OLSR on a LAN where one or more of the onnections are made with external wireless APs (not routers), will the OLSR device be able to calculate link qualities correctly?*
