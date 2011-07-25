@@ -170,3 +170,7 @@ config 'wifi-iface'
         option 'ssid' 'ff149a'
         option 'mode' 'ap'
 }}}
+
+= Routing & Meshing =
+
+*If a router is running OLSR on a LAN where one or more of the onnections are made with external wireless APs (not routers), will the OLSR device be able to calculate link qualities correctly?*
