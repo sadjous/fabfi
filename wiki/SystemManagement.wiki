@@ -151,4 +151,7 @@ To learn more on other data input methods besides SNMP, click on the link below.
 References
 
 [http://docs.cacti.net/manual:087:2_basics.0_principles_of_operation#basics Complete cacti manual].
+
+= General Linux System Management =
  
+See [ComputingBasics#System_Administration_Principals,_Obtaining_Software_and_Support Computing Basics]
