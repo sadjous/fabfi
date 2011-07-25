@@ -51,3 +51,120 @@ Interfaces loaded properly and iperf results were as follows:
  * `STA<-->AP/ADHOC`: 28.6Mbps (whether or not other ADHOC was available had no effect)
 
 The only failure exhibited was that hiding the ADHOC SSID had no effect (SSID still advertised)
+
+== SPEED TESTS ==
+
+=== !NanoStationM5-loco ===
+
+==== Maximum Throughput, OpenWRT ====
+Ran speed test with iperf (tcp) from two routers on either side of a pair of AP/STA as described below.  Devices were transmitting through a wire and plaster wall in a roo with unknown levels of interference (kinda like the real world)
+
+Summary:  
+ * Goodput at 20Mhz = 48.8Mbps
+ * Goodput at 40Mhz = 61.4Mbps
+ * proc was at least 19% idle
+ * Encryption had no material effect on throughput
+ * Throughput was moderately better (~4Mbps) in decribed setup than with iperf running on tested devices
+
+Conclusions: 
+ * In a real environment, channel bonding may be of little benefit if maximum single link speed is not a priority. This agrees with the research that suggests 40Mhz channels are much more susceptible to interference.
+
+Questions:  
+ * *Does the AirOS wifi driver provide better performance?*
+
+Test Details:
+
+{{{
+20Mhz: 
+
+Station 00:15:6d:3a:25:fe (on wlan0)
+        inactive time:  0 ms
+        rx bytes:       429946787
+        rx packets:     281079
+        tx bytes:       10356994
+        tx packets:     139888
+        tx retries:     10342
+        tx failed:      1
+        signal:         -60 dBm
+        signal avg:     -57 dBm
+        tx bitrate:     270.0 MBit/s MCS 15 40Mhz
+        rx bitrate:     300.0 MBit/s MCS 15 40Mhz short GI
+
+root@fabfi4:~# iperf -c 10.100.0.7 -t60
+------------------------------------------------------------
+Client connecting to 10.100.0.7, TCP port 5001
+TCP window size: 16.0 KByte (default)
+------------------------------------------------------------
+[  3] local 10.100.0.4 port 51631 connected with 10.100.0.7 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0-60.0 sec   439 MBytes  61.4 Mbits/sec
+
+
+config 'wifi-device' 'radio0'
+        option 'type' 'mac80211'
+        option 'hwmode' '11na'
+        option 'htmode' 'HT40+'
+        option 'distance' '100'
+        option 'ht_capab' 'SHORT-GI-40 TX-STBC RX-STBC1 DSSS_CCK-40'
+        option 'channel' '36'
+        option 'txpower' '17'
+        option 'macaddr' '00:15:6d:3a:25:30'
+        option 'disabled' '0'
+
+config 'wifi-iface'
+        option 'device' 'radio0'
+        option 'network' 'wifimesh'
+        option 'hidden' '0'
+        option 'encryption' 'psk2'
+        option 'key' '<key>'
+        option 'ssid' 'ff149a'
+        option 'mode' 'ap'
+
+}}}
+
+{{{
+40Mhz:
+
+Station 00:15:6d:3a:25:fe (on wlan0)
+        inactive time:  0 ms
+        rx bytes:       230555805
+        rx packets:     150786
+        tx bytes:       5565207
+        tx packets:     75141
+        tx retries:     4818
+        tx failed:      0
+        signal:         -54 dBm
+        signal avg:     -55 dBm
+        tx bitrate:     130.0 MBit/s MCS 15
+        rx bitrate:     130.0 MBit/s MCS 15
+
+root@fabfi4:~# iperf -c 10.100.0.7 -t60
+------------------------------------------------------------
+Client connecting to 10.100.0.7, TCP port 5001
+TCP window size: 16.0 KByte (default)
+------------------------------------------------------------
+[  3] local 10.100.0.4 port 58188 connected with 10.100.0.7 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0-60.0 sec   350 MBytes  48.8 Mbits/sec
+
+
+config 'wifi-device' 'radio0'
+        option 'type' 'mac80211'
+        option 'hwmode' '11na'
+        option 'htmode' 'HT40+'
+        option 'distance' '100'
+        option 'ht_capab' 'SHORT-GI-40 TX-STBC RX-STBC1 DSSS_CCK-40'
+        option 'channel' '36'
+        option 'txpower' '17'
+        option 'macaddr' '00:15:6d:3a:25:30'
+        option 'disabled' '0'
+
+config 'wifi-iface'
+        option 'device' 'radio0'
+        option 'network' 'wifimesh'
+        option 'hidden' '0'
+        option 'encryption' 'psk2'
+        option 'key' '<key>'
+        option 'ssid' 'ff149a'
+        option 'mode' 'ap'
+}}}
