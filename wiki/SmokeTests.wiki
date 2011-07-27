@@ -179,6 +179,32 @@ config 'wifi-iface'
 === General: Adhoc mode TX Rates ===
  * *Question: What MCS rates are supported in adhoc in ath9k?* (to be tested empirically) on a device that supports up to MCS15
 
+Tested on Ubiquiti Nano M5 - running openwrt Kernel 2.6.39.2
+
+*Bitrates*
+
+        tx bitrate:     270.0 MBit/s MCS 15 40Mhz
+        rx bitrate:     6.0 MBit/s
+
+*iperf*
+ 
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 34844
+[ ID] Interval       Transfer     Bandwidth
+[  4]  0.0-10.1 sec  48.5 MBytes  40.2 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 34845
+[  4]  0.0-10.0 sec  50.6 MBytes  42.3 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 34846
+[  4]  0.0-10.0 sec  51.0 MBytes  42.6 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 34847
+[  4]  0.0-10.3 sec  50.4 MBytes  41.1 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 34848
+[  4]  0.0-10.0 sec  48.8 MBytes  40.7 Mbits/sec
+
+
 = Routing & Meshing =
 
  * *Question: If a router is running OLSR on a LAN where one or more of the onnections are made with external wireless APs (not routers), will the OLSR device be able to calculate link qualities correctly?*
