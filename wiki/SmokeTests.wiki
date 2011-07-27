@@ -171,7 +171,7 @@ config 'wifi-iface'
 
 ==== Near Field Effects & Sectoring ====
 
- * Summary: Sectored !NanoStationM5-Loco devices do degrade each other's throughput.  
+Summary: Sectored !NanoStationM5-Loco devices do degrade each other's throughput.  
  * Degradation is decreased if channels are not adjacent, but spacing by 2 or more channels makes it reasonably small
  * ADHOC mode increases degradation
  * HT20 with more sectors is preferable to HT40 with fewer. 
@@ -221,7 +221,8 @@ HT40 AP/STA Channel 149 & 157
 
 
 === General: Adhoc mode TX Rates ===
- * Summary: ath9k supports full 802.11n with multiple chains and channel bonding.  
+
+Summary: ath9k supports full 802.11n with multiple chains and channel bonding.  
  * In general, performance is poorer than in AP/STA (no short GI?), but not by a heck of a lot.  
  * Not shown, HT20 achieved a rate of 44Mbps
 
@@ -296,9 +297,10 @@ TCP window size: 85.3 KByte (default)
 
 = Routing & Meshing =
 
- * *Question: If a router is running OLSR on a LAN where one or more of the onnections are made with external wireless APs (not routers), will the OLSR device be able to calculate link qualities correctly?*
+Summary:
+ * A central router running OLSR and connected via ethernet to radios in bridge mode will correctly calculate ETX over the wireless links.  
 
-
+Details:
 
 A link was created between two devices running OLSR
 
