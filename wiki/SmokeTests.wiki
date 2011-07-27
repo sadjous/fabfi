@@ -239,6 +239,7 @@ A WDS link was created between two devices running OLSR
 {{{ Device1<--cable-->(WDS-AP)<--wireless-->(WDS-AP)<--cable-->Device2 }}}
 
 With the signal level between the WDS peers at
+
 {{{    Link Quality=45/94  Signal level=-51 dBm  Noise level=-96 dBm }}}
 
 The OLSR neighbours table looked like
