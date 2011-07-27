@@ -235,70 +235,17 @@ TCP window size: 85.3 KByte (default)
 
 
 ===Test 1===
-A WDS link was created between two devices running OLSR
+A link was created between two devices running OLSR
 
 
-{{{ Device1<--cable-->(WDS-AP)<--wireless-->(WDS-AP)<--cable-->Device2 }}}
+{{{ Device1<--cable-->(Link1)<--wireless-->(Link2)<--cable-->Device2 }}}
 
-With the signal level between the WDS peers at
+First, a proper link was created
 
-{{{    Link Quality=45/94  Signal level=-51 dBm  Noise level=-96 dBm }}}
-
-The OLSR neighbours table looked like
-
-{{{
-
-Table: Links
-Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
-
-10.100.0.6      10.100.0.2      0.00    1.000   1.000   1.000
-
-}}}
-
-The WDS peers were then "hidden" in metal containers and the signal between them deteriorated
-
-{{{    Link Quality=13/94  Signal level=-83 dBm  Noise level=-100 dBm }}}
-
-The OLSR table
-
-{{{
-
-Table: Links
-Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
-10.100.0.6      10.100.0.2      0.00    1.000   1.000   1.000
-
-}}}
+{{{ Link Quality=75/94  Signal level=-21 dBm  Noise level=-100 dBm }}}
 
 
-The OLSR mode was then changed from "ether" to "mesh" - in both devices. After waiting for OLSR to settle :
-The table hadn't changed
-
-{{{
-
-Table: Links
-Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
-10.100.0.6      10.100.0.2      0.00    1.000   1.000   1.000
-
-}}}
-
-
-More Metal and copper foil were added and the WDS signal levels dropped to
-
-{{{           Link Quality=5/94  Signal level=-91 dBm  Noise level=-99 dBm  }}}
-
-OLSR table
-{{{
-Table: Links
-Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
-10.100.0.6      10.100.0.2      0.00    0.278   0.000   INFINITE
-
-}}}
-
-Some of the blocking metal was then removed and the signal levels became
-
-{{{       Link Quality=8/94  Signal level=-88 dBm  Noise level=-99 dBm   }}}
-
-The OLSR table
+The OLSR neighbours table looked like :
 
 {{{
 Table: Links
@@ -307,39 +254,20 @@ Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
 }}}
 
 
-===Test 2 ===
+Where Device1 and Device2 are running OpenWrt with OLSR and Link1 and Link2 are running AirOS and have their interfaces bridged.
 
-The devices in Test 1 above were then flashed with fabfi firmware and configured as AP and STA
+The Link devices had their txpower lowered and were then put in metal containers. The signal levels dropped to :
 
-With Signal level
+{{{ Link Quality=9/94  Signal level=-87 dBm  Noise level=-99 dBm }}}
 
-{{{           Link Quality=70/70  Signal level=-36 dBm  }}}
 
-The OLSR links table
-
-{{{
-Table: Links
-Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
-10.104.0.11     10.104.0.13     0.00    0.886   1.000   1.128
-}}}
-
-After placing the devices in metal containers and with signal levels
-
- {{{         Link Quality=16/70  Signal level=-94 dBm    }}}
+and the OLSR neighbour table
 
 {{{
 Table: Links
 Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
-10.104.0.11     10.104.0.13     0.00    1.000   1.000   1.000
+10.100.0.6      10.100.0.2      0.00    1.000   0.553   1.808
 }}}
 
-iperf gave
 
-{{{
-[ ID] Interval       Transfer     Bandwidth
-[  4]  0.0-15.8 sec   384 KBytes   199 Kbits/sec
-}}}
-
-It appears OLSR doesn't depend on signal strength but rather on the number of dropped packets.
-
-*Answer:* Test to be redesigned and redone.
+It can be seen that the OLSR devices respond to changes in link quality between two non-OLSR devices.
