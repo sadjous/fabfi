@@ -150,12 +150,35 @@ C-Node design Consideration:  Adding !PicoStation for meshing provides an advant
 
 = Hardware: Power =
 
-  * [http://www.beezwaxproducts.com/product_info.php?manufacturers_id=11&products_id=168&osCsid=00c9df71ebfff87c0b1a966601b96c49 Passive POE injector for battery hookup]
-  * If build self: Power system Monitoring via RS232
-  * Passive POE Switch!!! http://www.beezwaxproducts.com/product_info.php?products_id=194&osCsid=00c9df71ebfff87c0b1a966601b96c49
-  * lots of good stuff: http://www.beezwaxproducts.com/index.php?manufacturers_id=11&osCsid=00c9df71ebfff87c0b1a966601b96c49
- * Solar Chg Controller:[http://www.beezwaxproducts.com/product_info.php?manufacturers_id=11&products_id=137&osCsid=00c9df71ebfff87c0b1a966601b96c49 buy] [http://www.tyconpower.com/products/files/TP-SC_Charge_Controller_Spec_Sheet.pdf datasheet]
- * Solar chg ctrl w/POE [http://www.beezwaxproducts.com/product_info.php?manufacturers_id=11&products_id=76&osCsid=00c9df71ebfff87c0b1a966601b96c49 buy] [http://www.tyconpower.com/products/files/TP-SCPOE_Charge_Controller_Spec_Sheet.pdf datasheet] This would run a PowerAP + a Nano-loco with NO HACKING.  Could be an awesome solution for C-Node
+ * If build self: Power system Monitoring via RS232
+
+|| Description (link is to buy site) || Datasheet? || Notes || Price ||
+|| [http://www.beezwaxproducts.com/product_info.php?manufacturers_id=11&products_id=168&osCsid=00c9df71ebfff87c0b1a966601b96c49 Passive POE injector for battery hookup] || || more options on the site. ||$8 ||
+|| [http://www.beezwaxproducts.com/product_info.php?manufacturers_id=11&products_id=193&osCsid=00c9df71ebfff87c0b1a966601b96c49 5-port Passive POE GigabitSwitch] || [http://tyconpower.com/products/files/TPS_POE_Switch_Spec_Sheet.pdf yes] || || $135 ||
+|| [http://www.beezwaxproducts.com/product_info.php?manufacturers_id=11&products_id=194&osCsid=00c9df71ebfff87c0b1a966601b96c49 8-port Passive POE 10/100 Switch] || [http://www.tyconpower.com/products/files/TP-SW8_POE_Switch_Spec_Sheet.pdf yes] || || $170 ||
+|| [http://www.beezwaxproducts.com/product_info.php?manufacturers_id=11&products_id=209&osCsid=00c9df71ebfff87c0b1a966601b96c49 5-port Passive POE 10/100 Switch] || [http://tyconpower.com/products/files/TPS_POE_Switch_Spec_Sheet.pdf yes] || || $125 ||
+|| [http://www.solarpanelsonline.org/Solartech_Power_65W_12V_Poly_Solar_Panel_p/spm065p-n.htm 65W 12V solar panel] || [http://www.solartechpower.com/solarpanelmanual/SPM065P.pdf yes] || more options on site || $250 ||
+|| [http://www.solar-electric.com/unba.html AGM Gel Batteries] || || Many sizes and options || $55 for 35Ah ||
+|| [http://www.batteryweb.com/universal-batteries.cfm All UB Batteries || || Call for prices || ||
+|| [http://www.beezwaxproducts.com/product_info.php?manufacturers_id=11&products_id=137&osCsid=00c9df71ebfff87c0b1a966601b96c49 12/24V 8A Solar Charge Controller] || [http://www.tyconpower.com/products/files/TP-SC_Charge_Controller_Spec_Sheet.pdf yes] || || $35 ||
+|| [http://www.beezwaxproducts.com/product_info.php?manufacturers_id=11&products_id=76&osCsid=00c9df71ebfff87c0b1a966601b96c49 12V 8A Solar Charge Controller w/POE ] || [http://www.tyconpower.com/products/files/TP-SCPOE_Charge_Controller_Spec_Sheet.pdf yes] || other input/output options avail || $60 ||
+ * lots of good stuff: http://www.beezwaxproducts.com/index.php?manufacturers_id=11&osCsid=00c9df71ebfff87c0b1a966601b96c49
+ * [http://freecleansolar.com/solar_calculator.php solar calculator]
+ * [http://rredc.nrel.gov/solar/calculators/PVWATTS/version1/ Solar radiation calculator]
+ 
+ More stuff in our [https://spreadsheets.google.com/spreadsheet/ccc?key=0AnA6LOF3_NU1dHBkaHRIUlktZWxzUTdBdC1wb0xHV0E&hl=en_US GIANT HARDWARE SPREADSHEET]
+  
+_"Any Ubiquiti radio can use a PoE
+supply of 12 to 24V. A NanoStation
+requires around 6W.
+
+Remember that the Ubiquiti PoE
+supply provides grounding for the
+required shielded (FTP) CAT5
+cable. If you use another PoE
+system, you need to provide
+grounding for the shield."_
+http://ubnt.com/forum/showthread.php?t=38378&highlight=volt
 
 = Hardware: Other =
 
@@ -237,6 +260,10 @@ For Graphing
 
  * Server management
    * Puppet/Matahari
+   
+= Proxty and Caching =
+
+ * Polipo: Web cache optimized for crawling
 
 = Etc: Miscellaneous = 
 
