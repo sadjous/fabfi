@@ -181,6 +181,28 @@ config 'wifi-iface'
 
 Tested on Ubiquiti Nano M5 - running openwrt Kernel 2.6.39.2
 
+* Wireless Settings *
+
+config wifi-device  radio0
+        option type     mac80211
+        option channel  149 
+        option macaddr  00:15:6d:3a:25:3e
+        option hwmode   11na
+        option htmode   HT40+
+        list ht_capab   SHORT-GI-40
+        list ht_capab   TX-STBC
+        list ht_capab   RX-STBC1
+        list ht_capab   DSSS_CCK-40
+        # REMOVE THIS LINE TO ENABLE WIFI:
+        option disabled 0
+
+config wifi-iface
+        option device   radio0
+        option network  wlan
+        option mode     adhoc
+        option ssid     OpenWrt
+        option encryption none
+
 *Bitrates*
 
         tx bitrate:     270.0 MBit/s MCS 15 40Mhz
@@ -192,17 +214,18 @@ Tested on Ubiquiti Nano M5 - running openwrt Kernel 2.6.39.2
 Server listening on TCP port 5001
 TCP window size: 85.3 KByte (default)
 ------------------------------------------------------------
-[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 34844
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 59545
 [ ID] Interval       Transfer     Bandwidth
-[  4]  0.0-10.1 sec  48.5 MBytes  40.2 Mbits/sec
-[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 34845
-[  4]  0.0-10.0 sec  50.6 MBytes  42.3 Mbits/sec
-[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 34846
-[  4]  0.0-10.0 sec  51.0 MBytes  42.6 Mbits/sec
-[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 34847
-[  4]  0.0-10.3 sec  50.4 MBytes  41.1 Mbits/sec
-[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 34848
-[  4]  0.0-10.0 sec  48.8 MBytes  40.7 Mbits/sec
+[  4]  0.0-10.1 sec  63.0 MBytes  52.5 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 59546
+[  4]  0.0-10.0 sec  63.0 MBytes  52.6 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 59547
+[  4]  0.0-10.0 sec  63.0 MBytes  52.8 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 59548
+[  4]  0.0-10.0 sec  63.4 MBytes  52.9 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 44674
+[  4]  0.0-10.0 sec  63.0 MBytes  52.7 Mbits/sec
+
 
 
 = Routing & Meshing =
