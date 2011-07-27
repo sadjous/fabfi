@@ -190,7 +190,8 @@ HT20 AP/STA Channel 149 & 165
 
 }}}
 
-HT40+
+==== HT40+ ====
+
 {{{
 HT40 AP/STA Channel 149 & 157
 52.2 Mbits/sec
