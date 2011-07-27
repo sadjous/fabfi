@@ -229,6 +229,23 @@ TCP window size: 85.3 KByte (default)
 }}}
 
 
+When changed to HT20, iperf gave
+
+
+{{{
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 40242
+[ ID] Interval       Transfer     Bandwidth
+[  4]  0.0-10.0 sec  52.5 MBytes  43.9 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 40243
+[  4]  0.0-10.1 sec  52.8 MBytes  44.0 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 40244
+[  4]  0.0-10.0 sec  52.8 MBytes  44.1 Mbits/sec
+}}}
+
 = Routing & Meshing =
 
  * *Question: If a router is running OLSR on a LAN where one or more of the onnections are made with external wireless APs (not routers), will the OLSR device be able to calculate link qualities correctly?*
