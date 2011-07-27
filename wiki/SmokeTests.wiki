@@ -238,16 +238,67 @@ A WDS link was created between two devices running OLSR
 
 {{{ Device1<--cable-->(WDS-AP)<--wireless-->(WDS-AP)<--cable-->Device2 }}}
 
-With the Link Quality between the WDS peers at 4/4 ( 4 lights out of 4 )
-{{{
+With the signal level between the WDS peers at
+{{{    Link Quality=45/94  Signal level=-51 dBm  Noise level=-96 dBm }}}
 
-root@fabfi6:~# echo /links | nc localhost 2006
-HTTP/1.0 200 OK
-Content-type: text/plain
+The OLSR neighbours table looked like
+
+{{{
 
 Table: Links
 Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
 
 10.100.0.6      10.100.0.2      0.00    1.000   1.000   1.000
 
+}}}
+
+The WDS peers were then "hidden" in metal containers and the signal between them deteriorated
+
+{{{    Link Quality=13/94  Signal level=-83 dBm  Noise level=-100 dBm }}}
+
+The OLSR table
+
+{{{
+
+Table: Links
+Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
+10.100.0.6      10.100.0.2      0.00    1.000   1.000   1.000
+
+}}}
+
+
+The OLSR mode was then changed from "ether" to "mesh" - in both devices. After waiting for OLSR to settle :
+The table hadn't changed
+
+{{{
+
+Table: Links
+Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
+10.100.0.6      10.100.0.2      0.00    1.000   1.000   1.000
+
+}}}
+
+
+More Metal and copper foil were added and the WDS signal levels dropped to
+
+{{{           Link Quality=5/94  Signal level=-91 dBm  Noise level=-99 dBm  }}}
+
+OLSR table
+{{{
+Table: Links
+Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
+10.100.0.6      10.100.0.2      0.00    0.278   0.000   INFINITE
+
+}}}
+
+Some of the blocking metal was then removed and the signal levels became
+
+{{{       Link Quality=8/94  Signal level=-88 dBm  Noise level=-99 dBm   }}}
+
+The OLSR table
+
+{{{
+Table: Links
+Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
+10.100.0.6      10.100.0.2      0.00    1.000   1.000   1.000
 }}}
