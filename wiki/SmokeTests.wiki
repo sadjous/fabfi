@@ -234,7 +234,7 @@ TCP window size: 85.3 KByte (default)
  * *Question: If a router is running OLSR on a LAN where one or more of the onnections are made with external wireless APs (not routers), will the OLSR device be able to calculate link qualities correctly?*
 
 
-===Test 1===
+
 A link was created between two devices running OLSR
 
 
@@ -256,7 +256,7 @@ Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
 }}}
 
 
-The Link devices had their txpower lowered and were then put in metal containers. The signal levels dropped to :
+The Link devices then had their txpower lowered and were then put in metal containers. The signal levels dropped to :
 
 {{{ Link Quality=9/94  Signal level=-87 dBm  Noise level=-99 dBm }}}
 
