@@ -240,6 +240,8 @@ A link was created between two devices running OLSR
 
 {{{ Device1<--cable-->(Link1)<--wireless-->(Link2)<--cable-->Device2 }}}
 
+Where Device1 and Device2 are devices running OpenWrt with OLSR. Link1 and Link2 are devices running AirOS and have their interfaces bridged.
+
 First, a proper link was created
 
 {{{ Link Quality=75/94  Signal level=-21 dBm  Noise level=-100 dBm }}}
@@ -253,8 +255,6 @@ Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
 10.100.0.6      10.100.0.2      0.00    1.000   1.000   1.000
 }}}
 
-
-Where Device1 and Device2 are running OpenWrt with OLSR and Link1 and Link2 are running AirOS and have their interfaces bridged.
 
 The Link devices had their txpower lowered and were then put in metal containers. The signal levels dropped to :
 
