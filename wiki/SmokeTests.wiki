@@ -188,18 +188,6 @@ HT20 AP/STA Channel 149 & 161
 HT20 AP/STA Channel 149 & 165
 50.2 Mbits/sec
 
-}}}
-
-==== HT40+ ====
-
-{{{
-HT40 AP/STA Channel 149 & 157
-52.2 Mbits/sec
-
-}}}
-
-
-{{{
 HT20 ADHOC - Adjacent Channels ( 149 & 153 )
 25.6 Mbits/sec
 
@@ -208,6 +196,18 @@ HT20 ADHOC Channel 149 & 157
 32.1 Mbits
 
 }}}
+
+==== HT40+ ====
+
+{{{
+
+HT40 AP/STA Channel 149 & 157
+52.2 Mbits/sec
+
+}}}
+
+
+
 
  * *Question2:  How does this compare to non-overlapping Omni-directional operation?*
  * This test informs whether it is reasonable to sector the NanoStations or whether more expensive antenna hardware will be desirable. 
