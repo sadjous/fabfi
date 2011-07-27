@@ -232,3 +232,22 @@ TCP window size: 85.3 KByte (default)
 = Routing & Meshing =
 
  * *Question: If a router is running OLSR on a LAN where one or more of the onnections are made with external wireless APs (not routers), will the OLSR device be able to calculate link qualities correctly?*
+
+A WDS link was created between two devices running OLSR
+
+
+{{{ Device1<--cable-->(WDS-AP)<--wireless-->(WDS-AP)<--cable-->Device2 }}}
+
+With the Link Quality between the WDS peers at 4/4 ( 4 lights out of 4 )
+{{{
+
+root@fabfi6:~# echo /links | nc localhost 2006
+HTTP/1.0 200 OK
+Content-type: text/plain
+
+Table: Links
+Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
+
+10.100.0.6      10.100.0.2      0.00    1.000   1.000   1.000
+
+}}}
