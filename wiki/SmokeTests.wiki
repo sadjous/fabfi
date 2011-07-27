@@ -172,6 +172,82 @@ config 'wifi-iface'
 ==== Near Field Effects & Sectoring ====
 
  * *Question1: what throughput degradation is experienced with closely sectored nanostations on adjacent, non-overlapping channels.  Is degradation materially different with 20Mhz vs. 40Mhz channels?*
+
+DEVICE 1 : CHANNEL 153
+DEVICE 2 : CHANNEL 149
+
+All devices are on HT20
+
+TEST 1 - Monitoring Device1 - Device2 is on but idle
+
+{{{
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56045
+[ ID] Interval       Transfer     Bandwidth
+[  4]  0.0-10.0 sec  52.9 MBytes  44.2 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56046
+[  4]  0.0-10.0 sec  53.4 MBytes  44.6 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56047
+[  4]  0.0-10.0 sec  53.3 MBytes  44.5 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 54296
+[  4]  0.0-10.0 sec  53.0 MBytes  44.3 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 54297
+[  4]  0.0-10.1 sec  53.1 MBytes  44.3 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 54298
+[  4]  0.0-10.0 sec  53.5 MBytes  44.7 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 54299
+[  4]  0.0-10.0 sec  53.1 MBytes  44.4 Mbits/sec
+}}}
+
+TEST 2 
+
+
+Monitoring Device 1 - Device 2 Busy transmitting
+
+{{{
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56008
+[ ID] Interval       Transfer     Bandwidth
+[  4]  0.0-10.1 sec  30.8 MBytes  25.6 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56009
+[  4]  0.0-10.1 sec  30.0 MBytes  25.0 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56010
+[  4]  0.0-10.0 sec  30.6 MBytes  25.6 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56011
+[  4]  0.0-10.1 sec  31.1 MBytes  25.9 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56012
+[  4]  0.0-10.0 sec  31.1 MBytes  26.0 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56013
+[  4]  0.0-10.1 sec  30.4 MBytes  25.3 Mbits/sec
+}}}
+
+TEST 3 - Moved Device 1 to channel 157, Device 2 busy
+
+{{{
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56024
+[ ID] Interval       Transfer     Bandwidth
+[  4]  0.0-10.1 sec  42.0 MBytes  35.0 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 56025
+[  4]  0.0-10.1 sec  39.5 MBytes  32.9 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 47376
+[  4]  0.0-10.1 sec  38.0 MBytes  31.7 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 47377
+[  4]  0.0-10.1 sec  38.5 MBytes  32.1 Mbits/sec
+[  4] local 192.168.2.1 port 5001 connected with 192.168.2.2 port 47378
+[  4]  0.0-10.0 sec  39.4 MBytes  32.9 Mbits/sec
+}}}
+
+
  * *Question2:  How does this compare to non-overlapping Omni-directional operation?*
  * This test informs whether it is reasonable to sector the NanoStations or whether more expensive antenna hardware will be desirable. 
 
