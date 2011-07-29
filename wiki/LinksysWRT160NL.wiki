@@ -14,7 +14,8 @@ The LinksysWRT16NL is the device most commonly used as a headnode in Fabfi.  It 
 *Hardware you will need:*
  # A serial cable (or, for most modern users, a usb --> serial connection)
  # A RS232 converter 
-   * combine 1 and 2: Google "USB to TTL Serial" and you'll find lots of products [http://www.makershed.com/ProductDetails.asp?ProductCode=TTL232R like this].
+   * combine 1 and 2: Google "USB to TTL Serial" and you'll find lots of products [http://www.makershed.com/ProductDetails.asp?ProductCode=TTL232R like this] or [http://www.sparkfun.com/products/9718 this]
+
  # A Linksys WRT160NL Router
 
 *Software you will need:*
