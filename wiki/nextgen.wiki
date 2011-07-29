@@ -151,6 +151,7 @@ C-Node design Consideration:  Adding !PicoStation for meshing provides an advant
 = Hardware: Power =
 
  * If build self: Power system Monitoring via RS232
+ * Build [http://drupal.airjaldi.com/system/files/Jaldi_Charger_design_1.6.3.pdf Jaldi Charger]
 
 || Description (link is to buy site) || Datasheet? || Notes || Price ||
 || [http://www.beezwaxproducts.com/product_info.php?manufacturers_id=11&products_id=168&osCsid=00c9df71ebfff87c0b1a966601b96c49 Passive POE injector for battery hookup] || || more options on the site. ||$8 ||
