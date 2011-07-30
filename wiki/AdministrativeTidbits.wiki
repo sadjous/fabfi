@@ -90,7 +90,7 @@ $ svn checkout https://fabfi.googlecode.com/svn/wiki wiki--username yourgoogleus
    (Be sure to use the correct file extension e.g jpeg, png, etc)
 }}}
 
-NOTE: You can omit this step by following [https://code.google.com/p/support/wiki/SubversionFAQ#How_can_I_make_SVN_serve_HTML_and_images_with_the_correct_Conten these instructions].
+*NOTE: You can omit this step by following [https://code.google.com/p/support/wiki/SubversionFAQ#How_can_I_make_SVN_serve_HTML_and_images_with_the_correct_Conten these instructions].*
 
 6. Upload the image:
 {{{
