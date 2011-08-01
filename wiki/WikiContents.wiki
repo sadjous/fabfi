@@ -5,6 +5,7 @@
   * [Locations Global FabFi Deployments]
   * [FAQ Frequently Asked Questions]
   * [FAQPress Frequently Asked Questions by the Press Media]
+  *
   * *==== General FabFi & Networking ====*
   * Tutorials   
      * [DesigningYourNetwork Network Design]
