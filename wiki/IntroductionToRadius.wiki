@@ -1,32 +1,34 @@
-#Freeradius Authentication, Authorization and Accounting and captive portal authentication.
+#Freeradius Authentication, Authorization and Accounting
 
 = Introduction =
 
-This article assumes that you have a working freeradius setup. For instructions on installing freeradius, go [http://code.google.com/p/fabfi/wiki/FabfiServer#Install_Freeradius here ].
+This wiki assumes that you have a working freeradius setup. For instructions on installing freeradius, go [http://code.google.com/p/fabfi/wiki/FabfiServer#Install_Freeradius here ].
 
-Remote Authentication Dial-In User Service (RADIUS) is a networking protocol for for carrying authentication, authorization and accounting information between a Network Access Server (NAS) and a shared Accounting Server.
+Remote Authentication Dial-In User Service (RADIUS) is a networking protocol for for carrying authentication, authorization and accounting information between a Network Access Server (NAS) or Access Controller and a shared Accounting Server.
 
+`CoovaChilli` is a software access controller ( RADIUS client ) installed in Fabfi Access points and is used in conjunction with Freeradius to restrict access and login users. 
 
+Fabfi uses `FreeRADIUS` though any other RADIUS server will work fine provided that it is configured correctly. Other opensource RADIUS servers include, [http://coova.org/JRadius `JRadius`] , [http://www.bsdradius.org/ `BSDRadius`] and [http://freeradius.net/ `FreeRADIUS.net`] which is FreeRADIUS for Windows.
 
 == HOW RADIUS WORKS ==
 
-RADIUS uses the UDP protocol to communicate between the Network Access Server (NAS) and the RADIUS server.
+RADIUS uses the UDP protocol to communicate between the Network Access Server (`CoovaChilli`) and the RADIUS server. 
 
 ==== Authentication ====
 
-Authentication requests are listened to on port 1812. 
+Authentication requests are listened to on port 1812. Here's a step-by-step summary of the Authentication process when using `CoovaChilli` and Freeradius
 
-    User connects to the Access Point (NAS) and attempts to browse to a webpage.
+    User connects to the Access Point and attempts to browse to a webpage.
 
-    User is redirected to login splash page where he enters Username and Password
+   `CoovaChilli` redirects user to login splash page where he enters Username and Password
 
-    NAS encrypts password by [http://en.wikipedia.org/wiki/Challenge-Handshake_Authentication_Protocol CHAP]
+    Chilli encrypts password with [http://en.wikipedia.org/wiki/Challenge-Handshake_Authentication_Protocol CHAP]
 
-    RADIUS client sends username and encrypted password to the RADIUS server.
+    `CoovaChilli` sends username and encrypted password to the RADIUS server.
 
-    RADIUS server responds with Accept, Reject, or Challenge.
+    RADIUS server responds with Access-Accept or Access-Reject together with some Reply Attributes.
 
-    The RADIUS client acts upon services and services parameters bundled with Accept or Reject.
+    `CoovaChilli` client acts upon services and services parameters specified in the Reply Attributes bundled with Accept or Reject.
 
 The Authentication Packet is a UDP packet that looks like
 
@@ -77,7 +79,7 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=14, l
         NAS-Identifier = "fabfi98"
 }}}
 
-While the user's session is on, the UAM sends interim update packets - the length of time between interim update packets is 5 minutes, but this can be adjusted using the Acct-Interval reply attribute.  
+While the user's session is on, the UAM sends interim update packets - the length of time between interim update packets is 5 minutes, but this can be adjusted using the ChilliSpot-Interval reply attribute.  These interim update packets update the table `radacct` ( for SQL accounting ) with details such as session time, uploaded data, downloaded data etc.
 
 {{{
 rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=13, length=206
@@ -104,7 +106,7 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=13, l
         NAS-Identifier = "fabfi98"
 }}}
 
-When the user terminates his session 
+When the user terminates his session, the "stop" packet is sent. This removes the user from the online clients list.
 
 {{{
 rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=18, length=215
@@ -131,6 +133,7 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=18, l
         NAS-IP-Address = 10.116.98.1
         NAS-Identifier = "fabfi98"
 }}}
+
 
 == ATTRIBUTES ==
 
@@ -167,21 +170,27 @@ ATTRIBUTE       Max-Monthly-Data                3       integer
 
 Where FabFi is the vendor name and 16559 is the vendor id ( self-set in this case ). No two vendors should have the same Id.
 
-The following are examples of Attributes commonly used by JoinAfrica
+Below are some attributes frequently used by JoinAfrica
 
 ==== Check-Attributes ====
 
 `Simultaneous-Use` - This is defined in dictionary.freeradius.internal . If set, no more than x users can login simultaneously on the same account, where x is an integer.
+
  
 `Max-Daily-Session` - Defined in dictionary.freeradius.internal. Specifies the maximum time ( in seconds ) a user gets in a day.
 
+
 `Max-Monthly-Session` - Defined in dictionary.freeradius.internal. Specifies the maximum time ( in seconds ) a user gets in a month.
+
 
 `Max-All-Session` - Defined in dictionary.freeradius.internal. Specifies the maximum non-renewable time ( in seconds ) will ever get.
 
+
 `Max-Daily-Data` - Defined in dictionary.fabfi Specifies the maximum data ( in bytes ) a user gets in a day.
 
+
 `Max-Monthly-Data` - Defined in dictionary.fabfi Specifies the maximum data ( in bytes ) a user gets in a month.
+
 
 `Max-Total-Data` - Defined in dictionary.fabfi Specifies the total data ( in bytes ) a user will ever get.
 
@@ -189,12 +198,16 @@ The following are examples of Attributes commonly used by JoinAfrica
 
 `Idle-Timeout` - This attribute is defined in dictionary.rfc2865. If set, the NAS will automatically logout the user if the Idle time has expired. Set in seconds.
 
+
 `Session-Timeout` - This attribute is defined in dictionary.rfc2865. It gives a user a fixed session time. If set, the user gets logged out when his session time expires. The session time is set in seconds.
+
 
 `ChilliSpot-Bandwidth-Max-Down` - This is a vendor specific attribute defined in dictionary.Chillispot. It determines the maximum download speed a user will get. It is set in KiloBits/Second.  
 
+
 `ChilliSpot-Bandwidth-Max-Up` - This has also been defined in dictionary.Chillispot
 It determines the maximum upload speed a user will get. It is set in KiloBits/Second.
+
 
 For the full list of attributes, see the links below.
 
@@ -223,11 +236,23 @@ The check and Reply attributes for a group are set in the tables `radgroupcheck`
 
 Daloradius provides an easy to use web-based graphical user interface for managing users, groups, profiles and also viewing their accounting data, billing, graphing etc. Daloradius simply manipulates freeradius database tables. It also adds its own set of tables for extra functionality. 
 
-Fabfi recommends using daloradius to manipulate the freeradius database.
+Fabfi recommends using daloradius to manage users, groups (profiles) and attributes.
+
+
+== TO DO ==
+
+*Realms
+
+*`PostAuth`
+
+*`CoovaChilli`
+
+*`IEEE802.1x`
 
 = Links & References =
 
 DIAMETER is set to be the successor of RADIUS. More on that [http://en.wikipedia.org/wiki/Diameter_%28protocol%29 here]
+
 
 http://en.wikipedia.org/wiki/RADIUS
 
