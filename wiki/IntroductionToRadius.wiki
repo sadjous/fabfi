@@ -215,10 +215,10 @@ For the full list of attributes, see the links at the bottom of the page.
 
 ====Operators & Assigning Values to Attributes====
 
-Attributes have a "type" e.g string, integer etc
+Attributes have a "type" e.g string, integer etc . The value assigned to an attribute must match its "type".
 
 When setting an attribute for a user/group, an appropriate operator must be used to assign a value to the attribute. Below are the valid operators
-
+(copied from [http://freeradius.org/radiusd/man/users.html here] )
 `Attribute = Value`
     Not allowed as a check item for RADIUS protocol attributes. It is allowed for server configuration attributes (Auth-Type, etc), and sets the value of on attribute, only if there is no other item of the same attribute.
     As a reply item, it means "add the item to the reply list, but only if there is no other item of the same attribute."
