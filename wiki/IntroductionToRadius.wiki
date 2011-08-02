@@ -12,9 +12,9 @@ Remote Authentication Dial-In User Service (RADIUS) is a networking protocol for
 
 RADIUS uses the UDP protocol to communicate between the Network Access Server (NAS) and the RADIUS server.
 
-=== AUTHENTICATION ===
+==== Authentication ====
 
-Authentication requests are listened to on port 1812
+Authentication requests are listened to on port 1812. 
 
     User connects to the Access Point (NAS) and attempts to browse to a webpage.
 
@@ -33,7 +33,7 @@ The Authentication Packet is a UDP packet that looks like
 {{{
 rad_recv: Access-Request packet from host 41.204.176.76 port 47577, id=198, length=237
         ChilliSpot-Version = "1.2.6"
-        User-Name = "username"
+        User-Name = "superuser"
         CHAP-Challenge = 0xa6e3460b11dcec2756fcc4b5355092bf
         CHAP-Password = 0x004c38f55956c8346ecb7de2cf43b700a1
         Service-Type = Login-User
@@ -41,7 +41,7 @@ rad_recv: Access-Request packet from host 41.204.176.76 port 47577, id=198, leng
         Framed-IP-Address = 10.116.98.105
         NAS-Port-Type = Wireless-802.11
         NAS-Port = 7
-        NAS-Port-Id = "00000007"
+        NAS-Port-Id = "000000UTHENTICATION07"
         Calling-Station-Id = "C4-17-FE-BC-DB-BB"
         Called-Station-Id = "00-15-6D-4C-43-E4"
         NAS-IP-Address = 10.116.98.1
@@ -55,7 +55,7 @@ Where the  Calling-Station-Id is the MAC-address of the client computer,  Called
 The radius server acts on the information contained in this packet - and responds with an ACCESS-ACCEPT or ACCESS-REJECT message.
 
 
-===ACCOUNTING===
+==== Accounting ====
 
 When an authentication request is successful, the UAM server immediately sends an accounting session start packet
 
@@ -65,7 +65,7 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=14, l
         ChilliSpot-Attr-10 = 0x00000002
         Event-Timestamp = "Jan  1 1970 03:20:11 EAT"
         Acct-Status-Type = Start
-        User-Name = "username"
+        User-Name = "superuser"
         Acct-Session-Id = "4e37c62300000008"
         Framed-IP-Address = 10.116.98.106
         NAS-Port-Type = Wireless-802.11
@@ -85,7 +85,7 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=13, l
         ChilliSpot-Attr-10 = 0x00000002
         Event-Timestamp = "Jan  1 1970 03:18:07 EAT"
         Acct-Status-Type = Interim-Update
-        User-Name = "username"
+        User-Name = "superuser"
         Acct-Input-Octets = 743566
         Acct-Output-Octets = 207481
         Acct-Input-Gigawords = 0
@@ -112,7 +112,7 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=18, l
         ChilliSpot-Attr-10 = 0x00000002
         Event-Timestamp = "Jan  1 1970 03:21:45 EAT"
         Acct-Status-Type = Stop
-        User-Name = "username"
+        User-Name = "superuser"
         Acct-Input-Octets = 253
         Acct-Output-Octets = 663
         Acct-Input-Gigawords = 0
@@ -134,10 +134,22 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=18, l
 
 == ATTRIBUTES ==
 
-Radius Attributes 
 There are two general kinds of attributes : Check Attributes and Reply Attributes
 
-Reply attributes are bundled with an ACCESS-ACCEPT or ACCESS-REJECT
+check attributes are used in the authentication stage. e.g user-password is a check-attribute. The radius server sends an Access-Accept or Access-Reject based on the results of evaluating the check attributes.
+ 
+Reply attributes are bundled with an Access-Accept or Access-Reject message. The reply attributes are acted upon by the NAS server. e.g ChilliSpot-Bandwidth-Max-Down is used by the NAS ( coova-chilli) to determine the download speed that a client computer gets.
+
+Here's an example of an Access-Accept message bundled with reply attributes.
+
+{{{
+Sending Access-Accept of id 163 to 41.204.176.76 port 58832
+        Idle-Timeout := 120
+        ChilliSpot-Bandwidth-Max-Down := 1024
+        ChilliSpot-Bandwidth-Max-Up := 512
+        Session-Timeout := 1800
+
+}}}
 
 Attributes MUST be defined in a dictionary. If you define your own attributes, make sure you add them to a dictionary ( or make your own dictionary ) . For example, dictionary.fabfi looks like : 
 
@@ -153,35 +165,35 @@ ATTRIBUTE       Max-Monthly-Data                3       integer
 
 }}}
 
-Where FabFi is the vendor name and 16559 is vendor id.
+Where FabFi is the vendor name and 16559 is the vendor id ( self-set in this case ). No two vendors should have the same Id.
 
 The following are examples of Attributes commonly used by JoinAfrica
 
 ==== Check-Attributes ====
 
-Simultaneous-Use
+`Simultaneous-Use` - This is defined in dictionary.freeradius.internal . If set, no more than x users can login simultaneously on the same account, where x is an integer.
  
-Max-Daily-Session
+`Max-Daily-Session` - Defined in dictionary.freeradius.internal. Specifies the maximum time ( in seconds ) a user gets in a day.
 
-Max-Monthly-Session
+`Max-Monthly-Session` - Defined in dictionary.freeradius.internal. Specifies the maximum time ( in seconds ) a user gets in a month.
 
-Max-All-Session
+`Max-All-Session` - Defined in dictionary.freeradius.internal. Specifies the maximum non-renewable time ( in seconds ) will ever get.
 
-Max-Daily-Data
+`Max-Daily-Data` - Defined in dictionary.fabfi Specifies the maximum data ( in bytes ) a user gets in a day.
 
-Max-Monthly-Data
+`Max-Monthly-Data` - Defined in dictionary.fabfi Specifies the maximum data ( in bytes ) a user gets in a month.
 
-Max-Total-Data
+`Max-Total-Data` - Defined in dictionary.fabfi Specifies the total data ( in bytes ) a user will ever get.
 
 ==== Reply-Attributes ====
 
-Idle-Timeout - This attribute is defined in dictionary.rfc2865. If set, the NAS will automatically logout the user if the Idle time has expired. Set in seconds.
+`Idle-Timeout` - This attribute is defined in dictionary.rfc2865. If set, the NAS will automatically logout the user if the Idle time has expired. Set in seconds.
 
-Session-Timeout - This attribute is defined in dictionary.rfc2865. It gives a user a fixed session time. If set, the user gets logged out when his session time expires. The session time is set in seconds.
+`Session-Timeout` - This attribute is defined in dictionary.rfc2865. It gives a user a fixed session time. If set, the user gets logged out when his session time expires. The session time is set in seconds.
 
-ChilliSpot-Bandwidth-Max-Down - This is a vendor specific attribute defined in dictionary.Chillispot. It determines the maximum download speed a user will get. It is set in KiloBits/Second.  
+`ChilliSpot-Bandwidth-Max-Down` - This is a vendor specific attribute defined in dictionary.Chillispot. It determines the maximum download speed a user will get. It is set in KiloBits/Second.  
 
-ChilliSpot-Bandwidth-Max-Up - This has also been defined in dictionary.Chillispot
+`ChilliSpot-Bandwidth-Max-Up` - This has also been defined in dictionary.Chillispot
 It determines the maximum upload speed a user will get. It is set in KiloBits/Second.
 
 For the full list of attributes, see the links below.
