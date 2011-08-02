@@ -4,8 +4,7 @@
 
 This article assumes that you have a working freeradius setup. For instructions on installing freeradius, go [http://code.google.com/p/fabfi/wiki/FabfiServer#Install_Freeradius here ].
 
-Remote Authentication Dial-In User Service (RADIUS) is a networking protocol for for carrying authentication, authorization and accounting information between a
- Network Access Server (NAS) and a shared Accounting Server.
+Remote Authentication Dial-In User Service (RADIUS) is a networking protocol for for carrying authentication, authorization and accounting information between a Network Access Server (NAS) and a shared Accounting Server.
 
 
 
