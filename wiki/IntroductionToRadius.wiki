@@ -17,17 +17,17 @@ RADIUS uses the UDP protocol to communicate between the Network Access Server (N
 
 Authentication requests are listened to on port 1812
 
-    #User connects to the Access Point (NAS) and attempts to browse to a webpage.
+    User connects to the Access Point (NAS) and attempts to browse to a webpage.
 
-    #User is redirected to login splash page where he enters Username and Password
+    User is redirected to login splash page where he enters Username and Password
 
-    #NAS encrypts password by [http://en.wikipedia.org/wiki/Challenge-Handshake_Authentication_Protocol CHAP]
+    NAS encrypts password by [http://en.wikipedia.org/wiki/Challenge-Handshake_Authentication_Protocol CHAP]
 
-    #RADIUS client sends username and encrypted password to the RADIUS server.
+    RADIUS client sends username and encrypted password to the RADIUS server.
 
-    #RADIUS server responds with Accept, Reject, or Challenge.
+    RADIUS server responds with Accept, Reject, or Challenge.
 
-    #The RADIUS client acts upon services and services parameters bundled with Accept or Reject.
+    The RADIUS client acts upon services and services parameters bundled with Accept or Reject.
 
 The Authentication Packet is a UDP packet that looks like
 
@@ -51,12 +51,14 @@ rad_recv: Access-Request packet from host 41.204.176.76 port 47577, id=198, leng
         Message-Authenticator = 0x253d5079d20da0b73a621158d5ea99e3
 }}}
 
+Where the  Calling-Station-Id is the MAC-address of the client computer,  Called-Station-Id is the MAC address of the access point.
+
 The radius server acts on the information contained in this packet - and responds with an ACCESS-ACCEPT or ACCESS-REJECT message.
 
 
 ===ACCOUNTING===
 
-When an authentication request is successful, the UAM server immediately sends an accounting session
+When an authentication request is successful, the UAM server immediately sends an accounting session start packet
 
 {{{
 rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=14, length=163
@@ -64,7 +66,7 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=14, l
         ChilliSpot-Attr-10 = 0x00000002
         Event-Timestamp = "Jan  1 1970 03:20:11 EAT"
         Acct-Status-Type = Start
-        User-Name = "guest"
+        User-Name = "username"
         Acct-Session-Id = "4e37c62300000008"
         Framed-IP-Address = 10.116.98.106
         NAS-Port-Type = Wireless-802.11
@@ -76,14 +78,15 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=14, l
         NAS-Identifier = "fabfi98"
 }}}
 
-An interim update packet
+While the user's session is on, the UAM sends interim update packets - the length of time between interim update packets is 5 minutes, but this can be adjusted using the Acct-Interval reply attribute.  
+
 {{{
 rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=13, length=206
         ChilliSpot-Version = "1.2.6"
         ChilliSpot-Attr-10 = 0x00000002
         Event-Timestamp = "Jan  1 1970 03:18:07 EAT"
         Acct-Status-Type = Interim-Update
-        User-Name = "dmutai"
+        User-Name = "username"
         Acct-Input-Octets = 743566
         Acct-Output-Octets = 207481
         Acct-Input-Gigawords = 0
@@ -101,14 +104,16 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=13, l
         NAS-IP-Address = 10.116.98.1
         NAS-Identifier = "fabfi98"
 }}}
-An accounting stop packet 
+
+When the user terminates his session 
+
 {{{
 rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=18, length=215
         ChilliSpot-Version = "1.2.6"
         ChilliSpot-Attr-10 = 0x00000002
         Event-Timestamp = "Jan  1 1970 03:21:45 EAT"
         Acct-Status-Type = Stop
-        User-Name = "superuser"
+        User-Name = "username"
         Acct-Input-Octets = 253
         Acct-Output-Octets = 663
         Acct-Input-Gigawords = 0
@@ -133,16 +138,66 @@ rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=18, l
 Radius Attributes 
 There are two general kinds of attributes : Check Attributes and Reply Attributes
 
-Attributes MUST be defined in a dictionary
-Dictionary
+Reply attributes are bundled with an ACCESS-ACCEPT or ACCESS-REJECT
 
-UAM server
+Attributes MUST be defined in a dictionary. If you define your own attributes, make sure you add them to a dictionary ( or make your own dictionary ) . For example, dictionary.fabfi looks like : 
 
-Clients
+{{{
+VENDOR          FabFi                   16559
 
-DIAMETER is poised to be the replacement for RADIUS. More on that [http://en.wikipedia.org/wiki/Diameter_%28protocol%29 here]
+BEGIN-VENDOR    Fabfi
+
+
+ATTRIBUTE       Max-Daily-Data                  1       integer
+ATTRIBUTE       Max-Total-Data                  2       integer
+ATTRIBUTE       Max-Monthly-Data                3       integer
+
+}}}
+
+Where FabFi is the vendor name and 16559 is vendor id.
+
+The following are examples of Attributes commonly used by JoinAfrica
+
+==== Check-Attributes ====
+
+Simultaneous-Use
+ 
+Max-Daily-Session
+
+Max-Monthly-Session
+
+Max-All-Session
+
+Max-Daily-Data
+
+Max-Monthly-Data
+
+Max-Total-Data
+
+==== Reply-Attributes ====
+
+Idle-Timeout - This attribute is defined in dictionary.rfc2865. If set, the NAS will automatically logout the user if the Idle time has expired.
+
+Session-Timeout - This attribute is defined in dictionary.rfc2865. It gives a user a fixed session time. If set, the user gets logged out when his session time expires. The session time is set in seconds.
+
+ChilliSpot-Bandwidth-Max-Down - This is a vendor specific attribute defined in dictionary.Chillispot. It determines the maximum download speed a user will get. It is set in Bytes/Second ( Octets/second ) .  
+
+ChilliSpot-Bandwidth-Max-Up - This has also been defined in dictionary.Chillispot
+It determines the maximum upload speed a user will get. It is set in Bytes/Second ( Octets/second ) .
+
+For the full list of attributes, see the links below.
+
+= USERS, GROUPS AND PROFILES =
+
+
+
+
 
 = Links & References =
+
+DIAMETER is set to be the successor of RADIUS. More on that [http://en.wikipedia.org/wiki/Diameter_%28protocol%29 here]
+
+http://en.wikipedia.org/wiki/RADIUS
 
 http://coova.org/CoovaChilli/RADIUS
 
