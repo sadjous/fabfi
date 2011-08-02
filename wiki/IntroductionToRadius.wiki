@@ -1,0 +1,153 @@
+#Freeradius Authentication, Authorization and Accounting and captive portal authentication.
+
+= Introduction =
+
+This article assumes that you have a working freeradius setup. For instructions on installing freeradius, go [http://code.google.com/p/fabfi/wiki/FabfiServer#Install_Freeradius here ].
+
+Remote Authentication Dial-In User Service (RADIUS) is a networking protocol for for carrying authentication, authorization and accounting information between a
+ Network Access Server (NAS) and a shared Accounting Server.
+
+
+
+== HOW RADIUS WORKS ==
+
+RADIUS uses the UDP protocol to communicate between the Network Access Server (NAS) and the RADIUS server.
+
+=== AUTHENTICATION ===
+
+Authentication requests are listened to on port 1812
+
+    #User connects to the Access Point (NAS) and attempts to browse to a webpage.
+
+    #User is redirected to login splash page where he enters Username and Password
+
+    #NAS encrypts password by [http://en.wikipedia.org/wiki/Challenge-Handshake_Authentication_Protocol CHAP]
+
+    #RADIUS client sends username and encrypted password to the RADIUS server.
+
+    #RADIUS server responds with Accept, Reject, or Challenge.
+
+    #The RADIUS client acts upon services and services parameters bundled with Accept or Reject.
+
+The Authentication Packet is a UDP packet that looks like
+
+{{{
+rad_recv: Access-Request packet from host 41.204.176.76 port 47577, id=198, length=237
+        ChilliSpot-Version = "1.2.6"
+        User-Name = "username"
+        CHAP-Challenge = 0xa6e3460b11dcec2756fcc4b5355092bf
+        CHAP-Password = 0x004c38f55956c8346ecb7de2cf43b700a1
+        Service-Type = Login-User
+        Acct-Session-Id = "4e37c4e500000007"
+        Framed-IP-Address = 10.116.98.105
+        NAS-Port-Type = Wireless-802.11
+        NAS-Port = 7
+        NAS-Port-Id = "00000007"
+        Calling-Station-Id = "C4-17-FE-BC-DB-BB"
+        Called-Station-Id = "00-15-6D-4C-43-E4"
+        NAS-IP-Address = 10.116.98.1
+        NAS-Identifier = "fabfi98"
+        WISPr-Logoff-URL = "http://10.116.98.1:3990/logoff"
+        Message-Authenticator = 0x253d5079d20da0b73a621158d5ea99e3
+}}}
+
+The radius server acts on the information contained in this packet - and responds with an ACCESS-ACCEPT or ACCESS-REJECT message.
+
+
+===ACCOUNTING===
+
+When an authentication request is successful, the UAM server immediately sends an accounting session
+
+{{{
+rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=14, length=163
+        ChilliSpot-Version = "1.2.6"
+        ChilliSpot-Attr-10 = 0x00000002
+        Event-Timestamp = "Jan  1 1970 03:20:11 EAT"
+        Acct-Status-Type = Start
+        User-Name = "guest"
+        Acct-Session-Id = "4e37c62300000008"
+        Framed-IP-Address = 10.116.98.106
+        NAS-Port-Type = Wireless-802.11
+        NAS-Port = 8
+        NAS-Port-Id = "00000008"
+        Calling-Station-Id = "00-1F-3C-21-20-D9"
+        Called-Station-Id = "00-15-6D-4C-43-E4"
+        NAS-IP-Address = 10.116.98.1
+        NAS-Identifier = "fabfi98"
+}}}
+
+An interim update packet
+{{{
+rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=13, length=206
+        ChilliSpot-Version = "1.2.6"
+        ChilliSpot-Attr-10 = 0x00000002
+        Event-Timestamp = "Jan  1 1970 03:18:07 EAT"
+        Acct-Status-Type = Interim-Update
+        User-Name = "dmutai"
+        Acct-Input-Octets = 743566
+        Acct-Output-Octets = 207481
+        Acct-Input-Gigawords = 0
+        Acct-Output-Gigawords = 0
+        Acct-Input-Packets = 1940
+        Acct-Output-Packets = 2186
+        Acct-Session-Time = 602
+        Acct-Session-Id = "0000005a00000004"
+        Framed-IP-Address = 10.116.98.102
+        NAS-Port-Type = Wireless-802.11
+        NAS-Port = 4
+        NAS-Port-Id = "00000004"
+        Calling-Station-Id = "00-23-4E-76-05-8C"
+        Called-Station-Id = "00-15-6D-4C-43-E4"
+        NAS-IP-Address = 10.116.98.1
+        NAS-Identifier = "fabfi98"
+}}}
+An accounting stop packet 
+{{{
+rad_recv: Accounting-Request packet from host 41.204.176.76 port 44120, id=18, length=215
+        ChilliSpot-Version = "1.2.6"
+        ChilliSpot-Attr-10 = 0x00000002
+        Event-Timestamp = "Jan  1 1970 03:21:45 EAT"
+        Acct-Status-Type = Stop
+        User-Name = "superuser"
+        Acct-Input-Octets = 253
+        Acct-Output-Octets = 663
+        Acct-Input-Gigawords = 0
+        Acct-Output-Gigawords = 0
+        Acct-Input-Packets = 4
+        Acct-Output-Packets = 6
+        Acct-Session-Time = 40
+        Acct-Terminate-Cause = User-Request
+        Acct-Session-Id = "4e37c4f800000007"
+        Framed-IP-Address = 10.116.98.105
+        NAS-Port-Type = Wireless-802.11
+        NAS-Port = 7
+        NAS-Port-Id = "00000007"
+        Calling-Station-Id = "C4-17-FE-BC-DB-BB"
+        Called-Station-Id = "00-15-6D-4C-43-E4"
+        NAS-IP-Address = 10.116.98.1
+        NAS-Identifier = "fabfi98"
+}}}
+
+= ATTRIBUTES =
+
+Radius Attributes 
+There are two general kinds of attributes : Check Attributes and Reply Attributes
+
+Attributes MUST be defined in a dictionary
+Dictionary
+
+UAM server
+
+Clients
+
+DIAMETER is poised to be the replacement for RADIUS. More on that [http://en.wikipedia.org/wiki/Diameter_%28protocol%29 here]
+
+= Links & References =
+
+http://coova.org/CoovaChilli/RADIUS
+
+[http://www.cisco.com/en/US/tech/tk59/technologies_tech_note09186a00800945cc.shtml Cisco: How Radius Works ]
+
+[http://freeradius.org/rfc/rfc2869.html Radius Extensions RFC ]
+
+[http://www.ietf.org/rfc/rfc2865.txt  Radius RFC ]
