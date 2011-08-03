@@ -182,6 +182,9 @@ grounding for the shield."_
 http://ubnt.com/forum/showthread.php?t=38378&highlight=volt
 
 = Hardware: Other =
+Technically these are hardware, RF but that section was full...
+[http://www.dxzone.com/cgi-bin/dir/jump2.cgi?ID=12609 nice DIY omni]
+[http://www.dxzone.com/catalog/Antennas/WiFi/ more antenna links]
 
 = Software: Security / Captive portal / QoS management =
 
