@@ -1,0 +1,72 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+If you were stuck in a Fabfi Island, the following tools would come to your rescue:
+
+First, some very basic ( but extremely important ) ones
+
+ps - Ubiquitous in the Unix world - used to check for running processes. Often used in conjunction with grep to check for a specific process. e.g, to check if chilli is running, type 
+{{{
+ps aux | grep -i chilli`
+1398 root      2416 S    /usr/sbin/chilli --dhcpif=wlan0 --tundev=tun0 --net=1
+3425 root      1388 S    grep chilli 
+}}}
+is what you'd get if chilli was running.
+
+For more on ps, [http://unixhelp.ed.ac.uk/CGI/man-cgi?ps click here]
+
+logread - Many processes log their activities. If, for example, a process fails to start and you cant figure out why, try running it, then do a logread. 
+use `logread -f` to view the log continuously 
+
+iperf - Used to measure throughput between two nodes. 
+
+ip - iproute2. Very powerful tool. We'll only use its most basic functionalities. Find more documentation [http://policyrouting.org/iproute2-toc.html here].
+
+ifconfig - View active interfaces, bring interfaces up or down. 
+
+iwconfig - this is like an ifconfig for wireless interfaces.
+
+iw - for managing wireless interfaces. More powerful than iw .
+
+tcpdump - A packet analyzer
+
+nc ( netcat ) -
+
+nmap - 
+
+ss/netstat -
+
+
+===To Measure Throughput between nodes===
+
+
+Run the iperf server on one node and iperf client the other. For example if 10.100.0.2 and 10.100.0.3 are two nodes and we want to measure the throughput between them, on one of them (2), run
+iperf -s
+{{{
+root@fabfi2:~# iperf -s
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+
+
+}}}
+
+on the other (3), run `iperf -c 10.100.0.2`
+
+{{{
+root@fabfi3:~# iperf -c 10.100.0.2
+------------------------------------------------------------
+Client connecting to 10.100.0.2, TCP port 5001
+TCP window size: 16.0 KByte (default)
+------------------------------------------------------------
+[  3] local 10.100.0.3 port 34367 connected with 10.100.0.2 port 5001
+}}}
+
+After some time, the throughput between the two nodes will be displayed.
+
+{{{
+[ ID] Interval       Transfer     Bandwidth
+[  3]  0.0-10.0 sec   106 MBytes  88.4 Mbits/sec
+}}}
