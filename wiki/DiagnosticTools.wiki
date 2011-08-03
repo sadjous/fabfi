@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Rescue tools.
 
 = Introduction =
 
@@ -69,4 +69,105 @@ After some time, the throughput between the two nodes will be displayed.
 {{{
 [ ID] Interval       Transfer     Bandwidth
 [  3]  0.0-10.0 sec   106 MBytes  88.4 Mbits/sec
+}}}
+
+===List interfaces===
+
+Use `ifconfig` or `ip link list`. The difference is that `ifconfig` lists only active interfaces; `ip link list` will show both active and down interfaces.
+
+To show only wireless interfaces, use iwconfig
+
+e.g 
+{{{
+                                                                                                                                            
+eth0      no wireless extensions.
+
+eth0.1    no wireless extensions.
+
+eth1      no wireless extensions.
+
+wlan0     IEEE 802.11bgn  ESSID:off/any  
+          Mode:Managed  Access Point: Not-Associated   Tx-Power=27 dBm   
+          RTS thr:off   Fragment thr:off
+          Encryption key:off
+          Power Management:off
+
+}}}
+
+non-wireless interfaces will have
+
+===To show Wireless Signal Strength (& other wireless interface statistics) ===
+
+For station devices, use either `iw` or `iwconfig`.
+
+for example, if wlan0 is the name of your wireless interface
+
+{{{
+fabfi@fabfi-AO532h:~$iwconfig wlan0
+wlan0     IEEE 802.11bgn  ESSID:fabfi-foo  
+          Mode:Managed  Frequency:2.437 GHz  Access Point: 68:7F:74:91:36:01   
+          Bit Rate=65 Mb/s   Tx-Power=20 dBm   
+          Retry  long limit:7   RTS thr:off   Fragment thr:off
+          Power Management:off
+          Link Quality=63/70  Signal level=-47 dBm  
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:0   Missed beacon:0
+}}}
+
+or use iw dev wlan0 link
+
+{{{
+fabfi@fabfi-AO532h:~$ iw dev wlan0 link
+Connected to 68:7f:74:91:36:01 (on wlan0)
+SSID: fabfi-foo
+freq: 2437
+RX: 38735067 bytes (122493 packets)
+TX: 9411870 bytes (24502 packets)
+signal: -44 dBm
+tx bitrate: 65.0 MBit/s MCS 7
+}}}
+
+For access points, to check signal strength for every connected station, use 
+
+iw dev wlan0 station dump
+
+e.g 
+{{{
+root@fabfi98:~# iw dev wlan0 station dump 
+Station 00:1f:e2:cf:13:c4 (on wlan0)
+        inactive time:  9830 ms
+        rx bytes:       31665
+        rx packets:     364
+        tx bytes:       41650
+        tx packets:     176
+        tx retries:     3
+        tx failed:      0
+        signal:         -76 dBm
+        signal avg:     -75 dBm
+        tx bitrate:     48.0 MBit/s
+        rx bitrate:     54.0 MBit/s
+Station 00:18:de:7a:fb:0e (on wlan0)
+        inactive time:  1670 ms
+        rx bytes:       1066147
+        rx packets:     5921
+        tx bytes:       4357609
+        tx packets:     5165
+        tx retries:     1655
+        tx failed:      6
+        signal:         -81 dBm
+        signal avg:     -84 dBm
+        tx bitrate:     54.0 MBit/s
+        rx bitrate:     54.0 MBit/s
+Station 70:f1:a1:1c:78:d8 (on wlan0)
+        inactive time:  10 ms
+        rx bytes:       6342190
+        rx packets:     46604
+        tx bytes:       58299436
+        tx packets:     56402
+        tx retries:     30397
+        tx failed:      2
+        signal:         -98 dBm
+        signal avg:     -100 dBm
+        tx bitrate:     26.0 MBit/s MCS 3
+        rx bitrate:     26.0 MBit/s MCS 3
 }}}
