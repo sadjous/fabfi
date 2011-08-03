@@ -21,7 +21,7 @@ use `logread -f` to view the log continuously
 
 iperf - Used to measure throughput between two nodes. 
 
-ip - iproute2. Very powerful tool. We'll only use its most basic functionalities. Find more documentation [http://policyrouting.org/iproute2-toc.html here].
+ip - iproute2. A very powerful tool. We'll only use its most basic functionalities. Find more documentation [http://policyrouting.org/iproute2-toc.html here]. IP can be used to: add,delete and show status of addresses, routes, tunnels, links, neighbours etc
 
 ifconfig - View active interfaces, bring interfaces up or down. 
 
@@ -71,9 +71,9 @@ After some time, the throughput between the two nodes will be displayed.
 [  3]  0.0-10.0 sec   106 MBytes  88.4 Mbits/sec
 }}}
 
-===List interfaces===
+===Show interface information===
 
-Use `ifconfig` or `ip link list`. The difference is that `ifconfig` lists only active interfaces; `ip link list` will show both active and down interfaces.
+Use `ifconfig` or `ip link list`. The difference is that `ifconfig` lists only active interfaces; `ip link list` will show both active and down interfaces. ifconfig will also show the ip address on every interface ( `ip address show`
 
 To show only wireless interfaces, use iwconfig
 
@@ -171,3 +171,72 @@ Station 70:f1:a1:1c:78:d8 (on wlan0)
         tx bitrate:     26.0 MBit/s MCS 3
         rx bitrate:     26.0 MBit/s MCS 3
 }}}
+
+Note: iw dev wlan0 station dump would also work in station and adhoc devices
+
+=== To view routing tables ===
+
+route -n
+
+{{{
+root@fabfi225:~# route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.104.0.244    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.236    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.237    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.238    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.239    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.232    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.233    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.104.0.242    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.234    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.235    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.228    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.230    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.224    10.104.0.224    255.255.255.255 UGH   2      0        0 wlan0
+10.100.0.227    0.0.0.0         255.255.255.255 UH    2      0        0 eth0
+10.112.227.0    10.100.0.227    255.255.255.0   UG    2      0        0 eth0
+10.116.243.0    10.104.0.224    255.255.255.0   UG    2      0        0 wlan0
+10.116.227.0    10.100.0.227    255.255.255.0   UG    2      0        0 eth0
+10.104.0.0      0.0.0.0         255.255.252.0   U     0      0        0 wlan0
+10.100.0.0      0.0.0.0         255.255.252.0   U     0      0        0 eth0
+0.0.0.0         10.104.0.224    0.0.0.0         UG    2      0        0 wlan0
+}}}
+
+The last entry (0.0.0.0) is very important as it indicates the default gateway (10.104.0.224  in this case). The default gateway is probably a "path to the internet".
+
+ip route show
+
+{{{
+root@fabfi225:~# ip r
+10.104.0.244 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.236 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.237 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.238 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.239 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.232 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.233 via 10.104.0.224 dev wlan0  metric 2 
+10.104.0.242 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.234 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.235 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.228 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.230 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.224 via 10.104.0.224 dev wlan0  metric 2 
+10.100.0.227 dev eth0  metric 2 
+192.168.1.0/24 dev eth0  src 192.168.1.10 
+10.116.233.0/24 via 10.104.0.224 dev wlan0  metric 2 
+10.116.200.0/24 via 10.104.0.224 dev wlan0  metric 2 
+10.116.230.0/24 via 10.104.0.224 dev wlan0  metric 2 
+10.112.230.0/24 via 10.104.0.224 dev wlan0  metric 2 
+10.116.213.0/24 via 10.104.0.224 dev wlan0  metric 2 
+10.112.213.0/24 via 10.104.0.224 dev wlan0  metric 2 
+10.112.243.0/24 via 10.104.0.224 dev wlan0  metric 2 
+10.112.227.0/24 via 10.100.0.227 dev eth0  metric 2 
+10.116.243.0/24 via 10.104.0.224 dev wlan0  metric 2 
+10.116.227.0/24 via 10.100.0.227 dev eth0  metric 2 
+10.104.0.0/22 dev wlan0  src 10.104.0.225 
+10.100.0.0/22 dev eth0  src 10.100.0.225 
+default via 10.104.0.224 dev wlan0  metric 2 
+}}}
+
