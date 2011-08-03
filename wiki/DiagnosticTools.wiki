@@ -7,6 +7,7 @@ If you were stuck on a Fabfi Island, the following tools would come to your resc
 First, some very basic ( but extremely important ) ones
 
 ps - Ubiquitous in the Unix world - used to check for running processes. Often used in conjunction with grep to check for a specific process. e.g, to check if chilli is running, type 
+
 {{{
 ps aux | grep -i chilli`
 1398 root      2416 S    /usr/sbin/chilli --dhcpif=wlan0 --tundev=tun0 --net=1
@@ -209,7 +210,7 @@ or
 
 iwconfig wlan0 txpower 500mw
 
-To convert dbm to mw, use the formula dbm=10log(P/1mw) , where P is the transmit power in mw.
+To convert dbm to mw, use the formula dbm=10log,,10,,(P/1mw) , where P is the transmit power in mw.
 
 
 === To view routing tables ===
@@ -301,3 +302,8 @@ Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
 }}}
 
 This also shows you the link quality (LQ), neighbour link quality (NLQ) and Cost=1/( LQ`*`NLQ )
+
+
+==More==
+
+http://wirelessdefence.org/Contents/LinuxWirelessCommands.htm#iwpriv%20Commands
