@@ -27,7 +27,7 @@ ifconfig - View active interfaces, bring interfaces up or down.
 
 iwconfig - this is like an ifconfig for wireless interfaces.
 
-iw - for managing wireless interfaces. More powerful than iw .
+iw - for managing wireless interfaces. More powerful than iwconfig. [http://linuxwireless.org/en/users/Documentation/iw documentation]
 
 tcpdump - A packet analyzer. Very useful for advanced diagnostics. 
 
@@ -198,6 +198,20 @@ Station 70:f1:a1:1c:78:d8 (on wlan0)
 
 Note: iw dev wlan0 station dump would also work in station and adhoc devices
 
+
+===Adjust Wireless interface Transmit Power===
+
+use iwconfig wlan0 txpower <tx power in dbm or mw>
+
+e.g iwconfig wlan0 txpower 27dbm
+
+or 
+
+iwconfig wlan0 txpower 500mw
+
+To convert dbm to mw, use the formula dbm=10log(P/1mw) , where P is the transmit power in mw.
+
+
 === To view routing tables ===
 
 route -n
@@ -265,4 +279,25 @@ default via 10.104.0.224 dev wlan0  metric 2
 }}}
 
 
-===
+===View Neighbouring OLSR Devices===
+
+All Fabfi devices run [http://en.wikipedia.org/wiki/Optimized_Link_State_Routing_Protocol OLSR]
+
+To view the IP addresses of devices neighbouring a device, use
+
+`echo /links | nc localhost 2006`
+
+
+{{{
+root@fabfi225:~# echo /links | nc localhost 2006
+HTTP/1.0 200 OK
+Content-type: text/plain
+
+Table: Links
+Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
+10.100.0.225    10.100.0.227    0.00    1.000   1.000   1.000
+10.104.0.225    10.104.0.224    0.00    1.000   1.000   1.000
+
+}}}
+
+This also shows you the link quality (LQ), neighbour link quality (NLQ) and Cost=1/( LQ`*`NLQ )
