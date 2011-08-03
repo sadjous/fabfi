@@ -80,9 +80,17 @@ After some time, the throughput between the two nodes will be displayed.
 
 
 ====List Interfaces====
-Use `ifconfig` or `ip link list`. The difference is that `ifconfig` lists only active interfaces; `ip link list` will show both active and down interfaces. 
+Use
 
-To show only wireless interfaces, use iwconfig
+ `ifconfig` 
+
+or 
+
+`ip link list`. 
+
+The difference is that `ifconfig` lists only active interfaces; `ip link list` will show both active and down interfaces. 
+
+To show only wireless interfaces, use `iwconfig`
 
 e.g 
 {{{
@@ -114,11 +122,25 @@ e.g to view the IP address on interface eth1, use `ifconfig eth1` or `ip address
 
 For example, if eth1 is the interface we'd like to manage:
 
-`ifconfig eth1 down` or `ip link set dev eth1 down` would bring down the interface. 
+`ifconfig eth1 down` 
 
-`ifconfig eth1 up` or `ip link set dev eth1 up` would bring up the interface.
+or
 
-For wireless interfaces, use `wifi up` or `wifi down`
+ `ip link set dev eth1 down` 
+
+would bring down the interface. 
+
+`ifconfig eth1 up` 
+
+or
+
+ `ip link set dev eth1 up` 
+
+would bring up the interface.
+
+For wireless interfaces, use 
+
+`wifi up` or `wifi down`
 
 
 ===To show Wireless Signal Strength (& other wireless interface statistics) ===
@@ -204,11 +226,13 @@ Note: iw dev wlan0 station dump would also work in station and adhoc devices
 
 use iwconfig wlan0 txpower <tx power in dbm or mw>
 
-e.g iwconfig wlan0 txpower 27dbm
+e.g
+
+`iwconfig wlan0 txpower 27dbm`
 
 or 
 
-iwconfig wlan0 txpower 500mw
+`iwconfig wlan0 txpower 500mw`
 
 To convert dbm to mw, use the formula dbm=10log,,10,,(P/1mw) , where P is the transmit power in mw.
 
