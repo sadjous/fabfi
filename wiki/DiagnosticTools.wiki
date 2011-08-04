@@ -17,31 +17,32 @@ is what you'd get if chilli was running.
 
 For more on ps, [http://unixhelp.ed.ac.uk/CGI/man-cgi?ps click here]
 
-logread - Many processes log their activities. If, for example, a process fails to start and you cant figure out why, try running it, then do a logread. 
+*logread* - Many processes log their activities. If, for example, a process fails to start and you cant figure out why, try running it, then do a logread. 
 use `logread -f` to view the log continuously 
 
-iperf - Used to measure throughput between two nodes. 
+*iperf* - Used to measure throughput between two nodes. 
 
-ip - iproute2. A very powerful tool. We'll only use its most basic functionalities. Find more documentation [http://policyrouting.org/iproute2-toc.html here]. IP can be used to: add,delete and show status of addresses, routes, tunnels, links, neighbours etc
+*ip* - iproute2. A very powerful tool. We'll only use its most basic functionalities. Find more documentation [http://policyrouting.org/iproute2-toc.html here]. IP can be used to: add,delete and show status of addresses, routes, tunnels, links, neighbours etc
 
-ifconfig - View active interfaces, bring interfaces up or down. 
+*ifconfig* - View active interfaces, bring interfaces up or down. 
 
-iwconfig - this is like an ifconfig for wireless interfaces.
+*iwconfig* - this is like an ifconfig for wireless interfaces.
 
-iw - for managing wireless interfaces. More powerful than iwconfig. [http://linuxwireless.org/en/users/Documentation/iw documentation]
+*iw* - for managing wireless interfaces. More powerful than iwconfig. [http://linuxwireless.org/en/users/Documentation/iw documentation]
 
-tcpdump - A packet analyzer. Very useful for advanced diagnostics. 
+*tcpdump* - A packet analyzer. Very useful for advanced diagnostics. 
 
-nc ( netcat ) -
+*nc* ( netcat ) -
 
-nmap - 
+*nmap* - 
 
-ss/netstat -
+*ss/netstat* - View current network connections. ss is part of iproute2
 
-traceroute -
+traceroute* -
 
-nslookup/dig - use to check if node is resolving DNS. e.g nslookup google.com
+*nslookup/dig* - use to check if node is resolving DNS. e.g nslookup google.com
 
+*firstboot* - When mistakes are beyond repair. `firstboot` restores a device to a "just flashed state".
 
 ===To Measure Throughput between nodes===
 
@@ -326,6 +327,12 @@ Local IP        Remote IP       Hyst.   LQ      NLQ     Cost
 }}}
 
 This also shows you the link quality (LQ), neighbour link quality (NLQ) and Cost=1/( LQ`*`NLQ )
+
+===FirstBoot===
+
+_To be used only as a last resort_
+
+When everything breaks ( but you can still login to the device ), run `firstboot` to restore the device to *just flashed* state. You will need to reboot the device, *telnet* into it (ssh wont work - the device is in the *just flashed* state ) and run the setup script ( `sh setup` ). You may then reconfigure the device.
 
 
 ==More==
