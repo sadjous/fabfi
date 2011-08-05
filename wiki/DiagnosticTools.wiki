@@ -6,7 +6,7 @@ If you were stuck on a Fabfi Island, the following tools would come to your resc
 
 First, some very basic ( but extremely important ) ones
 
-ps - Ubiquitous in the Unix world - used to check for running processes. Often used in conjunction with grep to check for a specific process. e.g, to check if chilli is running, type 
+*ps* - Ubiquitous in the Unix world - used to check for running processes. Often used in conjunction with grep to check for a specific process. e.g, to check if chilli is running, type 
 
 {{{
 ps aux | grep -i chilli`
@@ -143,6 +143,10 @@ For wireless interfaces, use
 
 `wifi up` or `wifi down`
 
+
+===Show interface statistics===
+
+Use `ifconfig` or `ip -statistics` (`ip -s`)
 
 ===To show Wireless Signal Strength (& other wireless interface statistics) ===
 
