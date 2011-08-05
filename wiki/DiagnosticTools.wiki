@@ -144,9 +144,9 @@ For wireless interfaces, use
 `wifi up` or `wifi down`
 
 
-===Show interface statistics===
+====Show interface statistics====
 
-Use `ifconfig` or `ip -statistics` (`ip -s`)
+Use `ifconfig` or `ip -statistics link` (`ip -s link`)
 
 ===To show Wireless Signal Strength (& other wireless interface statistics) ===
 
