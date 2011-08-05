@@ -216,3 +216,8 @@ $ ssh root@fabfi.lan
 fabfi.lan should simply be the default gateway you get from dhcp. 
 
 Once you're logged in, configure the wan interface [CustomConfigurations#Static_WAN_IP according to these instructions]
+
+= Flash Troubleshooting =
+This is unsubstantiated, but:
+
+"If it gets locked up, power up and click the WPS button repeatedly while pinging.  Once you get a response, you're in."
