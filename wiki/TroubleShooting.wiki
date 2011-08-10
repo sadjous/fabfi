@@ -10,6 +10,8 @@ This is the troubleshooting page.  Come here for help with solving network probl
 
 = Useful Commands =
 
+For even more useful commands check out DiagnosticTools
+
 Log into a device
 {{{
 $ ssh root@<ip of device>
