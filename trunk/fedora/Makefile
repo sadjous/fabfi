@@ -3,7 +3,7 @@
 DEFINITION=schoolnet.ks
 
 livecd :
-	[ -e /var/cache/live ] || { cp -a cache /var/cache/live; }
+	-[ -e /var/cache/live ] || { cp -a cache /var/cache/live; }
 	sudo livecd-creator -v \
       --config=$(DEFINITION) \
       --cache=/var/cache/live

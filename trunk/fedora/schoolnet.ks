@@ -19,4 +19,5 @@
 %end
 
 %post
+touch /schoolnetwuzhere
 %end
