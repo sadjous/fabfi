@@ -40,7 +40,7 @@ IBMake=$(pwd)/imagebuilder/target/linux/ar71xx/image/${profile}/Makefile
 rm -rf ${IBPATH}/fabfi
 
 
-cp -f  $(pwd)/imagebuilder/target/linux/ar71xx/profiles/${profile}/* ${IBPATH}/target/linux/ar71xx/profiles/
+cp -f  $(pwd)/imagebuilder/target/linux/ar71xx/profiles/${profile}/* ${IBPATH}/target/linux/ar71xx/generic/profiles/
 cp -f $IBMake ${IBPATH}/target/linux/ar71xx/image/Makefile
 
 
