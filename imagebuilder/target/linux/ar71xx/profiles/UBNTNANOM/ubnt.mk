@@ -28,8 +28,8 @@ libopenssl libpthread \
 uclibcxx iperf \
 snmpd \
 libmcrypt libwrap vnstat vnstati iftop libjpeg libgd libpng \
-qos-scripts snmp-utils \
-libnetsnmp collectd collectd-mod-network collectd-mod-rrdtool rrdtool libart \
+snmp-utils \
+libnetsnmp rrdtool libart \
 libfreetype librrd \
 kmod-gpio-dev kmod-button-hotplug kmod-input-core kmod-input-gpio-buttons kmod-input-polldev kmod-leds-gpio \
 -kmod-usb-core -kmod-usb-ohci -kmod-usb2 -kmod-scsi-core -kmod-usb-storage -kmod-fs-ext3 -e2fsprogs -block-extroot -block-mount -kmod-fs-mbcache \

@@ -606,6 +606,10 @@ echo ""
 echo "Choose a root password"
 passwd root
 
+uci delete wireless.radio1
+uci delete wireless.@wifi-iface[1]
+uci commit wireless
+
 echo ""
 echo Configuration is complete!
 echo Your router is rebooting... 
