@@ -11,7 +11,7 @@
 %include include/base.ks
 %include include/minimization.ks
 %include include/wordpress.ks
-%include include/canvas-lsm.ks
+%include include/canvas-lms.ks
 %include include/reddit.ks
 
 
