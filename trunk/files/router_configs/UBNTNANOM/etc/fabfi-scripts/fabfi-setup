@@ -98,7 +98,7 @@ done
 	read lon
 #done 
 
-until (echo $nodetype | grep "^[1-7]$"); do
+until (echo $nodetype | grep "^[1-9]$"); do
 	echo "Choose one: "
 	echo "1: WAN / AP"
 	echo "2: Mesh /STA"
@@ -109,10 +109,11 @@ until (echo $nodetype | grep "^[1-7]$"); do
 	echo "6: MESH / Fabfi AP (intended for 5Ghz devices)"
 	echo "7: Mesh / Client AP"
 	echo "8: Mesh / AP+ADHOC"
+	echo "9: Mesh / ADHOC-NEW!"
 	read nodetype
 done 
 
-if [ $nodetype == "3" ] || [ $nodetype == "7"  ]; then
+if [ $nodetype == "3" ] || [ $nodetype == "7" ] || [ $nodetype == "8" ]; then
 	echo "Enter your radius secret"
 	read radsecret
 fi
@@ -124,6 +125,11 @@ if [ $nodetype == 1 ] || [ $nodetype == 5 ]; then
 		read headnode
 	done
 fi
+
+#hack to fix bug in openwrt trunk
+uci set wireless.radio0.macaddr=`uci get wireless.radio1.macaddr`
+uci delete wireless.radio1
+uci delete wireless.@wifi-iface[1]
 
 # Free up some memory so we don't crap ourselves
 /etc/init.d/nrpe stop
@@ -237,7 +243,105 @@ uci set wireless.@wifi-iface[0].ssid=ff${channel}
 #uci set dhcp.alan.leasetime=${dhcp_lease}
 #uci set dhcp.alan.ignore=0
 #uci set olsrd.@Hna4[0].netaddr=${ff_al_abIP}${lan_cIP}.0
+if [ $nodetype == "8" ]; then
+echo "hi"
+	uci add wireless wifi-iface	
+	uci set wireless.@wifi-iface[1].device="radio0"
+	uci set wireless.@wifi-iface[1].ssid="fabfi4demo "${fabfi_num}
+	uci set wireless.@wifi-iface[1].mode="ap"
+	uci set wireless.@wifi-iface[1].network="lan"
+	uci set wireless.@wifi-iface[0].mode="adhoc"
+	uci set wireless.@wifi-iface[0].bssid=$bssid
+	uci set network.wifimesh.ipaddr=${ff_wm_abIP}${ff_m_cIP}${m_dIP}
 
+
+	uci set network.lan="interface"
+	uci set network.lan.proto="static"
+	uci set network.lan.netmask="255.255.255.0"
+	uci set network.lan.defaultroute="0"
+	uci set network.lan.peerdns="0"
+	uci set network.lan.ipaddr=${ff_l_abIP}${lan_cIP}.${ff_gw_dIP}
+	uci set network.mesh.ipaddr=${ff_m_abIP}${ff_m_cIP}${m_dIP}
+	uci set network.mesh="interface"
+	uci set network.mesh.proto="static"
+	uci set network.mesh.netmask="255.255.252.0"
+	uci set network.mesh.defaultroute="0"
+	uci set network.mesh.peerdns="0"
+
+	uci set dhcp.lan="dhcp"
+	uci set dhcp.lan.interface="lan"
+	#uci set dhcp.lan.start="25"
+	#uci set dhcp.lan.limit="225"
+	#uci set dhcp.lan.leasetime="12h"
+
+
+	#new for CHILLI
+	uci delete dhcp.lan.start
+	uci delete dhcp.lan.limit
+	uci delete dhcp.lan.leasetime
+	uci set dhcp.lan.ignore=1
+	uci set firewall.@zone[0].output=REJECT
+
+	# next three NEW for CHILLI
+	uci add olsrd Hna4
+	uci set olsrd.@Hna4[-1].netaddr=${ff_t_abIP}${lan_cIP}.0
+	uci set olsrd.@Hna4[-1].netmask=255.255.255.0
+
+uci delete chilli.@configuration[0].adminpasswd
+uci delete chilli.@configuration[0].adminuser  
+uci delete chilli.@configuration[0].vlan   
+uci set chilli.options=chilli                                                           
+uci set chilli.options.debug=0                                                          
+uci set chilli.options.configuration=default                                            
+uci set chilli.options.dhcpif=wlan0   
+uci set chilli.options.tundev=tun0                                                                                                       
+uci set chilli.options.net=10.116.${fabfi_num}.0/24                                             
+uci set chilli.options.dhcpstart=100                                                    
+uci set chilli.options.dhcpend=150                                                      
+uci set chilli.options.uamlisten=10.116.${fabfi_num}.1                                            
+uci set chilli.options.dns1=10.116.${fabfi_num}.1                                                 
+uci set chilli.options.ipup=/etc/chilli/up.sh                                           
+uci set chilli.options.ipdown=/etc/chilli/down.sh                                       
+uci set chilli.options.wwwdir=/etc/chilli/www                                           
+uci set chilli.options.wwwbin=/etc/chilli/wwwsh                                         
+uci set chilli.@configuration[0]=configuration                                          
+uci set chilli.@configuration[0].name=default                                           
+uci set chilli.@configuration[0].locationname=fabfi${fabfi_num}                                         
+uci set chilli.@configuration[0].radiusserver1=radius.mesh    
+#uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
+uci set chilli.@configuration[0].radiussecret=${radsecret}                                  
+uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}                                    
+uci set chilli.@configuration[0].uamserver=http://10.112.${fabfi_num}.1/uam  
+uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}.1:3990/www/coova.html     
+uci set chilli.@configuration[0].uamaliasname=chilli                                                               
+uci set chilli.@configuration[0].papalwaysok=1                                          
+uci set chilli.@configuration[0].mschapv2=0 
+uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8'
+uci set chilli.@configuration[0].uamdomain3='.wikipedia.org'
+uci set chilli.@configuration[0].uamdomain4='.wikimedia.org'
+uci set chilli.@configuration[0].uamdomain='.ac.ke'
+uci set chilli.@configuration[0].uamdomain2='.edu'
+uci set chilli.options.keepalive=1
+uci set chilli.options.statusfile=/var/run/chilli.status
+uci set chilli.options.layer3=0
+uci set chilli.options.anyip=0
+uci set chilli.options.redir=0
+
+/etc/init.d/chilli enable
+
+	uci add olsrd Hna4
+	uci set olsrd.@Hna4[-1].netaddr=${ff_l_abIP}${lan_cIP}.0
+	uci set olsrd.@Hna4[-1].netmask=255.255.255.0
+
+	uci set dhcp.@domain[-1]=domain
+	uci set dhcp.@domain[-1].ip=${ff_l_abIP}${lan_cIP}.${ff_gw_dIP}
+
+	uci set olsrd.@Interface[${mesh_index}].ignore="0"
+	uci set olsrd.@Interface[${adhocmesh_index}].ignore="1"
+	uci set olsrd.@Interface[${wifimesh_index}].ignore="0"
+
+
+else
 if [ $nodetype == "1" ]; then
 	uci set network.wan=interface
 	uci set network.wan.proto="dhcp"
@@ -302,6 +406,18 @@ if [ $nodetype == "2" ]; then
 	uci delete wireless.@wifi-iface[1]
 
 else 
+if [ $nodetype == "9" ]; then
+	uci set wireless.@wifi-iface[0].mode="adhoc"
+	uci set wireless.radio0.channel=$channel
+	uci set wireless.@wifi-iface[0].bssid=$bssid
+	uci set network.wifimesh.ipaddr=${ff_wm_abIP}${ff_m_cIP}${m_dIP}
+	uci set olsrd.@Interface[${mesh_index}].ignore="0"
+	uci set olsrd.@Interface[${adhocmesh_index}].ignore="1"
+	uci set olsrd.@Interface[${wifimesh_index}].ignore="0"
+
+	uci delete wireless.@wifi-iface[1]
+
+else 
 if [ $nodetype == "999" ]; then
 	#this config not used
 	#Might want to switch which is 1 and 0 when you use this config
@@ -335,94 +451,6 @@ if [ $nodetype == "3" ]; then
 	uci set wireless.@wifi-iface[0].mode="ap"
 	uci set network.wifimesh.ipaddr=${ff_wm_abIP}${ff_m_cIP}${m_dIP}
 	uci set wireless.@wifi-iface[1].ssid="JoinAfrica "${fabfi_num}
-	uci set wireless.@wifi-iface[1].mode="ap"
-	uci set wireless.@wifi-iface[1].network="lan"
-
-	uci set network.lan="interface"
-	uci set network.lan.proto="static"
-	uci set network.lan.netmask="255.255.255.0"
-	uci set network.lan.defaultroute="0"
-	uci set network.lan.peerdns="0"
-	uci set network.lan.ipaddr=${ff_l_abIP}${lan_cIP}.${ff_gw_dIP}
-
-	uci set dhcp.lan="dhcp"
-	uci set dhcp.lan.interface="lan"
-	#uci set dhcp.lan.start="25"
-	#uci set dhcp.lan.limit="225"
-	#uci set dhcp.lan.leasetime="12h"
-
-
-	#new for CHILLI
-	uci delete dhcp.lan.start
-	uci delete dhcp.lan.limit
-	uci delete dhcp.lan.leasetime
-	uci set dhcp.lan.ignore=1
-	uci set firewall.@zone[0].output=REJECT
-
-	# next three NEW for CHILLI
-	uci add olsrd Hna4
-	uci set olsrd.@Hna4[-1].netaddr=${ff_t_abIP}${lan_cIP}.0
-	uci set olsrd.@Hna4[-1].netmask=255.255.255.0
-
-uci delete chilli.@configuration[0].adminpasswd
-uci delete chilli.@configuration[0].adminuser  
-uci delete chilli.@configuration[0].vlan   
-uci set chilli.options=chilli                                                           
-uci set chilli.options.debug=0                                                          
-uci set chilli.options.configuration=default                                            
-uci set chilli.options.dhcpif=wlan1   
-uci set chilli.options.tundev=tun0                                                                                                       
-uci set chilli.options.net=10.116.${fabfi_num}.0/24                                             
-uci set chilli.options.dhcpstart=100                                                    
-uci set chilli.options.dhcpend=150                                                      
-uci set chilli.options.uamlisten=10.116.${fabfi_num}.1                                            
-uci set chilli.options.dns1=10.116.${fabfi_num}.1                                                 
-uci set chilli.options.ipup=/etc/chilli/up.sh                                           
-uci set chilli.options.ipdown=/etc/chilli/down.sh                                       
-uci set chilli.options.wwwdir=/etc/chilli/www                                           
-uci set chilli.options.wwwbin=/etc/chilli/wwwsh                                         
-uci set chilli.@configuration[0]=configuration                                          
-uci set chilli.@configuration[0].name=default                                           
-uci set chilli.@configuration[0].locationname=fabfi${fabfi_num}                                         
-uci set chilli.@configuration[0].radiusserver1=radius.mesh    
-#uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
-uci set chilli.@configuration[0].radiussecret=${radsecret}                                  
-uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}                                    
-uci set chilli.@configuration[0].uamserver=http://10.112.${fabfi_num}.1/uam  
-uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}.1:3990/www/coova.html     
-uci set chilli.@configuration[0].uamaliasname=chilli                                                               
-uci set chilli.@configuration[0].papalwaysok=1                                          
-uci set chilli.@configuration[0].mschapv2=0 
-uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8'
-uci set chilli.@configuration[0].uamdomain3='.wikipedia.org'
-uci set chilli.@configuration[0].uamdomain4='.wikimedia.org'
-uci set chilli.@configuration[0].uamdomain='.ac.ke'
-uci set chilli.@configuration[0].uamdomain2='.edu'
-uci set chilli.options.keepalive=1
-uci set chilli.options.statusfile=/var/run/chilli.status
-uci set chilli.options.layer3=0
-uci set chilli.options.anyip=0
-uci set chilli.options.redir=0
-
-/etc/init.d/chilli enable
-
-	uci add olsrd Hna4
-	uci set olsrd.@Hna4[-1].netaddr=${ff_l_abIP}${lan_cIP}.0
-	uci set olsrd.@Hna4[-1].netmask=255.255.255.0
-
-	uci set dhcp.@domain[-1]=domain
-	uci set dhcp.@domain[-1].ip=${ff_l_abIP}${lan_cIP}.${ff_gw_dIP}
-
-	uci set olsrd.@Interface[${mesh_index}].ignore="0"
-	uci set olsrd.@Interface[${adhocmesh_index}].ignore="1"
-	uci set olsrd.@Interface[${wifimesh_index}].ignore="0"
-
-
-else
-if [ $nodetype == "8" ]; then
-	uci set wireless.@wifi-iface[0].mode="adhoc"
-	uci set network.wifimesh.ipaddr=${ff_wm_abIP}${ff_m_cIP}${m_dIP}
-	uci set wireless.@wifi-iface[1].ssid="fabfi4demo "${fabfi_num}
 	uci set wireless.@wifi-iface[1].mode="ap"
 	uci set wireless.@wifi-iface[1].network="lan"
 
@@ -635,6 +663,7 @@ fi
 fi
 fi
 fi
+fi
 
 uci set olsrd.@LoadPlugin[${ns_index}].name=fabfi${fabfi_num}-$location
 uci set olsrd.@LoadPlugin[${ns_index}].lat=$lat
@@ -696,8 +725,6 @@ echo ""
 echo "Choose a root password"
 passwd root
 
-uci delete wireless.radio1
-uci delete wireless.@wifi-iface[1]
 uci commit wireless
 
 echo ""
