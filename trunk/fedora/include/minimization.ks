@@ -1,6 +1,7 @@
 # Default minimizations for livecd install
 
 %packages
+
 # First, no office
 -libreoffice-*
 -planner

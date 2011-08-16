@@ -3,18 +3,32 @@
 # http://fedoraproject.org/wiki/SIGs/Desktop
 # mailto:desktop@lists.fedoraproject.org
 
-%include /usr/share/spin-kickstarts/fedora-live-desktop.ks
-%include /usr/share/spin-kickstarts/fedora-live-minimization.ks
-
-%include include/minimal.ks
+%include include/base.ks
+%include include/minimization.ks
 %include include/wordpress.ks
 %include include/canvas-lsm.ks
 %include include/reddit.ks
 
 %packages
-# strip these
--gvnc
--vnc
+-@sound-and-video
+-@office
+-gnome-speech
+-festival
+-festival-lib
+-cdrdao
+-gnome-video-effects
+-gnome-games
+-transmission-common
+-transmission-gtk
+-cheese
+-cheese-libs
+-totem
+-evolution-data-server
+-evolution-NetworkManager
+-evolution
+-brasero-nautilus
+-brasero-libs
+-brasero
 
 %end
 
