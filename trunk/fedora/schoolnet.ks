@@ -1,14 +1,25 @@
-# Desktop with customizationst to fit in a CD sized image (package removals, etc.)
-# Maintained by the Fedora Desktop SIG:
-# http://fedoraproject.org/wiki/SIGs/Desktop
-# mailto:desktop@lists.fedoraproject.org
+# SchoolNet LiveCD Distribution
+#
+# Copyright (C) 2011 SchoolNet
+# All rights reserved.
+# 
+# This software is licensed as free software under the terms of the
+# New BSD License. See /LICENSE for more information. 
 
+
+# - includes ---------------------------------------------------------------
 %include include/base.ks
 %include include/minimization.ks
 %include include/wordpress.ks
 %include include/canvas-lsm.ks
 %include include/reddit.ks
 
+
+# - configuration ----------------------------------------------------------
+part / --size 1024
+
+
+# - package spec -----------------------------------------------------------
 %packages
 -@sound-and-video
 -@office
@@ -29,9 +40,10 @@
 -brasero-nautilus
 -brasero-libs
 -brasero
-
 %end
 
+
+# - post-install script ----------------------------------------------------
 %post
-touch /schoolnetwuzhere
+touch /schoolnet
 %end
