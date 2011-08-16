@@ -242,7 +242,7 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 		for ping_ip in `uci get olsrd.@LoadPlugin[$pl_gw_index].Ping | sed 's/[:space:]/\n/'`
 			do
 
-			echo "`date` adding route and trying to ping remote server $ping_ip" >> $LG
+			echo "`date` adding route via [${GW}] on [${IFACE}] and trying to ping remote server $ping_ip" >> $LG
 
 			ip route add $ping_ip via $GW dev $IFACE table fabfi 
 #			responses=`ping -c2 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
@@ -333,7 +333,7 @@ if cat $NETFILE | grep -c "network.wan.up=1"
 		for ping_ip in `uci get olsrd.@LoadPlugin[$pl_gw_index].Ping | sed 's/[:space:]/\n/'`
 			do
 
-			echo "`date` adding route and trying to ping remote server $ping_ip" >> $LG
+			echo "`date` adding route via [${GW}] on [${IFACE}] and trying to ping remote server $ping_ip" >> $LG
 
 			ip route add $ping_ip via $GW dev $IFACE table fabfi 
 #			responses=`ping -c2 -s1 $ping_ip | sed 's/^.*=\([0-9]*\.[0-9]*\) ms/\1/' | 
