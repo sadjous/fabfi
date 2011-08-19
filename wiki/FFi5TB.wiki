@@ -74,6 +74,7 @@ traceroute to 2001:470:4:7c5::100:93 (2001:470:4:7c5::100:93), 30 hops max, 16 b
  2  2001:470:4:7c5::108:94 (2001:470:4:7c5::108:94)  54.375 ms  2.470 ms  8.216 ms
  3  2001:470:4:7c5::108:94 (2001:470:4:7c5::108:94)  50.742 ms  19.977 ms  27.640 ms
 }}}
+  * Something about the routing is very unstable.  Does this have to do with devices shifting routes across multiple /80 networks?
  * Diagnostics:
   * nano/pico signal meters do not currently work.  Should show infrastructure connections (as opposed to clients)
   * Map updates are not occurring (maybe not implemented?)
