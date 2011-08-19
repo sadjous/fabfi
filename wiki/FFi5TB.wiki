@@ -66,6 +66,14 @@ T-Node Design Consideration: If Servers include wifi, PowerAP can talk to server
  * Routing
   * Traffic appears routed, not forwarded in the network.  This causes problems with identifying origins.  (ex:  all traffic to the squid appears as if its origin is the headnode.  Prefer to see client-level origin addresses). 
   * want to be able to see requests by IP at squid.  
+  * Potential circular routing issue?
+{{{
+From ff90
+traceroute to 2001:470:4:7c5::100:93 (2001:470:4:7c5::100:93), 30 hops max, 16 byte packets
+ 1  2001:470:4:7c5::100:91 (2001:470:4:7c5::100:91)  1.562 ms  1.479 ms  1.494 ms
+ 2  2001:470:4:7c5::108:94 (2001:470:4:7c5::108:94)  54.375 ms  2.470 ms  8.216 ms
+ 3  2001:470:4:7c5::108:94 (2001:470:4:7c5::108:94)  50.742 ms  19.977 ms  27.640 ms
+}}}
  * Diagnostics:
   * nano/pico signal meters do not currently work.  Should show infrastructure connections (as opposed to clients)
   * Map updates are not occurring (maybe not implemented?)
