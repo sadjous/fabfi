@@ -62,9 +62,9 @@ T-Node Design Consideration: If Servers include wifi, PowerAP can talk to server
    * Preferred: IPv6 OR IPv4 (as able) nav working on all devices (every device can reach every other one).  
  * Client Access
   * Network currently doesn't automate DNS advertisement (nameservice not working?)
-  * RS with integrated radio seems to have problems on boot (or radio restart) with client access: After reassembling testbed (had to move it)  ff93 no longer gives users web access (can't ping 8.8.8.8), although the device itself can see the net.  (this is the device with integrated 5G radio instead of nano).
+  * RS with integrated radio seems to have problems on boot (or radio restart) with client access: After reassembling testbed (had to move it)  ff93 no longer gives users web access (can't ping 8.8.8.8), although the device itself can see the net.  (this is the device with integrated 5G radio instead of nano). ssh to 93 also give "connection refused" from headnode but not from immediate olsr neighbor (92)
  * Routing
-  * Traffic appears routed, not forwarded in the network.  This causes problems with identifying origins.  (ex:  all traffic to the squid appears as if its origin is the headnode.  Prefer to see client-level origin addresses).
+  * Traffic appears routed, not forwarded in the network.  This causes problems with identifying origins.  (ex:  all traffic to the squid appears as if its origin is the headnode.  Prefer to see client-level origin addresses). 
   * want to be able to see requests by IP at squid.  
  * Diagnostics:
   * nano/pico signal meters do not currently work.  Should show infrastructure connections (as opposed to clients)
