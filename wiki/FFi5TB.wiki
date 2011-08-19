@@ -60,8 +60,9 @@ T-Node Design Consideration: If Servers include wifi, PowerAP can talk to server
   * preferred behavior:  
    * Minimum:  reliable IPv6 nav to all olsr nodes regardless of path, with clear method of determining the other devices in the path as needed (to find failures)
    * Preferred: IPv6 OR IPv4 (as able) nav working on all devices (every device can reach every other one).  
- * DNS
+ * Client Access
   * Network currently doesn't automate DNS advertisement (nameservice not working?)
+  * RS with integrated radio seems to have problems on boot (or radio restart) with client access: After reassembling testbed (had to move it)  ff93 no longer gives users web access (can't ping 8.8.8.8), although the device itself can see the net.  (this is the device with integrated 5G radio instead of nano).
  * Routing
   * Traffic appears routed, not forwarded in the network.  This causes problems with identifying origins.  (ex:  all traffic to the squid appears as if its origin is the headnode.  Prefer to see client-level origin addresses).
   * want to be able to see requests by IP at squid.  
@@ -75,4 +76,3 @@ T-Node Design Consideration: If Servers include wifi, PowerAP can talk to server
   * there are some speed issues I haven't been able to diagnose yet. 
 
 unable to easily navigate between different types of devices (transparent/otherwise).  OLSR nodes use IPv6
-
