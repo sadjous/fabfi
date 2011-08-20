@@ -4,7 +4,7 @@ The content server as set up in Lima, Peru currently runs on Ubuntu 11.04. This 
 
 = Installation on Ubuntu 11.04 =
 
-You will need these config files: [http://code.google.com/p/fabfi/downloads/detail?name=content-server-config.tgz content-server-config.tgz]
+You will need these config files: [http://fabfi.googlecode.com/files/content-server-config.tgz content-server-config.tgz]
 
 == Update packages ==
 
