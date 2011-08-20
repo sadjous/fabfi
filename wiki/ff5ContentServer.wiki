@@ -1,0 +1,67 @@
+# Information on the FabFi5 content and proxy server (the square node)
+
+= Introduction =
+
+The content server as set up in Lima, Peru currently runs on Ubuntu 11.04. This will probably change in the near future. For now, the installation instructions below relate to the Ubuntu server.
+
+= Installation on Ubuntu 11.04 =
+
+== Update packages ==
+
+{{{
+apt-get update
+apt-get upgrade
+}}}
+
+== Additional packages ==
+
+{{{
+apt-get install openssh-server
+}}}
+
+== Network ==
+
+Replace /etc/network/interfaces
+
+Make sure the IP addresses in it are what you want
+
+Replace /etc/resolv.conf
+
+{{{
+/etc/init.d/network-manager stop
+/etc/init.d/networking restart
+}}}
+
+*Explanation:* To run a transparent proxy server we need 2 network interfaces on the one physical network card. The first is the "real" interface (eth0), which faces outward towards the head node (gateway). The second is the virtual interface (eth0:1), which faces inwards to the mesh network. The inward facing address gets advertised as the gateway by the head node. All traffic from the network to the server gets forwarded to the head node (the real gateway). The only exception is port 80, which is forwarded to the squid proxy server (on port 3128).
+
+== Squid ==
+(and the Calamaris log analyzer)
+
+{{{
+apt-get install squid3 calamaris
+}}}
+
+Replace /etc/squid3/squid.conf and set the IP range of your subnet (find "acl localnet src")
+
+I haven't been able to figure out how to do this otherwise, but you need to reboot the computer. Otherwise you get a message along the lines of "access denied, contact your sysadmin" whenever you try to load a web page via the proxy.
+
+== Port forward for transparent proxy ==
+
+Copy make_transparent to /etc/init.d and chmod it to 700
+
+Edit /etc/init.d/make_transparent and set SQUID_SERVER to your inward-facing net interface.
+
+{{{
+update-rc.d make_transparent defaults
+/etc/init.d/make_transparent
+}}}
+
+== LAMP ==
+
+This is optional at this stage, but I installed Apache2, MySQL, PHP5 to host and test a simple user-generated content site on the server.
+
+{{{
+apt-get install tasksel
+tasksel install lamp-server
+service apache2 restart
+}}}
