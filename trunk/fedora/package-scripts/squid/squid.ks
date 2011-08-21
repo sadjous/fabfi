@@ -14,14 +14,19 @@ calamaris
 %end
 
 
-# - pre-install script ----------------------------------------------------
-%pre
-touch /schoolnet.squid.pre
-%end
-
-
 # - post-install script ----------------------------------------------------
 %post
 touch /schoolnet.squid
-# TODO copy squid.conf over
+# TODO copy squid.conf over to /etc/squid
+%end
+
+
+# - post-install nochroot --------------------------------------------------
+%post --nochroot
+# LIVE_ROOT is the CD's root filesystem
+# INSTALL_ROOT is the OS root fileystem
+touch $LIVE_ROOT/schoolnet.squid.liveroot
+touch $INSTALL_ROOT/schoolnet.squid.installroot
+cp files/squid.conf $INSTALL_ROOT/etc/squid/squid.conf
+cp files/squid.conf $INSTALL_ROOT/etc/squid/squid.conf.schoolnet
 %end
