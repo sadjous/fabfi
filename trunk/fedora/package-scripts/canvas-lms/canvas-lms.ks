@@ -18,9 +18,10 @@
 #           https://bugzilla.redhat.com/show_bug.cgi?id=179940
 
 
+
 # - package spec -----------------------------------------------------------
 %packages
-# ruby 
+gcc-c++
 ruby
 ruby-devel
 ruby-irb
@@ -31,12 +32,23 @@ rubygem-rake
 libsq3-devel
 
 # libraries
+glibc-devel
 zlib-devel
 libxslt-devel
 libxml2-devel
 ImageMagick
 %end
 
+
+# - pre-install script ----------------------------------------------------
+%pre
+touch /schoolnet.canvas-lms.pre
+sudo gem install httpclient --no-rdoc --no-ri
+sudo gem install bundler --no-rdoc --no-ri
+# copy instructure-canvas-lms-* over from dl/
+# untar it & cd it
+# bundle install --without postgres mysql
+%end
 
 # - post-install script ----------------------------------------------------
 %post
