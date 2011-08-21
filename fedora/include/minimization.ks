@@ -73,6 +73,28 @@
 -system-config-services
 -policycoreutils-gui
 
+# More stuff we don't need
+-@sound-and-video
+-@office
+-gnome-speech
+-festival
+-festival-lib
+-cdrdao
+-gnome-video-effects
+-gnome-games
+-transmission-common
+-transmission-gtk
+-cheese
+-cheese-libs
+-totem
+-evolution-data-server
+-evolution-NetworkManager
+-evolution
+-brasero-nautilus
+-brasero-libs
+-brasero
+
+
 %end
 
 

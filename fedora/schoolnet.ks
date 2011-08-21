@@ -10,9 +10,12 @@
 # - includes ---------------------------------------------------------------
 %include include/base.ks
 %include include/minimization.ks
-%include include/wordpress.ks
-%include include/canvas-lms.ks
-%include include/reddit.ks
+
+# - subsystems -------------------------------------------------------------
+%include package-scripts/squid/squid.ks
+%include package-scripts/wordpress/wordpress.ks
+%include package-scripts/canvas-lms/canvas-lms.ks
+%include package-scripts/reddit/reddit.ks
 
 
 # - configuration ----------------------------------------------------------
@@ -21,25 +24,6 @@ part / --size 4096
 
 # - package spec -----------------------------------------------------------
 %packages
--@sound-and-video
--@office
--gnome-speech
--festival
--festival-lib
--cdrdao
--gnome-video-effects
--gnome-games
--transmission-common
--transmission-gtk
--cheese
--cheese-libs
--totem
--evolution-data-server
--evolution-NetworkManager
--evolution
--brasero-nautilus
--brasero-libs
--brasero
 %end
 
 
