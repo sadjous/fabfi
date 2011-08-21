@@ -14,6 +14,7 @@ DEFINITION=schoolnet.ks
 # - targets ----------------------------------------------------------------
 livecd :
 	-[ -e /var/cache/live ] || { cp -a cache /var/cache/live; }
+	sudo setenforce 0
 	sudo livecd-creator -v \
       --config=$(DEFINITION) \
       --cache=/var/cache/live

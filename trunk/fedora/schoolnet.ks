@@ -18,8 +18,21 @@
 %include package-scripts/reddit/reddit.ks
 
 
-# - configuration ----------------------------------------------------------
+# - build configuration ----------------------------------------------------
 part / --size 4096
+
+
+# - system configuration ---------------------------------------------------
+#lang C
+#keyboard us
+#timezone US/Eastern
+#auth --useshadow --enablemd5
+#selinux --permissive
+#firewall --disabled
+#bootloader --timeout=1 --append="acpi=force"
+#network --bootproto=dhcp --device=eth0 --onboot=on
+#services --enabled=network
+#rootpw --iscrypted $1$uw6MV$m6VtUWPed4SqgoW6fKfTZ/
 
 
 # - package spec -----------------------------------------------------------
