@@ -21,7 +21,7 @@
 
 # - package spec -----------------------------------------------------------
 %packages
-gcc-c++
+gcc-c++  # grf - bluecloth's autoconf is broken and the author doesn't want to admit it
 ruby
 ruby-devel
 ruby-irb
