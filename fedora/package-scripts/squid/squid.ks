@@ -25,8 +25,10 @@ touch /schoolnet.squid
 %post --nochroot
 # LIVE_ROOT is the CD's root filesystem
 # INSTALL_ROOT is the OS root fileystem
+PACKAGE_ROOT=package-scripts/squid
+
 touch $LIVE_ROOT/schoolnet.squid.liveroot
 touch $INSTALL_ROOT/schoolnet.squid.installroot
-cp files/squid.conf $INSTALL_ROOT/etc/squid/squid.conf
-cp files/squid.conf $INSTALL_ROOT/etc/squid/squid.conf.schoolnet
+cp $PACKAGE_ROOT/files/squid.conf $INSTALL_ROOT/etc/squid/squid.conf
+cp $PACKAGE_ROOT/files/squid.conf $INSTALL_ROOT/etc/squid/squid.conf.schoolnet
 %end
