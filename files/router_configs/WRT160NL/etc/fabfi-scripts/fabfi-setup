@@ -91,15 +91,17 @@ until (echo $wep_key | grep "^[0-9A-fA-F]*$"); do
 done 
 
 location="////";
-until (echo $location | grep "^[0-9a-zA-z\-\_]*$"); do
+until (echo $location | grep "^[0-9a-zA-z\-]*$"); do
 	echo "What is your device name?  NO SPACES or special characters:"
 	read location
 done 
 
-gps=""
+#gps=""
 #until (echo $gps | grep "^[0-9a-zA-z\-\_]*$"); do
-	echo "What is your GPS location? (N{1,3}.NNNNN, N{1,3},NNNNN). There's no check on this text so don't screw it up!"
-	read gps
+	echo "What is your latitude (N{1,3}.NNNNN) There's no check on this text so don't screw it up!"
+	read lat
+	echo "What is your longitude (N{1,3}.NNNNN) There's no check on this text so don't screw it up!"
+	read lon
 #done 
 
 if  [ $headnode == "y" ]; then
@@ -167,6 +169,7 @@ if  [ $headnode == "y" ]; then
 		mkswap /dev/sda2
 		mkdir /home
 		uci set fstab.@mount[0].enabled=1
+		uci set fstab.@mount[0].options=rw,noatime
 		uci set fstab.@swap[0].device=/dev/sda2
 		uci set fstab.@swap[0].enabled=1
 		uci commit fstab
@@ -186,8 +189,8 @@ if  [ $headnode == "y" ]; then
 	fi
 fi
 
-echo "nodeCoords=\"$gps\"" > /etc/config/fabfimap.cfg
-echo "note=\"${fabfi_num} - ${location}\"" >> /etc/config/fabfimap.cfg
+#echo "nodeCoords=\"$gps\"" > /etc/config/fabfimap.cfg
+#echo "note=\"${fabfi_num} - ${location}\"" >> /etc/config/fabfimap.cfg
 
 ###for all types
 #pick SSID of 0 based on channel
@@ -325,17 +328,25 @@ uci set chilli.options.wwwbin=/etc/chilli/wwwsh
 uci set chilli.@configuration[0]=configuration                                          
 uci set chilli.@configuration[0].name=default                                           
 uci set chilli.@configuration[0].locationname=${fabfi_num}                         
-uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8,wikipedia.org'
-uci set chilli.@configuration[0].uamdomain='.wikimedia.org'
 uci set chilli.@configuration[0].radiusserver1=radius.mesh    
 #uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
 uci set chilli.@configuration[0].radiussecret=${radsecret}                                
 uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}                                    
-uci set chilli.@configuration[0].uamserver=http://10.116.${fabfi_num}.1/uam  
+uci set chilli.@configuration[0].uamserver=http://10.112.${fabfi_num}.1/uam  
 uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}.1:3990/www/coova.html     
 uci set chilli.@configuration[0].uamaliasname=chilli                                                                      
 uci set chilli.@configuration[0].papalwaysok=1                                          
 uci set chilli.@configuration[0].mschapv2=0 
+uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8'
+uci set chilli.@configuration[0].uamdomain3='.wikipedia.org'
+uci set chilli.@configuration[0].uamdomain4='.wikimedia.org'
+uci set chilli.@configuration[0].uamdomain='.ac.ke'
+uci set chilli.@configuration[0].uamdomain2='.edu'
+uci set chilli.options.keepalive=1
+uci set chilli.options.statusfile=/var/run/chilli.status
+uci set chilli.options.layer3=0
+uci set chilli.options.anyip=0
+uci set chilli.options.redir=0
 /etc/init.d/chilli enable
 
 	uci add olsrd Hna4
@@ -417,18 +428,26 @@ uci set chilli.options.wwwdir=/etc/chilli/www
 uci set chilli.options.wwwbin=/etc/chilli/wwwsh                                         
 uci set chilli.@configuration[0]=configuration                                          
 uci set chilli.@configuration[0].name=default                                           
-uci set chilli.@configuration[0].locationname=${fabfi_num}                         
-uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8,wikipedia.org'
-uci set chilli.@configuration[0].uamdomain='.wikimedia.org'                 
+uci set chilli.@configuration[0].locationname=fabfi${fabfi_num}                                        
 uci set chilli.@configuration[0].radiusserver1=radius.mesh    
 #uci set chilli.@configuration[0].radiusserver2=radius2.joinafrica.org                            
 uci set chilli.@configuration[0].radiussecret=${radsecret}                                  
 uci set chilli.@configuration[0].radiusnasid=fabfi${fabfi_num}                                    
-uci set chilli.@configuration[0].uamserver=http://10.116.${fabfi_num}.1/uam  
+uci set chilli.@configuration[0].uamserver=http://10.112.${fabfi_num}.1/uam  
 uci set chilli.@configuration[0].uamhomepage=http://10.116.${fabfi_num}.1:3990/www/coova.html     
 uci set chilli.@configuration[0].uamaliasname=chilli                                                                     
 uci set chilli.@configuration[0].papalwaysok=1                                          
 uci set chilli.@configuration[0].mschapv2=0 
+uci set chilli.@configuration[0].uamallowed='master.mesh,radius.mesh,time.mesh,map.mesh,10.0.0.0/8'
+uci set chilli.@configuration[0].uamdomain3='.wikipedia.org'
+uci set chilli.@configuration[0].uamdomain4='.wikimedia.org'
+uci set chilli.@configuration[0].uamdomain='.ac.ke'
+uci set chilli.@configuration[0].uamdomain2='.edu'
+uci set chilli.options.keepalive=1
+uci set chilli.options.statusfile=/var/run/chilli.status
+uci set chilli.options.layer3=0
+uci set chilli.options.anyip=0
+uci set chilli.options.redir=0
 /etc/init.d/chilli enable
 
 	uci add olsrd Hna4
@@ -483,7 +502,9 @@ fi
 fi
 fi
 
-uci set olsrd.@LoadPlugin[${ns_index}].name=fabfi${fabfi_num}
+uci set olsrd.@LoadPlugin[${ns_index}].name=fabfi${fabfi_num}-$location
+uci set olsrd.@LoadPlugin[${ns_index}].lat=$lat
+uci set olsrd.@LoadPlugin[${ns_index}].lon=$lon
 
 
 uci set wireless.radio0.disabled=0

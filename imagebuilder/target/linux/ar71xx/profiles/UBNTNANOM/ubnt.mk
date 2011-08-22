@@ -21,16 +21,20 @@ define Profile/UBNTNANOM
   PACKAGES:=kmod-ath kmod-ath9k kmod-mac80211 -kmod-madwifi libnl-tiny crda wpad-mini \
 libuci bridge \
 olsrd olsrd-mod-nameservice olsrd-mod-txtinfo olsrd-mod-dyn-gw \
-awesome-chilli kmod-tun \
+awesome-chilli kmod-tun ip \
 mini-httpd netcat \
 libpcap tcpdump \
 libopenssl libpthread \
 uclibcxx iperf \
+snmpd \
+libmcrypt libwrap vnstat vnstati iftop libjpeg libgd libpng \
+snmp-utils \
+libnetsnmp rrdtool libart \
+libfreetype librrd \
 kmod-gpio-dev kmod-button-hotplug kmod-input-core kmod-input-gpio-buttons kmod-input-polldev kmod-leds-gpio \
 -kmod-usb-core -kmod-usb-ohci -kmod-usb2 -kmod-scsi-core -kmod-usb-storage -kmod-fs-ext3 -e2fsprogs -block-extroot -block-mount -kmod-fs-mbcache \
 -ppp -ppp-mod-pppoe -kmod-ppp -kmod-pppoe -kmod-crc-ccitt -uhttpd \
--squid \
-nagios nagios-plugins send-nsca libmcrypt libwrap nrpe
+-squid
 
 
 #libpcap tcpdump \ uclibcxx iperf \ gpioctl \

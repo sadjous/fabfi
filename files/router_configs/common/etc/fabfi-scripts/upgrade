@@ -19,6 +19,7 @@ if `wget "${SWURL}fabfi-${model}-sysupgrade.bin"`
 /etc/init.d/cron stop
 /etc/init.d/nrpe stop
 /etc/init.d/nagios stop
+killall squid
 sleep 10
 
 #add a line to rc.local for upgrade-post
