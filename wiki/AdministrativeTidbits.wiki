@@ -101,3 +101,7 @@ $ svn checkout https://fabfi.googlecode.com/svn/wiki wiki--username yourgoogleus
 'svn update' is not required, but is a good idea to get all the new stuff that might have changed while you were figuring this out.  
 
 7. Refresh code.google,com/p/fabfi/wiki to check whether you did it right (it will be under Source>wiki>images)
+
+== Managing Branches ==
+
+[http://www.murrayc.com/blog/permalink/2007/01/25/subversion-diff-between-branches/]
