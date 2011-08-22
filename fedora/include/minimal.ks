@@ -1,15 +1,6 @@
-# SchoolNet LiveCD Distribution
-#
-# Copyright (C) 2011 SchoolNet
-# All rights reserved.
-# 
-# This software is licensed as free software under the terms of the
-# New BSD License. See /LICENSE for more information. 
+# Default minimizations for livecd install
 
-
-# - package spec -----------------------------------------------------------
 %packages
-
 # First, no office
 -libreoffice-*
 -planner
@@ -73,32 +64,4 @@
 -system-config-services
 -policycoreutils-gui
 
-# More stuff we don't need
--@sound-and-video
--@office
--gnome-speech
--festival
--festival-lib
--cdrdao
--gnome-video-effects
--gnome-games
--transmission-common
--transmission-gtk
--cheese
--cheese-libs
--totem
--evolution-data-server
--evolution-NetworkManager
--evolution
--brasero-nautilus
--brasero-libs
--brasero
-
-
-%end
-
-
-# - post-install script ----------------------------------------------------
-%post
-touch /schoolnet.minimization
 %end

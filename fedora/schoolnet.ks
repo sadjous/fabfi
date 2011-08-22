@@ -1,46 +1,23 @@
-# SchoolNet LiveCD Distribution
-#
-# Copyright (C) 2011 SchoolNet
-# All rights reserved.
-# 
-# This software is licensed as free software under the terms of the
-# New BSD License. See /LICENSE for more information. 
+# Desktop with customizationst to fit in a CD sized image (package removals, etc.)
+# Maintained by the Fedora Desktop SIG:
+# http://fedoraproject.org/wiki/SIGs/Desktop
+# mailto:desktop@lists.fedoraproject.org
 
+%include /usr/share/spin-kickstarts/fedora-live-desktop.ks
+%include /usr/share/spin-kickstarts/fedora-live-minimization.ks
 
-# - includes ---------------------------------------------------------------
-%include include/base.ks
-%include include/minimization.ks
+%include include/minimal.ks
+%include include/wordpress.ks
+%include include/canvas-lsm.ks
+%include include/reddit.ks
 
-# - subsystems -------------------------------------------------------------
-%include package-scripts/squid/squid.ks
-%include package-scripts/wordpress/wordpress.ks
-%include package-scripts/canvas-lms/canvas-lms.ks
-%include package-scripts/reddit/reddit.ks
-
-
-# - build configuration ----------------------------------------------------
-part / --size 4096
-
-
-# - system configuration ---------------------------------------------------
-#lang C
-#keyboard us
-#timezone US/Eastern
-#auth --useshadow --enablemd5
-#selinux --permissive
-#firewall --disabled
-#bootloader --timeout=1 --append="acpi=force"
-#network --bootproto=dhcp --device=eth0 --onboot=on
-#services --enabled=network
-#rootpw --iscrypted $1$uw6MV$m6VtUWPed4SqgoW6fKfTZ/
-
-
-# - package spec -----------------------------------------------------------
 %packages
+# strip these
+-gvnc
+-vnc
+
 %end
 
-
-# - post-install script ----------------------------------------------------
 %post
-touch /schoolnet
+touch /schoolnetwuzhere
 %end
