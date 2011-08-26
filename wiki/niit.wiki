@@ -18,39 +18,6 @@ These interfaces MUST be created manually and MUST be named accordingly.
 The niit4to6 interface converts IPv4 addresses to IPv6 SIIT format then forwards the traffic to the IPv6 mesh.
 For IPv4 traffic destined for the router's network, the niit6to4 interface converts the IPv4-mapped IPv6 addresses back to IPv4 then forwards them to the IPv4 network. 
 
-
-==COMPILING NIIT==
- 
-Add the niit sources to your feeds list. git://gitorious.org/eigennet/packages.git . The official repository might give you problems when installing, but you can try - The address is git://dev.dd19.de/niit.git
-
-If you're using a Kernel version greater than 2.6.37, patch the niit.c file as shown below
-
-{{{
---- zzzzdd19/src/niit.c 2011-07-08 07:33:18.194299089 +0300
-+++ sss/niit/src/niit.c 2011-07-14 16:18:12.894563695 +0300
-@@ -85,9 +85,14 @@
-                        stats->tx_carrier_errors++;
-                        goto tx_error_icmp;
-                }
-+#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,37)
-+tdev = rt6->u.dst.dev;
-+dst_release(&rt6->u.dst);
-+#else
-+tdev = rt6->dst.dev;
-+dst_release(&rt6->dst);
-+#endif
- 
--               tdev = rt6->u.dst.dev;
--               dst_release(&rt6->u.dst);
-                if (tdev == dev) {
-                        PDEBUG("niit: recursion detected todev = dev \n");
-                        stats->collisions++;
-
-}}}
-Select and install kmod-niit from your menuconfig screen.
-
-Compile and install the image.
-
 ==CONFIGURATIONS==
 
 ===NETWORK===
