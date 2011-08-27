@@ -10,6 +10,10 @@
 # - package spec -----------------------------------------------------------
 %packages
 freeradius
+freeradius-utils
+freeradius-ldap
+freeradius-krb5
+freeradius-python
 %end
 
 
