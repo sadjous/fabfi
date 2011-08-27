@@ -13,6 +13,7 @@
 
 # - subsystems -------------------------------------------------------------
 %include package-scripts/squid/squid.ks
+%include package-scripts/aaa/aaa.ks
 %include package-scripts/wordpress/wordpress.ks
 %include package-scripts/canvas-lms/canvas-lms.ks
 %include package-scripts/reddit/reddit.ks
