@@ -9,11 +9,35 @@
 
 # - package spec -----------------------------------------------------------
 %packages
+# freeradius
 freeradius
 freeradius-utils
 freeradius-ldap
 freeradius-krb5
 freeradius-python
+
+# openldap
+openldap
+openldap-clients
+openldap-servers
+openldap-servers-sql
+
+# kerberos
+krb5-appl-clients
+krb5-appl-servers
+krb5-workstation
+krb5-server
+krb5-server-ldap
+
+# misc
+echoping-ldap
+openssh-ldap
+openvpn-auth-ldap
+pam_ldap
+pam_krb5
+python-ldap
+python-kerberos
+python-krbV
 %end
 
 
