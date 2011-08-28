@@ -32,6 +32,7 @@ krb5-server-ldap
 # misc
 echoping-ldap
 openssh-ldap
+libobjc # needed for openvpn-auth-ldap
 openvpn-auth-ldap
 pam_ldap
 pam_krb5
