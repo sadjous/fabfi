@@ -38,6 +38,9 @@ part / --size 4096
 
 # - package spec -----------------------------------------------------------
 %packages
+# must-haves
+nano
+emacs-nox
 %end
 
 
