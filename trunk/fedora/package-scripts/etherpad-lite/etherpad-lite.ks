@@ -7,6 +7,8 @@
 # New BSD License. See /LICENSE for more information. 
 
 
+# read: https://github.com/Pita/etherpad-lite
+
 # - package spec -----------------------------------------------------------
 %packages
 openssl
@@ -15,7 +17,7 @@ openssl-devel
 
 
 # - post-install script ----------------------------------------------------
-%post
+%post.off
 
 # node.js
 mkdir /usr/local/src
@@ -25,9 +27,13 @@ tar xzvf node-v0.4.11.tar.gz
 cd node-v0.4.11
 ./configure && make && make install
 
-# npm
+# npm - TODO install from git?
 curl http://npmjs.org/install.sh | sh
 
+# etherpad-lite
+git clone 'git://github.com/Pita/etherpad-lite.git'
+bin/installDeps.sh
+bin/run.sh
 
 touch /schoolnet.etherpad-lite
 %end
