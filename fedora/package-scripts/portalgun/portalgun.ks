@@ -10,6 +10,7 @@
 # - package spec -----------------------------------------------------------
 %packages
 lua
+lua-logging
 %end
 
 
