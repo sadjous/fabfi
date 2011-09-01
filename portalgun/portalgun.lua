@@ -1,11 +1,11 @@
 #!/usr/bin/lua
 
-
+--------------------------------------
 -- portalgun.lua
 -- a mesh network access controller
 --
--- Because the cake is a lie. 
--- Every time.
+-- Because we found the cake to be a lie
+-- Every damn time
 --
 
 
@@ -23,10 +23,26 @@ log:debug("portalgun.lua starting")
 
 
 
-
 --[[ main ]]----------------------------------------------------------------
 function main(arg)
-  log:debug("-- portalgun ----------------------------------------")
+    log:debug("-- portalgun ----------------------------------------")
   
 end
 main(arg)
+
+
+
+-- portal :: person -> address -> [ action ]
+function portal(person, address)
+
+    --[[ pattern match on: person, address
+            portal nil nil  = 
+            portal nil mac  =
+            portal nil ipv4 =
+            portal nil ipv6 =
+            .
+            etc.
+    --]]
+
+
+end

@@ -45,9 +45,9 @@ input_password		= whatever
 output_password		= whatever
 
 [client]
-countryName		= FR
-stateOrProvinceName	= Radius
-localityName		= Somewhere
-organizationName	= Example Inc.
-emailAddress		= user@example.com
-commonName		= user@example.com
+countryName		= US
+stateOrProvinceName	= Massachusetts
+localityName		= Cambridge
+organizationName	= FabFi
+emailAddress		= clientdemo001@fabfi.net
+commonName		= clientdemo001@fabfi.net

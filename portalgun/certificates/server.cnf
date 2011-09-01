@@ -45,10 +45,10 @@ input_password		= whatever
 output_password		= whatever
 
 [server]
-countryName		= FR
-stateOrProvinceName	= Radius
-localityName		= Somewhere
-organizationName	= Example Inc.
+countryName		= US
+stateOrProvinceName	= Massachusetts
+localityName		= Cambridge
+organizationName	= FabFi
 emailAddress		= admin@example.com
 commonName		= "Example Server Certificate"
 
