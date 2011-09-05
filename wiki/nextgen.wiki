@@ -248,6 +248,7 @@ On Map (Afrimesh??):
     * node coverage :-)
   * up/down time
   * Click Through to node details
+  * (advanced) theoretical max throughput calculation between any two locations based on types of hops and link capacities (KB: I say theoretical because empirical probably doesn't scale.    
 
 For Visited URLs
   * Calamaris
@@ -264,6 +265,13 @@ For Graphing
 
  * Server management
    * Puppet/Matahari
+
+ *Network Optimization (advanced)
+  * Identification of potential single points of failure  (to gateway, to content)
+  * Channel and power management based on ambient conditions
+   * interference
+   * neighboring access nodes
+   * Goal, to achieve maximum performance while achieving adequate redundancy.  
    
 = Proxty and Caching =
 
