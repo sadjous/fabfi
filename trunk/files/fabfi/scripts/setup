@@ -953,8 +953,9 @@ if [ ${commit} == "y" ]; then
 	#openwrt=$(cat /etc/banner | grep -i bleed | cut -d "(" -f 2 | cut -d ")" -f 1)
 	openwrt=$(cat /etc/fabfi/files/openwrt_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
 	cp /etc/fabfi/files/logo /etc/banner 
+	fabfi=$(cat /etc/fabfi/files/fabfi_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
 
-	printf " ${platform} \n OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
+	printf " ${platform} \n OpenWrt r${openwrt} \n Fabfi r${fabfi} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
 	printf "\n ------------------------------------------------------------------\n" >> /etc/banner
 
 	echo "::1 localhost" >> /etc/hosts
