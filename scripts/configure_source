@@ -1,0 +1,88 @@
+#!/bin/bash
+
+here=$(pwd)
+
+until (echo $answer | grep "^[yn]$"); do
+	echo "Do you wish to checkout the latest openwrt trunk? (y/n)"
+	read answer
+	answer=$( echo $answer | tr 'A-Z' 'a-z' )
+done
+
+if [ ${answer} == "y" ] ; then
+	echo "Enter the location for the openwrt source (the script will create a directory if it doesn't exist already)"
+	read DIR
+
+	if [ ! -d ${DIR} ]; then echo "Making directory ${DIR} " ; mkdir ${DIR} ; fi
+
+	if [ -d ${DIR} ]; then
+		cd ${DIR}
+		echo "Checking out openwrt source . . ."
+		svn checkout svn://svn.openwrt.org/openwrt/trunk/ .
+
+	else
+		echo "Either you do not have permissions in the directory you entered or something is wrong"
+		echo "Check and try again"
+		echo "The script will now exit"
+		exit
+	fi
+else
+	echo "Enter the location of your OpenWrt directory"
+	read DIR
+	if [ -d ${DIR} ]; then
+		echo "Updating openwrt source . . ."
+		svn up 
+        else
+                echo "Either you do not have permissions in the directory you entered or something is wrong"
+                echo "Check and try again"
+                echo "The script will now exit"
+                exit
+        fi 
+
+fi
+
+echo now what
+
+if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
+
+
+	echo "Go take a walk - this is going to take a loooong time"
+        sleep 2;
+
+	cd ${here}
+
+	cp -a ../files/fabfi ${DIR}/target/linux/ar71xx/base-files/etc/
+
+	find target/linux/ar71xx/base-files/etc/fabfi/ -name ".svn" -print0 | xargs -0 -I svn rm -rf svn
+
+	cp ../openwrt/feeds.conf.default ${DIR}/
+	cp ../openwrt/config ${DIR}/.config
+
+	svn info > ${DIR}/target/linux/ar71xx/base-files/etc/fabfi/files/fabfi_info
+
+
+	cd $DIR
+
+	svn info > target/linux/ar71xx/base-files/etc/fabfi/files/openwrt_info
+
+	if [ ! -h target/linux/ar71xx/base-files/setup  ]; then
+		ln -s /etc/fabfi/scripts/setup target/linux/ar71xx/base-files/setup
+	fi
+
+	./scripts/feeds update -a
+	./scripts/feeds install -a
+
+	make defconfig
+	make -j 4 V=99
+
+	if [ ! -d ${DIR}/latest-images/ ]; then mkdir ${DIR}/latest-images ; fi
+
+	find -name bin/ar71xx -name \*ubnt-rs* -print0 -o -name \*ubnt-nano* -print0 | xargs -0 -I imgs cp imgs latest-images/
+
+	echo "RS, RSPRO and NanoStation images have been placed in ${DIR}/latest-images"
+	echo "Entering ${DIR}/latest-images"
+	cd ${DIR}/latest-images
+else
+
+	echo "Something is wrong with your openwrt directory - check then run the script again"
+
+fi
