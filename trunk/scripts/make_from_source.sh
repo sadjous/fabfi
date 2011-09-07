@@ -1,14 +1,15 @@
 #!/bin/bash
 
-echo "Enter the location of your snmp directory"
+echo "Enter the location of your OpenWrt directory"
 read DIR
 
-cp ../files/fabfi ${DIR}/target/linux/ar71xx/base-files/etc/
+cp ../files/fabfi ${DIR}/target/linux/ar71xx/base-files/etc/ -R
 
 cp ../openwrt/feeds.conf.default ${DIR}/
 
-svn info > ${DIR}/target/linux/ar71xx/base-files/etc/fabfi/files/fabfi_info
+cp ../openwrt/config ${DIR}/.config
 
+svn info > ${DIR}/target/linux/ar71xx/base-files/etc/fabfi/files/fabfi_info
 
 cd $DIR
 
@@ -18,8 +19,5 @@ if [ ! -f target/linux/ar71xx/base-files/setup  ]; then
 	ln -s /etc/fabfi/scripts/setup target/linux/ar71xx/base-files/setup
 fi
 
-
-make defconfig
-
-make V=99
+make -j 8 V=99
 
