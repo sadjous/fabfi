@@ -1,6 +1,0 @@
-config system
-	option hostname fabfi1	
-	option timezone	UTC
-
-config rdate
-#	option interface	wan
