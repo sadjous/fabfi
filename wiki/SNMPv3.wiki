@@ -29,11 +29,11 @@ priv - refers to encryption ( passphrase )
 
 Security levels can be specified as:
 
-#NoauthNopriv -  authentication neither takes place nor does ecryption of SNMP data. -lowest level of security possible
+*NoauthNopriv -  authentication neither takes place nor does encryption of SNMP data. -lowest level of security possible
 
-#authNopriv - Authentication of the user takes place but SNMP data isn't encrypted.
+*authNopriv - Authentication of the user takes place but SNMP data isn't encrypted.
 
-#authPriv - The highest level of security ( and definately my favourite ) 
+*authPriv - The highest level of security ( and definitely my favourite ) 
 
 You can also define the security level simply as "auth" or "priv" - that is if you're not really concerned about the other.
 
@@ -45,7 +45,7 @@ By defining views, one can specify which OiD's a user is allowed to see ( or the
 
 views are defined as 
 
-view <viewname> <type> <oid> [MASK] - Mask is optional
+view viewname type oid [MASK] - Mask is optional
 
 Type -this defines whether the OiD's specified are viewable or not and is thus defined as `included` or `excluded`
 
@@ -55,13 +55,13 @@ view myview included .1
 
 view hiddenview exclude iso.3.6.1.2.1.25
 
-MASK defines which sub-OiDs belonging to the given OiD to match - if not specified, then all OiD's in the OiD tree are matched. A mask is specified with a 0x infront of the bits to match e.g 
+MASK defines which sub-OiDs belonging to the given OiD to match - if not specified, then all OiD's in the OiD tree are matched. A mask is specified with a 0x in front of the bits to match e.g 
 
 view myviewname included .1 0xf0 # this will  
 
 ==CreateUser==
 
-When creating a user, bear in mind the security levels you want to assign to the user, i.e there's no point of creating a user with a passworrd
+When creating a user, bear in mind the security levels you want to assign to the user, i.e there's no point of creating a user with a password
 then setting 'noauth' as the security level
 
 First stop all running instances of snmpd
@@ -115,15 +115,15 @@ Access - this maps the group with the view - syntax access <group> <context> <le
 
 Where
 
-#<group> is the group you're defining the ACL for
+*group is the group you're defining the ACL for
 
-#<context> - ( v1, v2c , usm or any )
+*context - ( v1, v2c , usm or any )
 
-#<level> - the security level ( auth, noauth authpriv etc )
+*level - the security level ( auth, noauth authpriv etc )
 
-#<prefix> - specifies how <context> should be matched against the context of the incoming request ( exact or prefix )
+*prefix - specifies how *context* should be matched against the context of the incoming request ( exact or prefix )
 
-#<read><write><notify> specify which views to use for snmpget, snmpset and snmptrap respectively
+*read write notify* specify which views to use for snmpget, snmpset and snmptrap respectively
 
 As you can see, VACM involves a little more work, but offers the most highly configurable security control . USM, however, suffices for most applications. 
 
