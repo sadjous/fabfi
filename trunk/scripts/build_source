@@ -40,7 +40,6 @@ else
 
 fi
 
-echo now what
 
 if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 
@@ -52,7 +51,7 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 
 	cp -a ../files/fabfi ${DIR}/target/linux/ar71xx/base-files/etc/
 
-	find target/linux/ar71xx/base-files/etc/fabfi/ -name ".svn" -print0 | xargs -0 -I svn rm -rf svn
+	find ${DIR}/target/linux/ar71xx/base-files/etc/fabfi/ -name ".svn" -print0 | xargs -0 -I svn rm -rf svn
 
 	cp ../openwrt/feeds.conf.default ${DIR}/
 	cp ../openwrt/config ${DIR}/.config
@@ -76,13 +75,11 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 
 	if [ ! -d ${DIR}/latest-images/ ]; then mkdir ${DIR}/latest-images ; fi
 
-	find -name bin/ar71xx -name \*ubnt-rs* -print0 -o -name \*ubnt-nano* -print0 | xargs -0 -I imgs cp imgs latest-images/
+	find bin/ar71xx -name \*ubnt-rs* -print0 -o -name \*ubnt-nano* -print0 | xargs -0 -I imgs cp imgs latest-images/
 
 	echo "RS, RSPRO and NanoStation images have been placed in ${DIR}/latest-images"
 	echo "Entering ${DIR}/latest-images"
 	cd ${DIR}/latest-images
 else
-
 	echo "Something is wrong with your openwrt directory - check then run the script again"
-
 fi
