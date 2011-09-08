@@ -26,16 +26,16 @@ In this tutorial, we'll cover the easier to configure of the two : USM, and perh
 
 ===Security Levels=== 
 
-auth - refers to authentication ( username + password )
-priv - refers to encryption ( passphrase )
+* auth - refers to authentication ( username + password )
+* priv - refers to encryption ( passphrase )
 
 Security levels can be specified as:
 
-*NoauthNopriv -  authentication neither takes place nor does encryption of SNMP data. -lowest level of security possible
+* NoauthNopriv -  authentication neither takes place nor does encryption of SNMP data. -lowest level of security possible
 
-*authNopriv - Authentication of the user takes place but SNMP data isn't encrypted.
+* authNopriv - Authentication of the user takes place but SNMP data isn't encrypted.
 
-*authPriv - The highest level of security ( and definitely my favourite ) 
+* authPriv* - The highest level of security ( and definitely my favourite ) 
 
 You can also define the security level simply as "auth" or "priv" - that is if you're not really concerned about the other.
 
@@ -119,15 +119,15 @@ Access - this maps the group with the view - syntax
 
 Where
 
-*group is the group you're defining the ACL for
+* group is the group you're defining the ACL for
 
-*context - ( v1, v2c , usm or any )
+* context - ( v1, v2c , usm or any )
 
-*level - the security level ( auth, noauth authpriv etc )
+* level - the security level ( auth, noauth authpriv etc )
 
-*prefix - specifies how *context* should be matched against the context of the incoming request ( exact or prefix )
+* prefix - specifies how *context* should be matched against the context of the incoming request ( exact or prefix )
 
-*read write notify* specify which views to use for snmpget, snmpset and snmptrap respectively
+* read write and notify specify which views to use for snmpget, snmpset and snmptrap respectively
 
 As you can see, VACM involves a little more work, but offers the most highly configurable security control . USM, however, suffices for most applications. 
 
