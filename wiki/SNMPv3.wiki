@@ -111,7 +111,9 @@ com2sec and com2sec6 - For mapping community names to a security name. Use com2s
 
 Group - This is the security module name ( for v1 and v2 ) or the usm username ( for v3 )
 
-Access - this maps the group with the view - syntax access <group> <context> <level> <prefix> <read> <write> <notify>
+Access - this maps the group with the view - syntax 
+
+access group context level prefix read write notify
 
 Where
 
