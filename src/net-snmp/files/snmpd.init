@@ -171,8 +171,6 @@ snmpd_exec_add() {
 #	echo "view $name $type $oids" >> $RUN_C
 #}
 
-
-}
 start() {
 	[ -d $LIB_D ] || mkdir -p $LIB_D
 	[ -d $LOG_D ] || mkdir -p $LOG_D
