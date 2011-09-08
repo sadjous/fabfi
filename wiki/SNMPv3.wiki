@@ -3,7 +3,7 @@
 
 =SNMP V3= 
 
-Please read [IntroductionToSNMP Introduction to SNMP] first
+Please read [IntroductionToSNMP Introduction to SNMP] first. This tutorial is based on netSnmp on openWrt, but may also be used by other net-snmp users - the location of certain config files may be different though. 
 
 ==Improved security==
 
@@ -14,9 +14,9 @@ The SNMP data is either encrypted in DES or AES.  TLS or SSl for SNMP versions >
 
 There are two general models for security
 
-*USM ( User Security Model )
+*USM* ( User Security Model )
 
-*VACM ( View Access Control Model )
+*VACM* ( View Access Control Model )
 
 Documentation ( complete with colourful pictures ) of these two models are provided in the links at the bottom of this page
 
@@ -80,7 +80,7 @@ Then enter one of the following in /usr/lib/snmp/snmpd.conf ( depending on secur
 
 To create a user with SHA password
 
-`createUser fabfi SHA1 "fabpassword" DES "fabpassphrase`"  #note the 1 after SHA 
+`createUser fabfi SHA1 "fabpassword" DES "fabpassphrase`"  #note the 1 after SHA. 
 
 --Add the users you've created to your /etc/snmp/snmpd.conf file --
 
@@ -102,6 +102,18 @@ or
 e.g 
 
 `snmpwalk -v 3 -u myuser -l authPriv -a MD5 -A mypassword -x DES -X mypassphrase  ipv6:[::1]`
+
+or for a SHA password ( remember when creating the user we specified SHA1 , but when accessing SNMP data, SHA is used - using SHA1 throws an error )
+
+`snmpwalk -v 3 -u myuser -l authPriv -a MD5 -A mypassword -x DES -X mypassphrase  ipv6:[::1]`
+
+For a authNopriv user
+
+`snmpwalk -v 3 -u myuser -l authPriv -a MD5 -A mypassword ipv6:[::1]`
+
+For a noauth user, the username still has to be specified, e.g
+
+`snmpwalk -v 3 -u myuser -l NoauthNoPriv ipv6:[::1]`
 
 ==Security Models==
 
