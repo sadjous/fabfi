@@ -126,6 +126,8 @@ SNMP_MIB_MODULES_INCLUDED = \
 	ucd-snmp/vmstat \
 	util_funcs \
 	utilities/execute \
+	snmpv3mibs \
+	utilities \
 
 SNMP_MIB_MODULES_EXCLUDED = \
 	agent_mibs \
@@ -138,12 +140,10 @@ SNMP_MIB_MODULES_EXCLUDED = \
 	mibII \
 	notification \
 	notification-log-mib \
-	snmpv3mibs \
 	target \
 	tcp-mib \
 	ucd_snmp \
 	udp-mib \
-	utilities \
 
 SNMP_TRANSPORTS_INCLUDED = Callback UDP
 
@@ -154,8 +154,8 @@ TARGET_CFLAGS += $(FPIC)
 CONFIGURE_ARGS += \
 	--enable-mfd-rewrites \
 	--enable-shared \
+	--enable-des \
 	--enable-static \
-	--enable-ipv6 \
 	--with-endianness=little \
 	--with-logfile=/var/log/snmpd.log \
 	--with-persistent-directory=/usr/lib/snmp/ \
@@ -171,7 +171,7 @@ CONFIGURE_ARGS += \
 	--with-mib-modules="$(SNMP_MIB_MODULES_INCLUDED)" \
 	--with-out-transports="$(SNMP_TRANSPORTS_EXCLUDED)" \
 	--with-transports="$(SNMP_TRANSPORTS_INCLUDED)" \
-	--without-openssl \
+	--with-openssl \
 	--without-libwrap \
 	--without-rpm \
 	--without-zlib \
