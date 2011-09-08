@@ -45,6 +45,18 @@ snmpd_com2sec_add() {
 	[ -n "$community" ] || return 0
 	echo "com2sec $secname $source $community" >> $RUN_C
 }
+
+snmpd_com2sec6_add() {
+        local cfg="$1"
+        config_get secname "$cfg" secname
+        [ -n "$secname" ] || return 0
+        config_get source "$cfg" source
+        [ -n "$source" ] || return 0
+        config_get community "$cfg" community
+        [ -n "$community" ] || return 0
+        echo "com2sec6 $secname $source $community" >> $RUN_C
+}
+
 snmpd_group_add() {
 	local cfg="$1"
 	config_get group "$cfg" group
@@ -67,6 +79,39 @@ snmpd_view_add() {
 	config_get mask "$cfg" mask
 	echo "view $viewname $type $oid $mask" >> $RUN_C
 }
+
+snmpd_rwuser_add() {
+	local cfg="$1"
+	
+	config_get username "$cfg" username
+	[ -n username ] || return 0
+	config_get securitylevel "$cfg" securitylevel
+	[ -n perms ] || return 0
+	config_get mibs "$cfg" mibs
+	[ -n mibs ] || return 0
+	config_get view "$cfg" view
+	[ -n view ] || return 0
+	echo "rwuser $username $securitylevel -V $view" >> $RUN_C
+
+	}
+
+snmpd_rouser_add() {
+        local cfg="$1"
+        
+        config_get username "$cfg" username
+        [ -n username ] || return 0
+        config_get securitylevel "$cfg" securitylevel
+        [ -n perms ] || return 0
+        config_get mibs "$cfg" mibs
+        [ -n mibs ] || return 0
+        config_get view "$cfg" view
+        [ -n view ] || return 0
+        echo "rouser $username $securitylevel -V $view" >> $RUN_C
+
+        }
+
+
+
 snmpd_access_add() {
 	local cfg="$1"
 	config_get group "$cfg" group
@@ -113,6 +158,21 @@ snmpd_exec_add() {
 	config_get miboid "$cfg" miboid
 	echo "exec $miboid $name $prog $args" >> $RUN_C
 }
+
+#snmpd_view_add(){
+#
+#	local cfg="$1"
+#	config_get name "$cfg" name
+#	[ -n "$name" ] || return 0
+#	 config_get type "$cfg" type
+#        [ -n "$type" ] || return 0
+#	 config_get oids "$cfg" oids
+#        [ -n "$oids" ] || return 0
+#	echo "view $name $type $oids" >> $RUN_C
+#}
+
+
+}
 start() {
 	[ -d $LIB_D ] || mkdir -p $LIB_D
 	[ -d $LOG_D ] || mkdir -p $LOG_D
@@ -124,11 +184,15 @@ start() {
 	config_foreach snmpd_agent_add agent
 	config_foreach snmpd_system_add system
 	config_foreach snmpd_com2sec_add com2sec
+	config_foreach snmpd_com2sec6_add com2sec6
 	config_foreach snmpd_group_add group
+	config_foreach snmpd_rwuser_add rwuser
+        config_foreach snmpd_rouser_add rouser
 	config_foreach snmpd_view_add view
 	config_foreach snmpd_access_add access
 	config_foreach snmpd_pass_add pass
 	config_foreach snmpd_exec_add exec
+	
 
 	[ -f $DEFAULT ] && . $DEFAULT
 	$DEBUG /usr/sbin/snmpd $OPTIONS
