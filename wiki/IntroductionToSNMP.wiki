@@ -73,6 +73,14 @@ will return the value for OiD iso.3.6.1.2.1.31.1.1.1.16.2 ( if it exists )
 *snmpset* - This is used to set the value of an OID ( if the host device allows )
 
 
+== SNMP IPv6 ==
+
+For SNMP version 1 and 2c, the community must be specified as rocommunity6 or rwcommunity6
+
+The syntax for entering ipv6 addresses `ipv6:[2001:470:af08:bfa::4]` or `udp6:[2001:470:af08:bfa::4]`
+
+To specify the SNMP agent port number ( 161 in this case ) - `ipv6:[2001:470:af08:bfa::4]:161`
+
 References
 
 http://en.wikipedia.org/wiki/Simple_Network_Management_Protocol
