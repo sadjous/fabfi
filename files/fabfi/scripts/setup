@@ -80,18 +80,18 @@ uci set snmpd.@group[-1].group=fabfi
 uci set snmpd.@group[-1].version=usm
 uci set snmpd.@group[-1].secname=fabfi
 
-uci add snmpd rwuser
-uci set snmpd.@rwuser[-1].username=fabfi2
-uci set snmpd.@rwuser[-1].perms=noauth
-uci set snmpd.@rwuser[-1].mibs=.1
+#uci add snmpd rwuser
+#uci set snmpd.@rwuser[-1].username=fabfi2
+#uci set snmpd.@rwuser[-1].securitylevel=authPriv
+#uci set snmpd.@rwuser[-1].view=all
 
-uci add snmpd rwuser
-uci set snmpd.@rwuser[-1].username=fabfi
-uci set snmpd.@rwuser[-1].securitylevel=authPriv
-uci set snmpd.@rwuser[-1].mibs=.1
+uci add snmpd rouser
+uci set snmpd.@rouser[-1].username=fabfi
+uci set snmpd.@rouser[-1].securitylevel=authPriv
+uci set snmpd.@rouser[-1].view=all
 
-echo createUser fabfi MD5 "cisco123" DES "cisco123" >> /usr/lib/snmp/snmpd.conf
-echo createUser fabfi2  >> /usr/lib/snmp/snmpd.conf
+#echo createUser fabfi2 SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
+echo createUser fabfi SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 
 }
 
