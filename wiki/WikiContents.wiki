@@ -15,7 +15,7 @@
      * [niit Introduction to Niit]
      * [IntroductionToSNMP Introduction to SNMP]
      * [RRDtutorial  Introduction to RRDTOOL and graphing]
-     * [Introduction to SNMPv3]
+     * [SNMPv3 Introduction to SNMP Version 3]
   * [Tools]
   * :.
   * *====  Version 4.0 ====*
