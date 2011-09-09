@@ -12,7 +12,7 @@ This is the most important reason for choosing SNMPv3 - the community strings fo
 The "password" is no longer sent in plain text but is encrypted in SHA or MD5 .
 The SNMP data is either encrypted in DES or AES.  TLS or SSl for SNMP versions > 5.5
 
-There are two general models for security
+There are several models for security, only 2 will be considered here
 
 *USM* ( User Security Model )
 
@@ -156,7 +156,7 @@ Read more below
 
 -SNMP V3 - http://www.net-snmp.org/wiki/index.php/TUT:SNMPv3_Options
 
--User security model (usm) -http://insanum.com/docs/usm.html
+-User security model (usm) -http://www.net-snmp.org/wiki/index.php/TUT:SNMPv3_Options ,http://insanum.com/docs/usm.html
 
 -View Access Control Model - http://www.net-snmp.org/wiki/index.php/Vacm , http://insanum.com/docs/vacm.html
 
