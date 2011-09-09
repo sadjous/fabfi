@@ -38,29 +38,51 @@ By default, OLSR is configured to use Niit, but for completeness, add the UseNii
 
 `uci set olsrd.@olsrd[0].UseNiit=yes`
 
-Add your router's IPv4-mapped IPv6 address/addresses to your router's hna6in your olsrd configuration file ( /etc/config/olsrd didn't seem to work for me, so I added the lines to /var/etc/olsrd.conf ) 
+Add your router's IPv4-mapped IPv6 address/addresses to your router's hna6 in your olsrd configuration file ( /etc/config/olsrd ) 
 
-e.g to add 192.168.1.1 and 192.168.2.1
+e.g to add 192.168.1.1 and the network 192.168.2.0/24
+
+uci add olsrd Hna6
+olsrd.@Hna6[-1].netaddr=0::ffff:c0a8:0101
+olsrd.@Hna6[-1].prefix=128
+
+
+uci add olsrd Hna6
+
+olsrd.@Hna6[-1].netaddr=0::ffff:c0a8:0200
+
+olsrd.@Hna6[-1].prefix=120
+
+
+
+or add the lines to /var/etc/olsrd.conf 
 
 Hna6 { 0::ffff:c0a8:0101 128 }
-Hna6 { 0::ffff:c0a8:0201 128 }
 
-Restart olsrd
-/etc/init.d/olsrd restart
+Hna6 { 0::ffff:c0a8:0200 96 }
+
+
+then restart olsrd `/etc/init.d/olsrd restart`
+
+To broadcast an IPv4 gateway add
+
+Hna6 { 0::ffff:0000:0000 96 } to olsrd config file or
+
+uci add olsrd Hna6
+
+olsrd.@Hna6[-1].netaddr=0::ffff:0:0
+
+olsrd.@Hna6[-1].prefix=96
+
 
 ===FIREWALL===
 
 Set your firewall to allow forwarding of traffic between the niit4to6 , niit6to4 and other interfaces on your router ( as necessary )
 
 Restart firewall
+
 /etc/init.d/firewall restart
 
-
-Repeat for all other routers in the mesh. In addition to the router's addresses, add 
-
-Hna6 { 0::ffff:0000:0000 96 }
-
-to your headnode ( default IPv4 gateway )
 
 The IPv4 routing table in every router should look like
 
