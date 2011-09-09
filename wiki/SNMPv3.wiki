@@ -12,15 +12,15 @@ This is the most important reason for choosing SNMPv3 - the community strings fo
 The "password" is no longer sent in plain text but is encrypted in SHA or MD5 .
 The SNMP data is either encrypted in DES or AES.  TLS or SSl for SNMP versions > 5.5
 
-There are several models for security, only 2 will be considered here
+There are several models for security, only 1 will be considered here :
 
 *USM* ( User Security Model )
+
+For access restrictions, one would use :
 
 *VACM* ( View Access Control Model )
 
 Documentation ( complete with colourful pictures ) of these two models are provided in the links at the bottom of this page
-
-VACM is much more configurable and also covers SNMPv1 and v2c
 
 In this tutorial, we'll cover the easier to configure of the two : USM, and perharps touch a little of VACM . First, the general stuff
 
@@ -148,7 +148,7 @@ Where
 
 * read*, *write* and *notify* specify which views to use for snmpget, snmpset and snmptrap respectively
 
-As you can see, VACM involves a little more work, but offers the most highly configurable security control . USM, however, suffices for most applications requiring good security. 
+As you can see, VACM involves a little more work, but offers the most highly configurable security control . USM without VACM , however, suffices for most applications requiring good security. 
 
 Read more below
 
