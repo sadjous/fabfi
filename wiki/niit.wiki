@@ -1,6 +1,6 @@
 =INTRODUCTION=
 
-NIIT is a special linux kernel device that allows easy transmission of IPv4 unicast traffic through an IPv6 network. Niit works by first translating an IPv4 address to an IPv6 address in the [http://en.wikipedia.org/wiki/IPv6_transition_mechanisms#Stateless_IP.2FICMP_Translation_.28SIIT.29 SIIT] syntax. 
+NIIT is a special linux kernel device that allows easy transmission of IPv4 unicast traffic through an IPv6 network. Niit works by first translating an IPv4 address to an IPv6 address in the IPv4-mapped-IPv6 address syntax. 
 
 Examples
 {{{
