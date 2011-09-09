@@ -16,6 +16,8 @@ There are several models for security, only 1 will be considered here :
 
 *USM* ( User Security Model )
 
+The others are SNMPv3 over SSH, SNMPv3 with TLS or DTLS, and SNMPv3 with Kerberos ( which we'll upgrade to soon ).
+
 For access restrictions, one would use :
 
 *VACM* ( View Access Control Model )
