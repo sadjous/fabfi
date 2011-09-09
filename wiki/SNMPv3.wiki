@@ -80,9 +80,17 @@ Then enter one of the following in /usr/lib/snmp/snmpd.conf ( depending on secur
 
 To create a user with SHA password
 
-`createUser fabfi SHA1 "fabpassword" DES "fabpassphrase`"  #note the 1 after SHA. 
+`createUser fabfi SHA1 "fabpassword" DES "fabpassphrase`"  #note the 1 after SHA.
 
---Add the users you've created to your /etc/snmp/snmpd.conf file --
+
+==Security Models==
+
+Choose either USM or VACM 
+
+===USM=== 
+
+
+Add the users you've created to your /etc/snmp/snmpd.conf file 
 
 A rwuser has both read and write permissions for the specified oid's
 
@@ -115,11 +123,10 @@ For a noauth user, the username still has to be specified, e.g
 
 `snmpwalk -v 3 -u myuser -l NoauthNoPriv ipv6:[::1]`
 
-==Security Models==
 
-*For USM*, specifying a user with the corresponding permissions ( and optionally, view ) is sufficient.
+===VACM=== 
 
-*For VACM*, we need the following
+we'll need the following
 
 com2sec and com2sec6 - For mapping community names to a security name. Use com2sec6 when dealing with ipv6 addresses
 
