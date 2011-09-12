@@ -721,7 +721,7 @@ if [[ "${platform}" != "Ubiquiti RouterStation Pro" && "${platform}" != "Ubiquit
 		done
 
 		if  [ $hnode == "y" ]; then
-	
+
 			head_node_config
 
 		fi #ends is this a headnode
@@ -734,8 +734,47 @@ else
 
 	if [[ "${platform}" == "Ubiquiti Nanostation M" ]]; then
 
-		transparent_link_config
+		until (echo $olsr | grep "^[bo]$"); do
+        	        echo "Batman or olsr? (b/o)"
+                	read olsr
+	        olsr=$( echo $olsr | tr 'A-Z' 'a-z' )
+        	done
 
+		if [ $olsr == "b" ]; then
+
+			transparent_link_config
+
+		else
+
+			generic_configs
+                	olsrd_base_config
+
+                        while ( true ); do
+                              echo "Set link channel"
+				read ttmeshchannel
+                                check=$(check_channel ${ttmeshchannel} 0)
+
+			       if [ "$check" == "ok" ]; then
+                        	       echo "Channel $ttmeshchannel selected"
+                                       break
+                                else
+                                        echo "$check"
+                                fi 
+                        done
+
+
+			radio=0
+			channel=${ttmeshchannel}
+			iface=1
+			network=t_t_link
+			suffix=65
+                        ssid_prefix=schoolnetBH
+                        mode=adhoc
+                        encryption=none
+                        key=""
+			generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
+
+		fi
 	else
 		generic_configs
 		olsrd_base_config
