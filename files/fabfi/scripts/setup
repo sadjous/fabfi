@@ -44,7 +44,7 @@ read number
 
 story="${story} Fabfi number : ${number} \n"
 
-echo "Enter your 64-bit IPv6 prefix (e.g 2001:470:1f08:1b61 There's no check on this text)"
+echo "Enter your 48-bit IPv6 prefix (e.g 2001:470:6826 There's no check on this text)"
 read prefix
 story="${story} IPv6 prefix : ${prefix}\n"
 
@@ -54,7 +54,7 @@ uci set system.@system[0].hostname=schoolnet${number}
 uci set network.mesh.proto=static
 uci set network.mesh.ipaddr=10.0.${number}.1
 uci set network.mesh.netmask=255.255.255.240
-uci set network.mesh.ip6addr=${prefix}:${number}::1/80
+uci set network.mesh.ip6addr=${prefix}:${number}::1
 
 uci set network.niit4to6=interface
 uci set network.niit4to6.proto=none
@@ -80,18 +80,19 @@ uci set snmpd.@group[-1].group=fabfi
 uci set snmpd.@group[-1].version=usm
 uci set snmpd.@group[-1].secname=fabfi
 
-#uci add snmpd rwuser
-#uci set snmpd.@rwuser[-1].username=fabfi2
-#uci set snmpd.@rwuser[-1].securitylevel=authPriv
-#uci set snmpd.@rwuser[-1].view=all
+uci add snmpd rwuser
+uci set snmpd.@rwuser[-1].username=fabfi-admin
+uci set snmpd.@rwuser[-1].securitylevel=authPriv
+uci set snmpd.@rwuser[-1].view=all
 
 uci add snmpd rouser
-uci set snmpd.@rouser[-1].username=fabfi
+uci set snmpd.@rouser[-1].username=fabfi-user
 uci set snmpd.@rouser[-1].securitylevel=authPriv
 uci set snmpd.@rouser[-1].view=all
 
-#echo createUser fabfi2 SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
-echo createUser fabfi SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
+echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
+echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
+echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 
 }
 
@@ -175,7 +176,7 @@ olsrd_base_config()
 
 	uci add olsrd Hna6
 	uci set olsrd.@Hna6[-1].netaddr=${prefix}:${number}::0
-	uci set olsrd.@Hna6[-1].prefix=80
+	uci set olsrd.@Hna6[-1].prefix=64
 
 }
 
@@ -227,7 +228,7 @@ generic_wireless_mesh()
 	uci set network.$4.proto=static
 	uci set network.$4.ipaddr=10.0.${number}.$5
 	uci set network.$4.netmask=255.255.255.240
-	uci set network.$4.ip6addr=${prefix}:${number}::$5/80
+	uci set network.$4.ip6addr=${prefix}:${number}::$5
 
 	uci set firewall.@zone[0].network="$(uci get firewall.@zone[0].network) $4"
 
@@ -247,7 +248,7 @@ client_lan_config()
 	uci set network.clientlan.proto=static
 	uci set network.clientlan.ipaddr=10.0.${number}.129
 	uci set network.clientlan.netmask=255.255.255.128
-	uci set network.clientlan.ip6addr=${prefix}:${number}::129/80
+	uci set network.clientlan.ip6addr=${prefix}:${number}::129
 	
 	client_lan_radio=0
 	echo "By default radio0 is configured for client access"
@@ -363,11 +364,11 @@ transparent_link_config()
 	uci set network.trans_wifi.netmask=255.255.0.0
 	uci set network.trans_wifi.ifname=wlan0
 	uci set network.trans_wifi.ipaddr=172.16.$mnode.${index}
-	uci set network.trans_wifi.ip6addr=${prefix}:${mnode}::${index}/80
+	uci set network.trans_wifi.ip6addr=${prefix}:${mnode}::${index}
 
 	uci set network.mesh.ipaddr=10.0.${mnode}.4
 	uci set network.mesh.netmask=255.255.255.240
-	uci set network.mesh.ip6addr=${prefix}:${mnode}::4/80
+	uci set network.mesh.ip6addr=${prefix}:${mnode}::4
 	uci set network.mesh.gateway=10.0.${mnode}.1
 	uci set network.mesh.ip6gw=${prefix}:${mnode}::1
 	uci set network.mesh.ifname="eth0 bat0"
@@ -955,7 +956,7 @@ if [ ${commit} == "y" ]; then
 	cp /etc/fabfi/files/logo /etc/banner 
 	fabfi=$(cat /etc/fabfi/files/fabfi_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
 
-	printf " ${platform} \n OpenWrt r${openwrt} \n Fabfi r${fabfi} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
+	printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
 	printf "\n ------------------------------------------------------------------\n" >> /etc/banner
 
 	echo "::1 localhost" >> /etc/hosts
