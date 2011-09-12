@@ -478,7 +478,7 @@ head_node_config()
 		uci set firewall.@zone[-1].name=tunnel
 		uci set firewall.@zone[-1].input=ACCEPT
 		uci set firewall.@zone[-1].output=ACCEPT
-		uci set firewall.@zone[-1].forward=REJECT
+		uci set firewall.@zone[-1].forward=ACCEPT
 		uci set firewall.@zone[-1].network=tunnel
 		
 		uci add firewall rule
