@@ -1,5 +1,7 @@
 #!/bin/bash
 #This script should ideally be placed in the same directory with your CA.pem, xpextensions and CA.key files
+#By default, the files in ../portalgun/certificates/ are used
+
 
 DIR=../portalgun/certificates/
 
@@ -66,7 +68,7 @@ if [ ! -f $DIR/${client_name}.crt ]; then
 			echo "Certificate ok"
 			mkdir $DIR/dir_${client_name}
 			mv $DIR/${client_name}* $DIR/dir_${client_name}/
-			echo "Certificates stored in dir_${client_name} directory"
+			echo "Certificates stored in $DIR/dir_${client_name} directory"
 
 		else
 
