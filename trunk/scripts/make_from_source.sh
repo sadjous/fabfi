@@ -2,7 +2,7 @@
 
 here=$(pwd)
 
-echo "Enter the location of your OpenWrt directory"
+echo "Enter the location of your OpenWrt source directory"
 read DIR
 
 if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
@@ -25,11 +25,13 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 
 	make -j 8 V=99
 
-	if [ ! -d ./latest-images/ ]; then mkdir ./latest-images ; fi
+	DIR=$(pwd)
 
+	if [ ! -d $DIR/latest-images/ ]; then mkdir $DIR/latest-images ; fi
+
+	find bin/ar71xx -name \*ubnt-rs* -print0 -o -name \*ubnt-nano* -print0 | xargs -0 -I imgs cp imgs latest-images/
 	echo "RS, RSPRO and NanoStation images have been placed in ${DIR}/latest-images"
-	#echo "Entering ${DIR}/latest-images
-	cd $here
+
 else
 
 	echo "Something is wrong with your openwrt directory - check then run the script again"

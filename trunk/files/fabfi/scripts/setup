@@ -6,6 +6,9 @@ number=""
 ipv6regex='/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/'
 #ipv4regex='\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'
 
+client_lan_suffix=129
+client_lan_index=0
+
 
 #Global Functions
 
@@ -90,9 +93,9 @@ uci set snmpd.@rouser[-1].username=fabfi-user
 uci set snmpd.@rouser[-1].securitylevel=authPriv
 uci set snmpd.@rouser[-1].view=all
 
-echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
-echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
-echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
+#echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
+#echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
+#echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 
 }
 
@@ -244,14 +247,14 @@ generic_wireless_mesh()
 
 client_lan_config()
 {
-	uci set network.clientlan=interface
-	uci set network.clientlan.proto=static
-	uci set network.clientlan.ipaddr=10.0.${number}.129
-	uci set network.clientlan.netmask=255.255.255.128
-	uci set network.clientlan.ip6addr=${prefix}:${number}::129
+	uci set network.clientlan_${client_lan_index}=interface
+	uci set network.clientlan_${client_lan_index}.proto=static
+	uci set network.clientlan_${client_lan_index}.ipaddr=10.0.${number}.${client_lan_suffix}
+	uci set network.clientlan_${client_lan_index}.netmask=255.255.255.128
+	uci set network.clientlan_${client_lan_index}.ip6addr=${prefix}:${number}::${client_lan_suffix}
 	
-	client_lan_radio=0
-	echo "By default radio0 is configured for client access"
+	client_lan_radio=$1
+	#echo "By default radio0 is configured for client access"
 	while ( true ); do
  		echo "Set client-access channel"
 		read client_lan_channel
@@ -272,31 +275,31 @@ client_lan_config()
     	#uci set wireless.@wifi-iface[0].mode=ap
 	#uci set wireless.@wifi-iface[0].ssid=schoolnet${number}
 
-	uci set wireless.@wifi-iface[0]=wifi-iface
-	uci set wireless.@wifi-iface[0].device=radio0
-	uci set wireless.@wifi-iface[0].network=clientlan
-	uci set wireless.@wifi-iface[0].mode=ap
-	uci set wireless.@wifi-iface[0].ssid=schoolnet${number}
-	uci set wireless.@wifi-iface[0].encryption=wpa2
-	uci set wireless.@wifi-iface[0].eap_type=tls
-	uci set wireless.@wifi-iface[0].ca_cert=/etc/fabfi/certificates/ca.pem
-	uci set wireless.@wifi-iface[0].priv_key=/etc/fabfi/certificates/server.pem
-	uci set wireless.@wifi-iface[0].priv_key_pwd=whatever
-	uci set wireless.@wifi-iface[0].server=18.181.3.48
-	uci set wireless.@wifi-iface[0].key=cisco123
+	uci set wireless.@wifi-iface[$1]=wifi-iface
+	uci set wireless.@wifi-iface[$1].device=radio$client_lan_radio
+	uci set wireless.@wifi-iface[$1].network=clientlan_${client_lan_index}
+	uci set wireless.@wifi-iface[$1].mode=ap
+	uci set wireless.@wifi-iface[$1].ssid=schoolnet${number}
+	uci set wireless.@wifi-iface[$1].encryption=wpa2
+	uci set wireless.@wifi-iface[$1].eap_type=tls
+	uci set wireless.@wifi-iface[$1].ca_cert=/etc/fabfi/certificates/ca.pem
+	uci set wireless.@wifi-iface[$1].priv_key=/etc/fabfi/certificates/server.pem
+	uci set wireless.@wifi-iface[$1].priv_key_pwd=whatever
+	uci set wireless.@wifi-iface[$1].server=18.181.3.48
+	uci set wireless.@wifi-iface[$1].key=cisco123
 
 
-	uci set dhcp.lan.interface=clientlan
+	uci set dhcp.lan.interface=clientlan_${client_lan_index}
 	uci set dhcp.lan.start=150
 	uci set dhcp.lan.limit=200
 
-	uci set radvd.@interface[0].interface=clientlan
+	uci set radvd.@interface[0].interface=clientlan_${client_lan_index}
 	uci set radvd.@interface[0].AdvSendAdvert=1
 	uci set radvd.@interface[0].AdvManagedFlag=0
 	uci set radvd.@interface[0].AdvOtherConfigFlag=0
 	uci set radvd.@interface[0].client=
 	uci set radvd.@interface[0].ignore=0
-	uci set radvd.@prefix[0].interface=clientlan
+	uci set radvd.@prefix[0].interface=clientlan_${client_lan_index}
 	#uci set radvd.@prefix[0].prefix=${prefix}
 	uci set radvd.@prefix[0].AdvOnLink=1
 	uci set radvd.@prefix[0].AdvAutonomous=1
@@ -306,7 +309,7 @@ client_lan_config()
 	uci add firewall zone
 	uci set firewall.@zone[-1]=zone
 	uci set firewall.@zone[-1].name=clientlan
-	uci set firewall.@zone[-1].network=clientlan
+	uci set firewall.@zone[-1].network=clientlan_${client_lan_index}
 	uci set firewall.@zone[-1].input=ACCEPT
 	uci set firewall.@zone[-1].output=ACCEPT
 	uci set firewall.@zone[-1].forward=REJECT
@@ -568,6 +571,184 @@ head_node_config()
 }
 
 
+c_node_config()
+{
+
+slot=$1
+cnumber=notvalid
+
+until (echo $cnumber | grep "^[1234]$"); do
+	
+	printf "\nRadio detected in $slot\n"
+	
+	printf "\nConfigure radio in $slot for :\n"
+	echo " 1 : Client Lan"
+	echo " 2 : C-mesh"
+	echo " 3 : C-T Link"
+	echo " 4 : Ignore"
+	echo ""
+	echo "Choose 1, 2, 3 or 4 "
+	read cnumber
+done
+
+if [ $cnumber == "1" ] ; then
+
+	client_lan_config $radio
+	story="${story} Radio in $slot set for Client LAN \n"
+	client_lan_suffix=$(expr ${client_lan_suffix} + 1)
+	client_lan_index=$(expr ${client_lan_suffix} + 1)
+)
+fi # end cnumber == 1
+
+if [ $cnumber == "2" ] ; then
+
+	while ( true ); do
+		echo "Set C-mesh channel"
+		read meshchannel
+		check=$(check_channel $meshchannel $radio)
+		if [ "$check" == "ok" ]; then
+			echo "Channel $meshchannel selected"
+			break
+		else
+			echo "$check"
+		fi
+       	done
+
+	radio=$radio
+	channel=${meshchannel}
+	iface=$radio
+	network=cmesh_$cmesh_index
+	suffix=${cmesh_suffix}
+	ssid_prefix=schoolnetmesh
+	mode=adhoc
+	encryption=none
+	key=""
+
+	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
+
+	cmesh_suffix=$(expr ${cmesh_suffix} + 1)	
+	cmesh_index=$(expr $cmesh_index + 1)
+	story="${story} Radio in $slot set for C-mesh \n C-mesh channel : ${meshchannel} \n"
+fi # end cnumber == 2, C-mesh
+
+if [ $cnumber == "3" ]; then
+	while ( true ); do
+		echo "Set C-T link channel"
+		read ctchannel
+		check=$(check_channel $ctchannel $radio)
+		if [ "$check" == "ok" ]; then
+			echo "Channel $ctchannel selected"
+			break
+		else
+			echo "$check"
+		fi			
+       	 done
+			
+	radio=$radio
+	channel=${ctchannel}
+	iface=$radio
+	network=c_t_link_$c_t_link_index
+	suffix=${c_t_suffix}
+	ssid_prefix=schoolnetBH
+	mode=adhoc
+	encryption=none
+	key=""
+				
+	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key 
+	c_t_suffix=$(expr ${c_t_suffix} + 1)
+	c_t_link_index=$(expr ${c_t_link_index} +1)
+	story="${story} Radio in $slot set for C-T link \n C-T link channel : ${ctchannel} \n"					
+fi # cnumber == 3 - C-T link
+
+}
+
+t_node_config() 
+{
+slot=$1
+tnumber=notvalid
+
+until (echo $tnumber | grep "^[1234]$"); do
+
+	printf "\nRadio detected in $slot\n"
+	printf "\nConfigure radio in $slot for :\n"
+	echo " 1 : Client Lan"
+	echo " 2 : T-C Link"
+	echo " 3 : T-T Link"
+	echo " 4 : Ignore"
+	echo ""
+	echo "Choose 1, 2, 3 or 4 "
+	read tnumber
+done
+
+if [ $tnumber == "1" ] ; then
+
+	client_lan_config $radio
+	story="${story} Radio in $slot set for Client LAN \n"
+
+fi # end tnumber == 1
+
+if [ $tnumber == "2" ] ; then
+
+	while ( true ); do
+		echo "Set T-C link channel"
+		read tcchannel
+		check=$(check_channel $tcchannel $radio)
+		if [ "$check" == "ok" ]; then
+			echo "Channel $tcchannel selected"
+			break
+		else
+			echo "$check"
+		fi			
+         done
+	radio=$radio
+	channel=${tcchannel}
+	iface=$radio
+	network=t_c_link_$tc_link_index
+	suffix=${t_c_suffix}
+	ssid_prefix=schoolnetBH
+	mode=adhoc
+	encryption=none
+	key=""
+			
+	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
+	tc_link_index=$(expr $tc_link_index + 1)
+	t_c_suffix=$(expr ${t_c_suffix} + 1)
+	story="${story} Radio in $slot set for T-C link \n T-C link channel : ${tcchannel} \n"		
+fi # end tnumber=2 - configure T-C
+
+if [ $tnumber == "3" ] ; then
+
+	while ( true ); do
+		echo "Set T-T link channel"
+		read ttchannel
+		check=$(check_channel $ttchannel $radio)
+		if [ "$check" == "ok" ]; then
+			echo "Channel $ttchannel selected"
+			break
+		else
+			echo "$check"
+		fi			
+         done
+						
+	radio=$radio
+	channel=${ttchannel}
+	iface=$radio
+	network=t_t_link_$t_t_link_index
+	suffix=${t_t_suffix}
+	ssid_prefix=schoolnetBH
+	mode=adhoc
+	encryption=none
+	key=""
+				
+	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key 				
+	t_t_link_index=$(expr $t_t_link_index + 1)
+	t_t_suffix=$(expr ${t_t_suffix} + 1)
+	story="${story} Radio in $slot set for T-T link \n T-T link channel : ${ttchannel} \n"
+				
+fi # end tnumber=3, configure T-T
+
+}
+
 platform=$(cat /proc/cpuinfo | grep machine | cut -d ":" -f 2 | cut -c2- | tr -d "\n")
 story="${story} \n Node Settings \n Device: ${platform} \n"
 clear
@@ -663,7 +844,7 @@ if [[ "${platform}" != "Ubiquiti RouterStation Pro" && "${platform}" != "Ubiquit
 
 		if  [ $client == "y" ]; then
 
-			client_lan_config
+			client_lan_config 0
 
 		fi #end "do you want to configure the device for client access"	
 		
@@ -788,161 +969,79 @@ else
 
 	        story="${story} Node type : ${ntype} \n"
 
-		if [ "$( lspci |  grep -i "00:11.0" )" ]; then
-
-			story="${story} Radio in slot_0 set for Client LAN \n"
-			client_lan_config
-		
-		fi # end client radio detect
-
 	
 		if  [ $ntype == "C" ]; then
+
+			radio=0
+			cmesh_suffix=17
+			cmesh_index=0
+			c_t_suffix=33
+			c_t_link_index=0
+		
+
+			if [ "$( lspci |  grep -i "00:11.0" )" ]; then
 			
-			# C mesh radio detect
+				c_node_config slot_0
+				radio=$(expr $radio + 1)
+							
+			fi # end slot_0 radio detect
+
+
+			
+			# Slot_1 radio detect
+
 			if [ "$( lspci |  grep -i "00:12.0" )" ]; then
 				
-				cmeshradio=1
-
-				while ( true ); do
- 					echo "Set C-mesh channel"
-					read meshchannel
-					check=$(check_channel $meshchannel $cmeshradio)
-					if [ "$check" == "ok" ]; then
-						echo "Channel $meshchannel selected"
-						break
-					else
-						echo "$check"
-					fi			
-			        done
-
-				radio=${cmeshradio}
-				channel=${meshchannel}
-				iface=1
-				network=cmesh
-				suffix=17
-				ssid_prefix=schoolnetmesh
-				mode=adhoc
-				encryption=none
-				key=""	
+				c_node_config slot_1
+				radio=$(expr $radio + 1)
 				
-				generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
-
-				story="${story} Radio in slot_1 set for C-mesh \n C-mesh channel : ${meshchannel} \n"
-			fi # end C mesh radio detect
+			fi # end slot_1 radio detect
 		
-			#C-T radio detect		
+			#slot_2 radio detect
 
 			if [ "$( lspci |  grep -i "00:13.0" )" ]; then
 				
-				if [ "$( lspci |  grep -i "00:12.0" )" ]; then
-					ctradio=2
-					ctiface=2
-				else
-					ctradio=1
-					ctiface=1
-				fi
-				
-				while ( true ); do
- 					echo "Set C-T link channel"
-					read ctchannel
-					check=$(check_channel $ctchannel $ctradio)
-					if [ "$check" == "ok" ]; then
-						echo "Channel $ctchannel selected"
-						break
-					else
-						echo "$check"
-					fi			
-			         done
-			
-				radio=${ctradio}
-				channel=${ctchannel}
-				iface=${ctiface}
-				network=c_t_link
-				suffix=
-				ssid_prefix=schoolnetBH
-				mode=adhoc
-				encryption=none
-				key=""
-				
-				generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key 
-				story="${story} Radio in slot_2 set for C-T link \n C-T link channel : ${ctchannel} \n"				
+				c_node_config slot_2
+				radio=$(expr $radio + 1)			
 											
-			fi # end configure C-T
+			fi # end slot_2 radio detect
 
 		fi #ends if nodetype == C
 
 		if  [ $ntype == "T" ]; then
-	
-			#Start with slot_1, T-C
+
+			radio=0
+			t_c_suffix=49
+			t_t_suffix=65
+			t_c_link_index=0
+			t_t_link_index=0
+
+			if [ "$( lspci |  grep -i "00:11.0" )" ]; then
+			
+				t_node_config slot_0
+				radio=$(expr $radio + 1)
+							
+			fi # end slot_0 radio detect
+
+
+			
+			# Slot_1 radio detect
+
 			if [ "$( lspci |  grep -i "00:12.0" )" ]; then
 				
-				tcradio=1
-
-				while ( true ); do
- 					echo "Set T-C link channel"
-					read tcchannel
-					check=$(check_channel $tcchannel $tcradio)
-					if [ "$check" == "ok" ]; then
-						echo "Channel $tcchannel selected"
-						break
-					else
-						echo "$check"
-					fi			
-			         done
-				radio=$tcradio
-				channel=${tcchannel}
-				iface=1
-				network=t_c_link
-				suffix=49
-				ssid_prefix=schoolnetBH
-				mode=adhoc
-				encryption=none
-				key=""
+				t_node_config slot_1
+				radio=$(expr $radio + 1)
 				
-				generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
-				story="${story} Radio in slot_1 set for T-C link \n T-C link channel : ${tcchannel} \n"		
-			fi # end configure T-C
+			fi # end slot_1 radio detect
+		
+			#slot_2 radio detect
 
-			#slot_2 - T-T
-
-       			if [ "$( lspci |  grep -i "00:13.0" )" ]; then
-
-				if [ "$( lspci |  grep -i "00:12.0" )" ]; then
-					ttradio=2
-					ttiface=2
-				else
-					ttradio=1
-					ttiface=2
-				fi
-
-				while ( true ); do
- 					echo "Set T-T link channel"
-					read ttchannel
-					check=$(check_channel $ttchannel $ttradio)
-					if [ "$check" == "ok" ]; then
-						echo "Channel $ttchannel selected"
-						break
-					else
-						echo "$check"
-					fi			
-			         done
-						
-
-				radio=${ttradio}
-				channel=${ttchannel}
-				iface=${ttiface}
-				network=t_t_link
-				suffix=65
-				ssid_prefix=schoolnetBH
-				mode=adhoc
-				encryption=none
-				key=""
+			if [ "$( lspci |  grep -i "00:13.0" )" ]; then
 				
-				generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key 				
-				
-				story="${story} Radio in slot_2 set for T-T link \n T-T link channel : ${ttchannel} \n"
-				
-			fi # end configure T-T
+				t_node_config slot_2
+				radio=$(expr $radio + 1)			
+											
+			fi # end slot_2 radio detect
 
 			until (echo $hnode | grep "^[yn]$"); do
 				echo "is this your headnode? (y/n)"
@@ -994,7 +1093,11 @@ if [ ${commit} == "y" ]; then
 	openwrt=$(cat /etc/fabfi/files/openwrt_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
 	cp /etc/fabfi/files/logo /etc/banner 
 	fabfi=$(cat /etc/fabfi/files/fabfi_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
-
+	
+	echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
+	echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
+	echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
+	
 	printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
 	printf "\n ------------------------------------------------------------------\n" >> /etc/banner
 
