@@ -359,9 +359,9 @@ transparent_link_config()
 	
 	story="${story} Device set as transparent link \n Host node is ${mnode} \n"
 	story="${story} Device Index : ${index} \n"
-		
+
 	mhexno=`printf "%x\n" ${mnode}`
-	
+
 	uci set network.trans_wifi=interface
 	uci set network.trans_wifi.proto=static
 	uci set network.trans_wifi.netmask=255.255.0.0
@@ -396,7 +396,7 @@ transparent_link_config()
 			break
 		else
 			echo "$check"
-		fi			
+		fi
 	done
 
 	#Wireless
@@ -473,7 +473,7 @@ head_node_config()
 		uci set network.tunnel=interface
 		uci set network.tunnel.ifname=tun0
 		uci set network.tunnel.proto=static
-		uci set network.tunnel.ip6addr=${prefix}::2/64
+		uci set network.tunnel.ip6addr=${prefix}::2
 		uci set network.tunnel.dns=2001:470:20::2
 		uci set network.tunnel.ip6gw=${prefix}::1
 
@@ -483,7 +483,7 @@ head_node_config()
 		uci set firewall.@zone[-1].output=ACCEPT
 		uci set firewall.@zone[-1].forward=ACCEPT
 		uci set firewall.@zone[-1].network=tunnel
-		
+
 		uci add firewall rule
 		uci set firewall.@rule[-1].src=tunnel
 		uci set firewall.@rule[-1].dest=*
@@ -492,7 +492,7 @@ head_node_config()
 		uci set firewall.@rule[-1].limit=1000/sec
 		uci set firewall.@rule[-1].family=ipv6
 		uci set firewall.@rule[-1].target=ACCEPT
-		
+
 
 		uci add firewall forwarding
 		uci set firewall.@forwarding[-1].src=mesh
@@ -501,15 +501,15 @@ head_node_config()
 		uci add firewall forwarding
 		uci set firewall.@forwarding[-1].src=niit
 		uci set firewall.@forwarding[-1].dest=tunnel
-        
+
 		uci add firewall forwarding
 		uci set firewall.@forwarding[-1].src=clientlan
 		uci set firewall.@forwarding[-1].dest=tunnel
 
-		echo ip tunnel add tun0 mode sit remote ${remote} local ${wanaddr} ttl 255 > /etc/rc.local
+		printf "ip tunnel add tun0 mode sit remote ${remote} local ${wanaddr} ttl 255 \nip link set tun0 up \nip -6 route add default dev tun0 \n" > /etc/rc.local
 
 	else
-	
+
 		echo "" > /etc/rc.local
 
 	fi #ends do you want to configure tunnel
@@ -517,7 +517,7 @@ head_node_config()
 	uci add olsrd Hna6
 	uci set olsrd.@Hna6[-1].netaddr=0::ffff:0:0
 	uci set olsrd.@Hna6[-1].prefix=96
-	
+
 	uci add firewall rule
 	uci set firewall.@rule[-1].src=wan
 	uci set firewall.@rule[-1].proto=udp
@@ -532,7 +532,7 @@ head_node_config()
 	uci set firewall.@rule[-1].icmp_type="echo-request"
 	uci set firewall.@rule[-1].family=ipv4
 	uci set firewall.@rule[-1].target=ACCEPT
-	
+
 	#Allow IPv6 encapsulation - protocol 41
 	uci add firewall rule
 	uci set firewall.@rule[-1].src=wan
@@ -545,7 +545,7 @@ head_node_config()
 	uci set firewall.@rule[-1].src=wan
 	uci set firewall.@rule[-1].proto=tcp
 	uci set firewall.@rule[-1].dest_port=22
-	
+
 	uci add firewall rule
 	uci set firewall.@rule[-1].target=ACCEPT
 	uci set firewall.@rule[-1]._name="SNMP"
@@ -560,11 +560,11 @@ head_node_config()
 	uci add firewall forwarding
 	uci set firewall.@forwarding[-1].src=niit
 	uci set firewall.@forwarding[-1].dest=wan
-	
+
 	uci add firewall forwarding
 	uci set firewall.@forwarding[-1].src=clientlan
 	uci set firewall.@forwarding[-1].dest=wan
-	
+
 	#uci set network.mesh.ip6addr=${prefix}:${hexno}::1
 	#uci set olsrd.@LoadPlugin[-1].dns_server=`uci get network.mesh.ip6addr`
 	uci set olsrd.@LoadPlugin[1].dns_server=${prefix}:${number}::1
@@ -578,9 +578,9 @@ slot=$1
 cnumber=notvalid
 
 until (echo $cnumber | grep "^[1234]$"); do
-	
+
 	printf "\nRadio detected in $slot\n"
-	
+
 	printf "\nConfigure radio in $slot for :\n"
 	echo " 1 : Client Lan"
 	echo " 2 : C-mesh"
@@ -592,12 +592,11 @@ until (echo $cnumber | grep "^[1234]$"); do
 done
 
 if [ $cnumber == "1" ] ; then
-
-	client_lan_config $radio
 	story="${story} Radio in $slot set for Client LAN \n"
+	client_lan_config $radio
 	client_lan_suffix=$(expr ${client_lan_suffix} + 1)
-	client_lan_index=$(expr ${client_lan_suffix} + 1)
-)
+	client_lan_index=$(expr ${client_lan_index} + 1)
+
 fi # end cnumber == 1
 
 if [ $cnumber == "2" ] ; then
@@ -641,9 +640,9 @@ if [ $cnumber == "3" ]; then
 			break
 		else
 			echo "$check"
-		fi			
+		fi
        	 done
-			
+
 	radio=$radio
 	channel=${ctchannel}
 	iface=$radio
@@ -653,11 +652,11 @@ if [ $cnumber == "3" ]; then
 	mode=adhoc
 	encryption=none
 	key=""
-				
+
 	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key 
 	c_t_suffix=$(expr ${c_t_suffix} + 1)
 	c_t_link_index=$(expr ${c_t_link_index} +1)
-	story="${story} Radio in $slot set for C-T link \n C-T link channel : ${ctchannel} \n"					
+	story="${story} Radio in $slot set for C-T link \n C-T link channel : ${ctchannel} \n"
 fi # cnumber == 3 - C-T link
 
 }
@@ -681,9 +680,11 @@ until (echo $tnumber | grep "^[1234]$"); do
 done
 
 if [ $tnumber == "1" ] ; then
-
-	client_lan_config $radio
 	story="${story} Radio in $slot set for Client LAN \n"
+	client_lan_config $radio
+        client_lan_suffix=$(expr ${client_lan_suffix} + 1)
+        client_lan_index=$(expr ${client_lan_index} + 1)
+
 
 fi # end tnumber == 1
 
@@ -698,7 +699,7 @@ if [ $tnumber == "2" ] ; then
 			break
 		else
 			echo "$check"
-		fi			
+		fi
          done
 	radio=$radio
 	channel=${tcchannel}
@@ -709,7 +710,7 @@ if [ $tnumber == "2" ] ; then
 	mode=adhoc
 	encryption=none
 	key=""
-			
+
 	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
 	tc_link_index=$(expr $tc_link_index + 1)
 	t_c_suffix=$(expr ${t_c_suffix} + 1)
@@ -727,9 +728,9 @@ if [ $tnumber == "3" ] ; then
 			break
 		else
 			echo "$check"
-		fi			
+		fi
          done
-						
+
 	radio=$radio
 	channel=${ttchannel}
 	iface=$radio
@@ -739,12 +740,12 @@ if [ $tnumber == "3" ] ; then
 	mode=adhoc
 	encryption=none
 	key=""
-				
-	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key 				
+
+	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
 	t_t_link_index=$(expr $t_t_link_index + 1)
 	t_t_suffix=$(expr ${t_t_suffix} + 1)
 	story="${story} Radio in $slot set for T-T link \n T-T link channel : ${ttchannel} \n"
-				
+
 fi # end tnumber=3, configure T-T
 
 }
@@ -847,8 +848,8 @@ if [[ "${platform}" != "Ubiquiti RouterStation Pro" && "${platform}" != "Ubiquit
 			client_lan_config 0
 
 		fi #end "do you want to configure the device for client access"	
-		
-		
+
+
 		until (echo $mesh | grep "^[yn]$"); do
 	                echo "do you wish to add a mesh interface (adhoc) ? (y/n)"
 	                read mesh
@@ -860,15 +861,15 @@ if [[ "${platform}" != "Ubiquiti RouterStation Pro" && "${platform}" != "Ubiquit
 		                echo "do you have a second radio on this device? (y/n)"
 		        	read radio2
 			done
-			
+
 			if  [ $radio2 == "y" ]; then
 
 				cmeshradio=1
 			else
 				cmeshradio=0
-			
+
 			fi # end "second radio"
-		
+
 			while ( true ); do
 				echo "Set C-mesh channel"
 				read meshchannel
@@ -878,7 +879,7 @@ if [[ "${platform}" != "Ubiquiti RouterStation Pro" && "${platform}" != "Ubiquit
 					break
 				else
 					echo "$check"
-				fi			
+				fi
 			done
 
 			radio=$cmeshradio
@@ -890,10 +891,10 @@ if [[ "${platform}" != "Ubiquiti RouterStation Pro" && "${platform}" != "Ubiquit
 			mode=adhoc
 			encryption=none
 			key=""	
-			
+
 			generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
 			story="${story} Radio$radio set for C-mesh \n C-mesh channel : ${meshchannel} \n"
-			
+
 		fi # end "do you want to configure mesh"
 
 		until (echo $hnode | grep "^[yn]$"); do
@@ -969,7 +970,7 @@ else
 
 	        story="${story} Node type : ${ntype} \n"
 
-	
+
 		if  [ $ntype == "C" ]; then
 
 			radio=0
@@ -977,7 +978,7 @@ else
 			cmesh_index=0
 			c_t_suffix=33
 			c_t_link_index=0
-		
+
 
 			if [ "$( lspci |  grep -i "00:11.0" )" ]; then
 			
