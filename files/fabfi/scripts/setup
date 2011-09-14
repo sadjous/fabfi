@@ -671,11 +671,10 @@ until (echo $tnumber | grep "^[1234]$"); do
 	printf "\nRadio detected in $slot\n"
 	printf "\nConfigure radio in $slot for :\n"
 	echo " 1 : Client Lan"
-	echo " 2 : T-C Link"
-	echo " 3 : T-T Link"
-	echo " 4 : Ignore"
+	echo " 2 : T-T Link"
+	echo " 3 : Ignore"
 	echo ""
-	echo "Choose 1, 2, 3 or 4 "
+	echo "Choose 1, 2, 3"
 	read tnumber
 done
 
@@ -689,35 +688,6 @@ if [ $tnumber == "1" ] ; then
 fi # end tnumber == 1
 
 if [ $tnumber == "2" ] ; then
-
-	while ( true ); do
-		echo "Set T-C link channel"
-		read tcchannel
-		check=$(check_channel $tcchannel $radio)
-		if [ "$check" == "ok" ]; then
-			echo "Channel $tcchannel selected"
-			break
-		else
-			echo "$check"
-		fi
-         done
-	radio=$radio
-	channel=${tcchannel}
-	iface=$radio
-	network=t_c_link_$tc_link_index
-	suffix=${t_c_suffix}
-	ssid_prefix=schoolnetBH
-	mode=adhoc
-	encryption=none
-	key=""
-
-	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
-	tc_link_index=$(expr $tc_link_index + 1)
-	t_c_suffix=$(expr ${t_c_suffix} + 1)
-	story="${story} Radio in $slot set for T-C link \n T-C link channel : ${tcchannel} \n"		
-fi # end tnumber=2 - configure T-C
-
-if [ $tnumber == "3" ] ; then
 
 	while ( true ); do
 		echo "Set T-T link channel"
@@ -746,7 +716,7 @@ if [ $tnumber == "3" ] ; then
 	t_t_suffix=$(expr ${t_t_suffix} + 1)
 	story="${story} Radio in $slot set for T-T link \n T-T link channel : ${ttchannel} \n"
 
-fi # end tnumber=3, configure T-T
+fi # end tnumber=2, configure T-T
 
 }
 
@@ -947,9 +917,9 @@ else
 
 			radio=0
 			channel=${ttmeshchannel}
-			iface=1
+			iface=0
 			network=t_t_link
-			suffix=65
+			suffix=49
                         ssid_prefix=schoolnetBH
                         mode=adhoc
                         encryption=none
@@ -1012,16 +982,14 @@ else
 		if  [ $ntype == "T" ]; then
 
 			radio=0
-			t_c_suffix=49
-			t_t_suffix=65
-			t_c_link_index=0
+			t_t_suffix=49
 			t_t_link_index=0
 
 			if [ "$( lspci |  grep -i "00:11.0" )" ]; then
-			
+
 				t_node_config slot_0
 				radio=$(expr $radio + 1)
-							
+
 			fi # end slot_0 radio detect
 
 
