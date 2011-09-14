@@ -33,21 +33,13 @@ generic_configs()
 {
 echo > /etc/rc.local
 
-check=999 #just to be sure
-#until [ $check -eq 0 ]
-#do
-#	echo "Enter fabfi number ( Must be between 1 and 65535 :-) )"
-#	read number
-#	echo $number | egrep "\b([1-9]|[1-6]{4})\b"
-#	check=$?
-#done
 echo "Enter fabfi number"
 read number
 
 
 story="${story} Fabfi number : ${number} \n"
 
-echo "Enter your 48-bit IPv6 prefix (e.g 2001:470:6826 There's no check on this text)"
+echo "Enter your 48 or 64-bit IPv6 prefix (e.g 2001:470:6826 There's no check on this text)"
 read prefix
 story="${story} IPv6 prefix : ${prefix}\n"
 
@@ -252,7 +244,7 @@ client_lan_config()
 	uci set network.clientlan_${client_lan_index}.ipaddr=10.0.${number}.${client_lan_suffix}
 	uci set network.clientlan_${client_lan_index}.netmask=255.255.255.128
 	uci set network.clientlan_${client_lan_index}.ip6addr=${prefix}:${number}::${client_lan_suffix}
-	
+
 	client_lan_radio=$1
 	#echo "By default radio0 is configured for client access"
 	while ( true ); do
@@ -264,13 +256,13 @@ client_lan_config()
 			break
 		else
 			echo "$check"
-		fi			
+		fi
 	done
 
 	story="${story} Client LAN channel : ${client_lan_channel} \n"
        	uci set wireless.radio$client_lan_radio.disabled=0
    	uci set wireless.radio$client_lan_radio.channel=$client_lan_channel
-       	
+
 	#uci set wireless.@wifi-iface[0].network=clientlan
     	#uci set wireless.@wifi-iface[0].mode=ap
 	#uci set wireless.@wifi-iface[0].ssid=schoolnet${number}
@@ -414,8 +406,12 @@ head_node_config()
 {
 	while ( true )
 	do
-		echo "Enter your static global IPv4 address"
+		echo "Enter your external IPv4 address or simply 'd' for dhcp "
 		read wanaddr
+
+		if [ $wanaddr == "d" ]; then
+			break;
+		fi
 
 		check=$( check_ipv4_address $wanaddr )
 		if [ "$check" == "ok" ]; then
@@ -425,29 +421,35 @@ head_node_config()
 		fi
 	done
 
-	echo "whats your netmask?"
-        read wannetmask
+	if [ $wanaddr == "d" ]; then
+		uci set network.wan.proto=dhcp
+		story="$story WAN ADDRESS : DHCP"
+	else
 
-	while ( true )
-	do
-		echo "Enter your gateway address"
-		read wangateway
+		echo "whats your netmask?"
+        	read wannetmask
 
-		check=$( check_ipv4_address $wangateway )
-		if [ "$check" == "ok" ]; then
-			break;
-		else
-			echo "$check"
-		fi
-	done
-	
-	story="$story WAN IP address : ${wanaddr} \n WAN Netmask : ${wannetmask} \n WAN Gateway : ${wangateway} \n"
+		while ( true )
+		do
+			echo "Enter your gateway address"
+			read wangateway
 
-	uci set network.wan.proto=static
-	uci set network.wan.ipaddr=${wanaddr}
-	uci set network.wan.netmask=${wannetmask}
-	uci set network.wan.gateway=${wangateway}
-	uci set network.wan.dns=8.8.8.8
+			check=$( check_ipv4_address $wangateway )
+			if [ "$check" == "ok" ]; then
+				break;
+			else
+				echo "$check"
+			fi
+		done
+
+		story="$story WAN IP address : ${wanaddr} \n WAN Netmask : ${wannetmask} \n WAN Gateway : ${wangateway} \n"
+
+		uci set network.wan.proto=static
+		uci set network.wan.ipaddr=${wanaddr}
+		uci set network.wan.netmask=${wannetmask}
+		uci set network.wan.gateway=${wangateway}
+		uci set network.wan.dns=8.8.8.8
+	fi
 
 	uci add firewall zone
 	uci set firewall.@zone[-1].name=wan
@@ -461,53 +463,48 @@ head_node_config()
 	until (echo $tunnel | grep "^[yn]$"); do
         	echo "do you wish to setup an ipv6 tunnel? (y/n)"
         	read tunnel
-	tunnel=$( echo $tunnel | tr 'A-Z' 'a-z' )
+		tunnel=$( echo $tunnel | tr 'A-Z' 'a-z' )
         done
 
         if  [ $tunnel == "y" ]; then
 
-		echo "what is your remote ipv4 tunnel address?"
-		read remote
-		story="${story} Remote tunnel address : ${remote}\n"	
+		until (echo $broker | grep "^[hs]$"); do
 
-		uci set network.tunnel=interface
-		uci set network.tunnel.ifname=tun0
-		uci set network.tunnel.proto=static
-		uci set network.tunnel.ip6addr=${prefix}::2
-		uci set network.tunnel.dns=2001:470:20::2
-		uci set network.tunnel.ip6gw=${prefix}::1
+			echo "Who is your tunnel broker, Hurricane Electric or Sixxs? (h/s) "
+			read broker
+			broker=$( echo $broker | tr 'A-Z' 'a-z' )
+		done
 
-		uci add firewall zone
-		uci set firewall.@zone[-1].name=tunnel
-		uci set firewall.@zone[-1].input=ACCEPT
-		uci set firewall.@zone[-1].output=ACCEPT
-		uci set firewall.@zone[-1].forward=ACCEPT
-		uci set firewall.@zone[-1].network=tunnel
+		if [ $broker == "h" ]; then
+			echo "what is your remote ipv4 tunnel address?"
+			read remote
+			story="${story} Remote tunnel address : ${remote}\n"
+			printf "ip tunnel add tun0 mode sit remote ${remote} local ${wanaddr} ttl 255 \nip link set tun0 up \nip -6 route add default dev tun0 \n" > /etc/rc.local
+		fi
 
-		uci add firewall rule
-		uci set firewall.@rule[-1].src=tunnel
-		uci set firewall.@rule[-1].dest=*
-		uci set firewall.@rule[-1].proto=icmp
-		uci set firewall.@rule[-1].icmp_type="echo-request destination-unreachable packet-too-big time-exceeded bad-header unknown-header-type"
-		uci set firewall.@rule[-1].limit=1000/sec
-		uci set firewall.@rule[-1].family=ipv6
-		uci set firewall.@rule[-1].target=ACCEPT
+		if [ $broker == "s" ]; then
 
+			echo "Enter your sixxs Username"
+			read sixusername
+			echo "Enter your sixxs Password"
+			read sixpassword
+			echo "What is your tunnel ID?"
+			read tunnelid
+			echo "What is your sixxs server address?"
+			read sixserver
 
-		uci add firewall forwarding
-		uci set firewall.@forwarding[-1].src=mesh
-		uci set firewall.@forwarding[-1].dest=tunnel
+			uci set aiccu.@aiccu[0].username=${sixusername}
+			uci set aiccu.@aiccu[0].password=${sixpassword}
+			uci set aiccu.@aiccu[0].protocol=TIC
+			uci set aiccu.@aiccu[0].server=${sixserver}
+			uci set aiccu.@aiccu[0].interface=tun0
+			uci set aiccu.@aiccu[0].tunnel_id=${tunnelid}
+			uci set aiccu.@aiccu[0].requiretls=0
+			uci set aiccu.@aiccu[0].defaultroute=1
+			uci set aiccu.@aiccu[0].nat=1
+			uci set aiccu.@aiccu[0].heartbeat=1
 
-		uci add firewall forwarding
-		uci set firewall.@forwarding[-1].src=niit
-		uci set firewall.@forwarding[-1].dest=tunnel
-
-		uci add firewall forwarding
-		uci set firewall.@forwarding[-1].src=clientlan
-		uci set firewall.@forwarding[-1].dest=tunnel
-
-		printf "ip tunnel add tun0 mode sit remote ${remote} local ${wanaddr} ttl 255 \nip link set tun0 up \nip -6 route add default dev tun0 \n" > /etc/rc.local
-
+		fi
 	else
 
 		echo "" > /etc/rc.local
