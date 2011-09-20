@@ -1,2 +1,2 @@
-V	120919092226Z		01	unknown	/C=US/ST=Massachusetts/O=FabFi/CN=USA Server Certificate/emailAddress=admin@fabfi.net
-V	120919204530Z		02	unknown	/C=US/ST=Massachusetts/O=FabFi/CN=clientdemo001@fabfi.net/emailAddress=clientdemo001@fabfi.net
+V	120919105211Z		01	unknown	/C=US/ST=Massachusetts/O=FabFi/CN=USA Server Certificate/emailAddress=admin@fabfi.net
+V	120919105216Z		02	unknown	/C=US/ST=Massachusetts/O=FabFi/CN=clientdemo001@fabfi.net/emailAddress=clientdemo001@fabfi.net
