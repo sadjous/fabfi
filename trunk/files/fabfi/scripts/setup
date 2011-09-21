@@ -582,7 +582,8 @@ until (echo $cnumber | grep "^[1234]$"); do
 	echo " 1 : Client Lan"
 	echo " 2 : C-mesh"
 	echo " 3 : C-T Link"
-	echo " 4 : Ignore"
+	echo " 4 : Client Lan + C-mesh"
+	echo " 5 : Ignore "
 	echo ""
 	echo "Choose 1, 2, 3 or 4 "
 	read cnumber
@@ -655,6 +656,41 @@ if [ $cnumber == "3" ]; then
 	c_t_link_index=$(expr ${c_t_link_index} +1)
 	story="${story} Radio in $slot set for C-T link \n C-T link channel : ${ctchannel} \n"
 fi # cnumber == 3 - C-T link
+
+if [ $cnumber == "4" ] ; then
+        story="${story} Radio in $slot set for Client LAN + C-mesh \n"
+        client_lan_config $radio
+        client_lan_suffix=$(expr ${client_lan_suffix} + 1)
+        client_lan_index=$(expr ${client_lan_index} + 1)
+
+        uci add wireless wifi-iface
+	uci set wireless.@wifi-iface[-1].device=radio${radio}
+        uci set wireless.@wifi-iface[-1].ssid=schoolnetmesh${client_lan_channel}
+        uci set wireless.@wifi-iface[-1].encryption=none
+        uci set wireless.@wifi-iface[-1].key=""
+        uci set wireless.@wifi-iface[-1].network=cmesh_$cmesh_index
+        uci set wireless.@wifi-iface[-1].mode=adhoc
+
+        #network
+        uci set network.cmesh_$cmesh_index=interface
+        uci set network.cmesh_$cmesh_index.proto=static
+        uci set network.cmesh_$cmesh_index.ipaddr=10.0.${number}.17
+        uci set network.cmesh_$cmesh_index.netmask=255.255.255.240
+        uci set network.cmesh_$cmesh_index.ip6addr=${prefix}:${number}::17
+	
+	uci set firewall.@zone[0].network="$(uci get firewall.@zone[0].network) cmesh_$cmesh_index"
+	
+	uci add olsrd Interface
+        uci set olsrd.@Interface[-1]=Interface
+        uci set olsrd.@Interface[-1].Mode=mesh
+        uci set olsrd.@Interface[-1].ignore=0
+        uci set olsrd.@Interface[-1].interface=cmesh_$cmesh_index
+        uci set olsrd.@Interface[-1].AutoDetectChanges=yes
+        uci set olsrd.@Interface[-1].HelloInterval=2.0
+        uci set olsrd.@Interface[-1].HelloValidityTime=20.0
+
+fi # end cnumber == 4
+
 
 }
 
