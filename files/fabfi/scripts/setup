@@ -157,6 +157,9 @@ olsrd_base_config()
 	uci set olsrd.@LoadPlugin[-1].suffix=.mesh
 	uci set olsrd.@LoadPlugin[-1].name_change_script="/etc/init.d/dnsmasq restart"
 	uci set olsrd.@LoadPlugin[-1].name=`uci get system.@system[0].hostname`
+	uci set olsrd.@LoadPlugin[-1].latlon_file=/var/run/latlon.js
+	uci set olsrd.@LoadPlugin[-1].lat=-1.234
+	uci set olsrd.@LoadPlugin[-1].lon=36.789
 
 	uci add olsrd LoadPlugin
 	uci set olsrd.@LoadPlugin[-1]=LoadPlugin
