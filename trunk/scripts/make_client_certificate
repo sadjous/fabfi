@@ -3,7 +3,7 @@
 #By default, the files in ../portalgun/certificates/ are used
 
 
-DIR=../portalgun/certificates/
+DIR=certs/
 
 echo "Using files in $DIR"
 
