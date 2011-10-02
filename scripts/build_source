@@ -18,6 +18,7 @@ if [ ${answer} == "y" ] ; then
 		cd ${DIR}
 		echo "Checking out openwrt source . . ."
 		svn checkout svn://svn.openwrt.org/openwrt/trunk/ .
+		cd $here
 		cp -a ../files/fabfi ${DIR}/target/linux/ar71xx/base-files/etc/
 
 
