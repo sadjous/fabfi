@@ -278,8 +278,8 @@ client_lan_config()
 	uci set wireless.@wifi-iface[$1].encryption=wpa2
 	uci set wireless.@wifi-iface[$1].eap_type=tls
 	uci set wireless.@wifi-iface[$1].ca_cert=/etc/fabfi/certificates/ca.pem
-	uci set wireless.@wifi-iface[$1].priv_key=/etc/fabfi/certificates/server.pem
-	uci set wireless.@wifi-iface[$1].priv_key_pwd=whatever
+	uci set wireless.@wifi-iface[$1].priv_key=/etc/fabfi/certificates/meshnode.pem
+	uci set wireless.@wifi-iface[$1].priv_key_pwd=FFJAMesh
 	uci set wireless.@wifi-iface[$1].server=18.181.3.48
 	uci set wireless.@wifi-iface[$1].key=cisco123
 
@@ -1099,7 +1099,7 @@ if [ ${commit} == "y" ]; then
 	cp /etc/fabfi/files/logo /etc/banner 
 	fabfi=$(cat /etc/fabfi/files/fabfi_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
 	
-	echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
+	echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf #something funny happens to the first entry; it never appears - this is why we have this silly entry
 	echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 	echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 	
@@ -1111,9 +1111,16 @@ if [ ${commit} == "y" ]; then
 
 	echo "Node info summarized in /root/Node_Info"
 	#Keep power levels low while we test
-	echo iwconfig wlan0 txpower 0dbm >> /etc/rc.local
-	echo iwconfig wlan1 txpower 0dbm >> /etc/rc.local
-	echo iwconfig wlan2 txpower 0dbm >> /etc/rc.local
+
+
+	for i in 0 1 2 3 #assumes we can have upto 4 radios on a device
+
+	do
+		if [ `uci -q get wireless.radio$i` ] ; then
+			uci set wireless.radio$i.txpower=0  #change from 0 to your preference
+	        fi
+
+	done
 
 	echo exit 0 >> /etc/rc.local
 

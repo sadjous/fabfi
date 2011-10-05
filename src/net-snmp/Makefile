@@ -116,6 +116,7 @@ SNMP_MIB_MODULES_INCLUDED = \
 	snmpv3/usmStats \
 	snmpv3/usmUser \
 	tunnel \
+	agent/extend \
 	ucd-snmp/disk \
 	ucd-snmp/dlmod \
 	ucd-snmp/extensible \
