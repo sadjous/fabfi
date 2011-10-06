@@ -97,6 +97,12 @@ olsrd_base_config()
 {
 	/etc/init.d/olsrd enable
 	/etc/init.d/batman-adv disable
+	
+	echo "Enter GPS Coordinates in DD.DDDD ( decimal ) format"
+	echo "Enter Longitude"
+	read longitude
+	echo "Enter Latitude"
+	read latitude
 
 	#Start with an empty olsrd file
 
@@ -158,8 +164,8 @@ olsrd_base_config()
 	uci set olsrd.@LoadPlugin[-1].name_change_script="/etc/init.d/dnsmasq restart"
 	uci set olsrd.@LoadPlugin[-1].name=`uci get system.@system[0].hostname`
 	uci set olsrd.@LoadPlugin[-1].latlon_file=/var/run/latlon.js
-	uci set olsrd.@LoadPlugin[-1].lat=-1.234
-	uci set olsrd.@LoadPlugin[-1].lon=36.789
+	uci set olsrd.@LoadPlugin[-1].lat=${latitude}
+	uci set olsrd.@LoadPlugin[-1].lon=${longitude}
 
 	uci add olsrd LoadPlugin
 	uci set olsrd.@LoadPlugin[-1]=LoadPlugin
