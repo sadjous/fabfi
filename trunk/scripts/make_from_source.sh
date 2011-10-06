@@ -5,6 +5,8 @@ here=$(pwd)
 echo "Enter the location of your OpenWrt source directory"
 read DIR
 
+DIR=$(readlink -f ${DIR} )
+
 if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 
 	cp -a ../files/fabfi ${DIR}/target/linux/ar71xx/base-files/etc/ -R
@@ -13,9 +15,10 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 
 	cp -a ../openwrt/config ${DIR}/.config
 
+	cd ../
 	svn info > ${DIR}/target/linux/ar71xx/base-files/etc/fabfi/files/fabfi_info
 
-	cd $DIR
+	cd ${DIR}
 
 	svn info > target/linux/ar71xx/base-files/etc/fabfi/files/openwrt_info
 
@@ -24,8 +27,6 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 	fi
 
 	make -j 8 V=99
-
-	DIR=$(pwd)
 
 	if [ ! -d $DIR/latest-images/ ]; then mkdir $DIR/latest-images ; fi
 
