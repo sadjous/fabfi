@@ -67,7 +67,7 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 	svn info > target/linux/ar71xx/base-files/etc/fabfi/files/openwrt_info
 
 	if [ ! -h target/linux/ar71xx/base-files/setup  ]; then
-		ln -s /etc/fabfi/scripts/setup target/linux/ar71xx/base-files/setup
+		ln -s /etc/fabfi/scripts/setup.sh target/linux/ar71xx/base-files/setup
 	fi
 
 	./scripts/feeds update -a
@@ -75,10 +75,10 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 
 	#patch net-snmpd
 	cd ${here}
-	cp ../src/net-snmp/Makefile ${DIR}/feeds/packages/net/net-snmp/Makefile
-	cp ../src/net-snmp/files/snmpd.conf ${DIR}/feeds/packages/net/net-snmp/files/snmpd.conf
-	cp ../src/net-snmp/files/snmpd.default ${DIR}/feeds/packages/net/net-snmp/files/snmpd.default
-	cp ../src/net-snmp/files/snmpd.init ${DIR}/feeds/packages/net/net-snmp/files/snmpd.init 
+	#cp ../src/net-snmp/Makefile ${DIR}/feeds/packages/net/net-snmp/Makefile
+	#cp ../src/net-snmp/files/snmpd.conf ${DIR}/feeds/packages/net/net-snmp/files/snmpd.conf
+	#cp ../src/net-snmp/files/snmpd.default ${DIR}/feeds/packages/net/net-snmp/files/snmpd.default
+	#cp ../src/net-snmp/files/snmpd.init ${DIR}/feeds/packages/net/net-snmp/files/snmpd.init 
 
 	#patch iperf
 	cp ../src/iperf-mt/002-fix-server-exit-on-dual-test.patch ${DIR}/feeds/packages/net/iperf/patches/
