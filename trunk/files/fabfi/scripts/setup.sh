@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ash
 
 #Some global variables
 story=""
@@ -85,6 +85,77 @@ uci set snmpd.@rouser[-1].username=fabfi-user
 uci set snmpd.@rouser[-1].securitylevel=authPriv
 uci set snmpd.@rouser[-1].view=all
 
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=longitude
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=lon
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.10
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=latitude
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=lat
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.11
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Neighbour_IP
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=neigh_ip
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.12
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Neighbour_HOSTNAME
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=neigh_hostname
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.13
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Neighbour_LQ
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=neigh_lq
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.14
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Neighbour_HYST
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=neigh_hyst
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.15
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Neighbour_NLQ
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=neigh_nlq
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.16
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Neighbour_COST
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=neigh_cost
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.17
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Neighbour_Longitude
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=neigh_lon
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.18
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Neighbour_Latitude
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=neigh_lat
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.19
+
 #echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
 #echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 #echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
@@ -99,11 +170,11 @@ olsrd_base_config()
 	/etc/init.d/batman-adv disable
 	
 	echo "Enter GPS Coordinates in DD.DDDD ( decimal ) format"
-	echo "Enter Longitude"
-	read longitude
 	echo "Enter Latitude"
 	read latitude
 
+	echo "Enter Longitude"
+	read longitude
 	#Start with an empty olsrd file
 
 	while [ "$(uci show olsrd)" != "" ]
@@ -1099,16 +1170,18 @@ printf "${story}"
   done
 
 if [ ${commit} == "y" ]; then
-	
+
 	#openwrt=$(cat /etc/banner | grep -i bleed | cut -d "(" -f 2 | cut -d ")" -f 1)
 	openwrt=$(cat /etc/fabfi/files/openwrt_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
 	cp /etc/fabfi/files/logo /etc/banner 
 	fabfi=$(cat /etc/fabfi/files/fabfi_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
-	
+
 	echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf #something funny happens to the first entry; it never appears - this is why we have this silly entry
 	echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 	echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
-	
+	echo "*/1 * * * * cat /var/run/latlon.js > /var/run/latlon-bc.js" >> /etc/crontabs/root
+
+
 	printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
 	printf "\n ------------------------------------------------------------------\n" >> /etc/banner
 
@@ -1130,14 +1203,14 @@ if [ ${commit} == "y" ]; then
 
 	echo exit 0 >> /etc/rc.local
 
-	
+
 	echo "Wait for telnet to close before unplugging router from power"
 
 	uci commit
 	sleep 3	
 	rm /setup
 	reboot && killall telnetd
-	
+
 else
 	echo "Setup not committed"
 	echo "Reverting UCI . . ."

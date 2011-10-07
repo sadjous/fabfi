@@ -23,7 +23,7 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 	svn info > target/linux/ar71xx/base-files/etc/fabfi/files/openwrt_info
 
 	if [ ! -h target/linux/ar71xx/base-files/setup  ]; then
-		ln -s /etc/fabfi/scripts/setup target/linux/ar71xx/base-files/setup
+		ln -s /etc/fabfi/scripts/setup.sh target/linux/ar71xx/base-files/setup
 	fi
 
 	make -j 8 V=99
