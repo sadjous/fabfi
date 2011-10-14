@@ -1032,7 +1032,7 @@ else
 			channel=${ttmeshchannel}
 			iface=0
 			network=t_t_link
-			suffix=49
+			suffix=33
                         ssid_prefix=schoolnetBH
                         mode=adhoc
                         encryption=none
@@ -1095,7 +1095,7 @@ else
 		if  [ $ntype == "T" ]; then
 
 			radio=0
-			t_t_suffix=49
+			t_t_suffix=33
 			t_t_link_index=0
 
 			if [ "$( lspci |  grep -i "00:11.0" )" ]; then
