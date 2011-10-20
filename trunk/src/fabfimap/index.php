@@ -16,6 +16,8 @@
 
 var map;
 var nodeArray = [] ;
+var lineArray = [] ;
+
 
 var nairobi = new google.maps.LatLng(-1.27872, 36.81696);
 var capetown = new google.maps.LatLng(-1.27872, 36.81696);
@@ -100,38 +102,6 @@ var S_NODE_UNKNOWN = new google.maps.MarkerImage('icons/square_blue.png',
 
 // End Shapes
 
-	var contentString = "<a href='http://www.uonbi.ac.ke'>Uonbi</a>";
-	
-	var line1 = [ fablab, taifa ]; 
-
-	var line2 = [ taifa, awing ]; 
-
-	var line3 = [ awing, fablab ];
-
-  var flightPath = new google.maps.Polyline({
-    path: line1,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.5,
-    strokeWeight: 2
-  });
-
-
-  var flightPath2 = new google.maps.Polyline({
-    path: line2,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.2532,
-    strokeWeight: 2
-
-  });
-
-
-  var flightPath3 = new google.maps.Polyline({
-    path: line3,
-    strokeColor: "#FF0000",
-    strokeOpacity: 1.0,
-    strokeWeight: 2
-});
-	
 function initialize_map() {
 
 	var mapOptions = {
@@ -143,7 +113,7 @@ function initialize_map() {
 	map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
 
 	<?php
-
+	$lines_array=array();
 	$con = mysql_connect("localhost","mapserver","cisco123");
 	if (!$con)
         {
@@ -152,7 +122,7 @@ function initialize_map() {
 
 	mysql_select_db("meshmib", $con);
 
-	$query=mysql_query("SELECT * FROM  `node` LIMIT 0 , 30");
+	$query=mysql_query("SELECT * FROM  `node`");
 
 	while ( $row = mysql_fetch_array($query))
 	{
@@ -181,9 +151,39 @@ function initialize_map() {
 		$node_coordinates = $row['latitude'] . ", " . $row['longitude'];
 		$node_type = $row['type'] . "_NODE";	
 		$node_icon=$node_type . "_" . $node_status;
+		$node_fabfi_number=$row['fabfi_number'];
+		$node_ip=mysql_fetch_array( mysql_query( "select ipv6_address from node_ip where fabfi_number = '".$node_fabfi_number."'"));
+		$node_ip=$node_ip['ipv6_address'];
 
-		//Finally, generate required Javascript
-		echo "addNodeMarker(new google.maps.LatLng(" . $node_coordinates ."),". $node_icon .",".$row['cacti_index'].");" ;
+		//Finally, generate required Javascript to place a marker
+		
+		echo "addNodeMarker(new google.maps.LatLng(" . $node_coordinates ."),". $node_icon .",".$row['cacti_index'].");\n" ;
+
+
+		$three_minutes_ago=date("Y-m-d H:i:s",time()-180);
+
+		$links=mysql_query("select * from links where timestamp >='".$three_minutes_ago."' AND source_ip = '".$node_ip."'");
+
+		while ($result = mysql_fetch_array($links) )
+		{
+			$cost=$result['cost'];
+			
+			$neigh_fabfi_number=mysql_fetch_array( mysql_query("select fabfi_number from node_ip where ipv6_address = '".$result['dest_ip']."' limit 1" ) );  
+			$neigh_fabfi_number=$neigh_fabfi_number['fabfi_number'];
+			$neigh_coordinates=mysql_fetch_array ( mysql_query("select `latitude`,`longitude` from node where fabfi_number = '".$neigh_fabfi_number."'"));
+			$neigh_coordinates=$neigh_coordinates['latitude'].", ".$neigh_coordinates['longitude'];
+		
+			//generate javascript for a line - first check that we've not drawn this line before.
+
+			if (! in_array($node_coordinates.$neigh_coordinates,$lines_array) && ! in_array($neigh_coordinates.$node_coordinates,$lines_array) ){
+				echo "addLine(new google.maps.LatLng(".$node_coordinates."), new google.maps.LatLng(".$neigh_coordinates."),$cost);\n";
+				array_push($lines_array, $node_coordinates.$neigh_coordinates);
+			}
+		}
+
+
+
+
 	}
 
 	?>
@@ -198,6 +198,21 @@ function addNodeMarker(location,node_icon,cactiID) {
 	});
 	nodeArray.push(marker);
 }
+
+function addLine(node1,node2,cost) {
+	
+	var newLine = [ node1, node2 ];
+		var opacity=1/cost;
+		var newPath = new google.maps.Polyline({	
+		map: map,
+		path: newLine,
+		strokeColor: "#FF0000",
+		strokeOpacity: opacity,
+		strokeWeight: 2 
+		});
+		
+}
+
 
 
 function initialize() {
