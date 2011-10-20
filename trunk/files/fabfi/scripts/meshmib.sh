@@ -11,13 +11,13 @@ my_lon=`uci get olsrd.@LoadPlugin[1].lon`
 get_neigh_longitude()
 {
 #Require's node IP address
-$node_ip=$1
+node_ip=$1
 cat $latlonfile | grep  "'$node_ip','$self_ip'" | cut -d "," -f 7
 }
 
 get_neigh_latitude()
 {
-
+node_ip=$1
 cat $latlonfile | grep  "'$node_ip','$self_ip'" | cut -d "," -f 6
 
 }
@@ -73,18 +73,18 @@ case $1 in
 		done
 		;;
 
-	radio1_clients )
+	radio_clients )
 
-		iw dev wlan1 station dump | grep Station | cut -d " " -f 2
+		iw dev wlan$2 station dump | grep Station | cut -d " " -f 2
 		;;
 	avg_signal )
-		iw dev wlan1 station dump | grep "signal avg" | cut -d ":" -f 2 | tr -d "\t" | cut -d " " -f 1
+		iw dev wlan$2 station dump | grep "signal avg" | cut -d ":" -f 2 | tr -d "\t" | cut -d " " -f 1
 		;;
 	tx_bitrate )
-		iw dev wlan1 station dump | grep -i "tx bitrate" | cut -d ":" -f 2 | cut -d " " -f 1 | tr -d "\t"
+		iw dev wlan$2 station dump | grep -i "tx bitrate" | cut -d ":" -f 2 | cut -d " " -f 1 | tr -d "\t"
 		;;
 	rx_bitrate )
-		iw dev wlan1 station dump | grep -i "rx bitrate" | cut -d ":" -f 2 | cut -d " " -f 1 | tr -d "\t"
+		iw dev wlan$2 station dump | grep -i "rx bitrate" | cut -d ":" -f 2 | cut -d " " -f 1 | tr -d "\t"
 		;;
 
 
