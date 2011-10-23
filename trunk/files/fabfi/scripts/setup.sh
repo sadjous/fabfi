@@ -9,8 +9,23 @@ ipv6regex='/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}
 client_lan_suffix=129
 client_lan_index=0
 
-
 #Global Functions
+
+check_latlon()
+{
+
+latlonRegex="\b(-?[0-9]{1,3}\.[0-9]{1,16})\b"
+
+check=$(echo $1 | egrep $latlonRegex)
+
+if [ "$check" == "$1" ];
+then
+	echo "ok"
+else
+	echo "Invalid coordinate entry"
+fi
+
+}
 
 check_ipv4_address()
 {
@@ -170,11 +185,36 @@ olsrd_base_config()
 	/etc/init.d/batman-adv disable
 	
 	echo "Enter GPS Coordinates in DD.DDDD ( decimal ) format"
-	echo "Enter Latitude"
-	read latitude
+	#echo "Enter Latitude"
+	#read latitude
 
-	echo "Enter Longitude"
-	read longitude
+	while ( true )
+	do
+		echo "Enter Latitude"
+		read latitude
+
+		check=$( check_latlon $latitude )
+		if [ "$check" == "ok" ]; then
+			break;
+		else
+			echo $check
+		fi
+	done
+
+	while ( true )
+	do
+		echo "Enter Longitude"
+		read longitude
+
+		check=$( check_latlon $longitude )
+		if [ "$check" == "ok" ]; then
+			break;
+		else
+			echo $check
+		fi
+	done
+	
+
 	#Start with an empty olsrd file
 
 	while [ "$(uci show olsrd)" != "" ]
@@ -733,7 +773,7 @@ if [ $cnumber == "3" ]; then
 
 	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key 
 	c_t_suffix=$(expr ${c_t_suffix} + 1)
-	c_t_link_index=$(expr ${c_t_link_index} +1)
+	c_t_link_index=$(expr ${c_t_link_index} + 1)
 	story="${story} Radio in $slot set for C-T link \n C-T link channel : ${ctchannel} \n"
 fi # cnumber == 3 - C-T link
 

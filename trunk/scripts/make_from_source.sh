@@ -26,6 +26,9 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 		ln -s /etc/fabfi/scripts/setup.sh target/linux/ar71xx/base-files/setup
 	fi
 
+	if [ ! -h target/linux/ar71xx/base-files/setup2  ]; then
+		ln -s /etc/fabfi/scripts/setup2.sh target/linux/ar71xx/base-files/setup2
+	fi
 	make -j 8 V=99
 
 	if [ ! -d $DIR/latest-images/ ]; then mkdir $DIR/latest-images ; fi
