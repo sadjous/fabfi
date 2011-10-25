@@ -117,9 +117,10 @@ Antennas:
 || Laird* || omni || 5dBi || 2.4Ghz || N-Male || $42 ||
 || Laird* || omni || 7dBi || 2.4Ghz || N-Male || $52 ||
 || Laird* || omni || 9dBi || 2.4Ghz || N-Male || $52 ||
-|| Ubiquiti || mimo-omni || 13dBi || 5Ghz || RP-SMA female || $169 ||
+|| Ubiquiti** || mimo-omni || 13dBi || 5Ghz || RP-SMA female || $169 ||
 
-Antenna prices are for "easy" procurement.  Equivalents may be available direct from China for < $20.
+`*`Antenna prices are for "easy" procurement.  Equivalents may be available direct from China for < $20.
+`*``*`This antenna will supply both chains for a single radio
 
 Pigtails:
 Expect $6-12 for premade.  
