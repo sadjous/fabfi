@@ -46,11 +46,18 @@ fi
 
 generic_configs()
 {
+
+touch /etc/config/fabfi
+uci add fabfi node
+uci add fabfi servers
+
+
 echo > /etc/rc.local
 
 echo "Enter fabfi number"
 read number
 
+uci set fabfi.@node[0].fabfiNumber=${number}
 
 story="${story} Fabfi number : ${number} \n"
 
@@ -884,6 +891,7 @@ clear
 printf "\n\n${platform}\n\n"
 sleep 1
 
+
 uci set system.@system[0].platform="${platform}"
 
 uci rename network.lan=mesh
@@ -1090,6 +1098,8 @@ else
 			read ntype
 			ntype=$(echo $ntype | tr '[a-z' '[A-Z]')
 	         done
+
+		uci set fabfi.@node[0].nodeType=${ntype}
 
 	        story="${story} Node type : ${ntype} \n"
 

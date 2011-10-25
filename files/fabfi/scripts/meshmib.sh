@@ -1,12 +1,31 @@
 #!/bin/ash
+
 latlonfile=/var/run/latlon-bc.js
+olsr_info_file=/tmp/olsr.info
 
 self_ip=$( cat $latlonfile | grep -i self | cut -d "(" -f 2 | cut -d "," -f 1 | tr -d "'" )
-remote_ip=$(cat $latlonfile  | grep -i node | cut -d "(" -f 2 | cut -d "," -f 1 | tr -d "'" | tr "\n" " ")
+
+olsr_neigh_ips=`cat ${olsr_info_file} | cut -f 2`
+
+remote_ip()
+{
+for i in $olsr_neigh_ips 
+do 
+	cat $latlonfile | grep -i mid | grep "$i" | cut -d "'" -f 2  
+done
+}
+
+#Since we are only interested in OLSR main IPs
+
+remote_ip=$( remote_ip )
 
 #Node's own coordinates
 my_lat=`uci get olsrd.@LoadPlugin[1].lat`
 my_lon=`uci get olsrd.@LoadPlugin[1].lon`
+
+#Node details
+
+nodeType=`uci get fabfi.@node[0].nodeType`
 
 get_neigh_longitude()
 {
@@ -31,12 +50,27 @@ case $1 in
 	lon )
 		echo ${my_lon}
 		;;
+        coords )
+               
+                echo "${my_lat}, ${my_lon}"
+                ;;
 
-	neigh_ip )
 
-		cat $latlonfile | grep -i node | cut -d "(" -f 2 | cut -d "," -f 1 | tr -d "'"
+	fabfinumber )
+
+		uci get fabfi.@node[0].fabfiNumber
+		;;
+	self_ip )
+		echo $self_ip                                	
 		;;
 
+	neigh_ip )
+		for i in ${remote_ip}
+		do
+			echo $i
+		done
+		;;
+		
 	neigh_hostname )
 		cat $latlonfile | grep -i node | cut -d "," -f 6 | cut -d ")" -f 1 | tr -d "'"
 		;;
@@ -55,22 +89,13 @@ case $1 in
 		done
                 ;;
 	neigh_lq )
-		for i in ${remote_ip}
-        	do
-        		cat $latlonfile | grep  "'$i','$self_ip'" | cut -d "," -f 3
-        	done
+		cat ${olsr_info_file} | cut -f 4
 		;;
 	neigh_nlq )
-		for i in ${remote_ip}
-		do
-			cat $latlonfile | grep  "'$i','$self_ip'" | cut -d "," -f 4
-		done
+		cat ${olsr_info_file} | cut -f 5 
 		;;
 	neigh_cost )
-		for i in ${remote_ip}
-		do
-			cat $latlonfile | grep  "'$i','$self_ip'" | cut -d "," -f 5
-		done
+		cat ${olsr_info_file} | cut -f 6 
 		;;
 
 	radio_clients )
