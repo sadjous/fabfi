@@ -107,6 +107,23 @@ Harware under consideration for 5th-gen is all ubiquiti-made and 9xxx Atheros-ba
 
 Note: Open-Mesh dual-band devices do not seem hackable [http://robin.forumup.it/about4656-robin.html]
 
+mini-PCI Radios:
+|| Model || tx/rx || pwr || band || connector || Retail price ||
+|| Mikrotok R52Hn || 2x2 || 25dBi || 2.4/5Ghz || MMCX || $49 ||
+|| Mikrotok R2n || 2x2 || 24dBi || 2.4Ghz || U-FL || $34 ||
+
+Antennas:
+|| Model || type || gain || band || connector || Retail price ||
+|| Laird* || omni || 5dBi || 2.4Ghz || N-Male || $42 ||
+|| Laird* || omni || 7dBi || 2.4Ghz || N-Male || $52 ||
+|| Laird* || omni || 9dBi || 2.4Ghz || N-Male || $52 ||
+|| Ubiquiti || mimo-omni || 13dBi || 5Ghz || RP-SMA female || $169 ||
+
+Antenna prices are for "easy" procurement.  Equivalents may be available direct from China for < $20.
+
+Pigtails:
+Expect $6-12 for premade.  
+
 == Proposed Configurations ==
 
 NB: I believe it ill be possible to use Ubiquiti devices as transparent APs and stations (provided 1:1 mapping of STA:IP)
