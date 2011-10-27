@@ -295,6 +295,10 @@ TCP window size: 85.3 KByte (default)
 [  4]  0.0-10.0 sec  52.8 MBytes  44.1 Mbits/sec
 }}}
 
+=== Real-World Performance testing === 
+
+See here for initial Preformance Test results in an urban environment:  [https://docs.google.com/spreadsheet/ccc?key=0AnA6LOF3_NU1dEVNR2diMi0zbWtDb0VKUEwzc2taWFE Davis Lab Wifi Tests]
+
 = Routing & Meshing =
 
 Summary:
