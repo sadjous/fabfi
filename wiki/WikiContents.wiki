@@ -7,7 +7,7 @@
   * [FAQ Frequently Asked Questions]
   * [FAQPress Frequently Asked Questions by the Press Media]
   * :.
-  * *== General FabFi & Networking ==*
+  * *= General FabFi & Networking =*
   * Tutorials   
      * [DesigningYourNetwork Network Design]
      * [IntroductionToRadius Introduction to RADIUS]
