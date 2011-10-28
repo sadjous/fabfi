@@ -1229,8 +1229,8 @@ if [ ${commit} == "y" ]; then
 	echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf #something funny happens to the first entry; it never appears - this is why we have this silly entry
 	echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 	echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
-	echo "*/1 * * * * cat /var/run/latlon.js > /var/run/latlon-bc.js" >> /etc/crontabs/root
-
+	echo "*/1 * * * * /bin/ash /etc/fabfi/scripts/copy-files.sh 2> /dev/null" >> /etc/crontabs/root
+	echo "*/2 * * * * sh /etc/fabfi/scripts/fabfimap.sh > /dev/null" >> /etc/crontabs/root
 
 	printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
 	printf "\n ------------------------------------------------------------------\n" >> /etc/banner
