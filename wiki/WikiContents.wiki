@@ -34,6 +34,10 @@
   * [shop Where to Buy/Get]
   * [TroubleShooting]
   * :.
+  * *====  Version 5.0 ====*
+  * *How To Make*
+    * FabfiServer5
+  * :.
   * *====  More ====*
   * [BeyondFabFi Beyond FabFi]
   * [nextgen Next Gen FabFi]
