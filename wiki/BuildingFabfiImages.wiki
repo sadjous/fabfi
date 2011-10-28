@@ -70,7 +70,7 @@ make -j 4 V=99 #for 4 concurrent processes
 
 == Dirty / Unresolved details ==
 
-  # Net-snmpd: 
+  * Net-snmpd: 
 To compile fabfi's version of net-snmpd ( has different makefile, snmpd.init ) - putting fabfi src first introduces a bug.Therefore, modify original net-snmpd source ( copy fabfi version )
 {{{
 	cp fabfi/src/net-snmp/Makefile openwrt.trunk/feeds/packages/net/net-snmp/Makefile
@@ -79,7 +79,7 @@ To compile fabfi's version of net-snmpd ( has different makefile, snmpd.init ) -
 	cp fabfi/src/net-snmp/files/snmpd.init openwrt.trunk/feeds/packages/net/net-snmp/files/snmpd.init 
 }}}
 This "should" build our version of net-snmpd
-  # iperf-mt:
+  * iperf-mt:
 copy the patch from fabfi trunk and drop it in openwrt.trunk
 {{{
 	cp fabfi/src/iperf-mt/002-fix-server-exit-on-dual-test.patch openwrt.trunk/feeds/packages/net/iperf/patches/
