@@ -19,46 +19,43 @@ When we build images, we follow these steps:
 
 This script may be buggy / troubleshooting may be difficult, but if it works it's the simplest method.
 
-# Prepare your computer - http://wiki.openwrt.org/doc/howto/buildroot.exigence
-#Checkout latest fabfi trunk
+  # Prepare your computer - http://wiki.openwrt.org/doc/howto/buildroot.exigence
+  #Checkout latest fabfi trunk
 {{{
 	svn checkout https://fabfi.googlecode.com/svn/trunk/ fabfi 
 }}}
-#Navigate to 
+  # Navigate to scripte directory and run the build_source script.  (This script checks out the latest openwrt trunk source or updates your existing source. Make sure your local copy of the fabfi repository is up to date before running this script. ( svn up ))
 {{{
 cd fabfi/scripts
-}}}
-# Run the build_source script.  (This script checks out the latest openwrt trunk source or updates your existing source. Make sure your local copy of the fabfi repository is up to date before running this script. ( svn up ))
-{{{
 bash build_source
 (The script will ask you for your openwrt source directory.  It uses trunk.  so you'll want to give it the path that ends in /trunk.)
 }}}
 
 == Method 2: Manual Source Build ==
 
-# Prepare your computer - http://wiki.openwrt.org/doc/howto/buildroot.exigence
+  # Prepare your computer - http://wiki.openwrt.org/doc/howto/buildroot.exigence
 #Checkout latest fabfi trunk
 {{{
 	svn checkout https://fabfi.googlecode.com/svn/trunk/ fabfi 
 }}}
-# Choose a home for your OpenWRT source and download it.  We choose openwrt.trunk below
+  # Choose a home for your OpenWRT source and download it.  We choose openwrt.trunk below
 {{{
 svn checkout svn://svn.openwrt.org/openwrt/trunk/ openwrt.trunk
 }}}
-# Copy feeds.conf.default from fabfi trunk to openwrt trunk
+  # Copy feeds.conf.default from fabfi trunk to openwrt trunk
 {{{
 cd openwrt.trunk
 cp fabfi/openwrt/feeds.conf.default openwrt.trunk/feeds.conf.default
 }}}
-# Copy config from fabfi trunk to openwrt.trunk ( observe that in fabfi trunk, the filename is config; in openwrt.trunk, the filename is .config )
+  # Copy config from fabfi trunk to openwrt.trunk ( observe that in fabfi trunk, the filename is config; in openwrt.trunk, the filename is .config )
 {{{
 	cp fabfi/openwrt/config openwrt.trunk/.config
 }}}
-# Copy fabfi files from fabfi trunk to openwrt.trunk
+  # Copy fabfi files from fabfi trunk to openwrt.trunk
 {{{
 cp -a fabfi/files/fabfi openwrt.trunk/target/linux/ar71xx/base-files/etc/
 }}}
-# Enter openwrt.trunk, update sources and install.  Then compile.
+  # Enter openwrt.trunk, update sources and install.  Then compile.
 {{{
 cd openwrt.trunk
 ./scripts/feeds update -a
@@ -73,7 +70,7 @@ make -j 4 V=99 #for 4 concurrent processes
 
 == Dirty / Unresolved details ==
 
-# Net-snmpd: 
+  # Net-snmpd: 
 To compile fabfi's version of net-snmpd ( has different makefile, snmpd.init ) - putting fabfi src first introduces a bug.Therefore, modify original net-snmpd source ( copy fabfi version )
 {{{
 	cp fabfi/src/net-snmp/Makefile openwrt.trunk/feeds/packages/net/net-snmp/Makefile
@@ -82,8 +79,7 @@ To compile fabfi's version of net-snmpd ( has different makefile, snmpd.init ) -
 	cp fabfi/src/net-snmp/files/snmpd.init openwrt.trunk/feeds/packages/net/net-snmp/files/snmpd.init 
 }}}
 This "should" build our version of net-snmpd
-	
-# iperf-mt:
+  # iperf-mt:
 copy the patch from fabfi trunk and drop it in openwrt.trunk
 {{{
 	cp fabfi/src/iperf-mt/002-fix-server-exit-on-dual-test.patch openwrt.trunk/feeds/packages/net/iperf/patches/
