@@ -20,7 +20,7 @@ When we build images, we follow these steps:
 This script may be buggy / troubleshooting may be difficult, but if it works it's the simplest method.
 
   # Prepare your computer - http://wiki.openwrt.org/doc/howto/buildroot.exigence
-  #Checkout latest fabfi trunk
+  # Checkout latest fabfi trunk
 {{{
 	svn checkout https://fabfi.googlecode.com/svn/trunk/ fabfi 
 }}}
@@ -85,6 +85,4 @@ copy the patch from fabfi trunk and drop it in openwrt.trunk
 	cp fabfi/src/iperf-mt/002-fix-server-exit-on-dual-test.patch openwrt.trunk/feeds/packages/net/iperf/patches/
 }}}
 	
-
-
 
