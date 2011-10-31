@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # OpenWrt version: Attitude Adjustment (r28688)
-# Mon Oct 31 12:18:10 2011
+# Mon Oct 31 19:49:46 2011
 #
 CONFIG_HAVE_DOT_CONFIG=y
 # CONFIG_TARGET_ppc40x is not set
@@ -447,7 +447,7 @@ CONFIG_UCLIBC_VERSION="0.9.32"
 CONFIG_LIBC="uClibc"
 CONFIG_LIBC_VERSION="0.9.32"
 CONFIG_TARGET_SUFFIX="uclibc"
-# CONFIG_IB is not set
+CONFIG_IB=y
 # CONFIG_SDK is not set
 # CONFIG_MAKE_TOOLCHAIN is not set
 # CONFIG_IMAGEOPT is not set
