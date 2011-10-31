@@ -40,6 +40,10 @@ to get all the packages to build.
 
 *After the first build, you can rebuild images with changes to fabfi files simply by running make_from_source.sh*
 
+You can find your new images in
+{{{
+<openwrt source dir>/latest-images/
+}}}
 
 == Method 2: Manual Source Build ==
 
@@ -77,12 +81,3 @@ To compile faster, you might want to run several parallel make processes
 {{{
 make -j 4 V=99 #for 4 concurrent processes
 }}}
-
-== Dirty / Unresolved details ==
-
-  * iperf-mt:
-copy the patch from fabfi trunk and drop it in openwrt.trunk
-{{{
-	cp fabfi/src/iperf-mt/002-fix-server-exit-on-dual-test.patch openwrt.trunk/feeds/packages/net/iperf/patches/
-}}}
-	
