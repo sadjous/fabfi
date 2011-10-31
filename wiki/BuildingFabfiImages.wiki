@@ -38,7 +38,7 @@ bash make_from_source.sh
 }}}
 to get all the packages to build.
 
-**After thefirst build, you can rebuild images with changes to fabfi files simply by running make_from_source.sh**
+*After the first build, you can rebuild images with changes to fabfi files simply by running make_from_source.sh*
 
 
 == Method 2: Manual Source Build ==
