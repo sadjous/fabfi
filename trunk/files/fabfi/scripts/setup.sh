@@ -648,9 +648,10 @@ head_node_config()
 			read sixpassword
 			echo "What is your tunnel ID?"
 			read tunnelid
-			echo "What is your sixxs server address?"
-			read sixserver
+			#echo "What is your sixxs server address?"
+			#read sixserver
 
+			sixserver= "tic.sixxs.net"
 			uci set aiccu.@aiccu[0].username=${sixusername}
 			uci set aiccu.@aiccu[0].password=${sixpassword}
 			uci set aiccu.@aiccu[0].protocol=TIC
