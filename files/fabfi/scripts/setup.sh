@@ -706,7 +706,7 @@ head_node_config()
 	uci set firewall.@rule[-1]._name="SNMP"
 	uci set firewall.@rule[-1].src=wan
 	uci set firewall.@rule[-1].proto="tcp udp"
-	uci set firewall.@rule[-1].dest_port=22
+	uci set firewall.@rule[-1].dest_port=161
 
 	uci add firewall forwarding
 	uci set firewall.@forwarding[-1].src=mesh
