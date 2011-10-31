@@ -3,6 +3,8 @@
 #Some global variables
 story=""
 number=""
+mapserver="fabfi.xvm.mit.edu"
+
 ipv6regex='/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/'
 #ipv4regex='\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'
 
@@ -50,7 +52,8 @@ generic_configs()
 touch /etc/config/fabfi
 uci add fabfi node
 uci add fabfi servers
-
+uci set fabfi.@servers[0].mapserver=$mapserver
+uci set fabfi.@node[0].mapUpdateInterval=180
 
 echo > /etc/rc.local
 
@@ -177,6 +180,16 @@ uci set snmpd.@extend[-1].prog=/bin/ash
 uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
 uci set snmpd.@extend[-1].args=neigh_lat
 uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.19
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Node_type
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=node_type
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.20
+
+
 
 #echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
 #echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
@@ -692,6 +705,14 @@ head_node_config()
 	#uci set network.mesh.ip6addr=${prefix}:${hexno}::1
 	#uci set olsrd.@LoadPlugin[-1].dns_server=`uci get network.mesh.ip6addr`
 	uci set olsrd.@LoadPlugin[1].dns_server=${prefix}:${number}::1
+
+
+	#Servers
+
+	uci add dhcp domain
+	uci set dhcp.@domain[-1].name=map.mesh
+	uci set dhcp.@domain[-1].ip=18.181.1.255  
+
 }
 
 
@@ -923,7 +944,7 @@ uci set firewall.@defaults[0]=defaults
 uci set firewall.@defaults[0].syn_flood=1
 uci set firewall.@defaults[0].input=ACCEPT
 uci set firewall.@defaults[0].output=ACCEPT
-uci set firewall.@defaults[0].forward=REJECT
+uci set firewall.@defaults[0].forward=ACCEPT
 
 uci add firewall include
 uci set firewall.@include[-1].path="/etc/firewall.user"

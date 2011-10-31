@@ -6,6 +6,15 @@ Thanks to the Cacti guys -- Some functions included here have been heavily borro
 
 define("REGEXP_SNMP_TRIM", "(hex|counter(32|64)|gauge|gauge(32|64)|float|ipaddress|string|integer):");
 
+$oids = array(
+	"uptime"	=> "1.3.6.1.2.1.1.3.0",
+	"neigh_ip"	=> "1.3.6.1.4.1.8072.1.3.2.12.4.1.2.12.78.101.105.103.104.98.111.117.114.95.73.80",	
+	"neigh_lq"	=> "1.3.6.1.4.1.8072.1.3.2.14.4.1.2.12.78.101.105.103.104.98.111.117.114.95.76.81",
+	"neigh_nlq"	=> "1.3.6.1.4.1.8072.1.3.2.16.3.1.4.13.78.101.105.103.104.98.111.117.114.95.78.76.81",
+	"neigh_cost"	=> "1.3.6.1.4.1.8072.1.3.2.17.4.1.2.14.78.101.105.103.104.98.111.117.114.95.67.79.83.84",
+	"node_type"	=> "1.3.6.1.4.1.8072.1.3.2.20.4.1.2.9.78.111.100.101.95.116.121.112.101.1",
+);
+
 function format_snmp_string($string, $snmp_oid_included) {
 	global $banned_snmp_strings;
 
@@ -138,5 +147,37 @@ function format_snmp_string($string, $snmp_oid_included) {
 
 	return $string;
 }
+/*
+function reindex($arr) {
+	$return_arr = array();
+ 
+	for ($i=0;($i<sizeof($arr));$i++) {
+		$return_arr[$i] = $arr[$i]["value"];
+	}
+ 
+	return $return_arr;
+}
 
+function ff_snmpwalk($hostname,$port, $username, $proto, $auth_proto, $password, $priv_proto, $priv_pass, $oid, $timeout , $retries)
+
+{
+	$temp_array = snmp3_real_walk("$hostname:$port", "$username", $proto, $auth_proto, "$password", $priv_proto, "$priv_pass", "$oid", $timeout, $retries);
+
+	if ($temp_array === false) {
+		$temp_array="";
+	}
+
+	// check for bad entries 
+	if (is_array($temp_array) && sizeof($temp_array)) 
+{
+
+	$o = 0;
+	for (@reset($temp_array); $i = @key($temp_array); next($temp_array)) {
+		if ($temp_array[$i] != "NULL") {
+			$snmp_array[$o]["oid"] = ereg_replace("^\.", "", $i);
+			$snmp_array[$o]["value"] = format_snmp_string($temp_array[$i], $oid);
+		}
+		$o++;
+	}
+}} */
 ?>

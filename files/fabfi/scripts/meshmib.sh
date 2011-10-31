@@ -54,7 +54,9 @@ case $1 in
                
                 echo "${my_lat}, ${my_lon}"
                 ;;
-
+	node_type )
+		echo $nodeType
+		;;
 
 	fabfinumber )
 
