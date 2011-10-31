@@ -1,5 +1,5 @@
 #summary This is only but a basic introduction to IPv6 addressing. The reader should be familiar with IPv4. For more information/complete tutorial on IPv6, refer to the links at the bottom of the page
-
+<wiki:toc max_depth="4" />
 =Introduction to IPv6=
 
 IPv6 is the successor to IPv4. IPv6 addresses are 128 bits long ( compared with IPv4's 32 bits). For easy representation, an IPv6 address is divided into 8 16 bit hexadecimal numbers, for example
