@@ -28,7 +28,8 @@ This script may be buggy / troubleshooting may be difficult, but if it works it'
 {{{
 cd fabfi/scripts
 bash build_source
-(The script will ask you for your openwrt source directory.  It uses trunk.  so you'll want to give it the path that ends in /trunk.)
+(The script will ask you for your openwrt source directory.  
+It uses trunk.  so you'll want to give it the path that ends in /trunk.)
 }}}
 You'll see menuconfig window popping up.  Exit without saving and script will continue
   # You will then probably need to also run
@@ -36,6 +37,8 @@ You'll see menuconfig window popping up.  Exit without saving and script will co
 bash make_from_source.sh
 }}}
 to get all the packages to build.
+
+**After thefirst build, you can rebuild images with changes to fabfi files simply by running make_from_source.sh**
 
 
 == Method 2: Manual Source Build ==
