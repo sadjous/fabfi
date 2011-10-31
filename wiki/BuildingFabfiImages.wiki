@@ -36,7 +36,16 @@ You'll see menuconfig window popping up.  Exit without saving and script will co
 {{{
 bash make_from_source.sh
 }}}
-to get all the packages to build.
+to get all the packages to build.  If you get an error that looks like this: 
+{{{
+WARNING: your configuration is out of sync. 
+Please run make menuconfig, oldconfig or defconfig!
+}}}
+then run 
+{{{
+make menuconfig
+}}}
+from the openwrt source directory, immediately exit and save config, then run make_from_source.sh again
 
 *After the first build, you can rebuild images with changes to fabfi files simply by running make_from_source.sh*
 
