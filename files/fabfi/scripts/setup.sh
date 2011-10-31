@@ -612,6 +612,7 @@ head_node_config()
 		fi
 	done
 
+	#Servers
 	uci add dhcp domain
 	uci set dhcp.@domain[-1].name=map.mesh
 	uci set dhcp.@domain[-1].ip=$cloud	
@@ -622,6 +623,7 @@ head_node_config()
 		tunnel=$( echo $tunnel | tr 'A-Z' 'a-z' )
         done
 
+	#tunnel
         if  [ $tunnel == "y" ]; then
 
 		until (echo $broker | grep "^[hs]$"); do
@@ -723,11 +725,7 @@ head_node_config()
 	uci set olsrd.@LoadPlugin[1].dns_server=${prefix}:${number}::1
 
 
-	#Servers
 
-	uci add dhcp domain
-	uci set dhcp.@domain[-1].name=map.mesh
-	uci set dhcp.@domain[-1].ip=18.181.1.255  
 
 }
 
