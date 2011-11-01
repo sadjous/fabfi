@@ -739,7 +739,7 @@ c_node_config()
 slot=$1
 cnumber=notvalid
 
-until (echo $cnumber | grep "^[1234]$"); do
+until (echo $cnumber | grep "^[12345]$"); do
 
 	printf "\nRadio detected in $slot\n"
 
@@ -864,7 +864,7 @@ t_node_config()
 slot=$1
 tnumber=notvalid
 
-until (echo $tnumber | grep "^[1234]$"); do
+until (echo $tnumber | grep "^[123]$"); do
 
 	printf "\nRadio detected in $slot\n"
 	printf "\nConfigure radio in $slot for :\n"
