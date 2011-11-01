@@ -83,8 +83,18 @@ if ( $_GET["action"] == "update" )
 		}
 		else {
 
-			mysql_query("INSERT INTO `meshmib`.`node` (`fabfi_number`,`ipv6_address`,`type`,`latitude`,`longitude`,`timestamp`) VALUES ('".$fabfi_number."','".$node_ip."','".$node_type."','".$node_lat."','".$node_lon."','".$timestamp."')");
+			mysql_select_db("cacti", $con);
+			
+			exec(" php -q add_cacti.php  --host=".$host_address." --template=9 --desc=node".$fabfi_number);
+			$cacti_index=mysql_fetch_array(mysql_query("select `id` from `cacti`.`host` where `hostname`='".$host_address."'"));
+			$cacti_index=$cacti_index["id"];
+
+			mysql_select_db("meshmib", $con);
+
+			mysql_query("INSERT INTO `meshmib`.`node` (`fabfi_number`,`ipv6_address`,`type`,`latitude`,`longitude`,`cacti_index`,`timestamp`) VALUES ('".$fabfi_number."','".$node_ip."','".$node_type."','".$node_lat."','".$node_lon."','".$cacti_index."','".$timestamp."')");
 			echo "Node Added";
+
+
 		}
 
 	}
@@ -138,7 +148,7 @@ var lineArray = [] ;
 
 var capetown = new google.maps.LatLng(-1.27872, 36.81696);
 var farmschool = new google.maps.LatLng(42.610109, -72.254945);
-
+var davis = new google.maps.LatLng(42.396504, -71.122448);
 var nairobi = new google.maps.LatLng(-1.27085, 36.774909);
 
 // SHAPES - Triangle, Square, Circle
@@ -298,18 +308,19 @@ function initialize_map() {
 			$neigh_fabfi_number=mysql_fetch_array( mysql_query("select fabfi_number from node where ipv6_address = '".$result['dest_ip']."' limit 1" ) );  
 			$neigh_fabfi_number=$neigh_fabfi_number['fabfi_number'];
 			$neigh_details=mysql_fetch_array ( mysql_query("select `latitude`,`longitude`,`type` from node where fabfi_number = '".$neigh_fabfi_number."'"));
-			$neigh_coordinates=$neigh_details['latitude'].", ".$neigh_details['longitude'];
-			$neigh_type=$neigh_details['type']. "_NODE";
+		
+			if ( ! is_null($neigh_details['latitude']) || ! is_null($neigh_details['longitude']) || ! is_null($neigh_details['type'])) {
+				$neigh_coordinates=$neigh_details['latitude'].", ".$neigh_details['longitude'];
+				$neigh_type=$neigh_details['type']. "_NODE";
 	
-			$conntype=$node_type."to".$neigh_type;
-	
-			//generate javascript for a line - first check that we've not drawn this line before.
+				$conntype=$node_type."to".$neigh_type;
+		
+				//generate javascript for a line - first check that we've not drawn this line before.
 
-			if (! in_array($node_coordinates.$neigh_coordinates,$lines_array) && ! in_array($neigh_coordinates.$node_coordinates,$lines_array) ){
-				if ( ! is_null($neigh_coordinates) ||  ! is_null($neigh_type) ) {
+				if (! in_array($node_coordinates.$neigh_coordinates,$lines_array) && ! in_array($neigh_coordinates.$node_coordinates,$lines_array) ){
 
 					echo "addLine(new google.maps.LatLng(".$node_coordinates."), new google.maps.LatLng(".$neigh_coordinates."),".$cost.",".$conntype.");\n";
-				array_push($lines_array, $node_coordinates.$neigh_coordinates);
+					array_push($lines_array, $node_coordinates.$neigh_coordinates);
 			
 				}
 			}
