@@ -350,6 +350,7 @@ generic_wireless_mesh()
 	uci set wireless.radio${1}.ht_capab="SHORT-GI-40 TX-STBC RX-STBC1 DSSS_CCK-40"
 	uci set wireless.radio${1}.disabled=0
 	uci set wireless.radio${1}.channel=${2}
+	uci set wireless.radio${1}.rts=500
 
 	uci set wireless.@wifi-iface[$3].device=radio${1}
 	uci set wireless.@wifi-iface[$3].ssid=${6}${2}
@@ -402,6 +403,7 @@ client_lan_config()
 	story="${story} Client LAN channel : ${client_lan_channel} \n"
        	uci set wireless.radio$client_lan_radio.disabled=0
    	uci set wireless.radio$client_lan_radio.channel=$client_lan_channel
+	uci set wireless.radio$client_lan_radio.rts=500
 
 	#uci set wireless.@wifi-iface[0].network=clientlan
     	#uci set wireless.@wifi-iface[0].mode=ap
