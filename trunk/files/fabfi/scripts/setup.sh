@@ -938,7 +938,7 @@ uci delete network.mesh.type
 uci add network alias
 uci set network.@alias[-1].interface=mesh
 uci set network.@alias[-1].proto=static
-uci set network.@alias[-1].ipaddr=192.168.1.1
+uci set network.@alias[-1].ipaddr=192.168.100.1
 uci set network.@alias[-1].netmask=255.255.255.0
 
 #Firewall Configuration
