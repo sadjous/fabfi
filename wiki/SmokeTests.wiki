@@ -12,6 +12,8 @@ All things pertaining to wireless configurations and performance
 
 == AP + ADHOC ==
 
+*WARNING:  as of the 11/1/2011 compat-wireless AP+ADHOC may seem to work in bench tests, but in a real environment the connection of stations to the AP interface causes some ADHOC nodes to experience >95% packet loss.  It is not entirely clear why this occurs.*
+ 
 Tested a single device with AP+ADHOC wireless configuration as follows: 
 
 {{{
