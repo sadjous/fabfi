@@ -53,7 +53,7 @@ Interfaces loaded properly and iperf results were as follows:
  * `STA<-- * -->ADHOC`: 11Mbps
  * `STA<-->AP/ADHOC`: 28.6Mbps (whether or not other ADHOC was available had no effect)
  * FAILED: hiding the ADHOC SSID had no effect (SSID still advertised)
- * *FAILED: adhoc communication between some AP+ADHOC devices when statios are connected!*
+ * *FAILED: adhoc communication between some AP+ADHOC devices when stations are connected!*
 
 
 
