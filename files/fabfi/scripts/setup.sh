@@ -1084,7 +1084,6 @@ if [[ "${platform}" != "Ubiquiti RouterStation Pro" && "${platform}" != "Ubiquit
 else 
 
 	if [[ "${platform}" == "Ubiquiti Nanostation M" ]]; then
-
 		until (echo $olsr | grep "^[bo]$"); do
         	        echo "Batman or olsr? (b/o)"
                 	read olsr
@@ -1100,7 +1099,9 @@ else
 			generic_configs
                 	olsrd_base_config
 
-                        while ( true ); do
+			uci set fabfi.@node[0].nodeType="N"
+                        
+			while ( true ); do
                               echo "Set link channel"
 				read ttmeshchannel
                                 check=$(check_channel ${ttmeshchannel} 0)

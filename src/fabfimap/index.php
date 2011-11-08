@@ -135,6 +135,14 @@ else {
   #map_canvas { height: 100% }
 </style>
 
+<style type="text/css">
+      .tooltip {
+        background-color:#ffffff;
+        font-weight:bold;
+        border:2px #006699 solid;
+      }
+    </style>
+
 <script type="text/javascript"
     src="http://maps.googleapis.com/maps/api/js?sensor=true">
 </script>
@@ -144,6 +152,8 @@ else {
 var map;
 var nodeArray = [] ;
 var lineArray = [] ;
+var infoArray = [] ;
+var infowindow = new google.maps.InfoWindow();
 
 
 var capetown = new google.maps.LatLng(-1.27872, 36.81696);
@@ -203,6 +213,32 @@ var C_NODE_UNKNOWN = new google.maps.MarkerImage('icons/circle_blue.png',
 	new google.maps.Point(0,0),
 	new google.maps.Point(10,10));
 
+var u_NODE_UP = new google.maps.MarkerImage('icons/nano_green.png',
+	new google.maps.Size(25, 25),
+	new google.maps.Point(0,0),
+	new google.maps.Point(12,13));
+
+var u_NODE_TEMPDOWN = new google.maps.MarkerImage('icons/nano_yellow.png',
+	new google.maps.Size(25, 25),
+	new google.maps.Point(0,0),
+	new google.maps.Point(12,13));
+
+var u_NODE_DOWN = new google.maps.MarkerImage('icons/nano_red.png',
+	new google.maps.Size(25, 25),
+	new google.maps.Point(0,0),
+	new google.maps.Point(12,13));
+	
+var u_NODE_DEAD = new google.maps.MarkerImage('icons/nano_grey.png',
+	new google.maps.Size(25, 25),
+	new google.maps.Point(0,0),
+	new google.maps.Point(12,13));
+
+var u_NODE_UNKNOWN = new google.maps.MarkerImage('icons/nano_blue.png',
+	new google.maps.Size(25, 25),
+	new google.maps.Point(0,0),
+	new google.maps.Point(12,13));
+
+
 var S_NODE_UP = new google.maps.MarkerImage('icons/square_green.png',
 	new google.maps.Size(20, 20),
 	new google.maps.Point(0,0),
@@ -228,6 +264,10 @@ var S_NODE_UNKNOWN = new google.maps.MarkerImage('icons/square_blue.png',
 	new google.maps.Point(0,0),
 	new google.maps.Point(10,10));
 
+
+
+
+
 var T_NODEtoT_NODE = "#0000FF"; // blue
 var T_NODEtoC_NODE = T_NODEtoT_NODE;
 var C_NODEtoT_NODE = T_NODEtoC_NODE;
@@ -238,13 +278,19 @@ var S_NODEtoC_NODE = T_NODEtoS_NODE;
 var C_NODEtoS_NODE = S_NODEtoC_NODE;
 var S_NODEtoS_NODE = T_NODEtoS_NODE;
 
+var T_NODEtou_NODE = "#00FF00"; // green 
+var u_NODEtoT_NODE = T_NODEtou_NODE;
+var u_NODEtoC_NODE = T_NODEtou_NODE;
+var C_NODEtou_NODE = u_NODEtoC_NODE;
+var u_NODEtou_NODE = "#FF00FF"; // magenta
+
 // End Shapes
 
 function initialize_map() {
 
 	var mapOptions = {
 		zoom: 16,
-		center: nairobi,
+		center: farmschool,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 
@@ -288,11 +334,11 @@ function initialize_map() {
 		$node_icon=$node_type . "_" . $node_status;
 		$node_fabfi_number=$row['fabfi_number'];
 		$node_ip=$row['ipv6_address'];
+		$node_id=$node_fabfi_number;
 
 		//Finally, generate required Javascript to place a marker
 		
-		echo "addNodeMarker(new google.maps.LatLng(" . $node_coordinates ."),". $node_icon .",".$row['cacti_index'].");\n" ;
-
+		echo "addNodeMarker(new google.maps.LatLng(" . $node_coordinates ."),". $node_icon .",".$row['cacti_index'].",".$node_id.");\n" ;
 
 
 		// Draw Lines
@@ -332,6 +378,17 @@ function initialize_map() {
 	}
 
 	?>
+
+	for ( i in nodeArray ) {
+		nodeArray[i].setMap(map);
+
+	}
+
+	for ( i in lineArray ) {
+		lineArray[i].setMap(map);
+
+	}
+
 }
 
 /* Line Colours
@@ -343,14 +400,19 @@ Green - 00FF00
 
 */
 
-function addNodeMarker(location,node_icon,cactiID) {
+function addNodeMarker(location,node_icon,cactiID,nodeID) {
+	var node_title="Node "+nodeID;
 	marker = new google.maps.Marker({
 	position: location,
-	map: map,
+	title: node_title,
 	icon: node_icon
 	
 	});
 	nodeArray.push(marker);
+	var coords = (marker.getPosition()).toString();
+	//addInfoWindow(marker, nodeID, cactiID);
+
+	addInfoWindow(marker, nodeID, cactiID, coords);
 }
 
 function addLine(node1,node2,cost,conntype) {
@@ -358,15 +420,42 @@ function addLine(node1,node2,cost,conntype) {
 	var newLine = [ node1, node2 ];
 		var opacity=1/cost;
 		var newPath = new google.maps.Polyline({	
-		map: map,
 		path: newLine,
 		strokeColor: conntype,
 		strokeOpacity: opacity,
 		strokeWeight: 2 
 		});
+
+	lineArray.push(newPath);
+//	addLineInfo(newPath, cost);
 		
 }
 
+function addInfoWindow(marker, nodeID, cactiID, coords) {
+	var contentString = 	"<h4><u>Node "+nodeID+"</u></h4>"+
+				"<a href=../cacti/graphs.php?host_id="+cactiID+" target='_blank'>Cacti Graphs list</a><br/><br/>"+
+				"Position : "+coords+"<br/>";	
+
+	google.maps.event.addListener(marker, 'click', function() {
+	infowindow.close();
+	infowindow.setContent(contentString);
+	infowindow.open(map,marker);
+	});
+}
+
+/*
+function addLineInfo(newPath, cost) {
+	var contentString ='<div class="tooltip">Link cost:  '+cost;
+
+	google.maps.event.addListener(newPath, 'mouseover', function() {
+		showTooltip(contentString);
+	});
+
+	google.maps.event.addListener(newPath, 'mouseout', function() {
+    		myInfoWindow.close();
+	});
+}
+*/
 
 
 function initialize() {
