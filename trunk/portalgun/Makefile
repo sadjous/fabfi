@@ -1,22 +1,25 @@
 
+HOST=192.168.20.78
+
 
 install:
-	scp    lucid/VillagebusPublisher.lua  root@192.168.20.78:/usr/lib/lua/luci/lucid/http
-	scp -r lucid/handler/*.lua            root@192.168.20.78:/usr/lib/lua/luci/lucid/http/handler
+	scp    lucid/VillagebusPublisher.lua  root@$(HOST):/usr/lib/lua/luci/lucid/http
+	scp -r lucid/handler/*.lua            root@$(HOST):/usr/lib/lua/luci/lucid/http/handler
 
-	ssh root@192.168.20.78  mkdir -p /usr/lib/lua/villagebus/modules
-	scp -r villagebus/modules/*.lua   root@192.168.20.78:/usr/lib/lua/villagebus/modules
-	scp    villagebus/urlcode.lua     root@192.168.20.78:/usr/lib/lua/villagebus
-	scp    villagebus/dispatcher.lua  root@192.168.20.78:/usr/lib/lua/villagebus
+	ssh root@$(HOST)  mkdir -p /usr/lib/lua/villagebus/modules
+	scp -r villagebus/modules/*.lua   root@$(HOST):/usr/lib/lua/villagebus/modules
+	scp    villagebus/urlcode.lua     root@$(HOST):/usr/lib/lua/villagebus
+	scp    villagebus/dispatcher.lua  root@$(HOST):/usr/lib/lua/villagebus
 
 
 test:	
-	scp -r villagebus/modules/*.lua   root@192.168.20.78:/usr/lib/lua/villagebus/modules
-	scp    villagebus/urlcode.lua     root@192.168.20.78:/usr/lib/lua/villagebus
-	scp    villagebus/dispatcher.lua  root@192.168.20.78:/usr/lib/lua/villagebus
-	ssh root@192.168.20.78 /etc/init.d/lucid restart	
-	#curl -k -i -X POST -d '{"a":"b"}' 'https://192.168.20.78/villagebus/portalgun/clients?q=foo&bar=ploink'
-	#curl -k -i 'https://192.168.20.78/villagebus/http/g7.org.za/blank.html' 
-	curl -k -i 'https://192.168.20.78/villagebus/portalgun/foo' 	
+	scp -r villagebus/modules/*.lua   root@$(HOST):/usr/lib/lua/villagebus/modules
+	scp    villagebus/urlcode.lua     root@$(HOST):/usr/lib/lua/villagebus
+	scp    villagebus/dispatcher.lua  root@$(HOST):/usr/lib/lua/villagebus
+	ssh root@$(HOST) /etc/init.d/lucid restart	
+	@echo
+	curl -k -i 'https://$(HOST)/villagebus/portalgun/status?ip=2001:470:1f07:c42:1e4b:d6ff:fe80:dada' 	
+	@echo
+	@curl -k -i -X POST -d '{"a":"b"}' 'https://$(HOST)/villagebus/portalgun/portals'
 	@echo
 
