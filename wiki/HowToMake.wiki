@@ -10,7 +10,7 @@ This page is a table of contents for all of the !HowTo documentation on this sit
 
 The fabfi wireless system consists of three major components:
 
-  * [FabfiServer Fabfi Server]
+  * You can make your own [FabfiServer Fabfi Server] or use [FabfiCloud FabFolk's FabFi Cloud Services]
   * [FabfiNodes Fabfi Nodes]
     * [FabfiNodes#HeadNode Headnode]
     * [FabfiNodes#CommonNode Common Nodes]
