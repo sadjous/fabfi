@@ -2,27 +2,23 @@
 <wiki:toc max_depth="4" />
 
 = Introduction =
-This page is a table of contents for all of the !HowTo documentation on this site.  Follow the links below for what you want to build
+This page is a table of contents for all of the !HowTo documentation on this site.  Follow the links below for what you want to build.
 
 *Note: We STRONGLY recommend using linux for working with fabfi.  If you don't want to change your OS, run Ubuntu from a [http://www.ubuntu.com/desktop/get-ubuntu/download LiveCD].*
 
 = Core Tasks =
 
-The fabfi wireless system consists of three major components:
+The most common use of a FabFi system is to extend or expand a high speed internet connection and charge users so as to recover cost of the leased bandwidth.  
 
-  * You can make your own [FabfiServer Fabfi Server] or use [FabfiCloud FabFolk's FabFi Cloud Services]
-  * [FabfiNodes Fabfi Nodes]
-    * [FabfiNodes#HeadNode Headnode]
-    * [FabfiNodes#CommonNode Common Nodes]
-  * [RFReflectors Fabfi Reflectors]
+The fabfi wireless system consists of three major components which are all open source:
 
-The Fabfi server runs in "the cloud", handles the authentication of clients and serves the stats page.
+  * *[FabfiCloud FabFolk's FabFi Cloud Services] (or make your own [FabfiServer Fabfi Server])*. The Fabfi server runs in "the cloud", handles the authentication of clients and serves the stats page.  Authentication and user accounting is managed centrally on the Fabfi Server.
+  * Make and install physical [FabfiNodes Fabfi Nodes].  Any node can be an uplink to the internet.
+    * *[FabfiNodes#HeadNode Headnode]* are local DNS servers and web caches
+    * *[FabfiNodes#CommonNode Common Nodes]* make up the physical mesh network
+  * *[RFReflectors Fabfi Reflectors]* are used to enhance the RF signal of wifi devices for long-range links.
 
-Common nodes make up the physical mesh network, with headnodes acting as local DNS servers and web caches. Any node can be an uplink to the internet.
-
-Fabfi Reflectors are used to enhance the RF signal of wifi devices for long-range links.  
-
-Administrators [UserAndGroupSettings configure Users and Groups] to control access to the network.  Authentication and user accounting is managed centrally on the Fabfi Server.
+Administrators [UserAndGroupSettings configure Users and Groups] to control access to the network.  
 
 = Advanced Development =
 
