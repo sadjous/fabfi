@@ -20,12 +20,12 @@ done
 remote_ip=$( remote_ip )
 
 #Node's own coordinates
-my_lat=`uci get olsrd.@LoadPlugin[1].lat`
-my_lon=`uci get olsrd.@LoadPlugin[1].lon`
+my_lat=`/sbin/uci get olsrd.@LoadPlugin[1].lat`
+my_lon=`/sbin/uci get olsrd.@LoadPlugin[1].lon`
 
 #Node details
 
-nodeType=`uci get fabfi.@node[0].nodeType`
+nodeType=`/sbin/uci get fabfi.@node[0].nodeType`
 
 get_neigh_longitude()
 {
@@ -60,7 +60,7 @@ case $1 in
 
 	fabfinumber )
 
-		uci get fabfi.@node[0].fabfiNumber
+		/sbin/uci get fabfi.@node[0].fabfiNumber
 		;;
 	self_ip )
 		echo $self_ip                                	
@@ -113,6 +113,8 @@ case $1 in
 	rx_bitrate )
 		iw dev wlan$2 station dump | grep -i "rx bitrate" | cut -d ":" -f 2 | cut -d " " -f 1 | tr -d "\t"
 		;;
-
+	node_info )
+		cat Node_Info | tr '\n' '%' | sed s/%$//
+		;;
 
 esac
