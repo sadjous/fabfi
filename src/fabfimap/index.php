@@ -238,6 +238,31 @@ var u_NODE_UNKNOWN = new google.maps.MarkerImage('icons/nano_blue.png',
 	new google.maps.Point(0,0),
 	new google.maps.Point(12,13));
 
+var N_NODE_UP = new google.maps.MarkerImage('icons/nano_green.png',
+	new google.maps.Size(25, 25),
+	new google.maps.Point(0,0),
+	new google.maps.Point(12,13));
+
+var N_NODE_TEMPDOWN = new google.maps.MarkerImage('icons/nano_yellow.png',
+	new google.maps.Size(25, 25),
+	new google.maps.Point(0,0),
+	new google.maps.Point(12,13));
+
+var N_NODE_DOWN = new google.maps.MarkerImage('icons/nano_red.png',
+	new google.maps.Size(25, 25),
+	new google.maps.Point(0,0),
+	new google.maps.Point(12,13));
+	
+var N_NODE_DEAD = new google.maps.MarkerImage('icons/nano_grey.png',
+	new google.maps.Size(25, 25),
+	new google.maps.Point(0,0),
+	new google.maps.Point(12,13));
+
+var N_NODE_UNKNOWN = new google.maps.MarkerImage('icons/nano_blue.png',
+	new google.maps.Size(25, 25),
+	new google.maps.Point(0,0),
+	new google.maps.Point(12,13));
+
 
 var S_NODE_UP = new google.maps.MarkerImage('icons/square_green.png',
 	new google.maps.Size(20, 20),
@@ -284,6 +309,11 @@ var u_NODEtoC_NODE = T_NODEtou_NODE;
 var C_NODEtou_NODE = u_NODEtoC_NODE;
 var u_NODEtou_NODE = "#FF00FF"; // magenta
 
+var T_NODEtoN_NODE = "#00FF00"; // green 
+var N_NODEtoT_NODE = T_NODEtou_NODE;
+var N_NODEtoC_NODE = T_NODEtou_NODE;
+var C_NODEtoN_NODE = u_NODEtoC_NODE;
+var N_NODEtoN_NODE = "#FF00FF"; // magenta
 // End Shapes
 
 function initialize_map() {

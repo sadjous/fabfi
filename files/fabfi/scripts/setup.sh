@@ -190,6 +190,12 @@ uci set snmpd.@extend[-1].args=node_type
 uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.20
 
 
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Node_Info
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=node_info
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.21
 
 #echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
 #echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
