@@ -38,7 +38,7 @@ module("modules.portalgun", package.seeall)
 -- also see: http://quamquam.org/~jow/luci-splash
 
 
--- list
+-- /portalgun/list/[ipaddr] -> [ {rule}, ... ]
 function list(request, response)
   --local rules = ipt:find({ target   = "REJECT", 
   --                         protocol = "tcp", 
@@ -69,12 +69,8 @@ function list(request, response)
 end
 
 
--- query status for a portal
-function status(request, response)
-  return { status = request }
-end
-
 -- TODO implement DELETE for lucid so we can have proper REST semantics
+-- /portalgun/post/<ipaddr> -> [ {rule}, ... ]
 function post(request, response)
   log:debug("portalgun.post" ..
             " -> " .. json.encode(request))
@@ -124,7 +120,7 @@ function delete(request, response)
                           chain  = "PORTALGUN",
                           source = ipaddr })  
   if not rule[1] then
-    return { }
+    return {}
   end
   
   -- delete rules for portal
