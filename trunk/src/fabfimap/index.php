@@ -76,7 +76,15 @@ if ( $_GET["action"] == "update" )
 
 		$node_type=format_snmp_string($node_type, $oids['node_type']);
 
-		if ( empty($node_type) || empty($node_ip) || empty($node_lat) || empty($node_lon) ) {
+		$node_info = @snmp3_get ( $host_address , $snmp_auth_username ,  $sec_level ,  $auth_protocol , $auth_password , $priv_protocol ,  $priv_passphrase , $oids['node_info'], ($snmp_timeout*1000), $snmp_retries );
+
+		$node_info=format_snmp_string($node_info, $oids['node_info']);
+
+		$node_info=str_replace("%","<br/>",$node_info);
+
+				
+
+	if ( empty($node_type) || empty($node_ip) || empty($node_lat) || empty($node_lon) ) {
 
 			echo "Failed to add node";
 
@@ -91,7 +99,7 @@ if ( $_GET["action"] == "update" )
 
 			mysql_select_db("meshmib", $con);
 
-			mysql_query("INSERT INTO `meshmib`.`node` (`fabfi_number`,`ipv6_address`,`type`,`latitude`,`longitude`,`cacti_index`,`timestamp`) VALUES ('".$fabfi_number."','".$node_ip."','".$node_type."','".$node_lat."','".$node_lon."','".$cacti_index."','".$timestamp."')");
+			mysql_query("INSERT INTO `meshmib`.`node` (`fabfi_number`,`ipv6_address`,`type`,`latitude`,`longitude`,`cacti_index`,`node_info`,`timestamp`) VALUES ('".$fabfi_number."','".$node_ip."','".$node_type."','".$node_lat."','".$node_lon."','".$cacti_index."','".$node_info."','".$timestamp."')");
 			echo "Node Added";
 
 
@@ -365,10 +373,24 @@ function initialize_map() {
 		$node_fabfi_number=$row['fabfi_number'];
 		$node_ip=$row['ipv6_address'];
 		$node_id=$node_fabfi_number;
+		$node_info=$row['node_info'];
+
+		mysql_select_db("cacti", $con);
+
+		$cacti_graph=mysql_fetch_array( mysql_query("select `id` from `graph_tree_items` where `host_id` =' ".$row['cacti_index']. "' limit 1 " ));
+
+		$cacti_graph_id=$cacti_graph['id'];
+
+		if ( is_null($cacti_graph_id )) {
+			$cacti_graph_id="0";
+		}
+
+		mysql_select_db("meshmib", $con);
 
 		//Finally, generate required Javascript to place a marker
-		
-		echo "addNodeMarker(new google.maps.LatLng(" . $node_coordinates ."),". $node_icon .",".$row['cacti_index'].",".$node_id.");\n" ;
+		echo 'var Node_info="'.$node_info.'";';
+		echo "\n";		
+		echo "addNodeMarker(new google.maps.LatLng(" . $node_coordinates ."),". $node_icon .",".$cacti_graph_id.",".$node_id.",Node_info);\n" ;
 
 
 		// Draw Lines
@@ -430,7 +452,7 @@ Green - 00FF00
 
 */
 
-function addNodeMarker(location,node_icon,cactiID,nodeID) {
+function addNodeMarker(location,node_icon,cactiID,nodeID,nodeInfo) {
 	var node_title="Node "+nodeID;
 	marker = new google.maps.Marker({
 	position: location,
@@ -442,7 +464,7 @@ function addNodeMarker(location,node_icon,cactiID,nodeID) {
 	var coords = (marker.getPosition()).toString();
 	//addInfoWindow(marker, nodeID, cactiID);
 
-	addInfoWindow(marker, nodeID, cactiID, coords);
+	addInfoWindow(marker, nodeID, nodeInfo, cactiID, coords);
 }
 
 function addLine(node1,node2,cost,conntype) {
@@ -461,10 +483,10 @@ function addLine(node1,node2,cost,conntype) {
 		
 }
 
-function addInfoWindow(marker, nodeID, cactiID, coords) {
+function addInfoWindow(marker, nodeID, nodeInfo, cactiID, coords) {
 	var contentString = 	"<h4><u>Node "+nodeID+"</u></h4>"+
-				"<a href=../cacti/graphs.php?host_id="+cactiID+" target='_blank'>Cacti Graphs list</a><br/><br/>"+
-				"Position : "+coords+"<br/>";	
+				"<a href=../cacti/graph_view.php?action=tree&tree_id=1&leaf_id="+cactiID+" target='_blank'>Cacti Graphs list</a><br/><br/>"+
+				"Position : "+coords+"<br/>"+nodeInfo+"<br/>";	
 
 	google.maps.event.addListener(marker, 'click', function() {
 	infowindow.close();
