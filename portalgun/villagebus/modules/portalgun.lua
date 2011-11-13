@@ -68,18 +68,30 @@ function list(request, response)
 
 end
 
-
 -- TODO implement DELETE for lucid so we can have proper REST semantics
--- /portalgun/post/<ipaddr> -> [ {rule}, ... ]
+local post_dispatch = {}
 function post(request, response)
-  log:debug("portalgun.post" ..
+  local name = table.remove(request.path, 1)
+  return post_dispatch[name](request, response)
+end
+
+local delete_dispatch = {}
+function delete(request, response)
+  local name = table.remove(request.path, 1)
+  return delete_dispatch[name](request, response)
+end
+
+
+-- /portalgun/post/ip6addr/<ipaddr> -> [ {rule}, ... ]
+post_dispatch["ip6addr"] = function(request, response)
+  log:debug("portalgun.post.ip6addr" ..
             " -> " .. json.encode(request))
 
   ipt:resync()
 
   local ipaddr = request.path[1]
   if not ipaddr then
-    return { error = "usage: /portalgun/post/<ip address>" }
+    return { error = "usage: /portalgun/post/ip6addr/<ip address>" }
   end
 
   -- check if portal already exists
@@ -103,16 +115,55 @@ function post(request, response)
 end
 
 
--- /portalgun/delete/<ipaddr> -> {}
-function delete(request, response)
-  log:debug("portalgun.delete" ..
+-- /portalgun/post/macaddr/<macaddr> -> [ {rule}, ... ]
+post_dispatch["macaddr"] = function(request, response)
+  log:debug("portalgun.post.macaddr" ..
+            " -> " .. json.encode(request))
+
+  ipt:resync()
+
+  local macaddr = request.path[1]
+  if not macaddr then
+    return { error = "usage: /portalgun/post/macaddr/<mac address>" }
+  end
+
+  -- normalize radius packet data: CALLING_STATION_ID="HH-HH-HH-HH-HH-HH"
+  macaddr = string.upper(macaddr)
+  macaddr = string.gsub(macaddr, "-", ":")  
+
+  -- check if portal already exists
+  local rule = ipt:find({ table   = "filter",
+                          chain   = "PORTALGUN",
+                          options = { "MAC", macaddr } })  
+  if rule[1] then
+    return rule
+  end
+
+  -- insert rules for portal
+  local ret = ip6tables("I", "PORTALGUN", { options = { 
+                                              mac = { mac_source = macaddr }
+                                            },
+                                            jump = "ACCEPT" })
+  if ret ~= 0 then
+    return { error = "failed to create portal: " .. macaddr }
+  end
+
+  return ipt:find({ table  = "filter",
+                    chain  = "PORTALGUN",
+                    options = { "MAC", macaddr } })  
+end
+
+
+-- /portalgun/delete/ip6addr/<ipaddr> -> {}   TODO http://wiki.freeradius.org/Disconnect-Messages
+delete_dispatch["ip6addr"] = function(request, response)
+  log:debug("portalgun.delete.ip6addr" ..
             " -> " .. json.encode(request))
 
   ipt:resync()
 
   local ipaddr = request.path[1]
   if not ipaddr then
-    return { error = "usage: /portalgun/delete/<ip address>" }
+    return { error = "usage: /portalgun/delete/ip6addr/<ip address>" }
   end
 
   -- check that portal exists
@@ -134,6 +185,46 @@ function delete(request, response)
   return ipt:find({ table  = "filter",
                     chain  = "PORTALGUN",
                     source = ipaddr })
+end
+
+
+-- /portalgun/delete/macaddr/<macaddr> -> {}   TODO http://wiki.freeradius.org/Disconnect-Messages
+delete_dispatch["macaddr"] = function(request, response)
+  log:debug("portalgun.delete.macaddr" ..
+            " -> " .. json.encode(request))
+
+  ipt:resync()
+
+  local macaddr = request.path[1]
+  if not macaddr then
+    return { error = "usage: /portalgun/delete/macaddr/<mac address>" }
+  end
+
+  -- normalize radius packet data: CALLING_STATION_ID="HH-HH-HH-HH-HH-HH"
+  macaddr = string.upper(macaddr)
+  macaddr = string.gsub(macaddr, "-", ":")  
+
+  -- check that portal exists
+  local rule = ipt:find({ table  = "filter",
+                          chain  = "PORTALGUN",
+                          options = { "MAC", macaddr } })  
+  if not rule[1] then
+    return {}
+  end
+  
+  -- delete rules for portal
+  local ret = ip6tables("D", "PORTALGUN", { options = { 
+                                              mac = { mac_source = macaddr }
+                                            },
+                                            jump = "ACCEPT" })
+  if ret ~= 0 then
+    return { error = "failed to delete portal: " .. macaddr }
+  end
+  
+  -- returns: {} on success
+  return ipt:find({ table  = "filter",
+                    chain  = "PORTALGUN",
+                    options = { "MAC", macaddr } })  
 end
 
 
@@ -159,7 +250,17 @@ portals = {
 function ip6tables(action, chain, rulespec, options)
   local args = "-" .. action .. " " .. chain 
   for switch, value in pairs(rulespec) do
-    args = args .. " --" .. switch .. " " .. value
+    if switch == "options" then
+      for option, spec in pairs(value) do
+        args = args .. " -m " .. option
+        for switch, value in pairs(spec) do
+          switch = string.gsub(switch, "_", "-")
+          args = args .. " --" .. switch .. " " .. value
+        end
+      end
+    else
+      args = args .. " --" .. switch .. " " .. value
+    end
   end
   
   log:debug("running: ip6tables " .. args)
