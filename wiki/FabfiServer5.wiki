@@ -440,17 +440,17 @@ copy the contents of trunk/www to the home directory of your web server.  A corr
 Fabfi5 Map is an in-house developed map application.
 The map consists of the following components
 
-#meshmib_db.sql 
+# meshmib_db.sql 
 
-#db.php
+# db.php
 
-#Index.php
+# index.php
 
-#Snmp-libs.php
+# snmp-libs.php
 
-#add-cacti.php
+# add-cacti.php
 
-#icons folder
+# icons folder
 
 
 To install the map database, from phpmyadmin, create a database and import meshmib_db.sql file in trunk/src/ff5map .
