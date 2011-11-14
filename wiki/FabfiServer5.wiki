@@ -434,57 +434,40 @@ In order to serve web content from a central location you need to do three two t
 
 copy the contents of trunk/www to the home directory of your web server.  A correct setup will have the splash plage resolve to <your IP>/splash.html.  If you are not configuring the live map, you may stop here.  
 
-=== Configure Live Map ===
+=== Configure Fabfi Map ===
 
-The live map is a php application adapted from [http://www.layereight.de/download/freifunkmap.tgz freifunkmap].  It receives http requests from nodes with neighbor data, saves the data in a local database and writes it to the GoogleMaps API on demand.  To configure it for your network, You will have to configure the php application on the cloud server and configure the update script (fabfimap.sh) on the nodes.  This section will cover the server side, while the node side is covered in node setup.
 
-==== Setup ====
+Fabfi5 Map is an in-house developed map application.
+The map consists of the following components
 
-Install required libraries:
-{{{
-sudo apt-get sqlite php5-sqlite
-}}}
-then copy the contents of 
-{{{
-trunk/www/live
-}}}
-to your web directory. You also want to make sure that your webserver accepts index.php as a default document.  By default apache will accept index.php as a default document.  If, for some reason, it does not you should configure it to do so.  
+#meshmib_db.sql 
+#db.php
+#Index.php
+#Snmp-libs.php
+#add-cacti.php
+#icons folder
 
-Yo will then need to configure some values for your server.   Open 
-{{{
-freifunkmap.config.php
-}}}
-and you will see these values: 
-{{{
-define( "GOOGLE_MAPS_KEY"       ,  "ABQIAAAA09xI2Q46-z5rGpiuYrem8hTfoQ4k9cRoM3EqAQ3hmdQlsFIAsRQQrVrH_du6CZ6dt9yavlipSSMZFw");
-define( "DEFAULT_START_POSITION",  "52.526039219655445, 13.411388397216797");
-define( "DEFAULT_ZOOMLEVEL",       "13");
-define( "DEFAULT_UPDATEINTERVALL", "3600");
-define( "DEFAULT_MAPTYPE",         "G_NORMAL_MAP");
-define( "PATH_TO_DATABASE",        "/etc/sqlite/");    // in the install mode, this folder have to be writeable for the webserver user
-define( "DATABASE_FILE",           "nodedb");   // this file would be created in install mode
-}}}
 
-  * For GOOGLE_MAPS_KEY, you must get a unique key from [https://code.google.com/apis/maps/signup.html this site].
-  * For PATH_TO_DATABASE, you need to create a path for sqlite to store data and give the webuser acct (www-data) rights to it.  For example:
-{{{
-mkdir /etc/sqlite/
-sudo chown www-data /etc/sqlite/
-}}}
-I don't recommend using the /tmp/ folder (freifunkmap default) as you need to reinitialize everything after a reboot.
+To install the map database, from phpmyadmin, create a database and import meshmib_db.sql file in trunk/src/ff5map .
+Also create a map-server user and edit the password in db.php
+The created user should have permissions to read the cacti database or alternatively, use the cacti user for the cacti database.
 
-  * The remaining values are self-explanatory
+Copy index.php, add-cacti.php, snmp-libs.php and db.php into a folder in your web server folder.
+
+
+==== How it works ====
+
+The nodes table holds information pertaining to individual nodes such as the node fabfi number, main IPv6 address, node coordinates, type and info. 
+
+Nodes update by calling the index.php script with relevant parameters.
+
+When a new node updates, the add-cacti.php script is called to add it to the the cacti database and also creates graphs for the newly added host.
+
+Every time a node updates, the timestamp field is updated - online nodes are those which have updated within the past 3 minutes and will appear green on the map. Nodes which updated less than 10 minutes ago appear yellow.
  
-Once you have completed the above server, go to a browser and call
-{{{
-http://{path to map script}/index.php?install
-}}}
+The links table is also updated with every node update - it holds the node's IP address, every neighbour's main IP address and corresponding OLSR information. Like above, Only links updated within the past 3 minutes are considered and shown on the map. 
 
-the server should now be up and running.  Test by browsing to: 
-{{{
-http://{path to map script}/
-}}}
-you should get a google map. 
+
 
 ==== Optional: Security ====
 
