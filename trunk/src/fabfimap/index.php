@@ -5,17 +5,10 @@ define('IPV6_REGEX', "/^\s*((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-
 
 define('GPS_REGEX',"/^(-?[0-9]{1,3}\.[0-9]{1,16})\s*,\s*(-?[0-9]{1,3}\.[0-9]{1,16})\s*,?\s*(.*)/" );
 
+include("db.php");
 include("snmp_libs.php");
 
 // open database connection
-
-$con = mysql_connect("localhost","mapserver","cisco123");
-
-
-if (!$con)
-{
-        die('Could not connect: ' . mysql_error());
-}
 
 
 if ( $_GET["action"] == "update" ) 
@@ -24,7 +17,7 @@ if ( $_GET["action"] == "update" )
 
 	// validate stuff
 	
-	mysql_select_db("meshmib", $con);
+	mysql_select_db($map_db, $con);
 
 	$fabfi_number=$_GET["node_id"];
 
@@ -91,13 +84,13 @@ if ( $_GET["action"] == "update" )
 		}
 		else {
 
-			mysql_select_db("cacti", $con);
+			mysql_select_db($cacti_db, $cacti_con);
 			
 			exec(" php -q add_cacti.php  --host=".$host_address." --template=9 --desc=node".$fabfi_number);
 			$cacti_index=mysql_fetch_array(mysql_query("select `id` from `cacti`.`host` where `hostname`='".$host_address."'"));
 			$cacti_index=$cacti_index["id"];
 			exec("php -q /usr/share/cacti/cli/add_tree.php --type=node --node-type=host --tree-id=1 --host-id=".$cacti_index." --host-group-style=1");
-			mysql_select_db("meshmib", $con);
+			mysql_select_db($map_db, $con);
 
 			mysql_query("INSERT INTO `meshmib`.`node` (`fabfi_number`,`ipv6_address`,`type`,`latitude`,`longitude`,`cacti_index`,`node_info`,`timestamp`) VALUES ('".$fabfi_number."','".$node_ip."','".$node_type."','".$node_lat."','".$node_lon."','".$cacti_index."','".$node_info."','".$timestamp."')");
 			echo "Node Added";
@@ -342,7 +335,7 @@ function initialize_map() {
 	$lines_array=array(); // This array holds the lines we've drawn
 
 
-	mysql_select_db("meshmib", $con);
+	mysql_select_db($map_db, $con);
 
 	$query=mysql_query("SELECT * FROM  `node`");
 
@@ -378,7 +371,7 @@ function initialize_map() {
 		$node_id=$node_fabfi_number;
 		$node_info=$row['node_info'];
 
-		mysql_select_db("cacti", $con);
+		mysql_select_db($cacti_db, $cacti_con);
 
 		$cacti_graph=mysql_fetch_array( mysql_query("select `id` from `graph_tree_items` where `host_id` =' ".$row['cacti_index']. "' limit 1 " ));
 
@@ -388,7 +381,7 @@ function initialize_map() {
 			$cacti_graph_id="0";
 		}
 
-		mysql_select_db("meshmib", $con);
+		mysql_select_db($map_db, $con);
 
 		//Finally, generate required Javascript to place a marker
 		echo 'var Node_info="'.$node_info.'";';
@@ -537,5 +530,6 @@ function initialize() {
 } // Closes else - Display map
 
 mysql_close($con); // Close all database connections.
+mysql_close($cacti_con);
 
 ?>
