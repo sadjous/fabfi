@@ -4,6 +4,8 @@
 story=""
 number=""
 mapserver="map.mesh"
+default_key="8bb8d3c8d3dabbedffd38db33f"
+
 
 ipv6regex='/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/'
 #ipv4regex='\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'
@@ -196,6 +198,144 @@ uci set snmpd.@extend[-1].prog=/bin/ash
 uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
 uci set snmpd.@extend[-1].args=node_info
 uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.21
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wireless_Interfaces
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args=wifi_interfaces
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.22
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan0_clients
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="wifi_clients 0"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.23
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan1_clients
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="wifi_clients 1"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.24
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan0_clients
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="wifi_clients 2"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.25
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan3_clients
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="wifi_clients 3"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.26
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan0_signal
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="avg_signal 0"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.27
+
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan1_signal
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="avg_signal 1"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.28
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan2_signal
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="avg_signal 2"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.29
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan3_signal
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="avg_signal 3"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.30
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan0_txbitrate
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="tx_bitrate 0"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.31
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan1_txbitrate
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="tx_bitrate 1"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.32
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan2_txbitrate
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="tx_bitrate 2"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.33
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan3_txbitrate
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="tx_bitrate 3"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.34
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan0_rxbitrate
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="rx_bitrate 0"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.35
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan1_rxbitrate
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="rx_bitrate 1"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.36
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan2_rxbitrate
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="rx_bitrate 2"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.37
+
+
+uci add snmpd extend
+uci set snmpd.@extend[-1].name=Wlan3_rxbitrate
+uci set snmpd.@extend[-1].prog=/bin/ash
+uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
+uci set snmpd.@extend[-1].args="rx_bitrate 3"
+uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.38
+
 
 #echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
 #echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
@@ -789,8 +929,8 @@ if [ $cnumber == "2" ] ; then
 	suffix=${cmesh_suffix}
 	ssid_prefix=schoolnetmesh
 	mode=adhoc
-	encryption=none
-	key=""
+	encryption="psk2"
+	key=$default_key
 
 	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
 
@@ -819,8 +959,8 @@ if [ $cnumber == "3" ]; then
 	suffix=${c_t_suffix}
 	ssid_prefix=schoolnetBH
 	mode=adhoc
-	encryption=none
-	key=""
+	encryption="psk2"
+	key=$default_key
 
 	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key 
 	c_t_suffix=$(expr ${c_t_suffix} + 1)
@@ -912,8 +1052,8 @@ if [ $tnumber == "2" ] ; then
 	suffix=${t_t_suffix}
 	ssid_prefix=schoolnetBH
 	mode=adhoc
-	encryption=none
-	key=""
+	encryption="psk2"
+	key=$default_key
 
 	generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
 	t_t_link_index=$(expr $t_t_link_index + 1)
@@ -1064,8 +1204,8 @@ if [[ "${platform}" != "Ubiquiti RouterStation Pro" && "${platform}" != "Ubiquit
 			suffix=17
 			ssid_prefix=schoolnetmesh
 			mode=adhoc
-			encryption=none
-			key=""	
+			encryption="psk2"
+			key=$default_key
 
 			generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
 			story="${story} Radio$radio set for C-mesh \n C-mesh channel : ${meshchannel} \n"
@@ -1106,7 +1246,7 @@ else
                 	olsrd_base_config
 
 			uci set fabfi.@node[0].nodeType="N"
-                        
+			story="${story} Node type : N \n"
 			while ( true ); do
                               echo "Set link channel"
 				read ttmeshchannel
@@ -1128,8 +1268,8 @@ else
 			suffix=33
                         ssid_prefix=schoolnetBH
                         mode=adhoc
-                        encryption=none
-                        key=""
+                        encryption="psk2"
+                        key=$default_key
 			generic_wireless_mesh $radio $channel $iface $network $suffix $ssid_prefix $mode $encryption $key
 
 		fi

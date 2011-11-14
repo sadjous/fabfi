@@ -96,7 +96,7 @@ if ( $_GET["action"] == "update" )
 			exec(" php -q add_cacti.php  --host=".$host_address." --template=9 --desc=node".$fabfi_number);
 			$cacti_index=mysql_fetch_array(mysql_query("select `id` from `cacti`.`host` where `hostname`='".$host_address."'"));
 			$cacti_index=$cacti_index["id"];
-
+			exec("php -q /usr/share/cacti/cli/add_tree.php --type=node --node-type=host --tree-id=1 --host-id=".$cacti_index." --host-group-style=1");
 			mysql_select_db("meshmib", $con);
 
 			mysql_query("INSERT INTO `meshmib`.`node` (`fabfi_number`,`ipv6_address`,`type`,`latitude`,`longitude`,`cacti_index`,`node_info`,`timestamp`) VALUES ('".$fabfi_number."','".$node_ip."','".$node_type."','".$node_lat."','".$node_lon."','".$cacti_index."','".$node_info."','".$timestamp."')");
@@ -137,7 +137,10 @@ else {
 <html>
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<META HTTP-EQUIV="REFRESH" CONTENT="600">
+
 <style type="text/css">
+
   html { height: 100% }
   body { height: 100%; margin: 0; padding: 0 }
   #map_canvas { height: 100% }

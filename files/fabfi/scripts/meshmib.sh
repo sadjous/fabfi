@@ -20,12 +20,12 @@ done
 remote_ip=$( remote_ip )
 
 #Node's own coordinates
-my_lat=`/sbin/uci get olsrd.@LoadPlugin[1].lat`
-my_lon=`/sbin/uci get olsrd.@LoadPlugin[1].lon`
+my_lat=`/sbin/uci -q get olsrd.@LoadPlugin[1].lat`
+my_lon=`/sbin/uci -q get olsrd.@LoadPlugin[1].lon`
 
 #Node details
 
-nodeType=`/sbin/uci get fabfi.@node[0].nodeType`
+nodeType=`/sbin/uci -q get fabfi.@node[0].nodeType`
 
 get_neigh_longitude()
 {
@@ -60,7 +60,7 @@ case $1 in
 
 	fabfinumber )
 
-		/sbin/uci get fabfi.@node[0].fabfiNumber
+		/sbin/uci -q get fabfi.@node[0].fabfiNumber
 		;;
 	self_ip )
 		echo $self_ip                                	
@@ -99,8 +99,11 @@ case $1 in
 	neigh_cost )
 		cat ${olsr_info_file} | cut -f 6 
 		;;
+	wifi_interfaces )
+		iw dev | grep phy | wc -l
+		;;
 
-	radio_clients )
+	wifi_clients )
 
 		iw dev wlan$2 station dump | grep Station | cut -d " " -f 2
 		;;
