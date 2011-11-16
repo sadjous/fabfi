@@ -117,7 +117,7 @@ case $1 in
 		iw dev wlan$2 station dump | grep -i "rx bitrate" | cut -d ":" -f 2 | cut -d " " -f 1 | tr -d "\t"
 		;;
 	node_info )
-		cat Node_Info | tr '\n' '%' | sed s/%$//
+		cat /root/Node_Info | tr '\n' '%' | sed s/%$//
 		;;
 
 esac
