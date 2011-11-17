@@ -81,7 +81,7 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 
 	cd $DIR
 
-	make menuconfig
+	make clean 
 	make V=99
 
 	if [ ! -d ${DIR}/latest-images/ ]; then mkdir ${DIR}/latest-images ; fi

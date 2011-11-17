@@ -105,7 +105,19 @@ case $1 in
 
 	wifi_clients )
 
-		iw dev wlan$2 station dump | grep Station | cut -d " " -f 2
+		wifi_clients_mac=$( iw dev wlan$2 station dump | grep Station | cut -d " " -f 2 | tr '\n' ' ' )
+
+		for i in $wifi_clients_mac
+		do
+			#get IP address from MAC
+			address=$( ip -6 neigh  show | grep -i $i | grep 2001 | cut -d " " -f 1 )
+			if [ "$address" == "" ]; then 
+				echo $i		 	
+		 	else
+			 	#convert to main IP
+			 	cat $latlonfile | grep -i mid | grep "$address" | cut -d "'" -f 2
+			fi
+		done
 		;;
 	avg_signal )
 		iw dev wlan$2 station dump | grep "signal avg" | cut -d ":" -f 2 | tr -d "\t" | cut -d " " -f 1

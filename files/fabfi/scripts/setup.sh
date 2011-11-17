@@ -1085,7 +1085,7 @@ uci add network alias
 uci set network.@alias[-1].interface=mesh
 uci set network.@alias[-1].proto=static
 uci set network.@alias[-1].ipaddr=192.168.100.1
-uci set network.@alias[-1].netmask=255.255.255.0
+uci set network.@alias[-1].netmask=255.255.0.0
 
 #Firewall Configuration
 #start with an empty firewall file
@@ -1416,6 +1416,8 @@ if [ ${commit} == "y" ]; then
 	echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 	echo "*/1 * * * * /bin/ash /etc/fabfi/scripts/copy-files.sh 2> /dev/null" >> /etc/crontabs/root
 	echo "*/2 * * * * sh /etc/fabfi/scripts/fabfimap.sh > /dev/null" >> /etc/crontabs/root
+	echo "*/5 * * * * sh /etc/fabfi/scripts/offline-log.sh > /dev/null" >> /etc/crontabs/root
+
 
 	printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
 	printf "\n ------------------------------------------------------------------\n" >> /etc/banner
