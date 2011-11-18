@@ -6,7 +6,10 @@ RRDDATA="/root/rrd/"
 
 
 # Directory for storing webpages / images
-RRDIMG="/www/stats/"
+
+RRDIMG="/tmp/rrdgraphs/"
+RRDIMG_LN="/www/graphs"
+
 
 if [ ! -d "${RRDDATA}" ]
 	then
@@ -18,12 +21,11 @@ if [ ! -d "${RRDIMG}" ]
 		mkdir -p "${RRDIMG}"
 fi
 
+if [ ! -d "${RRDIMG_LN}" ]
+	then
+		ln -s "${RRDIMG}" "${RRDIMG_LN}"
+fi
 if_list=$( ifconfig | grep HWaddr | cut -d " " -f 1 | tr "\n" " " )
-
-WANRRD="${RRDDATA}/${WANIF}.rrd"
-LANRRD="${RRDDATA}/${LANIF}.rrd"
-WLANRRD="${RRDDATA}/${WLANIF}.rrd"
-
 
 CreateRRD ()
 {	
@@ -60,18 +62,21 @@ EIGHT=8
 for i in ${if_list}
 do
 	RRDfile=${RRDDATA}/$i.rrd
-	if [ "$i" != "eth1:1" ] && [ "$i" != "niit4to6" ] && [ "$i" != "niit6to4" ]; then
+	if [ "$i" != "eth1:1" ] && [ "$i" != "niit4to6" ] && [ "$i" != "niit6to4" ] && [ "$i" != "eth0:1" ]; then
 		if [ ! -f "${RRDfile}" ]
 		then
 			CreateRRD "${RRDfile}"
 		fi
 		
-		if_out=$(($(ifconfig eth1 | grep "TX packets" | cut -d ":" -f 2 | cut -d " " -f 1) * $EIGHT ))
-		if_in=$(($(ifconfig eth1 | grep "RX packets" | cut -d ":" -f 2 | cut -d " " -f 1) * $EIGHT ))
-		echo $if_out	
+		if_out=$(($(ifconfig "${i}" | grep bytes | cut -d ":" -f 3 | cut -d " " -f 1) * $EIGHT ))
+		if_in=$(($(ifconfig "${i}" | grep bytes | cut -d ":" -f 2 | cut -d " " -f 1) * $EIGHT ))
+		echo $if_out
 		echo $if_in	
 		rrdupdate "${RRDfile}" -t in:out N:"${if_in}":"${if_out}"
-		CreateGraph "${RRDIMG}/"$i"_daily.png" 86400 "${RRDfile}" $i
+		CreateGraph "${RRDIMG}/"$i"_daily.png" 86400 "${RRDfile}" "$i"_Daily
+		CreateGraph "${RRDIMG}/"$i"_weekly.png" 604800 "${RRDfile}" "$i"_Weekly
+		CreateGraph "${RRDIMG}/"$i"_monthly.png" 2678400 "${RRDfile}" "$i"_Monthly
+		CreateGraph "${RRDIMG}/"$i"_yearly.png" 31536000 "${RRDfile}" "$i"_Yearly
 	fi
 done
 
