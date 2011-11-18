@@ -58,15 +58,29 @@ function list(request, response)
 
   if not request.path[1] then
     local rules = ipt:chain("filter", "PORTALGUN")
-    return rules["rules"] or {} 
+    if not rules or not rules["rules"] then
+      return {}
+    end
+    return rules["rules"]
   else
     local rule = ipt:find({ table  = "filter",
                             chain  = "PORTALGUN",
                             source = request.path[1] })
     return rule
   end
-
 end
+
+
+-- GET /portalgun/origin/%{CALLING-STATION-ID} -> %{Framed-IP-Address}
+function origin(request, response)
+  local macaddr = request.path[1]
+  if not macaddr then
+    return { error = "usage: /portalgun/origin/%{CALLING-STATION-ID}" }
+  end
+  
+  return { raw = "Framed-IPV6-Address := " .. "2001:470:8c0e:fab:1e4b:d6ff:fe80:dada\n" }
+end
+
 
 -- TODO implement DELETE for lucid so we can have proper REST semantics
 local post_dispatch = {}
