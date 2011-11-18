@@ -55,20 +55,33 @@ do
 	signal  = fromCSV(ash(meshmib .. "avg_signal " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
 	tx_bitrate = fromCSV(ash(meshmib .."tx_bitrate " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");	
 	rx_bitrate = fromCSV(ash(meshmib .."rx_bitrate " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
---	lq
---	nlq
---	cost	
+	olsr_neigh = fromCSV(ash(meshmib .. "neigh_ip " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
+	lq = fromCSV(ash(meshmib .. "neigh_lq " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
+	nlq = fromCSV(ash(meshmib .. "neigh_nlq " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
+	cost = fromCSV(ash(meshmib .. "neigh_cost " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
 
-
-	
 	date=os.date();
+	
 	for i=1,table.getn(clients) 
-
 	do
 		if clients[i] ~= nil then
-			file:write(date.."\t"..clients[i].."\t"..signal[i].."\t"..tx_bitrate[i].."\t"..rx_bitrate[i].."\n");
+			for j=1,table.getn(olsr_neigh)
+			do
+				if olsr_neigh[j] == clients[i] then
+					olsr = j
+				else
+					olsr = nil	
+				end
+			end
+		
+			if olsr == nil then
+				file:write(date.."\t"..clients[i].."\t"..signal[i].."\t"..tx_bitrate[i].."\t"..rx_bitrate[i].."\n");
+			else
+				file:write(date.."\t"..clients[i].."\t"..signal[i].."\t"..tx_bitrate[i].."\t"..rx_bitrate[i].."\t"..lq[olsr].."\t"..nlq[olsr].."\t"..cost[olsr].."\n");
+			end
 		end
 	end
+
 	file:close()
 	ifaces=ifaces-1;
 
