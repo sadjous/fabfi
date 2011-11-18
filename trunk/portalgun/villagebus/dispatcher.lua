@@ -223,7 +223,11 @@ function dispatch(request)
     --luci.http.prepare_content("text/plain")
     luci.http.prepare_content("application/json")
     luci.http.status(200, "OK") -- TODO status codes
-    luci.http.write(json.encode(response))
+    if response.raw then
+      luci.http.write(response.raw)
+    else
+      luci.http.write(json.encode(response))
+    end
     log:info("RESPONSE: " .. json.encode(response))
   else
     log:info("RESPONSE: stdout")
