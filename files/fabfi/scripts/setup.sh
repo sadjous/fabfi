@@ -1408,7 +1408,6 @@ if [ ${commit} == "y" ]; then
 
 	#openwrt=$(cat /etc/banner | grep -i bleed | cut -d "(" -f 2 | cut -d ")" -f 1)
 	openwrt=$(cat /etc/fabfi/files/openwrt_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
-	cp /etc/fabfi/files/logo /etc/banner 
 	fabfi=$(cat /etc/fabfi/files/fabfi_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
 
 	echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf #something funny happens to the first entry; it never appears - this is why we have this silly entry
@@ -1419,8 +1418,9 @@ if [ ${commit} == "y" ]; then
 	echo "*/5 * * * * sh /etc/fabfi/scripts/offline-log.sh > /dev/null" >> /etc/crontabs/root
 
 
+	cp /etc/fabfi/files/logo2 /etc/banner 
 	printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
-	printf "\n ------------------------------------------------------------------\n" >> /etc/banner
+	printf "\n - - - - - - - - - - - - - - - - - -\n" >> /etc/banner
 
 	echo "::1 localhost" >> /etc/hosts
 	printf "${story}" >> /root/Node_Info
@@ -1446,8 +1446,17 @@ if [ ${commit} == "y" ]; then
 	uci commit
 	sleep 3	
 	rm /setup
-	reboot && killall telnetd
+	
+	if [ "$(pidof telnetd)" ];then
+	
+		reboot && killall telnetd
+	fi
 
+	if [ "$(pidof dropbear)" ];then
+	
+		reboot && killall dropbear 
+	fi
+	
 else
 	echo "Setup not committed"
 	echo "Reverting UCI . . ."
