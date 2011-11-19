@@ -83,7 +83,7 @@ do
 	
 	for i=1,table.getn(clients)
 	do	
-		if clients[i] ~= nil then
+		if clients[i] ~= nil and clients[i] ~= "" then
 			file:write(date.."\t"..clients[i].."\t"..signal[i].."\t"..tx_bitrate[i].."\t"..rx_bitrate[i].."\n");
 		end
 	end	

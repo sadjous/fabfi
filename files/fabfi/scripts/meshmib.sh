@@ -11,6 +11,8 @@ remote_ip()
 {
 for i in $olsr_neigh_ips 
 do 
+	# forces communication so as to insert entries into ip -6 neigh show
+	ping -c 1 $i  >> /dev/null
 	cat $latlonfile | grep -i mid | grep "$i" | cut -d "'" -f 2  
 done
 }

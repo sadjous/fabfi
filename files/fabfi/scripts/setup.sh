@@ -565,7 +565,7 @@ client_lan_config()
 	uci set wireless.@wifi-iface[$1].ca_cert=/etc/fabfi/certificates/ca.pem
 	uci set wireless.@wifi-iface[$1].priv_key=/etc/fabfi/certificates/meshnode.pem
 	uci set wireless.@wifi-iface[$1].priv_key_pwd=FFJAMesh
-	uci set wireless.@wifi-iface[$1].server=18.181.3.48
+	uci set wireless.@wifi-iface[$1].server=radius.mesh
 	uci set wireless.@wifi-iface[$1].key=cisco123
 
 
@@ -765,6 +765,10 @@ head_node_config()
 	uci set dhcp.@domain[-1].name=map.mesh
 	uci set dhcp.@domain[-1].ip=$cloud	
 
+	uci add dhcp domain
+	uci set dhcp.@domain[-1].name=map.mesh
+	uci set dhcp.@domain[-1].ip="18.181.3.48"
+	
 	until (echo $tunnel | grep "^[yn]$"); do
         	echo "do you wish to setup an ipv6 tunnel? (y/n)"
         	read tunnel
