@@ -46,6 +46,11 @@ end
 
 ifaces=tonumber(ash(meshmib .. " wifi_interfaces" )); -- no. of wlan interfaces
 
+olsr_neigh = fromCSV(ash(meshmib .. "neigh_ip " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
+lq = fromCSV(ash(meshmib .. "neigh_lq " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
+nlq = fromCSV(ash(meshmib .. "neigh_nlq " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
+cost = fromCSV(ash(meshmib .. "neigh_cost " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
+	
 while ( ifaces>0)
 do
 	
@@ -55,10 +60,7 @@ do
 	signal  = fromCSV(ash(meshmib .. "avg_signal " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
 	tx_bitrate = fromCSV(ash(meshmib .."tx_bitrate " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");	
 	rx_bitrate = fromCSV(ash(meshmib .."rx_bitrate " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
-	olsr_neigh = fromCSV(ash(meshmib .. "neigh_ip " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
-	lq = fromCSV(ash(meshmib .. "neigh_lq " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
-	nlq = fromCSV(ash(meshmib .. "neigh_nlq " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
-	cost = fromCSV(ash(meshmib .. "neigh_cost " .. (ifaces-1) .." | tr '\n' ',' | sed s/,$//"),",");
+
 
 	date=os.date();
 	
@@ -68,19 +70,23 @@ do
 			for j=1,table.getn(olsr_neigh)
 			do
 				if olsr_neigh[j] == clients[i] then
-					olsr = j
-				else
-					olsr = nil	
+					file:write(date.."\t"..clients[i].."\t"..signal[i].."\t"..tx_bitrate[i].."\t"..rx_bitrate[i].."\t"..lq[j].."\t"..nlq[j].."\t"..cost[j].."\n");
+					clients[i] = nil
+					signal[i] = nil
+					tx_bitrate[i] = nil
+					rx_bitrate[i] = nil
 				end
 			end
 		
-			if olsr == nil then
-				file:write(date.."\t"..clients[i].."\t"..signal[i].."\t"..tx_bitrate[i].."\t"..rx_bitrate[i].."\n");
-			else
-				file:write(date.."\t"..clients[i].."\t"..signal[i].."\t"..tx_bitrate[i].."\t"..rx_bitrate[i].."\t"..lq[olsr].."\t"..nlq[olsr].."\t"..cost[olsr].."\n");
-			end
 		end
 	end
+	
+	for i=1,table.getn(clients)
+	do	
+		if clients[i] ~= nil then
+			file:write(date.."\t"..clients[i].."\t"..signal[i].."\t"..tx_bitrate[i].."\t"..rx_bitrate[i].."\n");
+		end
+	end	
 
 	file:close()
 	ifaces=ifaces-1;
