@@ -26,10 +26,11 @@ include $(INCLUDE_DIR)/package.mk
 # - villagebus -------------------------------------------------------------
 define Package/villagebus-core
 	SECTION:=net
-  CATEGORY:=Network
-  DEPENDS:=+luci-lib-lucid-http +luci-lib-px5g +lualogging +luajson +luasocket
-  TITLE:=REST dispatch for mesh networks
-  VERSION:=$(PKG_VERSION)-$(PKG_RELEASE)
+	CATEGORY:=Network
+	DEPENDS:=+luci-lib-lucid-http +luci-lib-px5g +lualogging +luajson +luasocket
+	TITLE:=REST dispatch for mesh networks
+	VERSION:=$(PKG_VERSION)-$(PKG_RELEASE)
+	URL:=http://fabfi.org
 endef
 
 define Package/villagebus-core/description
@@ -37,20 +38,25 @@ define Package/villagebus-core/description
 endef
 
 define Package/villagebus-core/install
-  $(INSTALL_DIR)  $(1)/usr/lib/lua/villagebus
+	$(INSTALL_DIR)  $(1)/usr/lib/lua/villagebus
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/urlcode.lua     $(1)/usr/lib/lua/villagebus
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/dispatcher.lua  $(1)/usr/lib/lua/villagebus
 
-  $(INSTALL_DIR)  $(1)/usr/lib/lua/villagebus/modules
+	$(INSTALL_DIR)  $(1)/usr/lib/lua/villagebus/modules
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/modules/http.lua  $(1)/usr/lib/lua/villagebus/modules
 
-  $(INSTALL_DIR)  $(1)/usr/lib/lua/luci/lucid/http
+	$(INSTALL_DIR)  $(1)/usr/lib/lua/luci/lucid/http
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/lucid/VillagebusPublisher.lua  $(1)/usr/lib/lua/luci/lucid/http
 
-  $(INSTALL_DIR)  $(1)/usr/lib/lua/luci/lucid/http/handler
+	$(INSTALL_DIR)  $(1)/usr/lib/lua/luci/lucid/http/handler
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/lucid/handler/villagebus.lua  $(1)/usr/lib/lua/luci/lucid/http/handler
 endef
 
+
+# - compilation ------------------------------------------------------------
+define Build/Compile
+	# TODO luac
+endef
 
 # - eval packages ----------------------------------------------------------
 $(eval $(call BuildPackage,villagebus-core))
