@@ -1068,7 +1068,7 @@ platform=$(cat /proc/cpuinfo | grep machine | cut -d ":" -f 2 | cut -c2- | tr -d
 story="${story} \n Node Settings \n Device: ${platform} \n"
 clear
 
-cat /etc/fabfi/files/logo
+cat /etc/fabfi/files/logo2
 sleep 2
 
 clear
