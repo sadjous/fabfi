@@ -52,12 +52,13 @@ fi
 #output result to RAM log
 echo -e "$od$sp$nbor$sp$gw$sp$net" >> /var/etc/ffstatus.log
 
-#if flash log is too long push the appropriate number of lines from RAM
+#if flash log is not too long push the current line to flash
 if test $maxp -lt $plines 
 then
-        tail -$plen /var/etc/ffstatus.log > /etc/fabfi-scripts/ffstatus.log
+        echo -e "$od$sp$nbor$sp$gw$sp$net" >> /etc/fabfi-scripts/ffstatus.log
 else
-	echo -e "$od$sp$nbor$sp$gw$sp$net" >> /etc/fabfi-scripts/ffstatus.log
+#otherwise, replace flash log with the end of the RAM log
+	      tail -$plen /var/etc/ffstatus.log > /etc/fabfi-scripts/ffstatus.log
 fi
 
 #if RAM log is too long truncate it
