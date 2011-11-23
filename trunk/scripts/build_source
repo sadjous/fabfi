@@ -77,7 +77,7 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 	cd ${here}
 	
 	#patch iperf
-	cp ../src/iperf-mt/002-fix-server-exit-on-dual-test.patch ${DIR}/feeds/packages/net/iperf/patches/
+	cp ../src/openwrt/iperf-mt/002-fix-server-exit-on-dual-test.patch ${DIR}/feeds/packages/net/iperf/patches/
 
 	cd $DIR
 
