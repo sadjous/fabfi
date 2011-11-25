@@ -337,6 +337,15 @@ uci set snmpd.@extend[-1].args="rx_bitrate 3"
 uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.38
 
 
+#Portal Gun
+
+uci add_list lucid.httpd.supports=VillagebusPublisher
+uci add_list lucid.https.publisher=villagebus
+uci set lucid.villagebus=VillagebusPublisher
+uci set lucid.villagebus.name="Villagebus Publisher"
+uci set lucid.villagebus.home=1
+uci add_list lucid.villagebus.virtual=/villagebus
+
 #echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
 #echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 #echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
