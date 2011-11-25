@@ -66,7 +66,7 @@ do
 	
 	for i=1,table.getn(clients) 
 	do
-		if clients[i] ~= nil then
+		if clients[i] ~= nil and clients[i] ~= "" then
 			for j=1,table.getn(olsr_neigh)
 			do
 				if olsr_neigh[j] == clients[i] then
@@ -90,6 +90,5 @@ do
 
 	file:close()
 	ifaces=ifaces-1;
-
 end
 

@@ -1,4 +1,4 @@
-#!/bin/ash
+#/bin/ash
 
 #Some global variables
 story=""
@@ -774,10 +774,6 @@ head_node_config()
 	uci set dhcp.@domain[-1].name=map.mesh
 	uci set dhcp.@domain[-1].ip=$cloud	
 
-	uci add dhcp domain
-	uci set dhcp.@domain[-1].name=map.mesh
-	uci set dhcp.@domain[-1].ip="18.181.3.48"
-	
 	until (echo $tunnel | grep "^[yn]$"); do
         	echo "do you wish to setup an ipv6 tunnel? (y/n)"
         	read tunnel
