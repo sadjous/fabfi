@@ -1,0 +1,22 @@
+#summary Home Page for step-by-step install instructions.
+
+= System Overview =
+
+Every Fabfi system consists of one or more _Head nodes,_ and zero or more _Common Nodes_.  The network access is controlled, and network performance monitored by  by a _management server_, which can either be installed locally or in any location on the public internet. For networks where IPv6 is not provided natively by the uplink, the network uses a _tunnel provider_ on the internet to obtain an IPv6 address.
+
+This guide will walk you through the steps of:
+ # Choosing wireless hardware
+ # Registering for an account on the FabFi management server
+ # Obtaining an IPv6 ip address
+ # Flashing a Fabfi device
+ # Configuring FabFi nodes
+
+=Step 0: Chose Devices for your Application=
+
+=Step 1: Register for a FabFi provider account=
+
+=Step 2: Configure IPv6 Tunnel=
+
+=Step 3: Flash device firmware=
+
+=Step 4: Configure your node=
