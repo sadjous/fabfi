@@ -10,6 +10,8 @@ FabFi is a free software platform deigned to enable individuals and local commun
 The FabFi team also runs a network management and billing server in the cloud that network operators can use to manage and bill their networks instead of building their own server from scratch. 
 
 = [QuickStart Get Started Building Fabfi] = 
+`*`Note: tutorial linked above is under construction.  Navigate from the sidebar for older information.
+
 
 <wiki:comment>
 _NOTE: This Wiki is designed to help anyone with some computer experience to build a fabfi network.  As such, we deliberately build from base principles and provide additional explanations whenever possible.  We apologize if this is a little tedious for more advanced users._
