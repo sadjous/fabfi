@@ -2,21 +2,42 @@
 
 = System Overview =
 
-Every Fabfi system consists of one or more _Head nodes,_ and zero or more _Common Nodes_.  The network access is controlled, and network performance monitored by  by a _management server_, which can either be installed locally or in any location on the public internet. For networks where IPv6 is not provided natively by the uplink, the network uses a _tunnel provider_ on the internet to obtain an IPv6 address.
+Every Fabfi system consists of one or more _Head nodes,_ and one or more _Common Nodes_.  The network access is controlled, and network performance monitored, by  by a _management server_, which can either be installed locally or in any location on the public internet. For networks where IPv6 is not provided natively by the uplink, the network uses a _tunnel provider_ on the internet to obtain an IPv6 address.
 
 This guide will walk you through the steps of:
- # Choosing wireless hardware
  # Registering for an account on the FabFi management server
  # Obtaining an IPv6 ip address
- # Flashing a Fabfi device
+ # Choosing a System Type
+ # Flashing a FabFi device
  # Configuring FabFi nodes
 
-=Step 1: Chose Devices for your Application=
 
-=Step 2: Register for a FabFi provider account=
+=Step 1: Register for a FabFi provider account=
 
-=Step 3: Configure IPv6 Tunnel=
+=Step 2: Configure IPv6 Tunnel=
+
+=Step 3: Choose your System Type=
 
 =Step 4: Flash device firmware=
+
+=== Prepare your computer ===
+This tutorial is designed for Ubuntu Linux.  If you do not have a computer running Ubuntu or another debian-based linux machine, we recommend you obtain one before proceeding.  If you do not have a computer that runs linux natively, you can boot Ubuntu from an installation CD or USB Stick as described on the [http://www.ubuntu.com/download/ubuntu/download Ubuntu download page].     
+
+Once you have a linux computer, install _tftp_ and _minicom_ pachages:
+
+{{{
+sudo apt-get tftp minicom
+}}}
+
+If you are planning to work with the Linksys WRT160NL, you will also need an adapter to convert USB to CMOS-level serial, such as [http://www.makershed.com/FTDI_Friend_v1_0_p/mkad22.htm?1=1&CartID=0 this], some wire or a header to attach the converter to the router, and a usb cable to connect to your computer *TODO: Spec a Kit with all the right components*
+
+=== Download and install firmware ===
+
+The firmware image and installation procedure for each device is different.  Proceed by choosing your device:
+
+ * Linksys WRT160NL
+ * Ubiquiti RouterStation
+ * Ubiquiti PicoStation and NanoStation-Loco
+
 
 =Step 5: Configure your node=
