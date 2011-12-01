@@ -14,7 +14,35 @@ This guide will walk you through the steps of:
 
 =Step 1: Register for a FabFi provider account=
 
+Coming Soon.  
+
+`*` You do not need a fabfi operator account if you prefer to [FabfiServer5 build your own management server].
+
 =Step 2: Configure IPv6 Tunnel=
+
+*If your Internet Service Provider (ISP) already provides you with an IPv6 address with a /48 subnet mask, you may skip this step.*
+
+ * If you have a static IPv4 IP from your internet service provider, you must configure a SIT tunnel.  To do this:
+  # Obtain a free account from [www.tunnelbroker.net]`*`.  
+  # Connect any computer or home wireless router that will respond to `ping` to the IPv4 address you would like to use.  
+  # In your tunnelbroker account, click "Create Regular tunnel" on the left sidebar.  
+  # Enter your static IPv4 address, then choose a location closest to you.
+  # A green box should appear under the IP you entered, indicating that tunnelbroker can reach it via `ping`.  If not, make sure your address in pingable
+  # Click "Create Tunnel"
+  # On the page for your new tunnel, click "Assign/48".  The link should be replaced with an IP address.
+  # You're done!  (the router configuration script will automatically set up the other end of the tunnel for you)  
+ 
+ * For _dynamic_ public IPs or networks hidden behind a NAT, you must [https://www.sixxs.net/signup/ obtain a tunnel account through SixXs.net] (this process may take as long as two days to complete).   
+  * Once you have a SixXS account, log in and navigate to the "reguest" tunnel link on the left side.  
+  # Choose tunnel type:
+   * If you have a _dynamic_ public IP, create a dynamic tunnel
+   * If you are behind a NAT, create an AYIYA tunnel
+  # Enter the City your endpoint is in and click "Next Step"
+  # On the following page, select the endpoint closest to you, and fill in the reason for selecting the endpoint / use of tunnel.  This WILL be read by a real person, so be genuine in your response.  
+  # Click "Place Request for New Tunnel"
+  # Your tunnel will typically be approved in a few hours and you will be notified by email (the router configuration script will automatically set up the other end of the tunnel for you).
+  
+`*` You can also obtain static tunnels from SixXS.net, but their process is slower, so best to avoid them unless you are behind a NAT or do not have a static IPv4 IP.  
 
 =Step 3: Choose your System Type=
 
