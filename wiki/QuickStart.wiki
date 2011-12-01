@@ -7,18 +7,18 @@ Every Fabfi system consists of one or more _Head nodes,_ and one or more _Common
 This guide will walk you through the steps of:
  # Registering for an account on the FabFi management server
  # Obtaining an IPv6 ip address
- # Choosing a System Type
  # Flashing a FabFi device
- # Configuring FabFi nodes
+ # Configuring your first network
 
 
-=Step 1: Register for a FabFi provider account=
+
+=Part 1: Register for a FabFi provider account=
 
 Coming Soon.  
 
 `*` You do not need a fabfi operator account if you prefer to [FabfiServer5 build your own management server].
 
-=Step 2: Configure IPv6 Tunnel=
+=Part 2: Configure IPv6 Tunnel=
 
 *If your Internet Service Provider (ISP) already provides you with an IPv6 address with a /48 subnet mask, you may skip this step.*
 
@@ -47,14 +47,19 @@ Coming Soon.
   
 `*` You can also obtain static tunnels from SixXS.net, but their process is slower, so best to avoid them unless you are behind a NAT or do not have a static IPv4 IP.  
 
-=Step 3: Choose your System Type=
+=Part 3: Flash device firmware=
 
-=Step 4: Flash device firmware=
+_This tutorial will help you configure a simple network using the starter kits available at [http://store.fabfolk.com the Fabfolk Store].  If you intend to follow the tutorial verbatim, you should flash the routers from either:
+ * 2 "City-Scale" kits (developer or outdoor)
+ * 1 "Budget" Head Node and 1 "Budget" Common Node Kit
+Depending on the type of network you would like to configure._
 
 === Prepare your computer ===
-This tutorial is designed for Ubuntu Linux.  If you do not have a computer running Ubuntu or another debian-based linux machine, we recommend you obtain one before proceeding.  If you do not have a computer that runs linux natively, you can boot Ubuntu from an installation CD or USB Stick as described on the [http://www.ubuntu.com/download/ubuntu/download Ubuntu download page].     
+All of the instructions in this tutorial are written for Ubuntu Linux.  
 
-Once you have a linux computer, install _tftp_ and _minicom_ pachages:
+If you do not have a computer running Ubuntu or another debian-based linux machine, we recommend you obtain one before proceeding.  If you do not have a computer that you can configure to run linux natively, you can boot Ubuntu from an installation CD or USB Stick as described on the [http://www.ubuntu.com/download/ubuntu/download Ubuntu download page].     
+
+Once you have a linux computer, install _tftp_ and _minicom_ packages:
 
 {{{
 sudo apt-get tftp minicom
@@ -70,5 +75,18 @@ The firmware image and installation procedure for each device is different.  Pro
  * Ubiquiti RouterStation
  * Ubiquiti PicoStation and NanoStation-Loco
 
+=Part 4: Configure your first network=
 
-=Step 5: Configure your node=
+_Follow these instructions to build a simple network with the [http://store.fabfolk.com Fabfolk Starter Kits].  If you would like to configure your network differently, you might want to read AdvancedNetworkDesign._
+
+== Configuring the City-Scale Kit ==
+
+== Configuring the Budget Kit ==
+
+<wiki:comment> * Each device in a fabfi network has one or more radios 
+ * Each radio in a Fabfi device can make one of three different types of connections:
+  # 5Ghz mesh
+  # 2.4Ghz mesh
+  # 2.4Ghz client access
+  # (coming soon) 2.4Ghz client access + mesh
+</wiki:comment>
