@@ -51,8 +51,7 @@ Coming Soon.
 
 _This tutorial will help you configure a simple network using the starter kits available at [http://store.fabfolk.com the Fabfolk Store].  If you intend to follow the tutorial verbatim, you should flash the routers from either:
  * 2 "City-Scale" kits (developer or outdoor)
- * 1 "Budget" Head Node and 1 "Budget" Common Node Kit
-Depending on the type of network you would like to configure._
+ * 1 "Budget" Head Node and 1 "Budget" Common Node Kit_
 
 === Prepare your computer ===     
 
