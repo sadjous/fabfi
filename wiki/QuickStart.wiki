@@ -11,12 +11,12 @@ This guide will walk you through the steps of:
  # Flashing a Fabfi device
  # Configuring FabFi nodes
 
-=Step 0: Chose Devices for your Application=
+=Step 1: Chose Devices for your Application=
 
-=Step 1: Register for a FabFi provider account=
+=Step 2: Register for a FabFi provider account=
 
-=Step 2: Configure IPv6 Tunnel=
+=Step 3: Configure IPv6 Tunnel=
 
-=Step 3: Flash device firmware=
+=Step 4: Flash device firmware=
 
-=Step 4: Configure your node=
+=Step 5: Configure your node=
