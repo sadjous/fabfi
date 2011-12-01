@@ -40,7 +40,10 @@ Coming Soon.
   # Enter the City your endpoint is in and click "Next Step"
   # On the following page, select the endpoint closest to you, and fill in the reason for selecting the endpoint / use of tunnel.  This WILL be read by a real person, so be genuine in your response.  
   # Click "Place Request for New Tunnel"
-  # Your tunnel will typically be approved in a few hours and you will be notified by email (the router configuration script will automatically set up the other end of the tunnel for you).
+  # Your tunnel will typically be approved in a few hours and you will be notified by email.
+  # Once your tunnel is approved, go to your homepage and click "request subnet" on the right.  
+  # Select your new tunnel from the dropdown box and enter a reason for needing a subnet.  Again, this WILL be read by a real person, so be genuine in your response.
+  # Your request will typically be approved in a few hours and you will be notified by email.
   
 `*` You can also obtain static tunnels from SixXS.net, but their process is slower, so best to avoid them unless you are behind a NAT or do not have a static IPv4 IP.  
 
