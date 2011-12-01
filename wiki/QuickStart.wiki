@@ -33,7 +33,7 @@ Coming Soon.
   # You're done!  (the router configuration script will automatically set up the other end of the tunnel for you)  
  
  * For _dynamic_ public IPs or networks hidden behind a NAT, you must [https://www.sixxs.net/signup/ obtain a tunnel account through SixXs.net] (this process may take as long as two days to complete).   
-  * Once you have a SixXS account, log in and navigate to the "reguest" tunnel link on the left side.  
+  # Once you have a SixXS account, log in and navigate to the "request tunnel" link on the left side.  
   # Choose tunnel type:
    * If you have a _dynamic_ public IP, create a dynamic tunnel
    * If you are behind a NAT, create an AYIYA tunnel
