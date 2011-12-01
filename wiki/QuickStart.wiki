@@ -23,7 +23,7 @@ Coming Soon.
 *If your Internet Service Provider (ISP) already provides you with an IPv6 address with a /48 subnet mask, you may skip this step.*
 
  * If you have a static IPv4 IP from your internet service provider, you must configure a SIT tunnel.  To do this:
-  # Obtain a free account from [www.tunnelbroker.net]`*`.  
+  # Obtain a free account from [http://tunnelbroker.net/register.php tunnelbroker.net]`*`.  
   # Connect any computer or home wireless router that will respond to `ping` to the IPv4 address you would like to use.  
   # In your tunnelbroker account, click "Create Regular tunnel" on the left sidebar.  
   # Enter your static IPv4 address, then choose a location closest to you.
