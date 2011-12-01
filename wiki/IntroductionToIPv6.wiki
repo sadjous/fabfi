@@ -116,7 +116,7 @@ Note that when you use radvd, your default route might appear not to be in the s
 
 Read http://tldp.org/HOWTO/Linux+IPv6-HOWTO/hints-daemons-radvd.html for info on how to configure radvd 
 
-== Setting up an IPv6 tunnel ==
+== Setting up a SIT IPv6 tunnel ==
 
 If your ISP does not provide you with a native IPv6 address, don't lose hope - you can still get IPv6 connectivity via a Simple-Internet-Transition tunnel (SIT tunnel).
 
@@ -161,6 +161,7 @@ Test if your IPv6 connection works by pinging another IPv6 host, e.g
 
 if you get a reply, congratulations - you now have IPv6 connectivity, else, try again :-(
 
+== Setting up an AYIYA IPv6 tunnel ==
 
 n.b - For those behind a NAT firewall, check out [https://www.sixxs.net/tools/ayiya/ AYIYA]
 
