@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script type="text/javascript">
+      document.ready = function(success, error) {
+        if (document.readyBound) return;
+        document.readyBound = true;
+        if (document.addEventListener) {  // Mozilla, Opera and webkit nightlies currently support this event
+          document.addEventListener("DOMContentLoaded", function() {
+            document.removeEventListener("DOMContentLoaded", arguments.callee, false);
+            success();
+          }, false);
+        } else if (document.attachEvent) { // If IE event model is used
+          document.attachEvent("onreadystatechange", function() {
+            if (document.readyState === "complete") {
+              document.detachEvent( "onreadystatechange", arguments.callee );
+              success();
+            }
+          });
+        }
+      }
+    </script>
+  </head>
+  <body>
+    splash placeholder
+
+    an image: <img src="/fabfi.png"/>
+
+    <script>
+      document.ready(function() {
+        console.log("from page: ");
+        console.log(portalgun.request);
+      });
+    </script>
+    
+  </body>
+</html>

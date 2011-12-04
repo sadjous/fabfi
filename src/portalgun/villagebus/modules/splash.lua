@@ -32,7 +32,6 @@ end
 
 -- Splash page
 function splash(request, response)
-  log:debug(json.encode(request))
 
   -- TODO config via uci.lucid
   local splashroot  = ("/www/splash")
@@ -45,12 +44,25 @@ function splash(request, response)
 
   local content = fs.readfile(file)
 
-  log:debug("Dumping response headers:" )
-  --log:debug(json.encode(response.header))
+  local debug = "<pre>"
+  debug = debug .. "original request: "
+  debug = debug .. "http://"
+  debug = debug .. request.env["HTTP_HOST"]
+  debug = debug .. request.env["REQUEST_URI"]
+  debug = debug .. "</pre>"
+
+  local script = "<script type='text/javascript'>\n"
+  script = script .. "var portalgun = {};\n"
+  script = script .. "portalgun.request = " .. json.encode(request) .. ";\n"
+  script = script .. "console.log('from server:');\n"
+  script = script .. "console.log(portalgun.request);\n"
+  script = script .. "</script>\n"
 
   response.prepare_content("text/html")
   response.status(200)
   response.write(content)
+  response.write(debug)
+  response.write(script)
 
   return nil
 end
