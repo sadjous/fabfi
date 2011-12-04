@@ -58,8 +58,10 @@ authenticator = {}
 
 
 --[[ villagebus modules ]]--------------------------------------------------
+-- TODO configure modules via /etc/config/lucid
 require "villagebus.modules.http"
 require "villagebus.modules.portalgun"
+require "villagebus.modules.splash"
 
 
 --- Send a 404 error code and render the "error404" template if available.
@@ -98,8 +100,10 @@ end
 
 --- Dispatch an HTTP request.
 -- @param request	LuCI HTTP Request object
+-- @see   http://luci.subsignal.org/api/luci/modules/luci.http.html
+--        http://luci.subsignal.org/api/luci/modules/luci.dispatcher.html
+--        http://luci.subsignal.org/trac/browser/luci/trunk/libs/lucid-http/luasrc/lucid/http/handler/luci.lua
 function httpdispatch(request, prefix)
-
   local cgi = {
     request_method  = request:getenv("REQUEST_METHOD") or "",
     path_info       = request:getenv("PATH_INFO") or "",
@@ -125,6 +129,12 @@ function httpdispatch(request, prefix)
             " -> uri    : " .. cgi.request_uri    .. "\n" ..
             " -> auth   : " .. cgi.auth_type      .. "\n" ..
             " -> prefix : " .. json.encode(prefix)) ]]--
+
+  --[[ log:debug("Dumping environment:")
+  local envtable = request:getenv(false)
+  for key, value in pairs(envtable) do
+    log:debug("  " .. key .. " : " .. value)
+  end ]]--
 
 	luci.http.context.request = request
 
@@ -166,7 +176,8 @@ function httpdispatch(request, prefix)
     dispatch({ verb  = cgi.request_method,
                path  = context.request,
                query = context.query,
-               data  = cgi.content_data })
+               data  = cgi.content_data,
+               env   = request:getenv() })
 	end, error500)
 
 	luci.http.close()
@@ -189,8 +200,8 @@ end
 -- Dispatches a Villagebus request
 -- @param request	Virtual path
 function dispatch(request)
-  log:debug("villagebus.dispatcher.mydispatch\n" ..
-            " -> " .. json.encode(request))
+  log:debug("villagebus.dispatcher.dispatch\n" ..
+            " -> " .. json.encode(request.path))
   
   -- dispatch request
   local name = table.remove(request.path, 1)
@@ -200,19 +211,19 @@ function dispatch(request)
   if type(module) ~= "table" then
     response = fail("Could not resolve module for name: " .. (name or "nil"))
   elseif module["evaluate"] then       -- look for an 'evaluate' function
-    log:info(name .. ".evaluate(" .. json.encode(request) .. ")")
+    log:info(name .. ".evaluate(" .. json.encode(request.path) .. ")")
     response = module["evaluate"](request, luci.http)
   elseif module[request.verb] then     -- try REST verbs
-    log:info(name .. "." .. request.verb .. "(" .. json.encode(request) .. ")")
+    log:info(name .. "." .. request.verb .. "(" .. json.encode(request.path) .. ")")
     response = module[request.verb](request, luci.http)
   else                                 -- search module methods
     local method = table.remove(request.path, 1)
     if type(module[method]) == "table" and module[method][request.verb] then
-      log:info(request.verb .. " " .. name .. "." .. method .. "(" .. json.encode(request) .. ")")
-      response = module[method][request.verb](request)
+      log:info(request.verb .. " " .. name .. "." .. method .. "(" .. json.encode(request.path) .. ")")
+      response = module[method][request.verb](request, luci.http)
     elseif module[method] then
-      log:info(request.verb .. " " .. name .. "." .. method .. "(" .. json.encode(request) .. ")")
-      response = module[method](request)
+      log:info(request.verb .. " " .. name .. "." .. method .. "(" .. json.encode(request.path) .. ")")
+      response = module[method](request, luci.http)
     else
       response = fail("Could not resolve name '" .. method .. "' in module: " .. name)
     end
