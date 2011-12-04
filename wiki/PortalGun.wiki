@@ -1,0 +1,43 @@
+= Introduction =
+
+PortalGun is the fabfi mesh network access controller. 
+
+
+== Package Compilation ==
+
+* Edit: feeds.conf.default
+{{{
+src-svn fabfi http://fabfi.googlecode.com/svn/trunk/openwrt/package-scripts
+src-svn afrimesh http://afrimesh.googlecode.com/svn/trunk/package-scripts/openwrt
+}}}
+
+* Run:
+{{{
+./scripts/feeds update fabfi afrimesh
+./scripts/feeds/install portalgun
+
+make menuconfig
+
+    Network -> Captive Portals -> portalgun 
+
+make
+}}}
+
+
+== Installation == 
+
+* Run:
+{{{
+opkg install portalgun
+uci add_list lucid.httpd.supports=VillagebusPublisher
+uci add_list lucid.https.publisher=villagebus
+uci set lucid.villagebus=VillagebusPublisher
+uci set lucid.villagebus.name="Villagebus Publisher"
+uci set lucid.villagebus.home=1
+uci add_list lucid.villagebus.virtual=/villagebus
+}}}
+
+== Configuration ==
+
+
+== Hacking == 
