@@ -50,7 +50,7 @@ if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 
 	cd ${here}
 
-	cp -a ../files/fabfi ${DIR}/target/linux/ar71xx/base-files/etc/
+	cp -a ../files/* ${DIR}/target/linux/ar71xx/base-files/
 
 	find ${DIR}/target/linux/ar71xx/base-files/etc/fabfi/ -name ".svn" -print0 | xargs -0 -I svn rm -rf svn
 
