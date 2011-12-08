@@ -9,7 +9,7 @@ DIR=$(readlink -f ${DIR} )
 
 if [ -d ${DIR}/target/linux/ar71xx/base-files/etc/ ]; then
 
-	cp -a ../files/fabfi ${DIR}/target/linux/ar71xx/base-files/etc/ -R
+	cp -a ../files/* ${DIR}/target/linux/ar71xx/base-files/ -R
 
 	find ${DIR}/target/linux/ar71xx/base-files/etc/fabfi/ -name ".svn" -print0 | xargs -0 -I svn rm -rf svn
 

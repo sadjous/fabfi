@@ -1422,14 +1422,14 @@ if [ ${commit} == "y" ]; then
 	echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf #something funny happens to the first entry; it never appears - this is why we have this silly entry
 	echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 	echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
-	echo "*/1 * * * * /bin/ash /etc/fabfi/scripts/copy-files.sh 2> /dev/null" >> /etc/crontabs/root
-	echo "*/2 * * * * sh /etc/fabfi/scripts/fabfimap.sh > /dev/null" >> /etc/crontabs/root
-	echo "*/5 * * * * sh /etc/fabfi/scripts/offline-log.sh > /dev/null" >> /etc/crontabs/root
+	#echo "*/1 * * * * /bin/ash /etc/fabfi/scripts/copy-files.sh 2> /dev/null" >> /etc/crontabs/root
+	#echo "*/2 * * * * sh /etc/fabfi/scripts/fabfimap.sh > /dev/null" >> /etc/crontabs/root
+	#echo "*/5 * * * * sh /etc/fabfi/scripts/offline-log.sh > /dev/null" >> /etc/crontabs/root
 
 
-	cp /etc/fabfi/files/logo2 /etc/banner 
-	printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
-	printf "\n - - - - - - - - - - - - - - - - - -\n" >> /etc/banner
+	#cp /etc/fabfi/files/logo2 /etc/banner 
+	#printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
+	#printf "\n - - - - - - - - - - - - - - - - - -\n" >> /etc/banner
 
 	echo "::1 localhost" >> /etc/hosts
 	printf "${story}" >> /root/Node_Info
@@ -1449,6 +1449,7 @@ if [ ${commit} == "y" ]; then
 
 	echo exit 0 >> /etc/rc.local
 
+	cp /etc/fabfi/files/sysupgrade.conf /etc/sysupgrade.conf
 
 	echo "Wait for telnet to close before unplugging router from power"
 
