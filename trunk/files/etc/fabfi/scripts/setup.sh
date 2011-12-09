@@ -4,6 +4,7 @@
 story=""
 number=""
 mapserver="map.mesh"
+updateserver="http://code.google.com/p/fabfi/downloads/detail?name="
 default_key="8bb8d3c8d3dabbedffd38db33f"
 
 
@@ -56,6 +57,7 @@ uci add fabfi node
 uci add fabfi servers
 uci set fabfi.@servers[0].mapserver=$mapserver
 uci set fabfi.@node[0].mapUpdateInterval=180
+uci set fabfi.@servers[0].updateserver=$mapserver
 
 echo > /etc/rc.local
 
@@ -1074,6 +1076,9 @@ fi # end tnumber=2, configure T-T
 }
 
 platform=$(cat /proc/cpuinfo | grep machine | cut -d ":" -f 2 | cut -c2- | tr -d "\n")
+
+uci set fabfi.@node[0].platform=${platform}
+
 story="${story} \n Node Settings \n Device: ${platform} \n"
 clear
 
