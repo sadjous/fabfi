@@ -45,6 +45,10 @@ endef
 define Package/portalgun/install
 	$(INSTALL_DIR)  $(1)/usr/lib/lua/villagebus/modules
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/villagebus/modules/portalgun.lua  $(1)/usr/lib/lua/villagebus/modules
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/villagebus/modules/splash.lua     $(1)/usr/lib/lua/villagebus/modules
+
+	$(INSTALL_DIR)  $(1)/www/splash
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/html/index.html $(1)/www/splash
 endef
 
 define Package/portalgun/postinst
@@ -63,10 +67,10 @@ if [ -z "$${IPKG_INSTROOT}" ]; then
   uci set lucid.splash="daemon"
   uci set lucid.splash.slave="httpd"
   uci set lucid.splash.address=8001
-  uci set lucid.splash.publisher="splashroot"
   uci set lucid.splash.nokeepalive=1
   uci set lucid.splash.memlimit=1572864
   uci set lucid.splash.enabled=1
+	uci add_list lucid.splash.publisher="splashroot"
 
   uci commit
 fi
