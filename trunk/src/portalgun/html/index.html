@@ -1,6 +1,10 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <title>FabFi - Community Access Portal</title>
+    <link rel="Shortcut Icon" href="http://fabfi.org/template/images/favicon.ico" />
     <script type="text/javascript">
+      // the worlds smallest js framework
       document.ready = function(success, error) {
         if (document.readyBound) return;
         document.readyBound = true;
@@ -17,20 +21,58 @@
             }
           });
         }
-      }
+      };
+      function $(selector, element)  {
+        var result = element ? element.querySelectorAll(selector) 
+          : document.querySelectorAll(selector);
+        return (result.length == 1) ? result[0] : result;
+      };
+      function http(verb, path, data, success, error) {
+        function xhr() {
+          try { return new XMLHttpRequest(); } catch(e) { }
+          try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch (e) { }
+          try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch (e) { }
+          return error("XMLHttpRequest not supported");
+        }
+        var request = xhr();
+        request.onreadystatechange = function() {
+          if (request.readyState != 4) return;
+          try {
+            return (JSON.parse(request.responseText));
+          } catch (e) {
+            return error(e);
+          }
+        }
+        request.open(verb, path, true);
+        if (data) request.send(data);
+      };
     </script>
   </head>
   <body>
-    splash placeholder
+    <h1>FabFi Community Mesh Network</h1>
 
-    an image: <img src="/fabfi.png"/>
+    <ul>
+      <li>free access</li>
+      <li>sign in</li>
+      <li>register</li>
+      <li>account information</li>
+    </ul>
 
     <script>
       document.ready(function() {
         console.log("from page: ");
         console.log(portalgun.request);
+
+        console.log("Making a request");
+        http("POST", "/foobar", { some : "data" }, 
+             function(data) {
+               console.log("Got data: " + data);
+             },
+             function(error) {
+               console.log("Got error: " + error);
+             });
       });
     </script>
-    
+
   </body>
 </html>
