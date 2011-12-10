@@ -119,7 +119,7 @@ function httpdispatch(request, prefix, headers)
     --http_referer    = request:getenv("HTTP_REFERER") or "",
     --path_translated = request:getenv("PATH_TRANSLATED") or ""
   }
-  log:debug("dispatcher.lua villagebus.dispatcher.httpdispatch") --[[ ..
+  --[[ log:debug("dispatcher.lua villagebus.dispatcher.httpdispatch") ..
             " -> verb   : " .. cgi.request_method .. "\n" ..
             " -> path   : " .. cgi.path_info      .. "\n" ..
             " -> query  : " .. cgi.query_string   .. "\n" ..
@@ -131,13 +131,10 @@ function httpdispatch(request, prefix, headers)
     " -> prefix : " .. json.encode(prefix)) ]]--
 
 	luci.http.context.request = request
-
 	local r = {}
 	context.request = r
 	context.urltoken = {}
   context.query = {}
-
-	local pathinfo = http.urldecode(request:getenv("PATH_INFO") or "", true)
 
 	if prefix then
 		for _, node in ipairs(prefix) do
@@ -146,6 +143,7 @@ function httpdispatch(request, prefix, headers)
 	end
 
 	local tokensok = true
+	local pathinfo = http.urldecode(request:getenv("PATH_INFO") or "", true)
 	for node in pathinfo:gmatch("[^/]+") do
 		local tkey, tval
 		if tokensok then
@@ -159,12 +157,17 @@ function httpdispatch(request, prefix, headers)
 		end
 	end
 
+  -- parse request data
   if cgi.query_string ~= "" then
     urlcode.parsequery(cgi.query_string, context.query)
   end
   if cgi.content_data ~= "" then
     cgi.content_data = json.decode(cgi.content_data)
+  else
+    cgi.content_data = {}
   end
+
+  -- dispatch request
 	local stat, err = util.coxpcall(function()
     dispatch({ verb    = cgi.request_method,
                path    = context.request,
@@ -173,9 +176,7 @@ function httpdispatch(request, prefix, headers)
                env     = request:getenv(),
                headers = headers })
 	end, error500)
-
 	luci.http.close()
-
 	--context._disable_memtrace()
 end
 
@@ -194,8 +195,11 @@ end
 -- Dispatches a Villagebus request
 -- @param request	Virtual path
 function dispatch(request)
-  log:debug("villagebus.dispatcher.dispatch\n" ..
-            " -> " .. json.encode(request.path))
+  --[[ log:debug("villagebus.dispatcher.dispatch\n" ..
+            " -> " .. json.encode(request.verb) ..
+            " -> " .. json.encode(request.path) ..
+            " -> " .. json.encode(request.query) ..
+          " -> " .. json.encode(request.data)) ]]--
   
   -- dispatch request
   local name = table.remove(request.path, 1)
@@ -205,18 +209,18 @@ function dispatch(request)
   if type(module) ~= "table" then
     response = fail("Could not resolve module for name: " .. (name or "nil"))
   elseif module["evaluate"] then       -- look for an 'evaluate' function
-    log:info(name .. ".evaluate(" .. json.encode(request.path) .. ")")
+    --log:debug(name .. ".evaluate(" .. json.encode(request.path) .. ")")
     response = module["evaluate"](request, luci.http)
   elseif module[request.verb] then     -- try REST verbs
-    log:info(name .. "." .. request.verb .. "(" .. json.encode(request.path) .. ")")
+    --log:debug(name .. "." .. request.verb .. "(" .. json.encode(request.path) .. ")")
     response = module[request.verb](request, luci.http)
   else                                 -- search module methods
     local method = table.remove(request.path, 1)
     if type(module[method]) == "table" and module[method][request.verb] then
-      log:info(request.verb .. " " .. name .. "." .. method .. "(" .. json.encode(request.path) .. ")")
+      --log:debug(request.verb .. " " .. name .. "." .. method .. "(" .. json.encode(request.path) .. ")")
       response = module[method][request.verb](request, luci.http)
     elseif module[method] then
-      log:info(request.verb .. " " .. name .. "." .. method .. "(" .. json.encode(request.path) .. ")")
+      --log:debug(request.verb .. " " .. name .. "." .. method .. "(" .. json.encode(request.path) .. ")")
       response = module[method](request, luci.http)
     else
       response = fail("Could not resolve name '" .. method .. "' in module: " .. name)
@@ -233,9 +237,9 @@ function dispatch(request)
     else
       luci.http.write(json.encode(response))
     end
-    log:info("RESPONSE: " .. json.encode(response))
+    log:debug("RESPONSE: " .. json.encode(response))
   else
-    log:info("RESPONSE: stdout")
+    --log:debug("RESPONSE: stdout")
   end
 
 end

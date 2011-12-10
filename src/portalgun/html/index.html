@@ -2,9 +2,10 @@
 <html>
   <head>
     <title>FabFi - Community Access Portal</title>
-    <link rel="Shortcut Icon" href="http://fabfi.org/template/images/favicon.ico" />
+    <link rel="Shortcut Icon" href="http://fabfi.org/favicon.ico" />
+
+    <!-- the worlds smallest javascript framework -->
     <script type="text/javascript">
-      // the worlds smallest js framework
       document.ready = function(success, error) {
         if (document.readyBound) return;
         document.readyBound = true;
@@ -27,61 +28,42 @@
           : document.querySelectorAll(selector);
         return (result.length == 1) ? result[0] : result;
       };
-      function http(verb, path, data, success, error) {
-        function xhr() {
+      function xhr(verb, path, data, success, error) {
+        function _xhr() {
           try { return new XMLHttpRequest(); } catch(e) { }
           try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch (e) { }
           try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch (e) { }
           return error("XMLHttpRequest not supported");
         }
-        var request = xhr();
+        var request = _xhr();
         request.onreadystatechange = function() {
           if (request.readyState != 4) return;
           try {
             return success(JSON.parse(request.responseText));
-          } catch (e) {
-            return error(e);
-          }
+          } catch (e) { return error(e); }
         }
         request.open(verb, path, true);
-        if (data) request.send(JSON.stringify(data));
+        request.send(JSON.stringify(data));
       };
     </script>
-  </head>
-  <body>
-    <h1>FabFi Community Mesh Network</h1>
 
-    <ul>
-      <li><a href="#" onclick="menu['free access']();">free access</a></li>
-      <li><a href="#" onclick="menu['sign in']();">sign in</a></li>
-      <li><a href="#" onclick="menu['register']();">register</a></li>
-      <li><a href="#" onclick="menu['account information']();">account information</a></li>
-    </ul>
-
-    <script>
+    <!-- menu logic -->
+    <script type="text/javascript">
       document.ready(function() {
-        console.log("from page: ");
-        console.log(JSON.stringify(portalgun.rest));
-
-        console.log("Making a request");
-        http("POST", portalgun.rest.uuid + "/foo/bar", { some : "data" }, 
-             function(data) {
-               console.log("Got data: " + JSON.stringify(data));
-             },
-             function(error) {
-               console.log("Got error: " + error);
-             });
+        console.log("portalgun object: ");
+        console.log(JSON.stringify(portalgun));
       });
       window.menu = {
         "free access" : function() {
           console.log("free access");
-          http("POST", portalgun.rest.free, { some : "data" }, 
-             function(data) {
-               console.log("Got data: " + JSON.stringify(data));
-             },
-             function(error) {
-               console.log("Got error: " + error);
-             });
+          xhr("POST", portalgun.rest.free, { 
+                some : "data" 
+              }, function(data) {
+                console.log("Got data: " + JSON.stringify(data));
+                console.log("Redirecting: " + portalgun.redirect);
+              }, function(error) {
+                console.log("Got error: " + error);
+              });
         },
         "sign in" : function() {
           console.log("sign in");
@@ -94,6 +76,16 @@
         }
       };
     </script>
+  </head>
 
+  <body>
+    <h1>FabFi Community Mesh Network</h1>
+    <ul>
+      <li><a href="#" onclick="menu['free access']();">free access</a></li>
+      <li><a href="#" onclick="menu['sign in']();">sign in</a></li>
+      <li><a href="#" onclick="menu['register']();">register</a></li>
+      <li><a href="#" onclick="menu['account information']();">account information</a></li>
+    </ul>
   </body>
+
 </html>

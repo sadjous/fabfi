@@ -36,7 +36,7 @@ function splash(request, response)
 
   --log:debug("request.path length: " .. table.getn(request.path))
 
-  log:debug("splash.lua dumping request" .. 
+  log:debug("splash.lua:splash" .. 
             " -> " .. json.encode(request.verb) ..
             " -> " .. json.encode(request.path) ..
             " -> " .. json.encode(request.query) ..
@@ -73,10 +73,12 @@ function splash(request, response)
 
   local script = "<script type='text/javascript'>\n"
   script = script .. "var portalgun = {};\n"
-  script = script .. "portalgun.request = " .. json.encode(request) .. ";\n"
   script = script .. "portalgun.rest = {};\n"
   script = script .. "portalgun.rest.uuid = " .. json.encode("/" .. uuid) .. ";\n"
   script = script .. "portalgun.rest.free = " .. json.encode("/" .. uuid .. "/free") .. ";\n"
+  script = script .. "portalgun.redirect  = " .. json.encode("http://" ..
+                                                             request.headers["Host"] ..
+                                                             request.env["REQUEST_URI"])
   -- script = script .. "console.log('from server:');\n"
   -- script = script .. "console.log(JSON.stringify(portalgun.request));\n"
   -- script = script .. "console.log(JSON.stringify(portalgun.uuid));\n"
