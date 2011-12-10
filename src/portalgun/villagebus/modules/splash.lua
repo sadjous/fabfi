@@ -11,18 +11,20 @@ log:debug("loaded villagebus.modules.splash")
 
 
 --[[ dependencies ]]--
-local fs = require "nixio.fs"
---local nixio = require "nixio", require "nixio.util"
+local fs  = require "nixio.fs"
 local md5 = require "md5"
 
 
 --[[ modules.portalgun ]]--
 module("modules.splash", package.seeall)
 
+local splashconfig = { -- TODO configure via uci.lucid
+  root = "/www/splash",
+  page = "index.html"
+}
+
 
 -- [[ implementation ]]--
-
--- Handle GET, POST
 function GET(request, response)
   return splash(request, response)
 end
@@ -33,16 +35,17 @@ end
 
 -- Splash page
 function splash(request, response)
-
-  --log:debug("request.path length: " .. table.getn(request.path))
-
-  log:debug("splash.lua:splash" .. 
+  log:debug("splash" .. 
             " -> " .. json.encode(request.verb) ..
             " -> " .. json.encode(request.path) ..
             " -> " .. json.encode(request.query) ..
             " -> " .. json.encode(request.data)) 
 
-  -- dispatch portalgun requests
+  -- get client address
+  local client = request.headers["X-Forwarded-For"] or 
+                 request.env["REMOTE_ADDR"] 
+
+  -- check for and dispatch any portalgun operations
   local uuid = md5.sumhexa(request.env["HTTP_HOST"])
   if request.path[1] == uuid then
     response.prepare_content("application/json")
@@ -51,17 +54,19 @@ function splash(request, response)
     return nil
   end
 
-  -- display splash page
+  -- save original request url for login redirect
+  local redirect = "http://" ..
+                   request.headers["Host"] ..
+                   request.env["REQUEST_URI"]
+  log:info("splash" ..
+           " -> " .. (client or "unknown client") .. 
+           " -> " .. redirect)
 
-  -- TODO config via uci.lucid
-  local splashroot  = ("/www/splash")
-  local file = fs.realpath(splashroot .. "/index.html")
-  
   -- read & serve file
+  local file = fs.realpath(splashconfig.root .. "/" .. splashconfig.page)
   local stat = fs.stat(file)
   --response.header["Content-Length"] = stat.size
   --response.header["Content-Type"] = mime.to_mime(file)
-
   local content = fs.readfile(file)
 
   local debug = "<pre>"
@@ -76,9 +81,7 @@ function splash(request, response)
   script = script .. "portalgun.rest = {};\n"
   script = script .. "portalgun.rest.uuid = " .. json.encode("/" .. uuid) .. ";\n"
   script = script .. "portalgun.rest.free = " .. json.encode("/" .. uuid .. "/free") .. ";\n"
-  script = script .. "portalgun.redirect  = " .. json.encode("http://" ..
-                                                             request.headers["Host"] ..
-                                                             request.env["REQUEST_URI"])
+  script = script .. "portalgun.redirect  = " .. json.encode(redirect)
   -- script = script .. "console.log('from server:');\n"
   -- script = script .. "console.log(JSON.stringify(portalgun.request));\n"
   -- script = script .. "console.log(JSON.stringify(portalgun.uuid));\n"
@@ -87,8 +90,8 @@ function splash(request, response)
   response.prepare_content("text/html")
   response.status(200)
   response.write(content)
-  response.write(debug)
   response.write(script)
+  response.write(debug)
 
   return nil
 end

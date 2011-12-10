@@ -28,7 +28,7 @@
           : document.querySelectorAll(selector);
         return (result.length == 1) ? result[0] : result;
       };
-      function xhr(verb, path, data, success, error) {
+      function xhr(verb, path, data, callback) {
         function _xhr() {
           try { return new XMLHttpRequest(); } catch(e) { }
           try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch (e) { }
@@ -38,12 +38,17 @@
         var request = _xhr();
         request.onreadystatechange = function() {
           if (request.readyState != 4) return;
+          if (request.status != 200) {
+            return callback(request.status, request.responseText);
+          }
           try {
-            return success(JSON.parse(request.responseText));
-          } catch (e) { return error(e); }
+            return callback(null, JSON.parse(request.responseText));
+          } catch (e) { 
+            return callback(e, request.responseText); 
+          }
         }
         request.open(verb, path, true);
-        request.send(JSON.stringify(data));
+        request.send(data ? JSON.stringify(data) : null);
       };
     </script>
 
@@ -57,12 +62,13 @@
         "free access" : function() {
           console.log("free access");
           xhr("POST", portalgun.rest.free, { 
-                some : "data" 
-              }, function(data) {
-                console.log("Got data: " + JSON.stringify(data));
-                console.log("Redirecting: " + portalgun.redirect);
-              }, function(error) {
-                console.log("Got error: " + error);
+                some : "data",
+                redirect : portalgun.redirect
+              }, function(error, reply) {
+                if (error) return console.log("Error: " + error + " -> " + reply);
+                console.log("Got data: " + JSON.stringify(reply));
+                console.log("Redirecting: " + reply.redirect);
+                //window.location.href = reply.redirect;
               });
         },
         "sign in" : function() {

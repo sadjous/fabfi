@@ -20,7 +20,6 @@ PKG_SOURCE_SUBDIR:=$(if $(PKG_BRANCH),$(PKG_BRANCH),$(PKG_NAME))-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_SOURCE_SUBDIR).tar.gz
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_SOURCE_SUBDIR)
 
-
 include $(INCLUDE_DIR)/package.mk
 
 # - villagebus -------------------------------------------------------------
@@ -35,6 +34,10 @@ endef
 
 define Package/villagebus-core/description
 	Core villagebus distribution
+endef
+
+define Build/Compile
+	# TODO luac
 endef
 
 define Package/villagebus-core/install
@@ -52,11 +55,25 @@ define Package/villagebus-core/install
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/lucid/handler/villagebus.lua  $(1)/usr/lib/lua/luci/lucid/http/handler
 endef
 
+define Package/portalgun/postinst
+#!/bin/sh
+# check if we are on the real system
+if [ -z "$${IPKG_INSTROOT}" ]; then
+	touch /etc/portalgun.postinst.test
 
-# - compilation ------------------------------------------------------------
-define Build/Compile
-	# TODO luac
+	uci add lucid villagebus
+  uci set lucid.villagebus="VillagebusPublisher"
+  uci set lucid.villagebus.name="Villagebus Publisher"
+  uci set lucid.villagebus.home=1
+
+  uci add_list lucid.villagebus.virtual="/villagebus"
+  uci add_list lucid.httpd.supports="VillagebusPublisher"
+  uci add_list lucid.https.publisher="villagebus"
+
+	uci commit
+fi
 endef
+
 
 # - eval packages ----------------------------------------------------------
 $(eval $(call BuildPackage,villagebus-core))
