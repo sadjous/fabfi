@@ -75,6 +75,8 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
 
   uci add_list lucid.httpd.supports="VillagebusPublisher"
   uci add_list lucid.https.publisher="villagebus"
+
+  uci commit
   }}}
 
 
