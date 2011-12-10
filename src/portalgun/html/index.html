@@ -52,19 +52,19 @@
     <h1>FabFi Community Mesh Network</h1>
 
     <ul>
-      <li>free access</li>
-      <li>sign in</li>
-      <li>register</li>
-      <li>account information</li>
+      <li><a href="#" onclick="menu['free access']();">free access</a></li>
+      <li><a href="#" onclick="menu['sign in']();">sign in</a></li>
+      <li><a href="#" onclick="menu['register']();">register</a></li>
+      <li><a href="#" onclick="menu['account information']();">account information</a></li>
     </ul>
 
     <script>
       document.ready(function() {
         console.log("from page: ");
-        console.log(portalgun.request);
+        console.log(JSON.stringify(portalgun.rest));
 
         console.log("Making a request");
-        http("POST", "/foobar", { some : "data" }, 
+        http("POST", portalgun.rest.uuid + "/foo/bar", { some : "data" }, 
              function(data) {
                console.log("Got data: " + JSON.stringify(data));
              },
@@ -72,6 +72,27 @@
                console.log("Got error: " + error);
              });
       });
+      window.menu = {
+        "free access" : function() {
+          console.log("free access");
+          http("POST", portalgun.rest.free, { some : "data" }, 
+             function(data) {
+               console.log("Got data: " + JSON.stringify(data));
+             },
+             function(error) {
+               console.log("Got error: " + error);
+             });
+        },
+        "sign in" : function() {
+          console.log("sign in");
+        },
+        "register" : function() {
+          console.log("register");
+        },
+        "account information" : function() {
+          console.log("account information");
+        }
+      };
     </script>
 
   </body>
