@@ -33,7 +33,17 @@ end
 -- Splash page
 function splash(request, response)
 
-  log:debug("splash.lua dumping request headers -> " .. json.encode(request.headers))
+  log:debug("splash.lua dumping request" ..
+            " -> " .. json.encode(request.verb) ..
+            " -> " .. json.encode(request.path) ..
+            " -> " .. json.encode(request.query) ..
+            " -> " .. json.encode(request.data))
+
+  if request.path[1] == "foobar" then
+    response.prepare_content("application/json")
+    response.status(200)
+    response.write(json.encode(request.data))
+  end
 
 
   -- TODO config via uci.lucid
@@ -50,7 +60,7 @@ function splash(request, response)
   local debug = "<pre>"
   debug = debug .. "original request: "
   debug = debug .. "http://"
-  debug = debug .. request.env["HTTP_HOST"]
+  debug = debug .. request.headers["Host"]
   debug = debug .. request.env["REQUEST_URI"]
   debug = debug .. "</pre>"
 
@@ -58,7 +68,7 @@ function splash(request, response)
   script = script .. "var portalgun = {};\n"
   script = script .. "portalgun.request = " .. json.encode(request) .. ";\n"
   script = script .. "console.log('from server:');\n"
-  script = script .. "console.log(portalgun.request);\n"
+  script = script .. "console.log(JSON.stringify(portalgun.request));\n"
   script = script .. "</script>\n"
 
   response.prepare_content("text/html")
