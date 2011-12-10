@@ -58,18 +58,16 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
   {{{
   # Global parameters
   global
-        #log 10.0.0.1 daemon info
         maxconn 32000
         ulimit-n 65535
         uid 0
         gid 0
-        #chroot /var/run/haproxy/
-        #daemon
-        debug
+        daemon
+        #debug
         #nbproc 2
 
   defaults
-        log global
+        log /dev/log daemon 
         mode    http
         contimeout      4000
         clitimeout      42000
@@ -103,7 +101,6 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
 
   * Run on head node:
   {{{
-  haproxy -f /etc/haproxy.cfg
   tail -f /var/log/villagebus.log
   }}}
 
