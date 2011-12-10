@@ -128,7 +128,7 @@ function httpdispatch(request, prefix, headers)
             " -> data   : " .. cgi.content_data   .. "\n" ..
             " -> uri    : " .. cgi.request_uri    .. "\n" ..
             " -> auth   : " .. cgi.auth_type      .. "\n" ..
-            " -> prefix : " .. json.encode(prefix)) ]]--
+    " -> prefix : " .. json.encode(prefix)) ]]--
 
 	luci.http.context.request = request
 
@@ -165,7 +165,6 @@ function httpdispatch(request, prefix, headers)
   if cgi.content_data ~= "" then
     cgi.content_data = json.decode(cgi.content_data)
   end
-
 	local stat, err = util.coxpcall(function()
     dispatch({ verb    = cgi.request_method,
                path    = context.request,
