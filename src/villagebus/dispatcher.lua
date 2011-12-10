@@ -103,7 +103,7 @@ end
 -- @see   http://luci.subsignal.org/api/luci/modules/luci.http.html
 --        http://luci.subsignal.org/api/luci/modules/luci.dispatcher.html
 --        http://luci.subsignal.org/trac/browser/luci/trunk/libs/lucid-http/luasrc/lucid/http/handler/luci.lua
-function httpdispatch(request, prefix)
+function httpdispatch(request, prefix, headers)
   local cgi = {
     request_method  = request:getenv("REQUEST_METHOD") or "",
     path_info       = request:getenv("PATH_INFO") or "",
@@ -119,7 +119,7 @@ function httpdispatch(request, prefix)
     --http_referer    = request:getenv("HTTP_REFERER") or "",
     --path_translated = request:getenv("PATH_TRANSLATED") or ""
   }
-  log:debug("villagebus.dispatcher.httpdispatch") --[[ ..
+  log:debug("dispatcher.lua villagebus.dispatcher.httpdispatch") --[[ ..
             " -> verb   : " .. cgi.request_method .. "\n" ..
             " -> path   : " .. cgi.path_info      .. "\n" ..
             " -> query  : " .. cgi.query_string   .. "\n" ..
@@ -129,12 +129,6 @@ function httpdispatch(request, prefix)
             " -> uri    : " .. cgi.request_uri    .. "\n" ..
             " -> auth   : " .. cgi.auth_type      .. "\n" ..
             " -> prefix : " .. json.encode(prefix)) ]]--
-
-  --[[ log:debug("Dumping environment:")
-  local envtable = request:getenv(false)
-  for key, value in pairs(envtable) do
-    log:debug("  " .. key .. " : " .. value)
-  end ]]--
 
 	luci.http.context.request = request
 
@@ -173,11 +167,12 @@ function httpdispatch(request, prefix)
   end
 
 	local stat, err = util.coxpcall(function()
-    dispatch({ verb  = cgi.request_method,
-               path  = context.request,
-               query = context.query,
-               data  = cgi.content_data,
-               env   = request:getenv() })
+    dispatch({ verb    = cgi.request_method,
+               path    = context.request,
+               query   = context.query,
+               data    = cgi.content_data,
+               env     = request:getenv(),
+               headers = headers })
 	end, error500)
 
 	luci.http.close()

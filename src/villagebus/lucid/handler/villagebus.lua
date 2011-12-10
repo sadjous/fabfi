@@ -21,7 +21,7 @@ end
 log:setLevel(logging.DEBUG)
 log:debug("loaded luci.lucid.http.handler.villagebus") 
 local io = require "io"
-
+local json = require "json"
 
 --local dsp = require "luci.dispatcher"
 local dsp = require "villagebus.dispatcher"
@@ -75,8 +75,7 @@ end
 -- @param request Request object
 -- @return status code, header table, response source
 function Villagebus.handle_GET(self, request, sourcein)
-
-  local r = http.Request(
+  local http_Request= http.Request(
     request.env,
     sourcein
   )
@@ -85,10 +84,11 @@ function Villagebus.handle_GET(self, request, sourcein)
   local headers = {}
   local status = 200
   local active = true
+  local dsp_httpdispatch = coroutine.create(dsp.httpdispatch)
 
-  local x = coroutine.create(dsp.httpdispatch)
   while not id or id < 3 do
-    res, id, data1, data2 = coroutine.resume(x, r, self.prefix)
+    -- horrible hack to restore request headers to the world of the sane
+    res, id, data1, data2 = coroutine.resume(dsp_httpdispatch, http_Request, self.prefix, request.headers)
 
     if not res then
       status = 500
@@ -108,21 +108,22 @@ function Villagebus.handle_GET(self, request, sourcein)
       end
     end
   end
-  
+
   if id == 6 then
-    while (coroutine.resume(x)) do end
+    while (coroutine.resume(dsp_httpdispatch)) do end
     return status, headers, srv.IOResource(data1, data2)
   end
 
   local function iter()
-    local res, id, data = coroutine.resume(x)
+    local res, id, data = coroutine.resume(dsp_httpdispatch)
     if not res then
       return nil, id
     elseif not id or not active then
       return true
     elseif id == 5 then
       active = false
-      while (coroutine.resume(x)) do end
+      while (coroutine.resume(dsp_httpdispatch)) do 
+      end
       return nil
     elseif id == 4 then
       return data

@@ -7,7 +7,7 @@ if not log then
 end
 -- log:setLevel(logging.INFO)
 log:setLevel(logging.DEBUG)
-log:debug("loaded villagebus.modules.portalgun") 
+log:debug("loaded villagebus.modules.splash") 
 
 
 --[[ dependencies ]]--
@@ -32,6 +32,9 @@ end
 
 -- Splash page
 function splash(request, response)
+
+  log:debug("splash.lua dumping request headers -> " .. json.encode(request.headers))
+
 
   -- TODO config via uci.lucid
   local splashroot  = ("/www/splash")
