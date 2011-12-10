@@ -56,7 +56,7 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
   uci set lucid.villagebus="VillagebusPublisher"
   uci set lucid.villagebus.name="Villagebus Publisher"
   uci set lucid.villagebus.home=1
-  uci add_list lucid.villagebus.virtual=/villagebus
+  uci add_list lucid.villagebus.virtual="/villagebus"
 
   uci add lucid splashroot
   uci set lucid.splashroot="VillagebusPublisher"
