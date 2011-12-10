@@ -51,32 +51,6 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
   * Run on head node:
   {{{
   opkg install portalgun
-
-  uci add lucid villagebus
-  uci set lucid.villagebus="VillagebusPublisher"
-  uci set lucid.villagebus.name="Villagebus Publisher"
-  uci set lucid.villagebus.home=1
-  uci add_list lucid.villagebus.virtual="/villagebus"
-
-  uci add lucid splashroot
-  uci set lucid.splashroot="VillagebusPublisher"
-  uci set lucid.splashroot.name="portalgun splash"
-  uci set lucid.splashroot.home=1
-  uci set lucid.splashroot.physical="/splash"
-
-  uci add lucid splash
-  uci set lucid.splash="daemon"
-  uci set lucid.splash.slave="httpd"
-  uci set lucid.splash.address=8001
-  uci set lucid.splash.publisher="splashroot"
-  uci set lucid.splash.nokeepalive=1
-  uci set lucid.splash.memlimit=1572864
-  uci set lucid.splash.enabled=1
-
-  uci add_list lucid.httpd.supports="VillagebusPublisher"
-  uci add_list lucid.https.publisher="villagebus"
-
-  uci commit
   }}}
 
 
@@ -121,7 +95,11 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
         server proxy01 192.168.20.77:3128
   }}}
 
+
 == Configuration ==
+
+
+== Testing ==
 
 
 == Hacking == 
