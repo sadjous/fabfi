@@ -51,6 +51,8 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
   * Run on head node:
   {{{
   opkg install portalgun
+  /etc/init.d/lucid enable
+  /etc/init.d/haproxy enable
   }}}
 
 
