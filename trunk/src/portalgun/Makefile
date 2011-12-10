@@ -3,7 +3,7 @@ HOST=2001:470:8c0e:7::78
 #HOST=2001:470:8c0e:fab:218:aff:fe01:107d
 
 VILLAGEBUS=../villagebus
-PORTALGUN=./
+PORTALGUN=.
 
 mkdirs:
 	ssh root@$(HOST)  mkdir -p /usr/lib/lua/villagebus/modules
