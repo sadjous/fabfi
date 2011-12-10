@@ -101,5 +101,11 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
 
 == Testing ==
 
+  * Run on head node:
+  {{{
+  haproxy -f /etc/haproxy.cfg
+  tail -f /var/log/villagebus.log
+  }}}
+
 
 == Hacking == 
