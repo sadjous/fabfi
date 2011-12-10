@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 # - configuration ----------------------------------------------------------
 PKG_NAME:=villagebus
-PKG_REV:=1025
+PKG_REV:=1070
 PKG_VERSION:=1.0-r$(PKG_REV)
 PKG_RELEASE:=1
 PKG_SOURCE_URL:=http://fabfi.googlecode.com/svn/trunk/src/villagebus/
