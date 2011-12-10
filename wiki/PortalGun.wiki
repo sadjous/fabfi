@@ -79,18 +79,18 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
         #stats auth username:password   
 
   listen portalgun_splash 
-        bind 2001:470:8c0e:fab::1:3129 transparent
+        bind 2001:470:8c0e:fab::1:3129 transparent  # mesh interface IPv6 address
         mode http
         option forwardfor
         reqadd Foo-Header:\ plonk
-        server splash01 192.168.20.78:8001
+        server splash01 127.0.0.1:8001  
 
   listen transparent_proxy
-        bind 2001:470:8c0e:fab::1:3128 transparent 
+        bind 2001:470:8c0e:fab::1:3128 transparent # mesh interface IPv6 address)
         mode http
         option forwardfor
         option http-use-proxy-header
-        server proxy01 192.168.20.77:3128
+        server proxy01 192.168.20.77:3128 # squid server IPv4 (no haproxy support yet for server IPv6)
   }}}
 
 
