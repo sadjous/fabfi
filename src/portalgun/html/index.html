@@ -73,9 +73,18 @@
         },
         "sign in" : function() {
           console.log("sign in");
+          var sha1 = hex_sha1($("input[name=email]").value +
+                              $("input[name=password]").value)
+          console.log("login: " + sha1);
         },
         "register" : function() {
+          var registration = {
+            email : $("input[name=email]").value,
+            sha1  : hex_sha1($("input[name=email]").value +
+                             $("input[name=password]").value)
+          };
           console.log("register");
+          console.log(JSON.stringify(registration));
         },
         "account information" : function() {
           console.log("account information");
@@ -88,6 +97,10 @@
     <h1>FabFi Community Mesh Network</h1>
     <ul>
       <li><a href="#" onclick="menu['free access']();">free access</a></li>
+      <li>
+        <input type="email" name="email" placeholder="email address"></input>
+        <input type="password" name="password" placeholder="password"></input>
+      </li>
       <li><a href="#" onclick="menu['sign in']();">sign in</a></li>
       <li><a href="#" onclick="menu['register']();">register</a></li>
       <li><a href="#" onclick="menu['account information']();">account information</a></li>
