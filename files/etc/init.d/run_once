@@ -8,6 +8,9 @@ start() {
 	echo "*/2 * * * * sh /etc/fabfi/scripts/fabfimap.sh > /dev/null" >> /etc/crontabs/root
 	echo "*/5 * * * * sh /etc/fabfi/scripts/offline-log.sh > /dev/null" >> /etc/crontabs/root
 
+	openwrt=$(cat /etc/fabfi/files/openwrt_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
+	fabfi=$(cat /etc/fabfi/files/fabfi_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
+	
 	cp /etc/fabfi/files/logo2 /etc/banner 
 	printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
 	printf "\n - - - - - - - - - - - - - - - - - -\n" >> /etc/banner

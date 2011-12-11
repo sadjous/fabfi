@@ -1394,6 +1394,7 @@ fi #ends branch to custom config
 
 printf "\n\n Configuration Completed \n\n"
 
+#cp /etc/fabfi/files/passwd2 /etc/passwd # To deal with openwrt's passwd problem 
 until (echo $password | grep "^[y]$"); do
    printf "\nEnter root password \n\n"
     passwd root     
@@ -1421,8 +1422,6 @@ printf "${story}"
 if [ ${commit} == "y" ]; then
 
 	#openwrt=$(cat /etc/banner | grep -i bleed | cut -d "(" -f 2 | cut -d ")" -f 1)
-	openwrt=$(cat /etc/fabfi/files/openwrt_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
-	fabfi=$(cat /etc/fabfi/files/fabfi_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
 
 	echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf #something funny happens to the first entry; it never appears - this is why we have this silly entry
 	echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
