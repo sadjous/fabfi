@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 # - configuration ----------------------------------------------------------
 PKG_NAME:=villagebus
-PKG_REV:=1070
+PKG_REV:=1076
 PKG_VERSION:=1.0-r$(PKG_REV)
 PKG_RELEASE:=1
 PKG_SOURCE_URL:=http://fabfi.googlecode.com/svn/trunk/src/villagebus/
@@ -55,11 +55,11 @@ define Package/villagebus-core/install
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/lucid/handler/villagebus.lua  $(1)/usr/lib/lua/luci/lucid/http/handler
 endef
 
-define Package/portalgun/postinst
+define Package/villagebus-core/postinst
 #!/bin/sh
 # check if we are on the real system
 if [ -z "$${IPKG_INSTROOT}" ]; then
-	touch /etc/portalgun.postinst.test
+	touch /etc/villagebus-core.postinst.test
 
 	uci add lucid villagebus
   uci set lucid.villagebus="VillagebusPublisher"
