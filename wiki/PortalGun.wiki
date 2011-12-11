@@ -145,6 +145,38 @@ HAProxy configuration has already been covered but before HAProxy can receive re
 
 === dot1x ===
 
+Portalgun controls dot1x access to the mesh gateway via rules in the FORWARD table. 
+
+The basic configuration goes something like this:
+
+  {{{
+  # flush 'em all
+  ip6tables -F
+  ip6tables -X PORTALGUN
+
+  # block gateway access to mesh clients but leave icmp6 & dns open
+  ip6tables -I FORWARD -s 2001:470:8c0e:fab::/64 -o tun0 -j REJECT
+  ip6tables -I FORWARD -o tun0 -p icmpv6 -j ACCEPT -m comment --comment "public icmpv6"
+  ip6tables -I FORWARD -o tun0 -p udp --dport 53 -j ACCEPT -m comment --comment "public dns"
+
+  # the portalgun chain
+  ip6tables -N PORTALGUN
+  ip6tables -I FORWARD -o tun0 -j PORTALGUN
+
+  # mesh fabric
+  ip6tables -N MESHFABRIC
+  ip6tables -I FORWARD -o tun0 -j MESHFABRIC
+  ip6tables -I MESHFABRIC -s 2001:470:8c0e:fab::1 -j ACCEPT -m comment --comment "G"
+  ip6tables -I MESHFABRIC -s 2001:470:8c0e:fab:218:aff:fe01:102c -j ACCEPT -m comment --comment "A"
+  ip6tables -I MESHFABRIC -s 2001:470:8c0e:fab:218:aff:fe01:107d -j ACCEPT -m comment --comment "C"
+
+  # allow a host access to gateway
+  ip6tables -I PORTALGUN -j ACCEPT -m mac --mac-source 1c:4b:d6:80:da:da
+
+  # remove host access to gateway
+  ip6tables -D PORTALGUN -j ACCEPT -m mac --mac-source 1c:4b:d6:80:da:da
+  }}}
+
 
 
 == Testing ==
