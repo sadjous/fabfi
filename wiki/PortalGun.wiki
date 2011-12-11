@@ -80,19 +80,26 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
         #stats realm HA_Stats           
         #stats auth username:password   
 
-  listen portalgun_splash 
+  listen transparent_proxy                          
+        bind 2001:470:8c0e:fab::1:3128 transparent  # mesh interface IPv6 address
+        mode http                                 
+        option forwardfor                         
+        option http-use-proxy-header              
+        server proxy01 192.168.20.77:3128  # squid server IPv4 (no haproxy support yet for server IPv6)
+                                                                                
+  listen freebeer_proxy                             
         bind 2001:470:8c0e:fab::1:3129 transparent  # mesh interface IPv6 address
-        mode http
-        option forwardfor
-        reqadd Foo-Header:\ plonk
-        server splash01 127.0.0.1:8001  
-
-  listen transparent_proxy
-        bind 2001:470:8c0e:fab::1:3128 transparent # mesh interface IPv6 address)
-        mode http
-        option forwardfor
-        option http-use-proxy-header
-        server proxy01 192.168.20.77:3128 # squid server IPv4 (no haproxy support yet for server IPv6)
+        mode http                                 
+        option forwardfor                         
+        option http-use-proxy-header              
+        server proxy02 192.168.20.77:3129  # squid server IPv4 (no haproxy support yet for server IPv6)         
+                                                                                
+  listen portalgun_splash                           
+        bind 2001:470:8c0e:fab::1:3130 transparent  # mesh interface IPv6 address
+        mode http                                 
+        option forwardfor                         
+        reqadd Foo-Header:\ plonk                     
+        server splash01 127.0.0.1:8001            
   }}}
 
 
@@ -110,17 +117,17 @@ All outgoing HTTP traffic on the network is transparently redirected by the HAPr
 HAProxy configuration has already been covered but before HAProxy can receive requests it is necessary to add routing entries to the head node as follows:
 
   {{{
-  ip -6 rule add fwmark 0xfab lookup 0xf1   # splashpage
-  ip -6 rule add fwmark 0xfac lookup 0xf2   # transparent proxy
-
-  # add local routes for mangle tables
+  ip -6 rule add fwmark 0xfab lookup 0xf1  # portalgun_splash
+  ip -6 rule add fwmark 0xfac lookup 0xf2  # freebeer_proxy
+  ip -6 rule add fwmark 0xfac lookup 0xf3  # transparent_proxy
   ip -6 -f inet6 route add local ::0/0 dev wlan1 table 0xf1
   ip -6 -f inet6 route add local ::0/0 dev wlan1 table 0xf2
+  ip -6 -f inet6 route add local ::0/0 dev wlan1 table 0xf3
 
-  # mark all HTTP traffic w/ 0xfab & send to haproxy splash01
+  # mark all HTTP traffic w/ 0xfab & send to haproxy portalgun_splash
   ip6tables -t mangle -I PREROUTING -i wlan1 -p tcp --dport 80 \
       -j TPROXY --tproxy-mark 0xfab/0xFFFFFFFF \
-      --on-ip 2001:470:8c0e:fab::1 --on-port 3129
+      --on-ip 2001:470:8c0e:fab::1 --on-port 3130
   }}}
 
 
