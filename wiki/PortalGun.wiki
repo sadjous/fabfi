@@ -163,7 +163,7 @@ The basic configuration goes something like this:
   ip6tables -N PORTALGUN
   ip6tables -I FORWARD -o tun0 -j PORTALGUN
 
-  # mesh fabric
+  # allow mesh fabric access to gateway
   ip6tables -N MESHFABRIC
   ip6tables -I FORWARD -o tun0 -j MESHFABRIC
   ip6tables -I MESHFABRIC -s 2001:470:8c0e:fab::1 -j ACCEPT -m comment --comment "G"
