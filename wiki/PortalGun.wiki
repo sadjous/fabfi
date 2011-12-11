@@ -110,11 +110,14 @@ All outgoing HTTP traffic on the network is transparently redirected by the HAPr
 HAProxy configuration has already been covered but before HAProxy can receive requests it is necessary to add routing entries to the head node as follows:
 
   {{{
-  ip -6 rule add fwmark 0xfab lookup 0xf1   # mangle splashpage
-  ip -6 rule add fwmark 0xfac lookup 0xf2   # mangle transparent proxy
+  ip -6 rule add fwmark 0xfab lookup 0xf1   # splashpage
+  ip -6 rule add fwmark 0xfac lookup 0xf2   # transparent proxy
+
+  # add local routes for mangle tables
   ip -6 -f inet6 route add local ::0/0 dev wlan1 table 0xf1
   ip -6 -f inet6 route add local ::0/0 dev wlan1 table 0xf2
-  # mark all HTTP traffic w/ 0xfab & redirect to haproxy splash server
+
+  # mark all HTTP traffic w/ 0xfab & send to haproxy splash01
   ip6tables -t mangle -I PREROUTING -i wlan1 -p tcp --dport 80 \
       -j TPROXY --tproxy-mark 0xfab/0xFFFFFFFF \
       --on-ip 2001:470:8c0e:fab::1 --on-port 3129
