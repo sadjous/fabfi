@@ -96,7 +96,21 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
   }}}
 
 
-== Configuration ==
+== Firewall & Routing Configuration ==
+
+The portalgun access controller provides for two client access scenarios:
+
+  # A splashpage presented on first access allowing for free access, paid access via username/password, new account creation and account administration.
+  # Transparent access using dot1x and a provisioned certificate or username/password.
+
+
+=== splashpage ===
+
+
+
+
+=== dot1x ===
+
 
 
 == Testing ==
