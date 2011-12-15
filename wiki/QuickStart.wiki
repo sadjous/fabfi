@@ -87,7 +87,11 @@ _Follow these instructions to build a simple network with the [http://store.fabf
 
 == Configuring the City-Scale Kit ==
 
+coming soon
+
 == Configuring the Budget Kit ==
+
+coming soon
 
 <wiki:comment> * Each device in a fabfi network has one or more radios 
  * Each radio in a Fabfi device can make one of three different types of connections:
