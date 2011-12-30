@@ -59,12 +59,12 @@ This tutorial is based on ubuntu 11.04`*`:
 
  # Install TFTP
 {{{
-sudo apt-get tftp
+sudo apt-get install tftp
 }}}
  # Set up Serial communication _(This section is only required for users of the Linksys WRT1260NL)_
   # Install Minicom
 {{{
-sudo apt-get minicom
+sudo apt-get install minicom
 }}}
   # [SerialConverter Build CMOS Serial-->USB adapter]
 
