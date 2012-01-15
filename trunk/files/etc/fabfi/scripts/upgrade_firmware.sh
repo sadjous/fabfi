@@ -4,8 +4,6 @@ upgradeURL=`uci get fabfi.@servers[0].updateserver`
 
 cd /tmp
 
-if [ -f
-
 case $platform in
 
 	UbiquitiRouterStation )
