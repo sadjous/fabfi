@@ -28,7 +28,7 @@ define Package/portalgun
 	SECTION:=net
 	CATEGORY:=Network
 	SUBMENU:=Captive Portals
-	DEPENDS:=+villagebus-core +luamd5 +haproxy +ip6tables +iptables-mod-tproxy +kmod-ipt-tproxy
+	DEPENDS:=+villagebus-core +luamd5 +haproxy +ip6tables +iptables-mod-tproxy +kmod-ipt-tproxy +openssl-util
 	TITLE:=Mesh network access controller
 	VERSION:=$(PKG_VERSION)-$(PKG_RELEASE)
 	URL:=http://fabfi.org
