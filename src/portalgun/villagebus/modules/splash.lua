@@ -48,6 +48,7 @@ function splash(request, response)
   -- check for and dispatch any portalgun operations
   local uuid = md5.sumhexa(request.env["HTTP_HOST"])
   if request.path[1] == uuid then
+    log:debug("dispatching portalgun operation: " .. json.encode(request.path))
     response.prepare_content("application/json")
     response.status(200)
     response.write(json.encode(request.data))
