@@ -15,11 +15,17 @@ start() {
 	cp /etc/fabfi/files/logo2 /etc/banner 
 	printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner
 	printf "\n - - - - - - - - - - - - - - - - - -\n" >> /etc/banner
-	rm -rf /etc/init.d/run_once
-	rm -rf /etc/rc.d/S32run_once
+	
 	platform=$( uci get system.@system[0].platform | tr -d " " )
 	uci -q set fabfi.@node[0].platform=${platform}
 	uci -q set fabfi.@servers[0].updateserver=$updateserver
-	
+	uci -q set network.lan.ipaddr=192.168.100.1
+	uci -q set network.lan.netmask=255.255.0.0
+	uci commit
+	/etc/init.d/network restart
+	uci commit
+
+	rm -rf /etc/init.d/run_once
+	rm -rf /etc/rc.d/S32run_once
 }
 
