@@ -57,6 +57,7 @@ uci add fabfi node
 uci add fabfi servers
 uci set fabfi.@servers[0].mapserver=$mapserver
 uci set fabfi.@node[0].mapUpdateInterval=180
+uci set fabfi.@node[0].headnode=0
 uci set fabfi.@servers[0].updateserver=$updateserver
 
 platform2=$(echo $platform | tr -d " ")
@@ -81,15 +82,19 @@ uci set system.@system[0].hostname=schoolnet${number}
 uci set network.mesh.proto=static
 uci set network.mesh.ipaddr=10.0.${number}.1
 uci set network.mesh.netmask=255.255.255.240
-uci set network.mesh.ip6addr=${prefix}:${number}::1
+uci set network.mesh.ip6addr=${prefix}:${number}::1/128
 
-uci set network.niit4to6=interface
-uci set network.niit4to6.proto=none
-uci set network.niit4to6.ifname=niit4to6
+#uci set network.niit4to6=interface
+#uci set network.niit4to6.proto=none
+#uci set network.niit4to6.ifname=niit4to6
 
-uci set network.niit6to4=interface
-uci set network.niit6to4.proto=none
-uci set network.niit6to4.ifname=niit6to4
+#uci set network.niit6to4=interface
+#uci set network.niit6to4.proto=none
+#uci set network.niit6to4.ifname=niit6to4
+
+uci set network.siit0=interface
+uci set network.siit0.proto=none
+uci set network.siit0.ifname=siit0
 
 uci set snmpd.@system[0].sysName=`uci get system.@system[0].hostname`
 uci set snmpd.@system[0].sysLocation=`uci get system.@system[0].hostname`
@@ -362,7 +367,7 @@ uci add_list lucid.villagebus.virtual=/villagebus
 olsrd_base_config()
 {
 	/etc/init.d/olsrd enable
-	/etc/init.d/batman-adv disable
+	#/etc/init.d/batman-adv disable
 	
 	echo "Enter GPS Coordinates in DD.DDDD ( decimal ) format"
 	#echo "Enter Latitude"
@@ -524,7 +529,7 @@ generic_wireless_mesh()
 	uci set network.$4.proto=static
 	uci set network.$4.ipaddr=10.0.${number}.$5
 	uci set network.$4.netmask=255.255.255.240
-	uci set network.$4.ip6addr=${prefix}:${number}::$5
+	uci set network.$4.ip6addr=${prefix}:${number}::$5/128
 
 	uci set firewall.@zone[0].network="$(uci get firewall.@zone[0].network) $4"
 
@@ -574,13 +579,14 @@ client_lan_config()
 	uci set wireless.@wifi-iface[$1].network=clientlan_${client_lan_index}
 	uci set wireless.@wifi-iface[$1].mode=ap
 	uci set wireless.@wifi-iface[$1].ssid=schoolnet${number}
-	uci set wireless.@wifi-iface[$1].encryption=wpa2
-	uci set wireless.@wifi-iface[$1].eap_type=tls
-	uci set wireless.@wifi-iface[$1].ca_cert=/etc/fabfi/certificates/ca.pem
-	uci set wireless.@wifi-iface[$1].priv_key=/etc/fabfi/certificates/meshnode.pem
-	uci set wireless.@wifi-iface[$1].priv_key_pwd=FFJAMesh
-	uci set wireless.@wifi-iface[$1].server=radius.mesh
-	uci set wireless.@wifi-iface[$1].key=cisco123
+	uci set wireless.@wifi-iface[$1].encryption=none
+#	uci set wireless.@wifi-iface[$1].encryption=wpa2
+#	uci set wireless.@wifi-iface[$1].eap_type=tls
+#	uci set wireless.@wifi-iface[$1].ca_cert=/etc/fabfi/certificates/ca.pem
+#	uci set wireless.@wifi-iface[$1].priv_key=/etc/fabfi/certificates/meshnode.pem
+#	uci set wireless.@wifi-iface[$1].priv_key_pwd=FFJAMesh
+#	uci set wireless.@wifi-iface[$1].server=radius.mesh
+#	uci set wireless.@wifi-iface[$1].key=cisco123
 
 
 	uci set dhcp.lan.interface=clientlan_${client_lan_index}
@@ -599,6 +605,10 @@ client_lan_config()
 	uci set radvd.@prefix[0].AdvAutonomous=1
 	uci set radvd.@prefix[0].AdvRouterAddr=0
 	uci set radvd.@prefix[0].ignore=0
+	uci set radvd.@rdnss[0].interface=clientlan_${client_lan_index}
+	uci set radvd.@rdnss[0].addr=2001:470:20::2
+	uci set radvd.@rdnss[0].ignore=0
+
 
 	uci add firewall zone
 	uci set firewall.@zone[-1]=zone
@@ -606,7 +616,7 @@ client_lan_config()
 	uci set firewall.@zone[-1].network=clientlan_${client_lan_index}
 	uci set firewall.@zone[-1].input=ACCEPT
 	uci set firewall.@zone[-1].output=ACCEPT
-	uci set firewall.@zone[-1].forward=REJECT
+	uci set firewall.@zone[-1].forward=ACCEPT
 
 	uci add firewall forwarding
 	uci set firewall.@forwarding[-1].src=clientlan
@@ -614,14 +624,14 @@ client_lan_config()
 	
 	uci add firewall forwarding
 	uci set firewall.@forwarding[-1].src=clientlan
-	uci set firewall.@forwarding[-1].dest=niit
+	uci set firewall.@forwarding[-1].dest=siit
 
 	uci add firewall forwarding
 	uci set firewall.@forwarding[-1].src=mesh
 	uci set firewall.@forwarding[-1].dest=clientlan
 
 	uci add firewall forwarding
-	uci set firewall.@forwarding[-1].src=niit
+	uci set firewall.@forwarding[-1].src=siit
 	uci set firewall.@forwarding[-1].dest=clientlan
 
 }
@@ -630,7 +640,7 @@ transparent_link_config()
 {
 
 	/etc/init.d/olsrd disable
-	/etc/init.d/batman-adv enable
+	#/etc/init.d/batman-adv enable
 	echo "What is the fabfi number of the node you're connecting this to?"
 	read mnode
 	
@@ -675,9 +685,9 @@ transparent_link_config()
 	uci set network.bat0.ifname=bat0
 	uci set network.bat0.proto=none
 
-	uci set batman-adv.bat0=mesh
-	uci set batman-adv.bat0.interfaces="mesh trans_wifi"
-	uci set wireless.radio0.htmode=HT20
+	#uci set batman-adv.bat0=mesh
+	#uci set batman-adv.bat0.interfaces="mesh trans_wifi"
+	#uci set wireless.radio0.htmode=HT20
 
 
 	trans_radio=0
@@ -706,6 +716,7 @@ transparent_link_config()
 
 head_node_config() 
 {
+	uci set fabfi.@node[0].headnode=1
 	while ( true )
 	do
 		echo "Enter your external IPv4 address or simply 'd' for dhcp "
@@ -876,7 +887,7 @@ head_node_config()
 	uci set firewall.@forwarding[-1].dest=wan
 
 	uci add firewall forwarding
-	uci set firewall.@forwarding[-1].src=niit
+	uci set firewall.@forwarding[-1].src=siit
 	uci set firewall.@forwarding[-1].dest=wan
 
 	uci add firewall forwarding
@@ -1137,18 +1148,18 @@ uci set firewall.@zone[-1].forward=ACCEPT
 
 uci add firewall zone
 uci set firewall.@zone[-1]=zone
-uci set firewall.@zone[-1].name=niit
-uci set firewall.@zone[-1].network="niit6to4 niit4to6"
+uci set firewall.@zone[-1].name=siit
+uci set firewall.@zone[-1].network="siit0"
 uci set firewall.@zone[-1].input=ACCEPT
 uci set firewall.@zone[-1].output=ACCEPT
 uci set firewall.@zone[-1].forward=ACCEPT
 
 uci add firewall forwarding
 uci set firewall.@forwarding[-1].src=mesh
-uci set firewall.@forwarding[-1].dest=niit
+uci set firewall.@forwarding[-1].dest=siit
 
 uci add firewall forwarding
-uci set firewall.@forwarding[-1].src=niit
+uci set firewall.@forwarding[-1].src=siit
 uci set firewall.@forwarding[-1].dest=mesh
 
 
@@ -1455,6 +1466,9 @@ if [ ${commit} == "y" ]; then
 	echo exit 0 >> /etc/rc.local
 
 	cp /etc/fabfi/files/sysupgrade.conf /etc/sysupgrade.conf
+	ln -s  /etc/fabfi/scripts/siit-init /etc/init.d/siit
+	ln -s /etc/fabfi/scripts/siit-hotplug /etc/hotplug.d/iface/30-siit
+	/etc/init.d/siit enable
 
 	echo "Wait for telnet to close before unplugging router from power"
 

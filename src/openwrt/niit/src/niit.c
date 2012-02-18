@@ -332,9 +332,19 @@ static const struct net_device_ops niit_netdev_ops = {
 		.ndo_start_xmit = niit_xmit,
 };
 #else
-static void niit_regxmit(struct net_device *dev) {
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,0,0)
+ static void niit_regxmit(struct net_device *dev) {
 	dev->hard_start_xmit = niit_xmit;
+
 }
+#else
+static void niit_regxmit(struct net_device *dev) {
+       struct net_device_ops * tmp_ops;
+       tmp_ops = (struct net_device_ops *) dev->netdev_ops;
+       tmp_ops->ndo_start_xmit = niit_xmit;
+}
+#endif
+
 #endif
 
 static void niit_dev_setup(struct net_device *dev) {
