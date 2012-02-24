@@ -22,7 +22,16 @@ The standard iptables in OpenWRT backfire & trunk does not include support for t
   rm package/iptables/patches/011-recent-add-reap.patch
   rm package/iptables/patches/020-iptables-disable-modprobe.patch
   rm package/iptables/patches/100-bash-location.patch
+  rm package/iptables/patches/200-configurable_builtin.patch
   }}}
+
+  * You may also need to edit packages/iptables/Makefile
+  Comment out these lines 
+  {{{
+     #(cd $(PKG_INSTALL_DIR)/usr/lib/iptables ; \
+     #       $(CP) libip6t_*.so $(1)/usr/lib/iptables/ \
+     #)
+   }}}
 
 
 == Package Compilation ==
