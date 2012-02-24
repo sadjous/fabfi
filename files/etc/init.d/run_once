@@ -11,6 +11,7 @@ start() {
 	updateserver="http://fabfi.googlecode.com/files/"
 	openwrt=$(cat /etc/fabfi/files/openwrt_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
 	fabfi=$(cat /etc/fabfi/files/fabfi_info  | grep Revision | cut -d ":" -f 2 | cut -c2-)
+	platform=$(cat /proc/cpuinfo | grep machine | cut -d ":" -f 2 | cut -c2- | tr -d "\n")
 	
 	cp /etc/fabfi/files/logo2 /etc/banner 
 	printf " ${platform} \n Fabfi r${fabfi} - OpenWrt r${openwrt} \n $(cat /proc/version  | cut -d "(" -f 1)" >> /etc/banner

@@ -1,0 +1,15 @@
+ip -6 rule add fwmark 0xfab lookup 0xf1  # portalgun_splash
+ip -6 rule add fwmark 0xfac lookup 0xf2  # freebeer_proxy
+ip -6 rule add fwmark 0xfac lookup 0xf3  # transparent_proxy
+ip -6 -f inet6 route add local ::0/0 dev wlan0 table 0xf1
+ip -6 -f inet6 route add local ::0/0 dev wlan0 table 0xf2
+ip -6 -f inet6 route add local ::0/0 dev wlan0 table 0xf3
+
+# send everyone to portalgun_splash
+ip6tables -t mangle -I PREROUTING -i wlan0 -p tcp --dport 80 -j TPROXY --tproxy-mark 0xfab/0xFFFFFFFF  --on-ip 2001:470:6826:20::1 --on-port 3130
+
+# send a host to transparent_proxy
+ip6tables -t mangle -I PREROUTING -i wlan0 -p tcp --dport 80 -s 2001:470:8c0e:fab:30e1:14e5:e6a4:13a -j TPROXY --tproxy-mark 0xfac/0xFFFFFFFF --on-ip 2001:470:6826:20::1 --on-port 3128
+
+# send a host to freebeer_proxy
+ip6tables -t mangle -I PREROUTING -i wlan0 -p tcp --dport 80 -s 2001:470:8c0e:fab:1e4b:d6ff:fe80:dada -j TPROXY --tproxy-mark 0xfac/0xFFFFFFFF --on-ip 2001:470:6826:20::1 --on-port 3129
