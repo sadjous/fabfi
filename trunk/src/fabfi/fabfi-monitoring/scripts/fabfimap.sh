@@ -3,7 +3,7 @@
 mapserver=`uci get fabfi.@servers[0].mapserver`
 updateinterval=`uci get fabfi.@node[0].mapUpdateInterval`
 
-meshmib="/etc/fabfi/scripts/meshmib.sh"
+meshmib="/usr/bin/fabfi/meshmib.sh"
 
 node_id=`sh ${meshmib} fabfinumber`
 node_ip=`sh ${meshmib} self_ip`
