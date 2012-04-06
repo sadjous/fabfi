@@ -1,10 +1,10 @@
 src-svn fabfi https://fabfi.googlecode.com/svn/trunk/src/openwrt/
+src-svn fabfi3 https://fabfi.googlecode.com/svn/trunk/src/fabfi/
 src-svn packages svn://svn.openwrt.org/openwrt/packages
 src-svn xwrt http://x-wrt.googlecode.com/svn/trunk/package
 src-svn luci http://svn.luci.subsignal.org/luci/trunk/contrib/package
 src-svn fabfi2 http://fabfi.googlecode.com/svn/trunk/openwrt/package-scripts
 src-svn afrimesh http://afrimesh.googlecode.com/svn/trunk/package-scripts/openwrt
-
 #src-svn fabfi https://fabfi.googlecode.com/svn/trunk/src/
 #src-svn phone svn://svn.openwrt.org/openwrt/feeds/phone
 #src-svn efl svn://svn.openwrt.org/openwrt/feeds/efl
