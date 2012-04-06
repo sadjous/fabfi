@@ -19,4 +19,4 @@ updateString=`echo "action=update&node_id=$node_id&node_ip=$node_ip&node_coords=
 echo "http://$mapserver/ff5map/index.php?$updateString"
 wget "http://$mapserver/ff5map/index.php?$updateString" -qO - > /dev/null 2> /dev/null
 
-
+exit

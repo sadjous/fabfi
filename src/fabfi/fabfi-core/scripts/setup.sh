@@ -7,10 +7,6 @@ mapserver="map.mesh"
 updateserver="http://fabfi.googlecode.com/files/"
 default_key="8bb8d3c8d3dabbedffd38db33f"
 
-
-ipv6regex='/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/'
-#ipv4regex='\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'
-
 client_lan_suffix=129
 client_lan_index=0
 
@@ -84,268 +80,18 @@ uci set network.mesh.ipaddr=10.0.${number}.1
 uci set network.mesh.netmask=255.255.255.240
 uci set network.mesh.ip6addr=${prefix}:${number}::1/128
 
-#uci set network.niit4to6=interface
-#uci set network.niit4to6.proto=none
-#uci set network.niit4to6.ifname=niit4to6
-
-#uci set network.niit6to4=interface
-#uci set network.niit6to4.proto=none
-#uci set network.niit6to4.ifname=niit6to4
-
-uci set network.siit0=interface
-uci set network.siit0.proto=none
-uci set network.siit0.ifname=siit0
+uci set network.niit6to4=interface
+uci set network.niit6to4.proto=none
+uci set network.niit6to4.ifname=niit6to4
+uci set network.niit4to6=interface
+uci set network.niit4to6.proto=none
+uci set network.niit4to6.ifname=niit4to6
 
 uci set snmpd.@system[0].sysName=`uci get system.@system[0].hostname`
 uci set snmpd.@system[0].sysLocation=`uci get system.@system[0].hostname`
 uci set snmpd.@system[0].sysContact=fabfi@fabfi.com
 
 killall snmpd
-
-uci add snmpd com2sec6
-uci set snmpd.@com2sec6[-1].secname=fabfi
-uci set snmpd.@com2sec6[-1].source=2001::/16
-uci set snmpd.@com2sec6[-1].community=public
-
-uci add snmpd group
-uci set snmpd.@group[-1].group=fabfi
-uci set snmpd.@group[-1].version=usm
-uci set snmpd.@group[-1].secname=fabfi
-
-uci add snmpd rwuser
-uci set snmpd.@rwuser[-1].username=fabfi-admin
-uci set snmpd.@rwuser[-1].securitylevel=authPriv
-uci set snmpd.@rwuser[-1].view=all
-
-uci add snmpd rouser
-uci set snmpd.@rouser[-1].username=fabfi-user
-uci set snmpd.@rouser[-1].securitylevel=authPriv
-uci set snmpd.@rouser[-1].view=all
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=longitude
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=lon
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.10
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=latitude
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=lat
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.11
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Neighbour_IP
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=neigh_ip
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.12
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Neighbour_HOSTNAME
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=neigh_hostname
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.13
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Neighbour_LQ
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=neigh_lq
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.14
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Neighbour_HYST
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=neigh_hyst
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.15
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Neighbour_NLQ
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=neigh_nlq
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.16
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Neighbour_COST
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=neigh_cost
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.17
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Neighbour_Longitude
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=neigh_lon
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.18
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Neighbour_Latitude
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=neigh_lat
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.19
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Node_type
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=node_type
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.20
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Node_Info
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=node_info
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.21
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wireless_Interfaces
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args=wifi_interfaces
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.22
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan0_clients
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="wifi_clients 0"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.23
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan1_clients
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="wifi_clients 1"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.24
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan0_clients
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="wifi_clients 2"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.25
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan3_clients
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="wifi_clients 3"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.26
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan0_signal
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="avg_signal 0"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.27
-
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan1_signal
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="avg_signal 1"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.28
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan2_signal
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="avg_signal 2"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.29
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan3_signal
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="avg_signal 3"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.30
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan0_txbitrate
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="tx_bitrate 0"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.31
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan1_txbitrate
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="tx_bitrate 1"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.32
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan2_txbitrate
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="tx_bitrate 2"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.33
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan3_txbitrate
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="tx_bitrate 3"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.34
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan0_rxbitrate
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="rx_bitrate 0"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.35
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan1_rxbitrate
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="rx_bitrate 1"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.36
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan2_rxbitrate
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="rx_bitrate 2"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.37
-
-
-uci add snmpd extend
-uci set snmpd.@extend[-1].name=Wlan3_rxbitrate
-uci set snmpd.@extend[-1].prog=/bin/ash
-uci set snmpd.@extend[-1].script=/etc/fabfi/scripts/meshmib.sh
-uci set snmpd.@extend[-1].args="rx_bitrate 3"
-uci set snmpd.@extend[-1].miboid=.1.3.6.1.4.1.8072.1.3.2.38
-
 
 #Portal Gun
 
@@ -355,10 +101,6 @@ uci set lucid.villagebus=VillagebusPublisher
 uci set lucid.villagebus.name="Villagebus Publisher"
 uci set lucid.villagebus.home=1
 uci add_list lucid.villagebus.virtual=/villagebus
-
-#echo createUser random SHA1 "random" AES "random" >> /usr/lib/snmp/snmpd.conf
-#echo createUser fabfi-user SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
-#echo createUser fabfi-admin SHA1 "cisco123" AES "cisco123" >> /usr/lib/snmp/snmpd.conf
 
 }
 
@@ -633,6 +375,76 @@ client_lan_config()
 	uci add firewall forwarding
 	uci set firewall.@forwarding[-1].src=siit
 	uci set firewall.@forwarding[-1].dest=clientlan
+
+	until (echo $fabportal | grep "^[yn]$"); do
+        	echo "Configure fabfi-portal for this interface? (y/n)"
+        	read fabportal 
+		tunnel=$( echo $fabportal | tr 'A-Z' 'a-z' )
+        done
+
+	#tunnel
+        if  [ $fabportal == "y" ]; then
+		
+		while ( true ) do
+			echo "Enter your radius IP ( raw IP address for now ) "
+			read radIP
+
+			check=$( check_ipv4_address $radIP )
+
+			if [ "$check" == "ok" ]; then
+				break;
+			else
+				echo "$check"
+			fi
+		done
+
+		uci add fabfi portal
+		uci set fabfi.@portal[-1].radiusIP=radIP
+		uci set fabfi.@portal[-1].radiusAuthPort=1812
+		uci set fabfi.@portal[-1].radiusAcctPort=1813
+		uci set fabfi.@portal[-1].radiusSecret=cisco123
+		uci set fabfi.@portal[-1].dictionaryFile="/etc/fabfi-portal/dictionary"
+		uci set fabfi.@portal[-1].timeout=5
+		uci set fabfi.@portal[-1].clientLanInterface=clientlan_${client_lan_index}
+					
+		touch /etc/config/haproxy
+
+		uci add haproxy listen
+		uci set haproxy.@listen[-1].name="portalgun_splash"
+		uci set haproxy.@listen[-1].bind=clientlan_${client_lan_index}
+		uci set haproxy.@listen[-1].ipMode=ipv4
+		uci set haproxy.@listen[-1].mode=http
+		uci set haproxy.@listen[-1].option=forwardfor
+		uci set haproxy.@listen[-1].reqadd="Foo-Header:\ plonk"
+		uci set haproxy.@listen[-1].servername=splash01
+		uci set haproxy.@listen[-1].serverIP="127.0.0.1:8001"
+		
+		uci add haproxy listen
+		uci set haproxy.@listen[-1].name="portalgun_splash2"
+		uci set haproxy.@listen[-1].bind=clientlan_${client_lan_index}
+		uci set haproxy.@listen[-1].ipMode=ipv6
+		uci set haproxy.@listen[-1].mode=http
+		uci set haproxy.@listen[-1].option=forwardfor
+		uci set haproxy.@listen[-1].reqadd="Foo-Header:\ plonk"
+		uci set haproxy.@listen[-1].servername=splash01
+		uci set haproxy.@listen[-1].serverIP="127.0.0.1:8001"
+		
+		/etc/init.d/fabfi-portal enable
+		/etc/init.d/haproxy enable
+		
+		uci set lucid.splashroot=VillagebusPublisher
+		uci set lucid.splashroot.name="portalgun splash"
+		uci set lucid.splashroot.home=1
+		uci set lucid.splashroot.physical="/splash"
+		uci set lucid.splash=daemon
+		uci set lucid.splash.slave=httpd
+		uci set lucid.splash.address=8001
+		uci set lucid.splash.nokeepalive=1
+		uci set lucid.splash.memlimit=1572864
+		uci set lucid.splash.enabled=1
+		uci set lucid.splash.publisher=splashroot		
+
+	fi	
 
 }
 
@@ -1094,7 +906,7 @@ platform=$(cat /proc/cpuinfo | grep machine | cut -d ":" -f 2 | cut -c2- | tr -d
 story="${story} \n Node Settings \n Device: ${platform} \n"
 clear
 
-cat /etc/fabfi/files/logo2
+cat /usr/share/fabfi/logo2
 sleep 2
 
 clear
@@ -1465,10 +1277,10 @@ if [ ${commit} == "y" ]; then
 
 	echo exit 0 >> /etc/rc.local
 
-	cp /etc/fabfi/files/sysupgrade.conf /etc/sysupgrade.conf
-	ln -s  /etc/fabfi/scripts/siit-init /etc/init.d/siit
-	ln -s /etc/fabfi/scripts/siit-hotplug /etc/hotplug.d/iface/30-siit
-	/etc/init.d/siit enable
+	#cp /etc/fabfi/files/sysupgrade.conf /etc/sysupgrade.conf
+#	ln -s /usr/bin/fabfi/siit-init /etc/init.d/siit
+#	ln -s /usr/bin/fabfi/siit-hotplug /etc/hotplug.d/iface/30-siit
+#	/etc/init.d/siit enable
 
 	echo "Wait for telnet to close before unplugging router from power"
 
