@@ -39,7 +39,9 @@
 
 == Bogota, Colombia ==
   * Long Range, PTP wireless bridge connecting remote users to fablab
-  * Uses large fabbed parabolic: [http://fabfi.googlecode.com/svn/wiki/images/Sites/Colombia/colombia.jpg]
+  * Uses large fabbed parabolic: 
+
+[http://fabfi.googlecode.com/svn/wiki/images/Sites/Colombia/colombia.jpg]
 
 = Existed / Temporary =
 
