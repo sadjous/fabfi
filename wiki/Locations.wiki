@@ -37,6 +37,10 @@
   * phase 1: 200 nodes
   * final configuration: >10,000 nodes
 
+== Bogota, Colombia ==
+  * Long Range, PTP wireless bridge connecting remote users to fablab
+  * Uses large fabbed parabolic: [http://fabfi.googlecode.com/svn/wiki/images/Sites/Colombia/colombia.jpg]
+
 = Existed / Temporary =
 
 == Kenya, Nairobi ==
