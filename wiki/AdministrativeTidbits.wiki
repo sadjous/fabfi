@@ -87,6 +87,7 @@ $ svn checkout https://fabfi.googlecode.com/svn/wiki wiki--username yourgoogleus
 5. Tell subversion what mime-type to use: 
 {{{
    $ svn propset svn:mime-type 'image/jpeg' /location/filename
+   $ svn commit
    (Be sure to use the correct file extension e.g jpeg, png, etc)
 }}}
 
