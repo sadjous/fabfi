@@ -901,6 +901,8 @@ fi # end tnumber=2, configure T-T
 
 }
 
+
+
 platform=$(cat /proc/cpuinfo | grep machine | cut -d ":" -f 2 | cut -c2- | tr -d "\n")
 
 story="${story} \n Node Settings \n Device: ${platform} \n"
@@ -979,7 +981,7 @@ if [[ "${platform}" != "Ubiquiti RouterStation Pro" && "${platform}" != "Ubiquit
 
 	until (echo $nano | grep "^[yn]$"); do
 	        echo "Is this a transparent link device ? (y/n)"
-		echo "(determines whether to run batman or olsr)"
+		#echo "(determines whether to run batman or olsr)"
 	        read nano
 	done
 
@@ -1020,6 +1022,7 @@ if [[ "${platform}" != "Ubiquiti RouterStation Pro" && "${platform}" != "Ubiquit
 				cmeshradio=1
 			else
 				cmeshradio=0
+				uci add wireless wifi-iface
 
 			fi # end "second radio"
 
