@@ -38,7 +38,7 @@ define Package/libnetsnmp
 $(call Package/net-snmp/Default)
   SECTION:=libs
   CATEGORY:=Libraries
-  DEPENDS:=+libelf
+  DEPENDS:=+libelf +libopenssl +zlib
   TITLE:=Open source SNMP implementation (libraries)
 endef
 
@@ -51,7 +51,7 @@ endef
 
 define Package/snmp-utils
 $(call Package/net-snmp/Default)
-  DEPENDS:=+libnetsnmp
+  DEPENDS:=+libnetsnmp +libopenssl +zlib
   TITLE:=Open source SNMP implementation (utilities)
 endef
 
@@ -64,7 +64,7 @@ endef
 
 define Package/snmpd
 $(call Package/net-snmp/Default)
-  DEPENDS:=+libnetsnmp
+  DEPENDS:=+libnetsnmp +libopenssl +zlib
   TITLE:=Open source SNMP implementation (daemon)
 endef
 
@@ -78,7 +78,7 @@ endef
 define Package/snmpd-static
 $(call Package/net-snmp/Default)
   TITLE:=Open source SNMP implementation (daemon)
-  DEPENDS:=+libelf
+  DEPENDS:=+libnetsnmp +libopenssl +zlib +libelf
 endef
 
 define Package/snmpd-static/description
