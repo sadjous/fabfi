@@ -91,7 +91,9 @@ uci set snmpd.@system[0].sysName=`uci get system.@system[0].hostname`
 uci set snmpd.@system[0].sysLocation=`uci get system.@system[0].hostname`
 uci set snmpd.@system[0].sysContact=fabfi@fabfi.com
 
-killall snmpd
+if [ "$(pidof snmpd)" ];then
+    killall snmpd
+fi
 
 #Portal Gun
 

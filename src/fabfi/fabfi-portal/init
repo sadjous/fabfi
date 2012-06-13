@@ -5,8 +5,12 @@ START=99
 clientLanInterface=$( /sbin/uci get fabfi.@portal[0].clientLanInterface )
 meshInterfaces=$( /sbin/uci -P /var/state get firewall.core.mesh_networks )
 clientIfname=$( /sbin/uci -P/var/state get network.$clientLanInterface.ifname  )
-clientIfaceIp6addr=$( /sbin/uci -P /var/state get network.$clientLanInterface.ip6addr )
-clientIfaceIp4addr=$( /sbin/uci -P /var/state get network.$clientLanInterface.ipaddr )
+
+if [ ! -h /setup ]; then
+    clientIfaceIp6addr=$( /sbin/uci -P /var/state get network.$clientLanInterface.ip6addr )
+    clientIfaceIp4addr=$( /sbin/uci -P /var/state get network.$clientLanInterface.ipaddr )
+fi
+
 portalChain="YOU_SHALL_NOT_PASS"
 
 start() {
