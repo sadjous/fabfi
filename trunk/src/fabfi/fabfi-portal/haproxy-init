@@ -24,6 +24,9 @@ haproxy_listen_add(){
 	config_get bind "$cfg" bind 
 	[ -n "$bind" ] || return 0
 	        
+	config_get bindPort "$cfg" bindPort 
+	[ -n "$bindPort" ] || return 0
+	        
 	config_get ipMode "$cfg" ipMode
 	[ -n "$ipMode" ] || return 0
 	        
@@ -44,9 +47,9 @@ haproxy_listen_add(){
        
 	if [ $ipMode == "ipv6" ]; then
        
-		bindIP=$( /sbin/uci -P /var/state get network.$bind.ip6addr )
+		bindIP=$(echo $( /sbin/uci -P /var/state get network.$bind.ip6addr ):$bindPort)
 	else
-		bindIP=$( /sbin/uci -P /var/state get network.$bind.ipaddr )
+		bindIP=$(echo $( /sbin/uci -P /var/state get network.$bind.ipaddr ):$bindPort)
 	fi	
 		
 	echo "listen $name" >> $HAPROXY_CONFIG

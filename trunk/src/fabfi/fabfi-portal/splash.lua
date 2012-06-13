@@ -380,9 +380,9 @@ StatusClient		= 13
 DisconnectRequest	= 40
 DisconnectACK		= 41
 DisconnectNAK		= 42
-CoARequest		= 43
-CoAACK			= 44
-CoANAK			= 45
+CoARequest	    	= 43
+CoAACK			    = 44
+CoANAK		    	= 45
 
 function radclient.create(dictionary)
 	local client={}
