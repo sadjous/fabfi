@@ -327,21 +327,26 @@ dst_release(&rt6->dst);
 	return 0;
 }
 
-#ifdef HAVE_NET_DEVICE_OPS
+//#ifdef HAVE_NET_DEVICE_OPS
 static const struct net_device_ops niit_netdev_ops = {
 		.ndo_start_xmit = niit_xmit,
 };
-#else
+//#else
 static void niit_regxmit(struct net_device *dev) {
+#if !(defined CONFIG_COMPAT_NET_DEV_OPS) && LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,30)
+	dev->netdev_ops = &niit_netdev_ops;
+#else
 	dev->hard_start_xmit = niit_xmit;
+#endif    
 }
-#endif
+//#endif
 
 static void niit_dev_setup(struct net_device *dev) {
 	ether_setup(dev);
 	memset(netdev_priv(dev), 0, sizeof(struct niit_tunnel));
 
-#ifdef HAVE_NET_DEVICE_OPS
+//#ifdef HAVE_NET_DEVICE_OPS
+#if !(defined CONFIG_COMPAT_NET_DEV_OPS) && LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,30)
 	dev->netdev_ops = &niit_netdev_ops;
 #endif
 	dev->destructor = free_netdev;
@@ -383,7 +388,8 @@ static int __init niit_init(void) {
 	tunnel4_dev->mtu = 1400;
 	tunnel6_dev->mtu = 1500;
 
-#ifndef HAVE_NET_DEVICE_OPS
+//#ifndef HAVE_NET_DEVICE_OPS
+#if !(defined CONFIG_COMPAT_NET_DEV_OPS) && LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,30)
 	niit_regxmit(tunnel4_dev);
 	niit_regxmit(tunnel6_dev);
 #endif
