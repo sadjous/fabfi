@@ -328,9 +328,25 @@ dst_release(&rt6->dst);
 }
 
 //#ifdef HAVE_NET_DEVICE_OPS
+
+static int niit_open(struct net_device *dev)
+{
+	netif_start_queue(dev);
+	return 0;
+}
+
+static int niit_release(struct net_device *dev)
+{
+	netif_stop_queue(dev); /* can't transmit any more */
+	return 0;
+}
+
 static const struct net_device_ops niit_netdev_ops = {
-		.ndo_start_xmit = niit_xmit,
+	.ndo_open		= niit_open,
+	.ndo_stop		= niit_release,
+	.ndo_start_xmit		= niit_xmit,
 };
+
 //#else
 static void niit_regxmit(struct net_device *dev) {
 #if !(defined CONFIG_COMPAT_NET_DEV_OPS) && LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,30)
